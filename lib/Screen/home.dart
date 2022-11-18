@@ -1,9 +1,7 @@
-import 'dart:ffi';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:scheme/Screen/upload_addhar.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/provider/phoneauth.dart';
 import 'package:scheme/widget/main_drawer.dart';
 
 class Home extends StatefulWidget {
@@ -165,18 +163,16 @@ class _HomeState extends State<Home> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Container(
-                            child: Expanded(
-                              child: SingleChildScrollView(
-                                child: Text(
-                                  "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 .",
-                                  style: TextStyle(
-                                    color: text2,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: "Overpass",
-                                    letterSpacing: 0.4,
-                                  ),
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Text(
+                                "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 .",
+                                style: TextStyle(
+                                  color: text2,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: "Overpass",
+                                  letterSpacing: 0.4,
                                 ),
                               ),
                             ),
@@ -224,18 +220,16 @@ class _HomeState extends State<Home> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Container(
-                            child: Expanded(
-                              child: SingleChildScrollView(
-                                child: Text(
-                                  "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 .",
-                                  style: TextStyle(
-                                    color: text2,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: "Overpass",
-                                    letterSpacing: 0.4,
-                                  ),
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Text(
+                                "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 .",
+                                style: TextStyle(
+                                  color: text2,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: "Overpass",
+                                  letterSpacing: 0.4,
                                 ),
                               ),
                             ),
@@ -273,60 +267,58 @@ class _HomeState extends State<Home> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "DashBoard",
-                              style: TextStyle(
-                                color: text1,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: "Overpass",
-                                letterSpacing: 0.4,
-                              ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "DashBoard",
+                            style: TextStyle(
+                              color: text1,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: "Overpass",
+                              letterSpacing: 0.4,
                             ),
-                            const SizedBox(height: 10),
-                            Text(
-                              "Total Scheme : 48",
-                              style: TextStyle(
-                                color: text2,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "Overpass",
-                                letterSpacing: 0.4,
-                              ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            "Total Scheme : 48",
+                            style: TextStyle(
+                              color: text2,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "Overpass",
+                              letterSpacing: 0.4,
                             ),
-                            const SizedBox(
-                              height: 10,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "Total Registration : 0",
+                            style: TextStyle(
+                              color: text2,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: "Overpass",
+                              letterSpacing: 0.4,
                             ),
-                            Text(
-                              "Total Registration : 0",
-                              style: TextStyle(
-                                color: text2,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: "Overpass",
-                                letterSpacing: 0.4,
-                              ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "More....",
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              color: text2,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: "Overpass",
+                              letterSpacing: 0.4,
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "More....",
-                              style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: text2,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: "Overpass",
-                                letterSpacing: 0.4,
-                              ),
-                            )
-                          ],
-                        ),
+                          )
+                        ],
                       ),
                       const SizedBox(
                         width: 20,
@@ -349,29 +341,46 @@ class _HomeState extends State<Home> {
               height: 20,
             ),
             Center(
-              child: SizedBox(
-                height: 50,
-                width: 250,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
-                        backgroundColor: button),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const AadharUpload()));
-                    },
-                    child: const Text(
-                      "Registration",
-                      style: TextStyle(
-                          fontFamily: 'Overpass',
-                          fontSize: 24,
-                          fontWeight: FontWeight.w700),
-                    )),
-              ),
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(250, 50),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                      backgroundColor: button),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AadharUpload()));
+                  },
+                  child: const Text(
+                    "Registration",
+                    style: TextStyle(
+                        fontFamily: 'Overpass',
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700),
+                  )),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Center(
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(250, 50),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                      backgroundColor: button),
+                  onPressed: () => PhoneAuth().logOut(context: context),
+                  child: const Text(
+                    "Logout",
+                    style: TextStyle(
+                        fontFamily: 'Overpass',
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700),
+                  )),
             )
           ],
         ),

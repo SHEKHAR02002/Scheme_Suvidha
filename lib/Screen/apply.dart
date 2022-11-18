@@ -1,17 +1,15 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:scheme/Screen/submit.dart';
 import 'package:scheme/Theme/color.dart';
 
-class Apply_Scheme extends StatefulWidget {
-  const Apply_Scheme({super.key});
+class ApplyScheme extends StatefulWidget {
+  const ApplyScheme({super.key});
 
   @override
-  State<Apply_Scheme> createState() => _Apply_SchemeState();
+  State<ApplyScheme> createState() => _ApplySchemeState();
 }
 
-class _Apply_SchemeState extends State<Apply_Scheme> {
+class _ApplySchemeState extends State<ApplyScheme> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +33,7 @@ class _Apply_SchemeState extends State<Apply_Scheme> {
                   letterSpacing: 0.52,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextField(
@@ -46,7 +44,7 @@ class _Apply_SchemeState extends State<Apply_Scheme> {
                       borderRadius: BorderRadius.circular(5)),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Text(
@@ -59,7 +57,7 @@ class _Apply_SchemeState extends State<Apply_Scheme> {
                   letterSpacing: 0.52,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextField(
@@ -70,7 +68,7 @@ class _Apply_SchemeState extends State<Apply_Scheme> {
                       borderRadius: BorderRadius.circular(5)),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Center(
@@ -84,7 +82,7 @@ class _Apply_SchemeState extends State<Apply_Scheme> {
                               borderRadius: BorderRadius.circular(12)),
                           backgroundColor: button),
                       onPressed: () {},
-                      child: Text(
+                      child: const Text(
                         "Apply",
                         style: TextStyle(
                             fontFamily: 'Overpass',
@@ -93,7 +91,7 @@ class _Apply_SchemeState extends State<Apply_Scheme> {
                       )),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Text(
@@ -106,7 +104,7 @@ class _Apply_SchemeState extends State<Apply_Scheme> {
                   letterSpacing: 0.52,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Table(
@@ -119,7 +117,7 @@ class _Apply_SchemeState extends State<Apply_Scheme> {
                   buildRow(['Blindness', 'Nishashkt Vivah', 'Apply'])
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Text(
@@ -132,7 +130,7 @@ class _Apply_SchemeState extends State<Apply_Scheme> {
                   letterSpacing: 0.52,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Table(
@@ -146,7 +144,7 @@ class _Apply_SchemeState extends State<Apply_Scheme> {
                   buildRow([' ', 'Apply']),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Center(
@@ -165,7 +163,7 @@ class _Apply_SchemeState extends State<Apply_Scheme> {
                             MaterialPageRoute(
                                 builder: (context) => const Submit()));
                       },
-                      child: Text(
+                      child: const Text(
                         "Submit",
                         style: TextStyle(
                             fontFamily: 'Overpass',

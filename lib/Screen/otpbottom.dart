@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:scheme/Screen/home.dart';
+import 'package:pinput/pinput.dart';
 import 'package:scheme/Theme/color.dart';
-// import 'package:scheme/provider/phoneauth.dart';
+import 'package:scheme/provider/phoneauth.dart';
 
 class OtpBottomSheet extends StatefulWidget {
-  final String? phoneNumber, verificationId;
+  final String phoneNumber, verificationId;
   const OtpBottomSheet({
-    this.phoneNumber,
-    this.verificationId,
     Key? key,
+    required this.phoneNumber,
+    required this.verificationId,
   }) : super(key: key);
 
   @override
@@ -16,14 +16,15 @@ class OtpBottomSheet extends StatefulWidget {
 }
 
 class _OtpBottomSheetState extends State<OtpBottomSheet> {
-  // final Login widget;
-  String smsCode = "";
+  final TextEditingController _smsCode = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
+    return SingleChildScrollView(
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Column(
+        // mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             "OTP Verification",
@@ -50,30 +51,27 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
           const SizedBox(
             height: 10,
           ),
-          // Pinput(
-          //     length: 6,
-          //     onChanged: ((value) => smsCode = value),
-          //     onCompleted: (pin) => PhoneAuth().submitOpt(
-          //         verificationId: "${widget.verificationId}",
-          //         smsCode: smsCode,
-          //         context: context)),
-          const SizedBox(
-            height: 20,
-          ),
-          Center(
-            child: SizedBox(
-              height: 50,
-              width: 200,
+          Pinput(
+              length: 6,
+              controller: _smsCode,
+              onCompleted: (pin) => PhoneAuth().submitOpt(
+                  verificationId: widget.verificationId,
+                  smsCode: _smsCode.text,
+                  context: context)),
+          Padding(
+            padding: const EdgeInsets.only(top: 100, bottom: 10),
+            child: Center(
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(180, 40),
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12)),
                       backgroundColor: button),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const Home()));
-                  },
+                  onPressed: () => PhoneAuth().submitOpt(
+                      verificationId: widget.verificationId,
+                      smsCode: _smsCode.text,
+                      context: context),
                   child: const Text(
                     "Verify",
                     style: TextStyle(

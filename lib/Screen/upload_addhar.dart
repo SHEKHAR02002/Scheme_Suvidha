@@ -1,14 +1,11 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:scheme/provider/takeimage.dart';
-import 'package:scheme/Screen/upload_udid.dart';
+import 'package:scheme/Screen/UploadUdid.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/data/userdata.dart';
-import 'package:scheme/widget/aadhardata.dart';
-import 'package:flutter/services.dart' as rootBundle;
 
 bool checkUserProfileImagePath = false;
 
@@ -99,76 +96,71 @@ class _AadharUploadState extends State<AadharUpload> {
                                               width: 20,
                                               child: Row(
                                                 children: [
-                                                  Container(
-                                                    child: Column(
-                                                      children: [
-                                                        InkWell(
-                                                          onTap: () {
-                                                            // final image = ImagePicker()
-                                                            //     .pickImage(
-                                                            //         source:
-                                                            //             ImageSource
-                                                            //                 .camera);
+                                                  Column(
+                                                    children: [
+                                                      InkWell(
+                                                        onTap: () {
+                                                          // final image = ImagePicker()
+                                                          //     .pickImage(
+                                                          //         source:
+                                                          //             ImageSource
+                                                          //                 .camera);
 
-                                                            takeUserProfileImage(
-                                                                state:
-                                                                    (image) =>
-                                                                        setState(
-                                                                            () {
-                                                                          aadharImage =
-                                                                              image!.path;
-                                                                          checkUserProfileImagePath =
-                                                                              true;
-                                                                        }),
-                                                                source:
-                                                                    ImageSource
-                                                                        .camera);
-                                                          },
-                                                          child: Icon(
-                                                            Icons
-                                                                .add_a_photo_outlined,
-                                                            size: 60,
-                                                            color: text1,
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 20,
-                                                        ),
-                                                        Text(
-                                                          "Camera",
-                                                          style: TextStyle(
-                                                              color: text1,
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  const Spacer(),
-                                                  Container(
-                                                    child: Column(
-                                                      children: [
-                                                        Icon(
-                                                          Icons.camera,
+                                                          takeUserProfileImage(
+                                                              state: (image) =>
+                                                                  setState(() {
+                                                                    aadharImage =
+                                                                        image!
+                                                                            .path;
+                                                                    checkUserProfileImagePath =
+                                                                        true;
+                                                                  }),
+                                                              source:
+                                                                  ImageSource
+                                                                      .camera);
+                                                        },
+                                                        child: Icon(
+                                                          Icons
+                                                              .add_a_photo_outlined,
                                                           size: 60,
                                                           color: text1,
                                                         ),
-                                                        const SizedBox(
-                                                          height: 20,
-                                                        ),
-                                                        Text(
-                                                          "Gallery",
-                                                          style: TextStyle(
-                                                              color: text1,
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500),
-                                                        )
-                                                      ],
-                                                    ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 20,
+                                                      ),
+                                                      Text(
+                                                        "Camera",
+                                                        style: TextStyle(
+                                                            color: text1,
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  const Spacer(),
+                                                  Column(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.camera,
+                                                        size: 60,
+                                                        color: text1,
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 20,
+                                                      ),
+                                                      Text(
+                                                        "Gallery",
+                                                        style: TextStyle(
+                                                            color: text1,
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      )
+                                                    ],
                                                   ),
                                                 ],
                                               ),
@@ -223,153 +215,150 @@ class _AadharUploadState extends State<AadharUpload> {
               const SizedBox(
                 height: 20,
               ),
-              Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Aadhar Card No.",
-                      style: TextStyle(
-                        color: text1,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: "Overpass",
-                        letterSpacing: 0.48,
-                      ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Aadhar Card No.",
+                    style: TextStyle(
+                      color: text1,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "Overpass",
+                      letterSpacing: 0.48,
                     ),
-                    Text(
-                      aadharNo,
-                      style: TextStyle(
-                        color: text2,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: "Overpass",
-                        letterSpacing: 0.36,
-                      ),
+                  ),
+                  Text(
+                    aadharNo,
+                    style: TextStyle(
+                      color: text2,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Overpass",
+                      letterSpacing: 0.36,
                     ),
-                    const SizedBox(
-                      height: 10,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Name",
+                    style: TextStyle(
+                      color: text1,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "Overpass",
+                      letterSpacing: 0.48,
                     ),
-                    Text(
-                      "Name",
-                      style: TextStyle(
-                        color: text1,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: "Overpass",
-                        letterSpacing: 0.48,
-                      ),
+                  ),
+                  Text(
+                    name,
+                    style: TextStyle(
+                      color: text2,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Overpass",
+                      letterSpacing: 0.36,
                     ),
-                    Text(
-                      name,
-                      style: TextStyle(
-                        color: text2,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: "Overpass",
-                        letterSpacing: 0.36,
-                      ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "DOB",
+                    style: TextStyle(
+                      color: text1,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "Overpass",
+                      letterSpacing: 0.48,
                     ),
-                    const SizedBox(
-                      height: 10,
+                  ),
+                  Text(
+                    dob,
+                    style: TextStyle(
+                      color: text2,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Overpass",
+                      letterSpacing: 0.36,
                     ),
-                    Text(
-                      "DOB",
-                      style: TextStyle(
-                        color: text1,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: "Overpass",
-                        letterSpacing: 0.48,
-                      ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Gender",
+                    style: TextStyle(
+                      color: text1,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "Overpass",
+                      letterSpacing: 0.48,
                     ),
-                    Text(
-                      dob,
-                      style: TextStyle(
-                        color: text2,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: "Overpass",
-                        letterSpacing: 0.36,
-                      ),
+                  ),
+                  Text(
+                    gender,
+                    style: TextStyle(
+                      color: text2,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Overpass",
+                      letterSpacing: 0.36,
                     ),
-                    const SizedBox(
-                      height: 10,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Phone No.",
+                    style: TextStyle(
+                      color: text1,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "Overpass",
+                      letterSpacing: 0.48,
                     ),
-                    Text(
-                      "Gender",
-                      style: TextStyle(
-                        color: text1,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: "Overpass",
-                        letterSpacing: 0.48,
-                      ),
+                  ),
+                  Text(
+                    phoneNo,
+                    style: TextStyle(
+                      color: text2,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Overpass",
+                      letterSpacing: 0.36,
                     ),
-                    Text(
-                      gender,
-                      style: TextStyle(
-                        color: text2,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: "Overpass",
-                        letterSpacing: 0.36,
-                      ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: SizedBox(
+                      height: 50,
+                      width: 200,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12)),
+                              backgroundColor: button),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const UploadUdid()));
+                          },
+                          child: const Text(
+                            "Next",
+                            style: TextStyle(
+                                fontFamily: 'Overpass',
+                                fontSize: 24,
+                                fontWeight: FontWeight.w700),
+                          )),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "Phone No.",
-                      style: TextStyle(
-                        color: text1,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: "Overpass",
-                        letterSpacing: 0.48,
-                      ),
-                    ),
-                    Text(
-                      phoneNo,
-                      style: TextStyle(
-                        color: text2,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: "Overpass",
-                        letterSpacing: 0.36,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: SizedBox(
-                        height: 50,
-                        width: 200,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12)),
-                                backgroundColor: button),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const Upload_Udid()));
-                            },
-                            child: const Text(
-                              "Next",
-                              style: TextStyle(
-                                  fontFamily: 'Overpass',
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w700),
-                            )),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),

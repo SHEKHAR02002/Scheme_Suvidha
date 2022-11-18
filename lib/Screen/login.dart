@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:scheme/Screen/otpbottom.dart';
+import 'package:flutter/services.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/provider/phoneauth.dart';
 // import 'package:scheme/provider/phoneauth.dart';
 
 class Login extends StatefulWidget {
@@ -11,7 +12,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  TextEditingController phoneNo = TextEditingController();
+  final TextEditingController _phoneNo = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,6 +66,9 @@ class _LoginState extends State<Login> {
                 height: 30,
               ),
               TextField(
+                inputFormatters: [LengthLimitingTextInputFormatter(10)],
+                controller: _phoneNo,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: textfiled,
@@ -72,7 +76,6 @@ class _LoginState extends State<Login> {
                       borderRadius: BorderRadius.circular(5)),
                   hintText: 'Enter Your Phone Number',
                 ),
-                controller: phoneNo,
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(35, 40, 35, 0),
@@ -84,23 +87,8 @@ class _LoginState extends State<Login> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12)),
                           backgroundColor: button),
-                      onPressed: () => showModalBottomSheet(
-                            context: context,
-                            builder: ((context) => const OtpBottomSheet(
-                                  phoneNumber: "phoneNo",
-                                  verificationId: "verificationId",
-                                )),
-                          ),
-                      // onPressed: () => PhoneAuth()
-                      //     .sendOtp(phoneNo: phoneNo.text, context: context),
-                      // onPressed: () {
-                      //   Navigator.push(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //           builder: (context) => const Home()));
-                      // },
-                      // onPressed: () => showDialog(
-                      //     context: context, builder: (context) => OtpScreen()),
+                      onPressed: () => PhoneAuth()
+                          .sendOtp(phoneNo: _phoneNo.text, context: context),
                       child: const Text(
                         "Continue",
                         style: TextStyle(

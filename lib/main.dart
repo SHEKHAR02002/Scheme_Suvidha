@@ -4,10 +4,9 @@ import 'package:scheme/Screen/splash.dart';
 import 'package:scheme/firebase_options.dart';
 import 'Theme/color.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    name: "SchemeSvidha",
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());

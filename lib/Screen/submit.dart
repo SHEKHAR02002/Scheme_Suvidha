@@ -16,7 +16,7 @@ class _SubmitState extends State<Submit> {
       body: Center(
           child: Column(
         children: [
-          Image(image: AssetImage("assets/submited.png")),
+          const Image(image: AssetImage("assets/submited.png")),
           Text(
             "Application Submitted",
             style: TextStyle(

@@ -198,6 +198,14 @@
           }
         },
         {
+          "client_id": "815781894657-glsl181bkknq1c0cu304brucgm4g71rc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.scheme",
+            "certificate_hash": "c2cc7ed6edfed1911aee7852d1d902308fe34698"
+          }
+        },
+        {
           "client_id": "815781894657-5cs7m991hvmm94q747fjfjodh7krmqb2.apps.googleusercontent.com",
           "client_type": 3
         }

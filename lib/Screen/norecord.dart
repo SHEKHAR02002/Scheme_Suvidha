@@ -16,7 +16,7 @@ class _NoRecordState extends State<NoRecord> {
       body: Center(
           child: Column(
         children: [
-          Image(image: AssetImage("assets/norecord.jpg")),
+          const Image(image: AssetImage("assets/norecord.jpg")),
           Text(
             "No Record",
             style: TextStyle(
