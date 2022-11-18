@@ -18,7 +18,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: bgcolor,
-      drawer: Drawer(child: MainDrawer()),
+      drawer: const Drawer(child: MainDrawer()),
       appBar: AppBar(
         iconTheme: IconThemeData(color: text1),
         actions: [
@@ -50,7 +50,7 @@ class _HomeState extends State<Home> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
-              child: Container(
+              child: SizedBox(
                 width: 335,
                 height: 80,
                 child: Text(
@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Center(
@@ -77,7 +77,7 @@ class _HomeState extends State<Home> {
                   borderRadius: BorderRadius.circular(
                     10,
                   ),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Color(
                         0x3f000000,
@@ -105,7 +105,7 @@ class _HomeState extends State<Home> {
                           letterSpacing: 1,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Text(
@@ -135,7 +135,7 @@ class _HomeState extends State<Home> {
                       borderRadius: BorderRadius.circular(
                         10,
                       ),
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           color: Color(
                             0x3f000000,
@@ -162,7 +162,7 @@ class _HomeState extends State<Home> {
                               letterSpacing: 0.4,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Container(
@@ -185,7 +185,7 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Container(
                     width: 165,
                     height: 150,
@@ -194,7 +194,7 @@ class _HomeState extends State<Home> {
                       borderRadius: BorderRadius.circular(
                         10,
                       ),
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           color: Color(
                             0x3f000000,
@@ -221,7 +221,7 @@ class _HomeState extends State<Home> {
                               letterSpacing: 0.4,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Container(
@@ -256,7 +256,7 @@ class _HomeState extends State<Home> {
                   borderRadius: BorderRadius.circular(
                     10,
                   ),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Color(
                         0x3f000000,
@@ -287,7 +287,7 @@ class _HomeState extends State<Home> {
                                 letterSpacing: 0.4,
                               ),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Text(
                               "Total Scheme : 48",
                               style: TextStyle(
@@ -298,7 +298,7 @@ class _HomeState extends State<Home> {
                                 letterSpacing: 0.4,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Text(
@@ -311,7 +311,7 @@ class _HomeState extends State<Home> {
                                 letterSpacing: 0.4,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Text(
@@ -328,13 +328,13 @@ class _HomeState extends State<Home> {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
                       Container(
                         height: 100,
                         width: 120,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           image: DecorationImage(
                               fit: BoxFit.fill,
                               image: AssetImage('assets/graph.png')),
@@ -345,7 +345,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Center(
@@ -364,7 +364,7 @@ class _HomeState extends State<Home> {
                           MaterialPageRoute(
                               builder: (context) => const AadharUpload()));
                     },
-                    child: Text(
+                    child: const Text(
                       "Registration",
                       style: TextStyle(
                           fontFamily: 'Overpass',

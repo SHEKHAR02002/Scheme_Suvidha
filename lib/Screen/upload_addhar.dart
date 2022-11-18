@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:scheme/Screen/provider/takeimage.dart';
+import 'package:scheme/provider/takeimage.dart';
 import 'package:scheme/Screen/upload_udid.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/data/userdata.dart';

@@ -20,7 +20,7 @@ class _OtpScreenState extends State<OtpScreen> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            children: [
+            children: const [
               Text(
                 "OTP  Verification",
                 style: TextStyle(
