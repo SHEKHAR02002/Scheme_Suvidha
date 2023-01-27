@@ -2,10 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:scheme/Screen/profile.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/api/getscheme.dart';
 import 'package:scheme/model/schememodel.dart';
-import 'package:scheme/provider/phoneauth.dart';
+import 'package:scheme/widget/registeration.dart';
 import 'package:scheme/widget/schemecard.dart';
 import 'package:scheme/widget/statuscard.dart';
 
@@ -75,13 +76,17 @@ class _HomeState extends State<Home> {
             const SizedBox(
               width: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: SvgPicture.asset(
-                "assets/avatar.svg",
-                color: Colors.black,
-                height: 30,
-                width: 30,
+            InkWell(
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Profile())),
+              child: Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: SvgPicture.asset(
+                  "assets/avatar.svg",
+                  color: Colors.black,
+                  height: 30,
+                  width: 30,
+                ),
               ),
             )
           ],
@@ -142,12 +147,26 @@ class _HomeState extends State<Home> {
                       }
                     }),
               ),
-              ElevatedButton(
-                  onPressed: () => PhoneAuth().logOut(context: context),
-                  child: const Text("Logout"))
             ],
           ),
-        )));
+        )),
+        bottomNavigationBar: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
+            child: ElevatedButton(
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Register())),
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    backgroundColor: primary,
+                    minimumSize: Size(width, 50)),
+                child: const Text(
+                  "Register",
+                  style: TextStyle(
+                      fontFamily: "Overpass",
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700),
+                ))));
   }
 }
 

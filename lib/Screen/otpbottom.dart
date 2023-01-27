@@ -53,7 +53,15 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
                   height: 50,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      border: Border.all(width: 1, color: Colors.grey),
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Color(
+                              0x3f000000,
+                            ), //New
+                            blurRadius: 4.0,
+                            offset: Offset(0, 0))
+                      ],
+                      // border: Border.all(width: 1, color: Colors.grey),
                       borderRadius: BorderRadius.circular(10))),
               length: 6,
               controller: _smsCode,

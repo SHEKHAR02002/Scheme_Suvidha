@@ -57,21 +57,25 @@ class _LoginState extends State<Login> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Container(
+                height: 50,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(width: 1, color: Colors.grey),
+                  // border: Border.all(width: 1, color: Colors.grey),
                   borderRadius: BorderRadius.circular(5),
-                  // boxShadow: [
-                  //   BoxShadow(
-                  //       color: Colors.grey.shade300, //New
-                  //       blurRadius: 8.0,
-                  //       offset: const Offset(1, 3))
-                  // ],
+                  boxShadow: const [
+                    BoxShadow(
+                        color: Color(
+                          0x3f000000,
+                        ), //New
+                        blurRadius: 4.0,
+                        offset: Offset(0, 0))
+                  ],
                 ),
                 child: TextField(
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w400),
                   decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.all(15),
                     prefixIcon: const Padding(
                         padding: EdgeInsets.all(15),
                         child: Text(

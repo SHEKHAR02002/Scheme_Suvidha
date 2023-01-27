@@ -1,6 +1,9 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:scheme/Theme/color.dart';
+import 'package:scheme/data/userdata.dart';
 
 Future getdata() async {
   List schemedata = [];
@@ -10,9 +13,32 @@ Future getdata() async {
       .then((QuerySnapshot querysnapshot) async {
     for (var doc in querysnapshot.docs) {
       schemedata.add(doc.data());
-      log("come");
     }
   });
 
   return schemedata;
+}
+
+Future register({required context}) async {
+  String uid = FirebaseAuth.instance.currentUser!.uid.toString();
+
+  await FirebaseFirestore.instance.collection("Register").doc(uid).set({
+    "userId": uid,
+    "aadharno": aadharNo,
+    "name": name,
+    "dob": dob,
+    "gender": gender,
+    "phoneno": phoneNo,
+    "udidno": udidNo,
+    "udidname": udidname,
+    "disabilitytype": disbilitytype,
+    "disabilitypercentage": disabilitypercentage,
+    "dateissue": dataissue,
+    "validupto": validupto
+  }).whenComplete(() => Fluttertoast.showToast(
+      msg: "Register Succesfully",
+      toastLength: Toast.LENGTH_LONG,
+      fontSize: 20,
+      backgroundColor: primary,
+      textColor: Colors.white));
 }
