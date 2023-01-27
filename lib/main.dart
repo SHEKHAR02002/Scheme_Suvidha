@@ -21,10 +21,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        fontFamily: "Overpass",
+        scaffoldBackgroundColor: bgcolor,
+        backgroundColor: bgcolor,
+        primaryColor: primary,
         appBarTheme: AppBarTheme(
             centerTitle: true,
             elevation: 0,
-            backgroundColor: bgcolor,
+            backgroundColor: Colors.white,
             titleTextStyle: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w700,
