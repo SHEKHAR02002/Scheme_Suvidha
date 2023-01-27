@@ -44,42 +44,39 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDkWBOG_lsxG_2yLTZGqylayBXPt6BSeIs',
-    appId: '1:815781894657:web:849111787fa05249bdfe00',
-    messagingSenderId: '815781894657',
-    projectId: 'adip-d2113',
-    authDomain: 'adip-d2113.firebaseapp.com',
-    storageBucket: 'adip-d2113.appspot.com',
-    measurementId: 'G-9JWJVEE8MK',
+    apiKey: 'AIzaSyAfHhI4OfH8_huoGsYm7Y2JhuBFxg0bV7Q',
+    appId: '1:715131919811:web:cfc0ba8804cf29d419b176',
+    messagingSenderId: '715131919811',
+    projectId: 'scheme-suvidha-admin',
+    authDomain: 'scheme-suvidha-admin.firebaseapp.com',
+    storageBucket: 'scheme-suvidha-admin.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAVHtNKVhLrEEejE-pKgVilevAsjMwyZ6s',
-    appId: '1:815781894657:android:fa1a43a15604d523bdfe00',
-    messagingSenderId: '815781894657',
-    projectId: 'adip-d2113',
-    storageBucket: 'adip-d2113.appspot.com',
+    apiKey: 'AIzaSyBx2wVzppvOalchbvIiE2sR9sVKN_-ATFY',
+    appId: '1:715131919811:android:c796e635d0c143e619b176',
+    messagingSenderId: '715131919811',
+    projectId: 'scheme-suvidha-admin',
+    storageBucket: 'scheme-suvidha-admin.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAywOdDar8p7UfL8ItNjTSUXYNEPjyQCvs',
-    appId: '1:815781894657:ios:fca2ffb9fe410edfbdfe00',
-    messagingSenderId: '815781894657',
-    projectId: 'adip-d2113',
-    storageBucket: 'adip-d2113.appspot.com',
-    androidClientId: '815781894657-0ukatvgb32qrbslpbgfq3vsi1rk2f3e2.apps.googleusercontent.com',
-    iosClientId: '815781894657-0dn4ptjbbg26hbpn4j5ibcl99u9l19cd.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCo5MHQ5fR2ToMb1xYnyHWOarrBvZQv1OA',
+    appId: '1:715131919811:ios:79db0d382c58ba7619b176',
+    messagingSenderId: '715131919811',
+    projectId: 'scheme-suvidha-admin',
+    storageBucket: 'scheme-suvidha-admin.appspot.com',
+    iosClientId: '715131919811-nhg63d6i0kcq6bhfd8op41e2t5abh03c.apps.googleusercontent.com',
     iosBundleId: 'com.example.scheme',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAywOdDar8p7UfL8ItNjTSUXYNEPjyQCvs',
-    appId: '1:815781894657:ios:fca2ffb9fe410edfbdfe00',
-    messagingSenderId: '815781894657',
-    projectId: 'adip-d2113',
-    storageBucket: 'adip-d2113.appspot.com',
-    androidClientId: '815781894657-0ukatvgb32qrbslpbgfq3vsi1rk2f3e2.apps.googleusercontent.com',
-    iosClientId: '815781894657-0dn4ptjbbg26hbpn4j5ibcl99u9l19cd.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCo5MHQ5fR2ToMb1xYnyHWOarrBvZQv1OA',
+    appId: '1:715131919811:ios:79db0d382c58ba7619b176',
+    messagingSenderId: '715131919811',
+    projectId: 'scheme-suvidha-admin',
+    storageBucket: 'scheme-suvidha-admin.appspot.com',
+    iosClientId: '715131919811-nhg63d6i0kcq6bhfd8op41e2t5abh03c.apps.googleusercontent.com',
     iosBundleId: 'com.example.scheme',
   );
 }
