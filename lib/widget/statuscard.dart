@@ -2,7 +2,8 @@ import 'package:scheme/Theme/color.dart';
 import 'package:flutter/material.dart';
 
 class StatusCard extends StatelessWidget {
-  const StatusCard({super.key});
+  final bool register, verify;
+  const StatusCard({super.key, required this.register, required this.verify});
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +28,11 @@ class StatusCard extends StatelessWidget {
         const SizedBox(
           height: 16,
         ),
-        const Padding(
-          padding: EdgeInsets.only(left: 20),
+        Padding(
+          padding: const EdgeInsets.only(left: 20),
           child: Text(
-            "Registration : Done",
-            style: TextStyle(
+            register ? "Registration : Done" : "Registration : Not Done",
+            style: const TextStyle(
                 color: Colors.black,
                 fontFamily: "Overpass",
                 fontSize: 16,
@@ -41,11 +42,11 @@ class StatusCard extends StatelessWidget {
         const SizedBox(
           height: 16,
         ),
-        const Padding(
-          padding: EdgeInsets.only(left: 20),
+        Padding(
+          padding: const EdgeInsets.only(left: 20),
           child: Text(
-            "Verification : Pending",
-            style: TextStyle(
+            verify ? "Verification : Done" : "Verification : Pending",
+            style: const TextStyle(
                 color: Colors.black,
                 fontFamily: "Overpass",
                 fontSize: 16,

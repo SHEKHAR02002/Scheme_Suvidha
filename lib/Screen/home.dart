@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,26 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   bool loader = true;
+  bool register = false;
+  bool verification = false;
+
+  checkregister() async {
+    await FirebaseFirestore.instance
+        .collection("Register")
+        .doc(FirebaseAuth.instance.currentUser!.uid.toString())
+        .get()
+        .then((docsnapshot) {
+      if (docsnapshot.exists) {
+        setState(() {
+          register = true;
+        });
+      } else {
+        setState(() {
+          register = false;
+        });
+      }
+    });
+  }
 
   callApi() async {
     try {
@@ -47,6 +68,7 @@ class _HomeState extends State<Home> {
         schemeDataList.value.isEmpty) {
       callApi();
     }
+    checkregister();
     super.initState();
   }
 
@@ -97,7 +119,10 @@ class _HomeState extends State<Home> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const StatusCard(),
+              StatusCard(
+                register: register,
+                verify: verification,
+              ),
               const SizedBox(
                 height: 38,
               ),
@@ -112,13 +137,11 @@ class _HomeState extends State<Home> {
                         fontWeight: FontWeight.w400),
                   ),
                   const Spacer(),
-                  InkWell(
-                    child: SvgPicture.asset(
-                      "assets/filter.svg",
-                      color: black,
-                      height: 30,
-                      width: 30,
-                    ),
+                  SvgPicture.asset(
+                    "assets/filter.svg",
+                    color: black,
+                    height: 30,
+                    width: 30,
                   ),
                 ],
               ),
@@ -150,23 +173,27 @@ class _HomeState extends State<Home> {
             ],
           ),
         )),
-        bottomNavigationBar: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
-            child: ElevatedButton(
-                onPressed: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Register())),
-                style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                    backgroundColor: primary,
-                    minimumSize: Size(width, 50)),
-                child: const Text(
-                  "Register",
-                  style: TextStyle(
-                      fontFamily: "Overpass",
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700),
-                ))));
+        bottomNavigationBar: register == false
+            ? Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
+                child: ElevatedButton(
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Register())),
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5)),
+                        backgroundColor: primary,
+                        minimumSize: Size(width, 50)),
+                    child: const Text(
+                      "Register",
+                      style: TextStyle(
+                          fontFamily: "Overpass",
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700),
+                    )))
+            : const SizedBox.shrink());
   }
 }
 

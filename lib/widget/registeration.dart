@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:scheme/Screen/home.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/api/getscheme.dart';
 import 'package:scheme/data/userdata.dart';
-import 'package:tbib_splash_screen/splash_screen_view.dart';
+import 'package:scheme/widget/processingpopup.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -28,12 +27,6 @@ class _RegisterState extends State<Register> {
   final TextEditingController _validupto = TextEditingController();
 
   void storedata() async {
-    showDialog(
-      context: context,
-      builder: (context) =>
-          processingPopup(context: context, msg: "Register......"),
-    );
-
     if (_aadharNo.text != '' &&
         _name.text != '' &&
         _dob.text != '' &&
@@ -45,6 +38,10 @@ class _RegisterState extends State<Register> {
         _disabilitypercentage.text != '' &&
         _dataissue.text != '' &&
         _validupto.text != '') {
+      showDialog(
+          context: context,
+          builder: ((context) =>
+              processingPopup(context: context, msg: "Processing....")));
       setState(() {
         aadharNo = _aadharNo.text;
         name = _name.text;
@@ -63,11 +60,11 @@ class _RegisterState extends State<Register> {
       await register(context: context);
     } else {
       Fluttertoast.showToast(
-          msg: "User has been deleted",
+          msg: "Field are Empty",
           toastLength: Toast.LENGTH_LONG,
           fontSize: 20,
-          backgroundColor: primary,
-          textColor: Colors.white);
+          backgroundColor: secondary,
+          textColor: Colors.black);
     }
   }
 
@@ -125,8 +122,6 @@ class _RegisterState extends State<Register> {
             child: ElevatedButton(
                 onPressed: () {
                   storedata();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Home()));
                 },
                 style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -175,6 +170,7 @@ class _RegisterState extends State<Register> {
               ],
             ),
             child: TextField(
+              keyboardType: TextInputType.number,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.all(15),
@@ -359,6 +355,7 @@ class _RegisterState extends State<Register> {
               ],
             ),
             child: TextField(
+              keyboardType: TextInputType.number,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.all(15),
@@ -655,20 +652,3 @@ class _RegisterState extends State<Register> {
     );
   }
 }
-
-processingPopup({required BuildContext context, required String msg}) =>
-    AlertDialog(
-      content: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Lottie.asset("animations/loader.json", height: 50, width: 140),
-            const SizedBox(height: 10),
-            Text(msg),
-          ],
-        ),
-      ),
-    );

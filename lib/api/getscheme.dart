@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:scheme/Screen/home.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/data/userdata.dart';
 
@@ -34,11 +35,16 @@ Future register({required context}) async {
     "disabilitytype": disbilitytype,
     "disabilitypercentage": disabilitypercentage,
     "dateissue": dataissue,
-    "validupto": validupto
+    "validupto": validupto,
+    "registeration": true,
+    "verification": false
   }).whenComplete(() => Fluttertoast.showToast(
       msg: "Register Succesfully",
       toastLength: Toast.LENGTH_LONG,
       fontSize: 20,
-      backgroundColor: primary,
-      textColor: Colors.white));
+      backgroundColor: secondary,
+      textColor: Colors.black));
+
+  Navigator.push(
+      context, MaterialPageRoute(builder: (context) => const Home()));
 }
