@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/schememodel.dart';
+import 'package:scheme/widget/schemedetail.dart';
 
 class SchemeCard extends StatefulWidget {
   final SchemeModel schemedata;
@@ -132,11 +133,19 @@ class _SchemeCardState extends State<SchemeCard> {
               ],
             ),
             const Spacer(),
-            SvgPicture.asset(
-              "assets/right_arrow.svg",
-              color: black,
-              height: 30,
-              width: 30,
+            InkWell(
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SchemeDetail(
+                            schemedata: widget.schemedata,
+                          ))),
+              child: SvgPicture.asset(
+                "assets/right_arrow.svg",
+                color: black,
+                height: 30,
+                width: 30,
+              ),
             ),
           ],
         ),

@@ -159,7 +159,7 @@ class _HomeState extends State<Home> {
                             SchemeModel.fromMap(schemeDataList.value[index]);
 
                         return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          padding: const EdgeInsets.symmetric(vertical: 10),
                           child: SchemeCard(
                               key: Key(schemedata.schemeid.toString()),
                               schemedata: schemedata,
