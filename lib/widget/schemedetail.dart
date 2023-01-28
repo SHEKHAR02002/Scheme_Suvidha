@@ -191,7 +191,7 @@ class _SchemeDetailState extends State<SchemeDetail> {
                       fontWeight: FontWeight.w600),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 8, top: 4),
+                  padding: const EdgeInsets.only(left: 8, top: 10),
                   child: Text(
                     widget.schemedata.description.toString(),
                     style: const TextStyle(
@@ -211,7 +211,7 @@ class _SchemeDetailState extends State<SchemeDetail> {
                       fontWeight: FontWeight.w600),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 8, top: 4),
+                  padding: const EdgeInsets.only(left: 8, top: 10),
                   child: Text(
                     widget.schemedata.eligibilty.toString(),
                     style: const TextStyle(
@@ -231,7 +231,7 @@ class _SchemeDetailState extends State<SchemeDetail> {
                       fontWeight: FontWeight.w600),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 8, top: 4),
+                  padding: const EdgeInsets.only(left: 8, top: 10),
                   child: Text(
                     widget.schemedata.benifits.toString(),
                     style: const TextStyle(
@@ -251,7 +251,7 @@ class _SchemeDetailState extends State<SchemeDetail> {
                       fontWeight: FontWeight.w600),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 8, top: 4),
+                  padding: const EdgeInsets.only(left: 8, top: 10),
                   child: Text(
                     widget.schemedata.more.toString(),
                     style: const TextStyle(

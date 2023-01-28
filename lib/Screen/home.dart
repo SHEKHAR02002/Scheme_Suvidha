@@ -7,9 +7,9 @@ import 'package:scheme/Screen/profile.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/api/getscheme.dart';
 import 'package:scheme/model/schememodel.dart';
-import 'package:scheme/widget/registeration.dart';
 import 'package:scheme/widget/schemecard.dart';
 import 'package:scheme/widget/statuscard.dart';
+import 'package:scheme/widget/upload.dart';
 
 ValueNotifier<List> schemeDataList = ValueNotifier<List>([]);
 
@@ -180,7 +180,7 @@ class _HomeState extends State<Home> {
                     onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Register())),
+                            builder: (context) => const UploadDoument())),
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
