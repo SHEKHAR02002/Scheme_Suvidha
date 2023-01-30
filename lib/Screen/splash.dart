@@ -18,11 +18,12 @@ class _SplashState extends State<Splash> {
     return SplashScreenView(
       backgroundColor: bgcolor,
       duration: const Duration(seconds: 1),
-      navigateRoute: FirebaseAuth.instance.currentUser!.uid == null
+      navigateRoute: FirebaseAuth.instance.currentUser == null
           ? const Login()
           : const Home(),
       imageSrc: "assets/logo.png",
       logoSize: 300,
+      pageRouteTransition: PageRouteTransition.SlideTransition,
     );
   }
 }

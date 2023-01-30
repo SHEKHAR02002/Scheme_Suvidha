@@ -46,6 +46,7 @@ dependencies:
   flutter_cache_manager: ^3.3.0
   lottie: ^1.4.3
   fluttertoast: ^8.0.9
+  flutter_switch: ^0.3.2
 
   
    # for firebase

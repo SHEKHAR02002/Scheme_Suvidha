@@ -165,7 +165,7 @@ class _RegisterState extends State<Register> {
                     color: Color(
                       0x3f000000,
                     ), //New
-                    blurRadius: 2.0,
+                    blurRadius: 1.0,
                     offset: Offset(0, 0))
               ],
             ),
@@ -208,7 +208,7 @@ class _RegisterState extends State<Register> {
                     color: Color(
                       0x3f000000,
                     ), //New
-                    blurRadius: 4.0,
+                    blurRadius: 1.0,
                     offset: Offset(0, 0))
               ],
             ),
@@ -256,7 +256,7 @@ class _RegisterState extends State<Register> {
                             color: Color(
                               0x3f000000,
                             ), //New
-                            blurRadius: 4.0,
+                            blurRadius: 1.0,
                             offset: Offset(0, 0))
                       ],
                     ),
@@ -303,7 +303,7 @@ class _RegisterState extends State<Register> {
                             color: Color(
                               0x3f000000,
                             ), //New
-                            blurRadius: 4.0,
+                            blurRadius: 1.0,
                             offset: Offset(0, 0))
                       ],
                     ),
@@ -350,7 +350,7 @@ class _RegisterState extends State<Register> {
                     color: Color(
                       0x3f000000,
                     ), //New
-                    blurRadius: 4.0,
+                    blurRadius: 1.0,
                     offset: Offset(0, 0))
               ],
             ),
@@ -401,7 +401,7 @@ class _RegisterState extends State<Register> {
                     color: Color(
                       0x3f000000,
                     ), //New
-                    blurRadius: 4.0,
+                    blurRadius: 1.0,
                     offset: Offset(0, 0))
               ],
             ),
@@ -443,7 +443,7 @@ class _RegisterState extends State<Register> {
                     color: Color(
                       0x3f000000,
                     ), //New
-                    blurRadius: 4.0,
+                    blurRadius: 1.0,
                     offset: Offset(0, 0))
               ],
             ),
@@ -485,7 +485,7 @@ class _RegisterState extends State<Register> {
                     color: Color(
                       0x3f000000,
                     ), //New
-                    blurRadius: 4.0,
+                    blurRadius: 1.0,
                     offset: Offset(0, 0))
               ],
             ),
@@ -527,7 +527,7 @@ class _RegisterState extends State<Register> {
                     color: Color(
                       0x3f000000,
                     ), //New
-                    blurRadius: 4.0,
+                    blurRadius: 1.0,
                     offset: Offset(0, 0))
               ],
             ),
@@ -575,7 +575,7 @@ class _RegisterState extends State<Register> {
                             color: Color(
                               0x3f000000,
                             ), //New
-                            blurRadius: 4.0,
+                            blurRadius: 1.0,
                             offset: Offset(0, 0))
                       ],
                     ),
@@ -622,7 +622,7 @@ class _RegisterState extends State<Register> {
                             color: Color(
                               0x3f000000,
                             ), //New
-                            blurRadius: 4.0,
+                            blurRadius: 1.0,
                             offset: Offset(0, 0))
                       ],
                     ),

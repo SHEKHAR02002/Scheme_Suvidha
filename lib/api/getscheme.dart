@@ -23,7 +23,7 @@ Future getdata() async {
 Future register({required context}) async {
   String uid = FirebaseAuth.instance.currentUser!.uid.toString();
 
-  await FirebaseFirestore.instance.collection("Register").doc(uid).set({
+  await FirebaseFirestore.instance.collection("Users").doc(uid).update({
     "userId": uid,
     "aadharno": aadharNo,
     "name": name,
@@ -44,6 +44,16 @@ Future register({required context}) async {
       fontSize: 20,
       backgroundColor: secondary,
       textColor: Colors.black));
+
+  await FirebaseFirestore.instance.collection("Users").doc(uid).update({
+    "userId": uid,
+    "name": name,
+    "dob": dob,
+    "gender": gender,
+    "phoneno": phoneNo,
+    "registeration": true,
+    "verification": false,
+  });
 
   Navigator.push(
       context, MaterialPageRoute(builder: (context) => const Home()));

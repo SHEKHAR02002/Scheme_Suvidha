@@ -1,13 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Screen/profile.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/api/firebasehelper.dart';
 import 'package:scheme/api/getscheme.dart';
 import 'package:scheme/model/schememodel.dart';
+import 'package:scheme/model/usermodel.dart';
 import 'package:scheme/widget/schemecard.dart';
+import 'package:scheme/widget/search.dart';
 import 'package:scheme/widget/statuscard.dart';
 import 'package:scheme/widget/upload.dart';
 
@@ -21,26 +23,24 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  late UserModel? user;
   bool loader = true;
   bool register = false;
   bool verification = false;
 
   checkregister() async {
-    await FirebaseFirestore.instance
-        .collection("Register")
-        .doc(FirebaseAuth.instance.currentUser!.uid.toString())
-        .get()
-        .then((docsnapshot) {
-      if (docsnapshot.exists) {
-        setState(() {
-          register = true;
-        });
-      } else {
-        setState(() {
-          register = false;
-        });
-      }
-    });
+    user = await FirebaseHelper.getUserModelById(
+        uid: FirebaseAuth.instance.currentUser!.uid.toString());
+
+    if (user!.registeration == true) {
+      setState(() {
+        register = true;
+      });
+    } else {
+      setState(() {
+        register = false;
+      });
+    }
   }
 
   callApi() async {
@@ -80,11 +80,15 @@ class _HomeState extends State<Home> {
           elevation: 0,
           title: Padding(
             padding: const EdgeInsets.only(left: 10),
-            child: SvgPicture.asset(
-              "assets/search.svg",
-              color: primary,
-              height: 30,
-              width: 30,
+            child: InkWell(
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Search())),
+              child: SvgPicture.asset(
+                "assets/search.svg",
+                color: primary,
+                height: 30,
+                width: 30,
+              ),
             ),
           ),
           backgroundColor: bgcolor,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:scheme/Screen/agentlogin.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/phoneauth.dart';
@@ -23,40 +24,40 @@ class _LoginState extends State<Login> {
       // backgroundColor: bgcolor,
       body: SafeArea(
         child: SingleChildScrollView(
-            child: Column(
-          children: [
-            SvgPicture.asset(
-              "assets/login1.svg",
-              height: height / 2,
-              width: width,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Text(
-              "LOGIN",
-              style: TextStyle(
-                  fontFamily: "Zilla",
-                  fontSize: 32,
-                  fontWeight: FontWeight.w400),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              "Enter mobile number",
-              style: TextStyle(
-                  color: primary,
-                  fontFamily: "Zilla",
-                  fontSize: 24,
-                  fontWeight: FontWeight.w400),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Container(
+            child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            children: [
+              SvgPicture.asset(
+                "assets/login1.svg",
+                height: height / 2,
+                width: width,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                "LOGIN",
+                style: TextStyle(
+                    fontFamily: "Zilla",
+                    fontSize: 32,
+                    fontWeight: FontWeight.w400),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Enter mobile number",
+                style: TextStyle(
+                    color: primary,
+                    fontFamily: "Zilla",
+                    fontSize: 24,
+                    fontWeight: FontWeight.w400),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
                 height: 50,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -67,11 +68,12 @@ class _LoginState extends State<Login> {
                         color: Color(
                           0x3f000000,
                         ), //New
-                        blurRadius: 4.0,
+                        blurRadius: 1.0,
                         offset: Offset(0, 0))
                   ],
                 ),
                 child: TextField(
+                  keyboardType: TextInputType.number,
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w400),
                   decoration: InputDecoration(
@@ -92,8 +94,8 @@ class _LoginState extends State<Login> {
                   controller: _phoneNo,
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         )),
       ),
       bottomNavigationBar: Padding(
@@ -137,13 +139,17 @@ class _LoginState extends State<Login> {
             const SizedBox(
               height: 10,
             ),
-            Text(
-              "Login as Agent",
-              style: TextStyle(
-                  color: primary,
-                  fontFamily: "Overpass",
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400),
+            InkWell(
+              onTap: (() => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const AgentLogin()))),
+              child: Text(
+                "Login as Agent",
+                style: TextStyle(
+                    color: primary,
+                    fontFamily: "Overpass",
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400),
+              ),
             )
           ],
         ),

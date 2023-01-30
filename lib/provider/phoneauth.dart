@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:scheme/Screen/home.dart';
 import 'package:scheme/Screen/login.dart';
 import 'package:scheme/Screen/otpbottom.dart';
+import 'package:scheme/api/checknewuser.dart';
+import 'package:scheme/api/getuserdetail.dart';
 
 class PhoneAuth {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -32,24 +35,43 @@ class PhoneAuth {
 
   submitOpt(
       {required String verificationId,
+      required String phoneNo,
       required String smsCode,
       required BuildContext context}) async {
-    PhoneAuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: verificationId, smsCode: smsCode);
-    await auth.signInWithCredential(credential).whenComplete(() =>
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const Home()),
-            (route) => false));
-    // bool newUser = await checkLogin();
-    // if (newUser) {
-    //   Navigator.of(context).pushAndRemoveUntil(
-    //       MaterialPageRoute(builder: (context) => const Navbar()),
-    //       (route) => false);
-    // } else {
-    //   Navigator.of(context).pushAndRemoveUntil(
-    //       MaterialPageRoute(builder: (context) => const RegisterScreen()),
-    //       (route) => false);
-    // }
+    try {
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+          verificationId: verificationId, smsCode: smsCode);
+      await auth.signInWithCredential(credential).whenComplete(
+          () => userCredentialAuth(context: context, phoneNo: phoneNo));
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+      return false;
+    }
+  }
+
+  Future userCredentialAuth(
+      {required BuildContext context, required String phoneNo}) async {
+    try {
+      String? newUser = await checkuser();
+      if (newUser == "No") {
+        await newuser(phoneno: phoneNo).then((value) async =>
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const Home()),
+                (route) => false));
+      } else {
+        await getUserDeatilsApi(context: context).then((value) =>
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const Home()),
+                (route) => false));
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
   }
 
   logOut({required BuildContext context}) {

@@ -58,7 +58,7 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
                             color: Color(
                               0x3f000000,
                             ), //New
-                            blurRadius: 4.0,
+                            blurRadius: 1.0,
                             offset: Offset(0, 0))
                       ],
                       // border: Border.all(width: 1, color: Colors.grey),
@@ -66,6 +66,7 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
               length: 6,
               controller: _smsCode,
               onCompleted: (pin) => PhoneAuth().submitOpt(
+                  phoneNo: widget.phoneNumber,
                   verificationId: widget.verificationId,
                   smsCode: _smsCode.text,
                   context: context)),
@@ -87,6 +88,7 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
                   }
                 });
                 PhoneAuth().submitOpt(
+                    phoneNo: widget.phoneNumber,
                     verificationId: widget.verificationId,
                     smsCode: _smsCode.text,
                     context: context);

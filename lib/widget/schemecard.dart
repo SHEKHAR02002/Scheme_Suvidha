@@ -19,8 +19,20 @@ class _SchemeCardState extends State<SchemeCard> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return Card(
-      elevation: 2,
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        // border: Border.all(width: 1, color: Colors.grey),
+        borderRadius: BorderRadius.circular(5),
+        boxShadow: const [
+          BoxShadow(
+              color: Color(
+                0x3f000000,
+              ), //New
+              blurRadius: 1.0,
+              offset: Offset(0, 0))
+        ],
+      ),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child: Row(
