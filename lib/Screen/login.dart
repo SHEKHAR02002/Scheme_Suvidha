@@ -24,40 +24,40 @@ class _LoginState extends State<Login> {
       // backgroundColor: bgcolor,
       body: SafeArea(
         child: SingleChildScrollView(
-            child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Column(
-            children: [
-              SvgPicture.asset(
-                "assets/login1.svg",
-                height: height / 2,
-                width: width,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Text(
-                "LOGIN",
-                style: TextStyle(
-                    fontFamily: "Zilla",
-                    fontSize: 32,
-                    fontWeight: FontWeight.w400),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Enter mobile number",
-                style: TextStyle(
-                    color: primary,
-                    fontFamily: "Zilla",
-                    fontSize: 24,
-                    fontWeight: FontWeight.w400),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
+            child: Column(
+          children: [
+            SvgPicture.asset(
+              "assets/login_svg.svg",
+              height: height / 2,
+              width: width,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Text(
+              "LOGIN",
+              style: TextStyle(
+                  fontFamily: "Zilla",
+                  fontSize: 32,
+                  fontWeight: FontWeight.w400),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              "Enter mobile number",
+              style: TextStyle(
+                  color: primary,
+                  fontFamily: "Zilla",
+                  fontSize: 24,
+                  fontWeight: FontWeight.w400),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Container(
                 height: 50,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -94,8 +94,8 @@ class _LoginState extends State<Login> {
                   controller: _phoneNo,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         )),
       ),
       bottomNavigationBar: Padding(

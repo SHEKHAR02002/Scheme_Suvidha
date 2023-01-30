@@ -28,7 +28,7 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
       body: SingleChildScrollView(
         child: Column(children: [
           SvgPicture.asset(
-            "assets/login1.svg",
+            "assets/login_svg2.svg",
             height: height / 2,
             width: width,
           ),

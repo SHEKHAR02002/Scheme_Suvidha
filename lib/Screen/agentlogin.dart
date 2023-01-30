@@ -24,7 +24,7 @@ class _AgentLoginState extends State<AgentLogin> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SvgPicture.asset(
-                "assets/login1.svg",
+                "assets/login_svg2.svg",
                 height: height / 2,
                 width: width,
               ),
@@ -38,7 +38,7 @@ class _AgentLoginState extends State<AgentLogin> {
                   style: TextStyle(
                       color: primary,
                       fontFamily: "Zilla",
-                      fontSize: 24,
+                      fontSize: 22,
                       fontWeight: FontWeight.w400),
                 ),
               ),
@@ -92,7 +92,7 @@ class _AgentLoginState extends State<AgentLogin> {
                   style: TextStyle(
                       color: primary,
                       fontFamily: "Zilla",
-                      fontSize: 24,
+                      fontSize: 22,
                       fontWeight: FontWeight.w400),
                 ),
               ),
