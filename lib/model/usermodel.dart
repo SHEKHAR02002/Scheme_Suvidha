@@ -1,5 +1,6 @@
 class UserModel {
   String? userId;
+  String? image;
 
   String? aadharno;
   String? name;
@@ -46,7 +47,8 @@ class UserModel {
       required this.udidno,
       required this.userId,
       required this.validupto,
-      required this.verification});
+      required this.verification,
+      required this.image});
 
   UserModel.fromMap(Map<String, dynamic> map) {
     userId = map['userId'];
@@ -74,6 +76,8 @@ class UserModel {
     schmerenewal = map['schmerenewal'];
     newschemalert = map['newschemalert'];
     newcampalert = map['newcampalert'];
+
+    image = map['image'];
   }
 
   Map<String, dynamic> toMap() {
@@ -99,6 +103,7 @@ class UserModel {
       'schmerenewal': schmerenewal,
       'newschemalert': newschemalert,
       'newcampalert': newcampalert,
+      'image': image
     };
   }
 }

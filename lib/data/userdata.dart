@@ -2,7 +2,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:scheme/model/usermodel.dart';
 
 String aadharImage = "", fcmToken = "";
-String? aadharNo, dob, gender, name, phoneNo, aadharimage;
+String? aadharNo, dob, gender, name, phoneNo, aadharimage, image;
 String? udidNo,
     udidname,
     disbilitytype,

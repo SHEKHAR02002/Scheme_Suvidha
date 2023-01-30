@@ -23,7 +23,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late UserModel? user;
+  UserModel? user;
   bool loader = true;
   bool register = false;
   bool verification = false;
@@ -103,17 +103,29 @@ class _HomeState extends State<Home> {
               width: 10,
             ),
             InkWell(
-              onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Profile())),
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Profile(
+                            user: user!,
+                          ))),
               child: Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: SvgPicture.asset(
-                  "assets/avatar.svg",
-                  color: Colors.black,
-                  height: 30,
-                  width: 30,
-                ),
-              ),
+                  padding: const EdgeInsets.only(right: 10),
+                  child: user!.image == ""
+                      ? CircleAvatar(
+                          radius: 15,
+                          child: Image.network(
+                            "https://firebasestorage.googleapis.com/v0/b/scheme-suvidha-admin.appspot.com/o/miscellaneous%2Fdefalutprofile.png?alt=media&token=fbf2357d-d893-43a7-9bcc-412f454691c4",
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      : CircleAvatar(
+                          radius: 15,
+                          child: Image.network(
+                            '$user.image',
+                            fit: BoxFit.cover,
+                          ),
+                        )),
             )
           ],
         ),

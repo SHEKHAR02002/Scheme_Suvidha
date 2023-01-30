@@ -37,6 +37,7 @@ Future newuser({required String phoneno}) async {
     "validupto": "",
     "aadharimage": "",
     "udidimage": "",
+    "image": "",
     "registeration": false,
     "verification": false,
     "pushpermission": false,

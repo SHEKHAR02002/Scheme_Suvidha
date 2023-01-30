@@ -1,11 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/model/usermodel.dart';
 import 'package:scheme/provider/phoneauth.dart';
 import 'package:scheme/widget/setting/setting.dart';
 
 class Profile extends StatefulWidget {
-  const Profile({super.key});
+  final UserModel user;
+  const Profile({super.key, required this.user});
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -13,9 +16,16 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   @override
+  void initState() {
+    if (FirebaseAuth.instance.currentUser!.uid.isNotEmpty) {}
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+
     return Scaffold(
         body: SingleChildScrollView(
             child: Padding(
@@ -23,34 +33,48 @@ class _ProfileState extends State<Profile> {
           child: Column(
             children: [
               Container(
+                padding: const EdgeInsets.symmetric(vertical: 16),
                 decoration: BoxDecoration(
                     color: secondary3, borderRadius: BorderRadius.circular(20)),
                 height: height / 3,
                 width: width,
                 child: Column(children: [
-                  Text(
+                  widget.user.image != ""
+                      ? CircleAvatar(
+                          radius: 45,
+                          child: Image.network(
+                            "$widget.user.image",
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      : CircleAvatar(
+                          radius: 45,
+                          child: Image.network(
+                            "https://firebasestorage.googleapis.com/v0/b/scheme-suvidha-admin.appspot.com/o/miscellaneous%2Fdefalutprofile.png?alt=media&token=fbf2357d-d893-43a7-9bcc-412f454691c4",
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
                     "Alice",
-                    style: TextStyle(
-                        color: primary,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(
-                    height: 5,
+                    height: 10,
                   ),
-                  Text("Location",
-                      style: TextStyle(
-                          color: primary,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400)),
+                  const Text(
+                    "Location",
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+                  ),
                   const SizedBox(
-                    height: 5,
+                    height: 10,
                   ),
-                  Text("Age:55",
-                      style: TextStyle(
-                          color: primary,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400))
+                  const Text(
+                    "Phone No",
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+                  )
                 ]),
               ),
               SizedBox(

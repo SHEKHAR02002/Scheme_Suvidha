@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:scheme/Screen/home.dart';
 import 'package:scheme/Screen/login.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:tbib_splash_screen/splash_screen.dart';
@@ -18,9 +16,11 @@ class _SplashState extends State<Splash> {
     return SplashScreenView(
       backgroundColor: bgcolor,
       duration: const Duration(seconds: 1),
-      navigateRoute: FirebaseAuth.instance.currentUser == null
-          ? const Login()
-          : const Home(),
+      navigateRoute:
+          // FirebaseAuth.instance.currentUser == null
+
+          const Login(),
+      // : const Home(),
       imageSrc: "assets/logo.png",
       logoSize: 300,
       pageRouteTransition: PageRouteTransition.SlideTransition,
