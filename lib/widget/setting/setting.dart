@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/widget/setting/help.dart';
 import 'package:scheme/widget/setting/permission.dart';
 
 class Setting extends StatefulWidget {
@@ -207,7 +208,10 @@ class _SettingState extends State<Setting> {
                 ],
               ),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) => Help())));
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(13.0),
                   child: Row(children: [
