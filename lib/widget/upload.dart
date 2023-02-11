@@ -166,10 +166,16 @@ class _UploadDoumentState extends State<UploadDoument> {
                       }),
                       child: Padding(
                         padding: const EdgeInsets.only(right: 10),
-                        child: Icon(
-                          pickedaadhar ? Icons.check : Icons.add,
-                          size: 30,
-                        ),
+                        child: pickedaadhar == false
+                            ? const Icon(
+                                Icons.add,
+                                size: 30,
+                              )
+                            : const Icon(
+                                Icons.check,
+                                color: Color.fromRGBO(20, 253, 15, 1),
+                                size: 30,
+                              ),
                       ),
                     )
                   ],
@@ -214,10 +220,16 @@ class _UploadDoumentState extends State<UploadDoument> {
                       }),
                       child: Padding(
                         padding: const EdgeInsets.only(right: 10),
-                        child: Icon(
-                          pickedudid ? Icons.check : Icons.add,
-                          size: 30,
-                        ),
+                        child: pickedudid == false
+                            ? const Icon(
+                                Icons.add,
+                                size: 30,
+                              )
+                            : const Icon(
+                                Icons.check,
+                                color: Color.fromRGBO(20, 253, 15, 1),
+                                size: 30,
+                              ),
                       ),
                     )
                   ],
@@ -231,6 +243,7 @@ class _UploadDoumentState extends State<UploadDoument> {
             child: ElevatedButton(
                 onPressed: () => upload(),
                 style: ElevatedButton.styleFrom(
+                    elevation: 0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
                     backgroundColor: primary,

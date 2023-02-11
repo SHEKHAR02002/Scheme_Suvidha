@@ -57,9 +57,10 @@ class _ProfileState extends State<Profile> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "Alice",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  Text(
+                    widget.user.name!,
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(
                     height: 10,
@@ -71,9 +72,10 @@ class _ProfileState extends State<Profile> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "Phone No",
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+                  Text(
+                    widget.user.phoneno!,
+                    style: const TextStyle(
+                        fontSize: 12, fontWeight: FontWeight.w400),
                   )
                 ]),
               ),
@@ -227,6 +229,7 @@ class _ProfileState extends State<Profile> {
             child: ElevatedButton(
                 onPressed: () => PhoneAuth().logOut(context: context),
                 style: ElevatedButton.styleFrom(
+                    elevation: 0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
                     backgroundColor: primary,

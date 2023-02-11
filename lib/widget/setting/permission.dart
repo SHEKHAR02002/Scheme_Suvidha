@@ -316,6 +316,7 @@ class _PermissionState extends State<Permission> {
             child: ElevatedButton(
                 onPressed: () => update(),
                 style: ElevatedButton.styleFrom(
+                    elevation: 0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
                     backgroundColor: primary,

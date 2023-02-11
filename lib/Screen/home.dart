@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scheme/Screen/profile.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/api/firebasehelper.dart';
@@ -103,12 +104,19 @@ class _HomeState extends State<Home> {
               width: 10,
             ),
             InkWell(
-              onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Profile(
-                            user: user!,
-                          ))),
+              onTap: () => register
+                  ? Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Profile(
+                                user: user!,
+                              )))
+                  : Fluttertoast.showToast(
+                      msg: "You Not Register",
+                      toastLength: Toast.LENGTH_LONG,
+                      fontSize: 20,
+                      backgroundColor: secondary,
+                      textColor: Colors.black),
               child: Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: user!.image == ""
@@ -198,6 +206,7 @@ class _HomeState extends State<Home> {
                         MaterialPageRoute(
                             builder: (context) => const UploadDoument())),
                     style: ElevatedButton.styleFrom(
+                        elevation: 0,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
                         backgroundColor: primary,

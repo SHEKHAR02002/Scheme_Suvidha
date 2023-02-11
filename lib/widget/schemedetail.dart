@@ -269,6 +269,7 @@ class _SchemeDetailState extends State<SchemeDetail> {
             child: ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
+                    elevation: 0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
                     backgroundColor: primary,
