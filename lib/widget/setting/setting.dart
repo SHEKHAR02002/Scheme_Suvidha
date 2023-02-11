@@ -207,7 +207,9 @@ class _SettingState extends State<Setting> {
                 ],
               ),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(13.0),
                   child: Row(children: [

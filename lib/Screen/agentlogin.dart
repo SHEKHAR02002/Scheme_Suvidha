@@ -145,6 +145,7 @@ class _AgentLoginState extends State<AgentLogin> {
                 onPressed: () => Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const AgentHome())),
                 style: ElevatedButton.styleFrom(
+                    elevation: 0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
                     backgroundColor: primary,

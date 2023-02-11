@@ -92,10 +92,13 @@ class _SchemeCardState extends State<SchemeCard> {
                       decoration: BoxDecoration(
                           color: secondary,
                           borderRadius: BorderRadius.circular(5)),
-                      child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 10),
                         child: Text(
                           widget.schemedata.requirement1.toString(),
                           style: TextStyle(
+                              overflow: TextOverflow.clip,
                               color: black,
                               fontSize: 12,
                               fontWeight: FontWeight.w400),
@@ -112,12 +115,17 @@ class _SchemeCardState extends State<SchemeCard> {
                           color: secondary,
                           borderRadius: BorderRadius.circular(5)),
                       child: Center(
-                        child: Text(
-                          widget.schemedata.requirement2.toString(),
-                          style: TextStyle(
-                              color: black,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 10),
+                          child: Text(
+                            widget.schemedata.requirement2.toString(),
+                            style: TextStyle(
+                                overflow: TextOverflow.clip,
+                                color: black,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400),
+                          ),
                         ),
                       ),
                     ),

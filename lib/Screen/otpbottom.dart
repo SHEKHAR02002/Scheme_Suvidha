@@ -96,6 +96,7 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
             },
             // =>Navigator.push(context, MaterialPageRoute(builder: (context)=>OtpBottomSheet())),
             style: ElevatedButton.styleFrom(
+                elevation: 0,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5)),
                 backgroundColor: primary,
