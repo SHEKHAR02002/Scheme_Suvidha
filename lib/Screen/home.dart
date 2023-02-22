@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -43,32 +44,9 @@ class _HomeState extends State<Home> {
       });
     }
   }
-
-  callApi() async {
-    try {
-      var data = await getdata();
-
-      schemeDataList.value.addAll(data);
-      setState(() {
-        if (schemeDataList.value.isNotEmpty) {
-          loader = false;
-        } else {
-          loader = true;
-        }
-      });
-    } catch (e) {
-      if (kDebugMode) {
-        print(e.toString());
-      }
-    }
-  }
-
   @override
   void initState() {
-    if (FirebaseAuth.instance.currentUser!.uid.isNotEmpty &&
-        schemeDataList.value.isEmpty) {
-      callApi();
-    }
+  
     checkregister();
     super.initState();
   }
@@ -104,19 +82,21 @@ class _HomeState extends State<Home> {
               width: 10,
             ),
             InkWell(
-              onTap: () => register
-                  ? Navigator.push(
+              onTap: () => 
+              // register
+              //     ?
+                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => Profile(
                                 user: user!,
-                              )))
-                  : Fluttertoast.showToast(
-                      msg: "You Not Register",
-                      toastLength: Toast.LENGTH_LONG,
-                      fontSize: 20,
-                      backgroundColor: secondary,
-                      textColor: Colors.black),
+                              ))),
+                  // : Fluttertoast.showToast(
+                  //     msg: "You Not Register",
+                  //     toastLength: Toast.LENGTH_LONG,
+                  //     fontSize: 20,
+                  //     backgroundColor: secondary,
+                  //     textColor: Colors.black),
               child: Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: user!.image == ""
@@ -172,28 +152,29 @@ class _HomeState extends State<Home> {
               const SizedBox(
                 height: 30,
               ),
-              Center(
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const ScrollPhysics(),
-                    itemCount: schemeDataList.value.length,
-                    itemBuilder: (context, index) {
-                      if (schemeDataList.value.isNotEmpty || loader == false) {
-                        SchemeModel schemedata =
-                            SchemeModel.fromMap(schemeDataList.value[index]);
-
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: SchemeCard(
-                              key: Key(schemedata.schemeid.toString()),
-                              schemedata: schemedata,
-                              index: index),
-                        );
-                      } else {
-                        return const Text("no data");
-                      }
-                    }),
-              ),
+              StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('Scheme')
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return const Text('Something went wrong');
+                    }
+                    if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                      List schemdata = List.from(snapshot.data!.docs
+                          .map((doc) => SchemeModel.fromMap(doc)));
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          physics: const ScrollPhysics(),
+                          itemCount: schemdata.length,
+                          itemBuilder: (context, index) {
+                            return SchemeCard(
+                              schemedata: schemdata[index],
+                            );
+                          });
+                    }
+                    return const Center(child: Text("No Data"));
+                  })
             ],
           ),
         )),
@@ -222,18 +203,4 @@ class _HomeState extends State<Home> {
   }
 }
 
-// ElevatedButton(
-//                   style: ElevatedButton.styleFrom(
-//                       fixedSize: const Size(250, 50),
-//                       elevation: 0,
-//                       shape: RoundedRectangleBorder(
-//                           borderRadius: BorderRadius.circular(12)),
-//                       backgroundColor: button),
-//                   onPressed: () => PhoneAuth().logOut(context: context),
-//                   child: const Text(
-//                     "Logout",
-//                     style: TextStyle(
-//                         fontFamily: 'Overpass',
-//                         fontSize: 24,
-//                         fontWeight: FontWeight.w700),
-//                   )),
+

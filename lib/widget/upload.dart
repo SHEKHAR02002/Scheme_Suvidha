@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/data/userdata.dart';
 import 'dart:io';
 
@@ -23,17 +24,20 @@ class UploadDoument extends StatefulWidget {
 class _UploadDoumentState extends State<UploadDoument> {
   bool pickedaadhar = false;
   bool pickedudid = false;
+  bool imagepick = false;
   String? aadharpic = "";
   String? udidpic = "";
+  String? imagepic = "";
 
   upload() async {
-    if (aadharpic != "" && udidpic != "") {
+    if (aadharpic != "" && udidpic != "" && imagepic != "") {
       aadharImage = await fireStoreFileUpload(
           "${FirebaseAuth.instance.currentUser!.uid}/aadharimg.jpg", aadharpic);
       udidimage = await fireStoreFileUpload(
           "${FirebaseAuth.instance.currentUser!.uid}/udidimg.jpg", udidpic);
-      log(aadharImage);
-      log(udidimage!);
+      passportimage = await fireStoreFileUpload(
+          "${FirebaseAuth.instance.currentUser!.uid}/udidimg.jpg", udidpic);
+   
     } else {
       print("empty");
     }
@@ -42,7 +46,8 @@ class _UploadDoumentState extends State<UploadDoument> {
         .doc(FirebaseAuth.instance.currentUser!.uid.toString())
         .update({
       "aadharimage": aadharImage,
-      "udidimage": udidimage
+      "udidimage": udidimage,
+      "image":passportimage
     }).whenComplete(() => Navigator.push(context,
             MaterialPageRoute(builder: (context) => const Register())));
   }
@@ -60,26 +65,6 @@ class _UploadDoumentState extends State<UploadDoument> {
     return pathValue;
   }
 
-  // upload({required String filename}) async {
-  //   filename == "aadhar"
-  //       ? aadharImage = await fireStoreFileUpload(
-  //           "${FirebaseAuth.instance.currentUser!.uid}/aadharpic.jpg",
-  //           aadharpic)
-  //       : udidimage = await fireStoreFileUpload(
-  //           "${FirebaseAuth.instance.currentUser!.uid}/aadharpic.jpg", udidpic);
-
-  //   // : fireStoreFileUpload(
-  //   //     "${FirebaseAuth.instance.currentUser!.uid}/udidpic.jpg", udidimage);
-  // }
-
-  // update() async {
-  //   log("come");
-  //   await FirebaseFirestore.instance
-  //       .collection("Users")
-  //       .doc(FirebaseAuth.instance.currentUser!.uid.toString())
-  //       .update({"aadharimage": aadharImage, "udidimage": udidimage});
-  // }
-
   Future<dynamic> picImage({required source, required String filename}) async {
     try {
       final XFile? image = await ImagePicker().pickImage(source: source);
@@ -89,16 +74,19 @@ class _UploadDoumentState extends State<UploadDoument> {
         if (filename == "aadhar") {
           aadharpic = file.path;
           pickedaadhar = true;
-        } else if (filename == "udid") {
+        } 
+        else if (filename == "udid") {
           udidpic = file.path;
           pickedudid = true;
         }
+        else if (filename == "Image") {
+          imagepic = file.path;
+          imagepick = true;
+        }
+        else{
+          print('Something went Wrong');
+        }
       });
-
-      // String cropFile = await userImage(pickedFile: XFile(file.path));
-      // setState(() {
-      //   customProfileImage = cropFile;
-      // });
     } catch (e) {
       if (kDebugMode) {
         print(e.toString());
@@ -131,24 +119,47 @@ class _UploadDoumentState extends State<UploadDoument> {
                 width: width,
               ),
               Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  // border: Border.all(width: 1, color: Colors.grey),
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Color(
-                          0x3f000000,
-                        ), //New
-                        blurRadius: 1.0,
-                        offset: Offset(0, 0))
-                  ],
+                decoration: shadowdecoration,
+                child: Padding(
+                   padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Passport Size photo",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w400),
+                      ),
+                      const Spacer(),
+                      InkWell(
+                        onTap: () =>
+                            picImage(source: ImageSource.camera, filename: "Image")
+                                .whenComplete(() {
+                          setState(() {
+                            imagepick = true;
+                          });
+                        }),
+                        child: imagepick == false
+                            ? const Icon(
+                                Icons.add,
+                                size: 30,
+                              )
+                            : const Icon(
+                                Icons.check,
+                                color: Color.fromRGBO(20, 253, 15, 1),
+                                size: 30,
+                              ),
+                      )
+                    ],
+                  ),
                 ),
+              ),
+              SizedBox(height: 30,),
+              Container(
+                decoration: shadowdecoration,
                 child: Row(
                   children: [
                     const Padding(
-                      padding: EdgeInsets.only(left: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
                       child: Text(
                         "Aadhar Card",
                         style: TextStyle(
@@ -182,27 +193,14 @@ class _UploadDoumentState extends State<UploadDoument> {
                 ),
               ),
               const SizedBox(
-                height: 36,
+                height: 30,
               ),
               Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  // border: Border.all(width: 1, color: Colors.grey),
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Color(
-                          0x3f000000,
-                        ), //New
-                        blurRadius: 1.0,
-                        offset: Offset(0, 0))
-                  ],
-                ),
+                decoration: shadowdecoration,
                 child: Row(
                   children: [
                     const Padding(
-                      padding: EdgeInsets.only(left: 10),
+                      padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
                       child: Text(
                         "UDID Card",
                         style: TextStyle(
@@ -234,7 +232,9 @@ class _UploadDoumentState extends State<UploadDoument> {
                     )
                   ],
                 ),
-              )
+              ),
+              
+              
             ],
           ),
         )),

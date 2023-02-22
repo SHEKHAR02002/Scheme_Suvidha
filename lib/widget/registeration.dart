@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/api/getscheme.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/widget/processingpopup.dart';
+import 'package:scheme/widget/textfield.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -56,7 +58,6 @@ class _RegisterState extends State<Register> {
         dataissue = _dataissue.text;
         validupto = _validupto.text;
       });
-
       await register(context: context);
     } else {
       Fluttertoast.showToast(
@@ -85,13 +86,13 @@ class _RegisterState extends State<Register> {
                   fontWeight: FontWeight.w700),
             )),
         body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-                child: Text(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 20),
+                Text(
                   "Aadhar Card Details",
                   style: TextStyle(
                       color: primary,
@@ -99,12 +100,88 @@ class _RegisterState extends State<Register> {
                       fontSize: 26,
                       fontWeight: FontWeight.w400),
                 ),
-              ),
-              aadharform(width: width),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-                child: Text(
+                TextFieldTake(controller: _aadharNo, title: "Aadhar Card No"),
+                const SizedBox(height: 18),
+                TextFieldTake(controller: _name, title: "Name"),
+                const SizedBox(height: 18),
+                Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "DOB",
+                          style: TextStyle(
+                              color: black,
+                              fontFamily: "Overpass",
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          height: 50,
+                          width: width / 2.4,
+                          decoration: shadowdecoration,
+                          child: TextField(
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w400),
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.all(15),
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(5)),
+                            ),
+                            controller: _dob,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Gender",
+                          style: TextStyle(
+                              color: black,
+                              fontFamily: "Overpass",
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          height: 50,
+                          width: width / 2.4,
+                          decoration: shadowdecoration,
+                          child: TextField(
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w400),
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.all(15),
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(5)),
+                            ),
+                            controller: _gender,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 18),
+                TextFieldTake(controller: _phoneNo, title: "Phone No."),
+                // aadharform(width: width),
+                SizedBox(height: 30),
+                Text(
                   "UDID Card Details",
                   style: TextStyle(
                       color: primary,
@@ -112,10 +189,96 @@ class _RegisterState extends State<Register> {
                       fontSize: 26,
                       fontWeight: FontWeight.w400),
                 ),
-              ),
-              udidform(width: width)
-            ],
+                TextFieldTake(controller: _udidNo, title: "UDID Card No."),
+                const SizedBox(height: 18),
+                TextFieldTake(controller: _udidname, title: "Name"),
+                const SizedBox(height: 18),
+                TextFieldTake(
+                    controller: _disbilitytype, title: "Disability Type"),
+                    const SizedBox(height: 18),
+                TextFieldTake(
+                    controller: _disabilitypercentage,
+                    title: "Disability Percentage"),
+                    const SizedBox(height: 18),
+                Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Date Of Issue",
+                          style: TextStyle(
+                              color: black,
+                              fontFamily: "Overpass",
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          height: 50,
+                          width: width / 2.4,
+                          decoration:shadowdecoration,
+                          child: TextField(
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w400),
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.all(15),
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(5)),
+                            ),
+                            controller: _dataissue,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Valid Upto",
+                          style: TextStyle(
+                              color: black,
+                              fontFamily: "Overpass",
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          height: 50,
+                          width: width / 2.4,
+                          decoration: shadowdecoration,
+                          child: TextField(
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w400),
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.all(15),
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(5)),
+                            ),
+                            controller: _validupto,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
+                // udidform(width: width)
+              ],
+            ),
           ),
+          
         ),
         bottomNavigationBar: Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
@@ -136,519 +299,519 @@ class _RegisterState extends State<Register> {
                       fontWeight: FontWeight.w700),
                 ))));
   }
-
-  aadharform({required double width}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Aadhar Card No",
-            style: TextStyle(
-                color: black,
-                fontFamily: "Overpass",
-                fontSize: 20,
-                fontWeight: FontWeight.w400),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              // border: Border.all(width: 1, color: Colors.grey),
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: const [
-                BoxShadow(
-                    color: Color(
-                      0x3f000000,
-                    ), //New
-                    blurRadius: 1.0,
-                    offset: Offset(0, 0))
-              ],
-            ),
-            child: TextField(
-              keyboardType: TextInputType.number,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(15),
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(5)),
-              ),
-              controller: _aadharNo,
-            ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Text(
-            "Name",
-            style: TextStyle(
-                color: black,
-                fontFamily: "Overpass",
-                fontSize: 20,
-                fontWeight: FontWeight.w400),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              // border: Border.all(width: 1, color: Colors.grey),
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: const [
-                BoxShadow(
-                    color: Color(
-                      0x3f000000,
-                    ), //New
-                    blurRadius: 1.0,
-                    offset: Offset(0, 0))
-              ],
-            ),
-            child: TextField(
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(15),
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(5)),
-              ),
-              controller: _name,
-            ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "DOB",
-                    style: TextStyle(
-                        color: black,
-                        fontFamily: "Overpass",
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: 50,
-                    width: width / 2.4,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      // border: Border.all(width: 1, color: Colors.grey),
-                      borderRadius: BorderRadius.circular(5),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Color(
-                              0x3f000000,
-                            ), //New
-                            blurRadius: 1.0,
-                            offset: Offset(0, 0))
-                      ],
-                    ),
-                    child: TextField(
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.w400),
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(15),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(5)),
-                      ),
-                      controller: _dob,
-                    ),
-                  ),
-                ],
-              ),
-              const Spacer(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Gender",
-                    style: TextStyle(
-                        color: black,
-                        fontFamily: "Overpass",
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: 50,
-                    width: width / 2.4,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      // border: Border.all(width: 1, color: Colors.grey),
-                      borderRadius: BorderRadius.circular(5),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Color(
-                              0x3f000000,
-                            ), //New
-                            blurRadius: 1.0,
-                            offset: Offset(0, 0))
-                      ],
-                    ),
-                    child: TextField(
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.w400),
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(15),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(5)),
-                      ),
-                      controller: _gender,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Text(
-            "Phone No.",
-            style: TextStyle(
-                color: black,
-                fontFamily: "Overpass",
-                fontSize: 20,
-                fontWeight: FontWeight.w400),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              // border: Border.all(width: 1, color: Colors.grey),
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: const [
-                BoxShadow(
-                    color: Color(
-                      0x3f000000,
-                    ), //New
-                    blurRadius: 1.0,
-                    offset: Offset(0, 0))
-              ],
-            ),
-            child: TextField(
-              keyboardType: TextInputType.number,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(15),
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(5)),
-              ),
-              controller: _phoneNo,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  udidform({required double width}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "UDID Card No",
-            style: TextStyle(
-                color: black,
-                fontFamily: "Overpass",
-                fontSize: 20,
-                fontWeight: FontWeight.w400),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              // border: Border.all(width: 1, color: Colors.grey),
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: const [
-                BoxShadow(
-                    color: Color(
-                      0x3f000000,
-                    ), //New
-                    blurRadius: 1.0,
-                    offset: Offset(0, 0))
-              ],
-            ),
-            child: TextField(
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(15),
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(5)),
-              ),
-              controller: _udidNo,
-            ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Text(
-            "Name",
-            style: TextStyle(
-                color: black,
-                fontFamily: "Overpass",
-                fontSize: 20,
-                fontWeight: FontWeight.w400),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              // border: Border.all(width: 1, color: Colors.grey),
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: const [
-                BoxShadow(
-                    color: Color(
-                      0x3f000000,
-                    ), //New
-                    blurRadius: 1.0,
-                    offset: Offset(0, 0))
-              ],
-            ),
-            child: TextField(
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(15),
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(5)),
-              ),
-              controller: _udidname,
-            ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Text(
-            "Disability Type",
-            style: TextStyle(
-                color: black,
-                fontFamily: "Overpass",
-                fontSize: 20,
-                fontWeight: FontWeight.w400),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              // border: Border.all(width: 1, color: Colors.grey),
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: const [
-                BoxShadow(
-                    color: Color(
-                      0x3f000000,
-                    ), //New
-                    blurRadius: 1.0,
-                    offset: Offset(0, 0))
-              ],
-            ),
-            child: TextField(
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(15),
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(5)),
-              ),
-              controller: _disbilitytype,
-            ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Text(
-            "Disability Percentage",
-            style: TextStyle(
-                color: black,
-                fontFamily: "Overpass",
-                fontSize: 20,
-                fontWeight: FontWeight.w400),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              // border: Border.all(width: 1, color: Colors.grey),
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: const [
-                BoxShadow(
-                    color: Color(
-                      0x3f000000,
-                    ), //New
-                    blurRadius: 1.0,
-                    offset: Offset(0, 0))
-              ],
-            ),
-            child: TextField(
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(15),
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(5)),
-              ),
-              controller: _disabilitypercentage,
-            ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Date Of Issue",
-                    style: TextStyle(
-                        color: black,
-                        fontFamily: "Overpass",
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: 50,
-                    width: width / 2.4,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      // border: Border.all(width: 1, color: Colors.grey),
-                      borderRadius: BorderRadius.circular(5),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Color(
-                              0x3f000000,
-                            ), //New
-                            blurRadius: 1.0,
-                            offset: Offset(0, 0))
-                      ],
-                    ),
-                    child: TextField(
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.w400),
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(15),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(5)),
-                      ),
-                      controller: _dataissue,
-                    ),
-                  ),
-                ],
-              ),
-              const Spacer(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Valid Upto",
-                    style: TextStyle(
-                        color: black,
-                        fontFamily: "Overpass",
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: 50,
-                    width: width / 2.4,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      // border: Border.all(width: 1, color: Colors.grey),
-                      borderRadius: BorderRadius.circular(5),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Color(
-                              0x3f000000,
-                            ), //New
-                            blurRadius: 1.0,
-                            offset: Offset(0, 0))
-                      ],
-                    ),
-                    child: TextField(
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.w400),
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(15),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(5)),
-                      ),
-                      controller: _validupto,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10,
-          )
-        ],
-      ),
-    );
-  }
 }
+  // aadharform({required double width}) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 30),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Text(
+  //           "Aadhar Card No",
+  //           style: TextStyle(
+  //               color: black,
+  //               fontFamily: "Overpass",
+  //               fontSize: 20,
+  //               fontWeight: FontWeight.w400),
+  //         ),
+  //         const SizedBox(
+  //           height: 10,
+  //         ),
+  //         Container(
+  //           height: 50,
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             // border: Border.all(width: 1, color: Colors.grey),
+  //             borderRadius: BorderRadius.circular(5),
+  //             boxShadow: const [
+  //               BoxShadow(
+  //                   color: Color(
+  //                     0x3f000000,
+  //                   ), //New
+  //                   blurRadius: 1.0,
+  //                   offset: Offset(0, 0))
+  //             ],
+  //           ),
+  //           child: TextField(
+  //             keyboardType: TextInputType.number,
+  //             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+  //             decoration: InputDecoration(
+  //               contentPadding: const EdgeInsets.all(15),
+  //               filled: true,
+  //               fillColor: Colors.white,
+  //               border: OutlineInputBorder(
+  //                   borderSide: BorderSide.none,
+  //                   borderRadius: BorderRadius.circular(5)),
+  //             ),
+  //             controller: _aadharNo,
+  //           ),
+  //         ),
+  //         const SizedBox(
+  //           height: 16,
+  //         ),
+  //         Text(
+  //           "Name",
+  //           style: TextStyle(
+  //               color: black,
+  //               fontFamily: "Overpass",
+  //               fontSize: 20,
+  //               fontWeight: FontWeight.w400),
+  //         ),
+  //         const SizedBox(
+  //           height: 10,
+  //         ),
+  //         Container(
+  //           height: 50,
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             // border: Border.all(width: 1, color: Colors.grey),
+  //             borderRadius: BorderRadius.circular(5),
+  //             boxShadow: const [
+  //               BoxShadow(
+  //                   color: Color(
+  //                     0x3f000000,
+  //                   ), //New
+  //                   blurRadius: 1.0,
+  //                   offset: Offset(0, 0))
+  //             ],
+  //           ),
+  //           child: TextField(
+  //             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+  //             decoration: InputDecoration(
+  //               contentPadding: const EdgeInsets.all(15),
+  //               filled: true,
+  //               fillColor: Colors.white,
+  //               border: OutlineInputBorder(
+  //                   borderSide: BorderSide.none,
+  //                   borderRadius: BorderRadius.circular(5)),
+  //             ),
+  //             controller: _name,
+  //           ),
+  //         ),
+  //         const SizedBox(
+  //           height: 16,
+  //         ),
+  //         Row(
+  //           children: [
+  //             Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 Text(
+  //                   "DOB",
+  //                   style: TextStyle(
+  //                       color: black,
+  //                       fontFamily: "Overpass",
+  //                       fontSize: 20,
+  //                       fontWeight: FontWeight.w400),
+  //                 ),
+  //                 const SizedBox(
+  //                   height: 10,
+  //                 ),
+  //                 Container(
+  //                   height: 50,
+  //                   width: width / 2.4,
+  //                   decoration: BoxDecoration(
+  //                     color: Colors.white,
+  //                     // border: Border.all(width: 1, color: Colors.grey),
+  //                     borderRadius: BorderRadius.circular(5),
+  //                     boxShadow: const [
+  //                       BoxShadow(
+  //                           color: Color(
+  //                             0x3f000000,
+  //                           ), //New
+  //                           blurRadius: 1.0,
+  //                           offset: Offset(0, 0))
+  //                     ],
+  //                   ),
+  //                   child: TextField(
+  //                     style: const TextStyle(
+  //                         fontSize: 18, fontWeight: FontWeight.w400),
+  //                     decoration: InputDecoration(
+  //                       contentPadding: const EdgeInsets.all(15),
+  //                       filled: true,
+  //                       fillColor: Colors.white,
+  //                       border: OutlineInputBorder(
+  //                           borderSide: BorderSide.none,
+  //                           borderRadius: BorderRadius.circular(5)),
+  //                     ),
+  //                     controller: _dob,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             const Spacer(),
+  //             Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 Text(
+  //                   "Gender",
+  //                   style: TextStyle(
+  //                       color: black,
+  //                       fontFamily: "Overpass",
+  //                       fontSize: 20,
+  //                       fontWeight: FontWeight.w400),
+  //                 ),
+  //                 const SizedBox(
+  //                   height: 10,
+  //                 ),
+  //                 Container(
+  //                   height: 50,
+  //                   width: width / 2.4,
+  //                   decoration: BoxDecoration(
+  //                     color: Colors.white,
+  //                     // border: Border.all(width: 1, color: Colors.grey),
+  //                     borderRadius: BorderRadius.circular(5),
+  //                     boxShadow: const [
+  //                       BoxShadow(
+  //                           color: Color(
+  //                             0x3f000000,
+  //                           ), //New
+  //                           blurRadius: 1.0,
+  //                           offset: Offset(0, 0))
+  //                     ],
+  //                   ),
+  //                   child: TextField(
+  //                     style: const TextStyle(
+  //                         fontSize: 18, fontWeight: FontWeight.w400),
+  //                     decoration: InputDecoration(
+  //                       contentPadding: const EdgeInsets.all(15),
+  //                       filled: true,
+  //                       fillColor: Colors.white,
+  //                       border: OutlineInputBorder(
+  //                           borderSide: BorderSide.none,
+  //                           borderRadius: BorderRadius.circular(5)),
+  //                     ),
+  //                     controller: _gender,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ],
+  //         ),
+  //         const SizedBox(
+  //           height: 16,
+  //         ),
+  //         Text(
+  //           "Phone No.",
+  //           style: TextStyle(
+  //               color: black,
+  //               fontFamily: "Overpass",
+  //               fontSize: 20,
+  //               fontWeight: FontWeight.w400),
+  //         ),
+  //         const SizedBox(
+  //           height: 10,
+  //         ),
+  //         Container(
+  //           height: 50,
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             // border: Border.all(width: 1, color: Colors.grey),
+  //             borderRadius: BorderRadius.circular(5),
+  //             boxShadow: const [
+  //               BoxShadow(
+  //                   color: Color(
+  //                     0x3f000000,
+  //                   ), //New
+  //                   blurRadius: 1.0,
+  //                   offset: Offset(0, 0))
+  //             ],
+  //           ),
+  //           child: TextField(
+  //             keyboardType: TextInputType.number,
+  //             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+  //             decoration: InputDecoration(
+  //               contentPadding: const EdgeInsets.all(15),
+  //               filled: true,
+  //               fillColor: Colors.white,
+  //               border: OutlineInputBorder(
+  //                   borderSide: BorderSide.none,
+  //                   borderRadius: BorderRadius.circular(5)),
+  //             ),
+  //             controller: _phoneNo,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  // udidform({required double width}) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 30),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Text(
+  //           "UDID Card No",
+  //           style: TextStyle(
+  //               color: black,
+  //               fontFamily: "Overpass",
+  //               fontSize: 20,
+  //               fontWeight: FontWeight.w400),
+  //         ),
+  //         const SizedBox(
+  //           height: 10,
+  //         ),
+  //         Container(
+  //           height: 50,
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             // border: Border.all(width: 1, color: Colors.grey),
+  //             borderRadius: BorderRadius.circular(5),
+  //             boxShadow: const [
+  //               BoxShadow(
+  //                   color: Color(
+  //                     0x3f000000,
+  //                   ), //New
+  //                   blurRadius: 1.0,
+  //                   offset: Offset(0, 0))
+  //             ],
+  //           ),
+  //           child: TextField(
+  //             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+  //             decoration: InputDecoration(
+  //               contentPadding: const EdgeInsets.all(15),
+  //               filled: true,
+  //               fillColor: Colors.white,
+  //               border: OutlineInputBorder(
+  //                   borderSide: BorderSide.none,
+  //                   borderRadius: BorderRadius.circular(5)),
+  //             ),
+  //             controller: _udidNo,
+  //           ),
+  //         ),
+  //         const SizedBox(
+  //           height: 16,
+  //         ),
+  //         Text(
+  //           "Name",
+  //           style: TextStyle(
+  //               color: black,
+  //               fontFamily: "Overpass",
+  //               fontSize: 20,
+  //               fontWeight: FontWeight.w400),
+  //         ),
+  //         const SizedBox(
+  //           height: 10,
+  //         ),
+  //         Container(
+  //           height: 50,
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             // border: Border.all(width: 1, color: Colors.grey),
+  //             borderRadius: BorderRadius.circular(5),
+  //             boxShadow: const [
+  //               BoxShadow(
+  //                   color: Color(
+  //                     0x3f000000,
+  //                   ), //New
+  //                   blurRadius: 1.0,
+  //                   offset: Offset(0, 0))
+  //             ],
+  //           ),
+  //           child: TextField(
+  //             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+  //             decoration: InputDecoration(
+  //               contentPadding: const EdgeInsets.all(15),
+  //               filled: true,
+  //               fillColor: Colors.white,
+  //               border: OutlineInputBorder(
+  //                   borderSide: BorderSide.none,
+  //                   borderRadius: BorderRadius.circular(5)),
+  //             ),
+  //             controller: _udidname,
+  //           ),
+  //         ),
+  //         const SizedBox(
+  //           height: 16,
+  //         ),
+  //         Text(
+  //           "Disability Type",
+  //           style: TextStyle(
+  //               color: black,
+  //               fontFamily: "Overpass",
+  //               fontSize: 20,
+  //               fontWeight: FontWeight.w400),
+  //         ),
+  //         const SizedBox(
+  //           height: 10,
+  //         ),
+  //         Container(
+  //           height: 50,
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             // border: Border.all(width: 1, color: Colors.grey),
+  //             borderRadius: BorderRadius.circular(5),
+  //             boxShadow: const [
+  //               BoxShadow(
+  //                   color: Color(
+  //                     0x3f000000,
+  //                   ), //New
+  //                   blurRadius: 1.0,
+  //                   offset: Offset(0, 0))
+  //             ],
+  //           ),
+  //           child: TextField(
+  //             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+  //             decoration: InputDecoration(
+  //               contentPadding: const EdgeInsets.all(15),
+  //               filled: true,
+  //               fillColor: Colors.white,
+  //               border: OutlineInputBorder(
+  //                   borderSide: BorderSide.none,
+  //                   borderRadius: BorderRadius.circular(5)),
+  //             ),
+  //             controller: _disbilitytype,
+  //           ),
+  //         ),
+  //         const SizedBox(
+  //           height: 16,
+  //         ),
+  //         Text(
+  //           "Disability Percentage",
+  //           style: TextStyle(
+  //               color: black,
+  //               fontFamily: "Overpass",
+  //               fontSize: 20,
+  //               fontWeight: FontWeight.w400),
+  //         ),
+  //         const SizedBox(
+  //           height: 10,
+  //         ),
+  //         Container(
+  //           height: 50,
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             // border: Border.all(width: 1, color: Colors.grey),
+  //             borderRadius: BorderRadius.circular(5),
+  //             boxShadow: const [
+  //               BoxShadow(
+  //                   color: Color(
+  //                     0x3f000000,
+  //                   ), //New
+  //                   blurRadius: 1.0,
+  //                   offset: Offset(0, 0))
+  //             ],
+  //           ),
+  //           child: TextField(
+  //             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+  //             decoration: InputDecoration(
+  //               contentPadding: const EdgeInsets.all(15),
+  //               filled: true,
+  //               fillColor: Colors.white,
+  //               border: OutlineInputBorder(
+  //                   borderSide: BorderSide.none,
+  //                   borderRadius: BorderRadius.circular(5)),
+  //             ),
+  //             controller: _disabilitypercentage,
+  //           ),
+  //         ),
+  //         const SizedBox(
+  //           height: 16,
+  //         ),
+  //         Row(
+  //           children: [
+  //             Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 Text(
+  //                   "Date Of Issue",
+  //                   style: TextStyle(
+  //                       color: black,
+  //                       fontFamily: "Overpass",
+  //                       fontSize: 20,
+  //                       fontWeight: FontWeight.w400),
+  //                 ),
+  //                 const SizedBox(
+  //                   height: 10,
+  //                 ),
+  //                 Container(
+  //                   height: 50,
+  //                   width: width / 2.4,
+  //                   decoration: BoxDecoration(
+  //                     color: Colors.white,
+  //                     // border: Border.all(width: 1, color: Colors.grey),
+  //                     borderRadius: BorderRadius.circular(5),
+  //                     boxShadow: const [
+  //                       BoxShadow(
+  //                           color: Color(
+  //                             0x3f000000,
+  //                           ), //New
+  //                           blurRadius: 1.0,
+  //                           offset: Offset(0, 0))
+  //                     ],
+  //                   ),
+  //                   child: TextField(
+  //                     style: const TextStyle(
+  //                         fontSize: 18, fontWeight: FontWeight.w400),
+  //                     decoration: InputDecoration(
+  //                       contentPadding: const EdgeInsets.all(15),
+  //                       filled: true,
+  //                       fillColor: Colors.white,
+  //                       border: OutlineInputBorder(
+  //                           borderSide: BorderSide.none,
+  //                           borderRadius: BorderRadius.circular(5)),
+  //                     ),
+  //                     controller: _dataissue,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             const Spacer(),
+  //             Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 Text(
+  //                   "Valid Upto",
+  //                   style: TextStyle(
+  //                       color: black,
+  //                       fontFamily: "Overpass",
+  //                       fontSize: 20,
+  //                       fontWeight: FontWeight.w400),
+  //                 ),
+  //                 const SizedBox(
+  //                   height: 10,
+  //                 ),
+  //                 Container(
+  //                   height: 50,
+  //                   width: width / 2.4,
+  //                   decoration: BoxDecoration(
+  //                     color: Colors.white,
+  //                     // border: Border.all(width: 1, color: Colors.grey),
+  //                     borderRadius: BorderRadius.circular(5),
+  //                     boxShadow: const [
+  //                       BoxShadow(
+  //                           color: Color(
+  //                             0x3f000000,
+  //                           ), //New
+  //                           blurRadius: 1.0,
+  //                           offset: Offset(0, 0))
+  //                     ],
+  //                   ),
+  //                   child: TextField(
+  //                     style: const TextStyle(
+  //                         fontSize: 18, fontWeight: FontWeight.w400),
+  //                     decoration: InputDecoration(
+  //                       contentPadding: const EdgeInsets.all(15),
+  //                       filled: true,
+  //                       fillColor: Colors.white,
+  //                       border: OutlineInputBorder(
+  //                           borderSide: BorderSide.none,
+  //                           borderRadius: BorderRadius.circular(5)),
+  //                     ),
+  //                     controller: _validupto,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ],
+  //         ),
+  //         const SizedBox(
+  //           height: 10,
+  //         )
+  //       ],
+  //     ),
+  //   );
+  // }
+// }

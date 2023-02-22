@@ -47,6 +47,7 @@ dependencies:
   lottie: ^1.4.3
   fluttertoast: ^8.0.9
   flutter_switch: ^0.3.2
+  dropdown_button2: ^1.9.1
 
   
    # for firebase

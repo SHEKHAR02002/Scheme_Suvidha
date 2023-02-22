@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Screen/agentlogin.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/phoneauth.dart';
 // import 'package:scheme/provider/phoneauth.dart';
@@ -59,19 +60,7 @@ class _LoginState extends State<Login> {
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Container(
                 height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  // border: Border.all(width: 1, color: Colors.grey),
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Color(
-                          0x3f000000,
-                        ), //New
-                        blurRadius: 1.0,
-                        offset: Offset(0, 0))
-                  ],
-                ),
+                decoration: shadowdecoration,
                 child: TextField(
                   keyboardType: TextInputType.number,
                   style: const TextStyle(
@@ -123,7 +112,6 @@ class _LoginState extends State<Login> {
                     );
                   }
                 },
-                // =>Navigator.push(context, MaterialPageRoute(builder: (context)=>OtpBottomSheet())),
                 style: ElevatedButton.styleFrom(
                     elevation: 0,
                     shape: RoundedRectangleBorder(
@@ -140,7 +128,7 @@ class _LoginState extends State<Login> {
             const SizedBox(
               height: 10,
             ),
-            InkWell(
+            GestureDetector(
               onTap: (() => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const AgentLogin()))),
               child: Text(
@@ -157,42 +145,6 @@ class _LoginState extends State<Login> {
       ),
     );
   }
-
-//   Widget _textFieldOTP({required bool first, last}) {
-//     return SizedBox(
-//       height: 70,
-//       child: AspectRatio(
-//         aspectRatio: 1.0,
-//         child: TextField(
-//           autofocus: true,
-//           onChanged: (value) {
-//             if (value.length == 1 && last == false) {
-//               FocusScope.of(context).nextFocus();
-//             }
-//             if (value.isEmpty && first == false) {
-//               FocusScope.of(context).previousFocus();
-//             }
-//           },
-//           showCursor: false,
-//           readOnly: false,
-//           textAlign: TextAlign.center,
-//           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w300),
-//           keyboardType: TextInputType.number,
-//           maxLength: 1,
-//           decoration: InputDecoration(
-//             counter: const Offstage(),
-//             enabledBorder: OutlineInputBorder(
-//                 borderSide: const BorderSide(width: 1, color: Colors.black12),
-//                 borderRadius: BorderRadius.circular(8)),
-//             focusedBorder: OutlineInputBorder(
-//                 borderSide: BorderSide(width: 1, color: hcontainer),
-//                 borderRadius: BorderRadius.circular(8)),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
 }
 
-// PhoneAuth()
-//     .sendOtp(phoneNo: _phoneNo.text, context: context),
+

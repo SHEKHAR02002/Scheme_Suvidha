@@ -9,7 +9,8 @@ String? udidNo,
     disabilitypercentage,
     dataissue,
     validupto,
-    udidimage;
+    udidimage,
+    passportimage;
 
 UserModel? userDetail;
 

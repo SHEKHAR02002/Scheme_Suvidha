@@ -22,6 +22,7 @@ class _SplashState extends State<Splash> {
           const Login(),
       // : const Home(),
       imageSrc: "assets/logo.png",
+  
       logoSize: 300,
       pageRouteTransition: PageRouteTransition.SlideTransition,
     );

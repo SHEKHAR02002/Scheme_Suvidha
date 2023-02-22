@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Theme/color.dart';
@@ -10,10 +11,10 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  String? _disabilitytype;
-  final List<String> disability_items = ['item 1', 'item 2', 'item 3'];
-  String? _schemetype;
-  final List<String> scheme_items = ['item 1', 'item 2', 'item 3'];
+  // String? _schemetype;
+  // final List<String> scheme_items = ['item 1', 'item 2', 'item 3'];
+  final List discounttype = ["Percent", "Flat Discount"];
+  String? dtype = "Percent";
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -110,41 +111,59 @@ class _SearchState extends State<Search> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Container(
+                    DropdownButtonHideUnderline(
+                        child: Container(
                       width: width,
-                      decoration: BoxDecoration(
-                          color: bgcolor,
-                          borderRadius: BorderRadius.circular(5) //<-- SEE HERE
-                          ),
-                      child: ButtonTheme(
-                        alignedDropdown: true,
-                        child: DropdownButton<String>(
-                          underline: Container(
-                            height: 0,
-                          ),
-                          elevation: 0,
-                          borderRadius: BorderRadius.circular(5),
-                          value: _disabilitytype,
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              _disabilitytype = newValue!;
-                            });
-                          },
-                          items: disability_items.map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          icon: Visibility(
-                              visible: true,
-                              child: Icon(
-                                Icons.arrow_drop_down_outlined,
-                                color: black,
-                              )),
-                        ),
+                      height: 40,
+                      decoration: BoxDecoration(color: Colors.white),
+                      child: DropdownButton2(
+                        dropdownDecoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12)),
+                       items: const [],
+                        value: dtype,
+                        onChanged: (value) {
+                          setState(() {
+                            dtype = value as String;
+                          });
+                        },
                       ),
-                    ),
+                    )),
+                    // Container(
+                    //   width: width,
+                    //   decoration: BoxDecoration(
+                    //       color: bgcolor,
+                    //       borderRadius: BorderRadius.circular(5) //<-- SEE HERE
+                    //       ),
+                    //   child: ButtonTheme(
+                    //     alignedDropdown: true,
+                    //     child: DropdownButton<String>(
+                    //       underline: Container(
+                    //         height: 0,
+                    //       ),
+                    //       elevation: 0,
+                    //       borderRadius: BorderRadius.circular(5),
+                    //       value: _disabilitytype,
+                    //       onChanged: (String? newValue) {
+                    //         setState(() {
+                    //           _disabilitytype = newValue!;
+                    //         });
+                    //       },
+                    //       items: disability_items.map((String value) {
+                    //         return DropdownMenuItem<String>(
+                    //           value: value,
+                    //           child: Text(value),
+                    //         );
+                    //       }).toList(),
+                    //       icon: Visibility(
+                    //           visible: true,
+                    //           child: Icon(
+                    //             Icons.arrow_drop_down_outlined,
+                    //             color: black,
+                    //           )),
+                    //     ),
+                    //   ),
+                    // ),
                     const SizedBox(
                       height: 16,
                     ),
@@ -158,41 +177,41 @@ class _SearchState extends State<Search> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Container(
-                      width: width,
-                      decoration: BoxDecoration(
-                          color: bgcolor,
-                          borderRadius: BorderRadius.circular(5) //<-- SEE HERE
-                          ),
-                      child: ButtonTheme(
-                        alignedDropdown: true,
-                        child: DropdownButton<String>(
-                          underline: Container(
-                            height: 0,
-                          ),
-                          elevation: 0,
-                          borderRadius: BorderRadius.circular(5),
-                          value: _schemetype,
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              _schemetype = newValue!;
-                            });
-                          },
-                          items: scheme_items.map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          icon: Visibility(
-                              visible: true,
-                              child: Icon(
-                                Icons.arrow_drop_down_outlined,
-                                color: black,
-                              )),
-                        ),
-                      ),
-                    ),
+                    // Container(
+                    //   width: width,
+                    //   decoration: BoxDecoration(
+                    //       color: bgcolor,
+                    //       borderRadius: BorderRadius.circular(5) //<-- SEE HERE
+                    //       ),
+                    //   child: ButtonTheme(
+                    //     alignedDropdown: true,
+                    //     child: DropdownButton<String>(
+                    //       underline: Container(
+                    //         height: 0,
+                    //       ),
+                    //       elevation: 0,
+                    //       borderRadius: BorderRadius.circular(5),
+                    //       value: _schemetype,
+                    //       onChanged: (String? newValue) {
+                    //         setState(() {
+                    //           _schemetype = newValue!;
+                    //         });
+                    //       },
+                    //       items: scheme_items.map((String value) {
+                    //         return DropdownMenuItem<String>(
+                    //           value: value,
+                    //           child: Text(value),
+                    //         );
+                    //       }).toList(),
+                    //       icon: Visibility(
+                    //           visible: true,
+                    //           child: Icon(
+                    //             Icons.arrow_drop_down_outlined,
+                    //             color: black,
+                    //           )),
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(
                       height: width / 8,
                     ),
