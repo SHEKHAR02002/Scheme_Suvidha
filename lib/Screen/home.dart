@@ -1,13 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scheme/Screen/profile.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/api/firebasehelper.dart';
-import 'package:scheme/api/getscheme.dart';
 import 'package:scheme/model/schememodel.dart';
 import 'package:scheme/model/usermodel.dart';
 import 'package:scheme/widget/schemecard.dart';
@@ -44,9 +41,9 @@ class _HomeState extends State<Home> {
       });
     }
   }
+
   @override
   void initState() {
-  
     checkregister();
     super.initState();
   }
@@ -82,21 +79,21 @@ class _HomeState extends State<Home> {
               width: 10,
             ),
             InkWell(
-              onTap: () => 
-              // register
-              //     ?
-                   Navigator.push(
+              onTap: () =>
+                  // register
+                  //     ?
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => Profile(
                                 user: user!,
                               ))),
-                  // : Fluttertoast.showToast(
-                  //     msg: "You Not Register",
-                  //     toastLength: Toast.LENGTH_LONG,
-                  //     fontSize: 20,
-                  //     backgroundColor: secondary,
-                  //     textColor: Colors.black),
+              // : Fluttertoast.showToast(
+              //     msg: "You Not Register",
+              //     toastLength: Toast.LENGTH_LONG,
+              //     fontSize: 20,
+              //     backgroundColor: secondary,
+              //     textColor: Colors.black),
               child: Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: user!.image == ""
@@ -110,7 +107,7 @@ class _HomeState extends State<Home> {
                       : CircleAvatar(
                           radius: 15,
                           child: Image.network(
-                            '$user.image',
+                            '${user!.image}',
                             fit: BoxFit.cover,
                           ),
                         )),
@@ -202,5 +199,3 @@ class _HomeState extends State<Home> {
             : const SizedBox.shrink());
   }
 }
-
-

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/Theme/decoration.dart';
 
 class Permission extends StatefulWidget {
   const Permission({super.key});
@@ -63,19 +64,7 @@ class _PermissionState extends State<Permission> {
             children: [
               Container(
                 height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  // border: Border.all(width: 1, color: Colors.grey),
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Color(
-                          0x3f000000,
-                        ), //New
-                        blurRadius: 2.0,
-                        offset: Offset(0, 0))
-                  ],
-                ),
+                decoration: shadowdecoration,
                 child: Padding(
                   padding: const EdgeInsets.all(14.0),
                   child: Row(
@@ -113,19 +102,7 @@ class _PermissionState extends State<Permission> {
               ),
               Container(
                 height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  // border: Border.all(width: 1, color: Colors.grey),
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Color(
-                          0x3f000000,
-                        ), //New
-                        blurRadius: 2.0,
-                        offset: Offset(0, 0))
-                  ],
-                ),
+                decoration:shadowdecoration,
                 child: Padding(
                   padding: const EdgeInsets.all(14.0),
                   child: Row(
@@ -163,19 +140,7 @@ class _PermissionState extends State<Permission> {
               ),
               Container(
                 height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  // border: Border.all(width: 1, color: Colors.grey),
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Color(
-                          0x3f000000,
-                        ), //New
-                        blurRadius: 2.0,
-                        offset: Offset(0, 0))
-                  ],
-                ),
+                decoration: shadowdecoration,
                 child: Padding(
                   padding: const EdgeInsets.all(14.0),
                   child: Row(
@@ -213,19 +178,7 @@ class _PermissionState extends State<Permission> {
               ),
               Container(
                 height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  // border: Border.all(width: 1, color: Colors.grey),
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Color(
-                          0x3f000000,
-                        ), //New
-                        blurRadius: 2.0,
-                        offset: Offset(0, 0))
-                  ],
-                ),
+                decoration: shadowdecoration,
                 child: Padding(
                   padding: const EdgeInsets.all(14.0),
                   child: Row(
@@ -263,19 +216,7 @@ class _PermissionState extends State<Permission> {
               ),
               Container(
                 height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  // border: Border.all(width: 1, color: Colors.grey),
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Color(
-                          0x3f000000,
-                        ), //New
-                        blurRadius: 2.0,
-                        offset: Offset(0, 0))
-                  ],
-                ),
+                decoration: shadowdecoration,
                 child: Padding(
                   padding: const EdgeInsets.all(14.0),
                   child: Row(

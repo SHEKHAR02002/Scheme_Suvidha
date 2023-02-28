@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -10,6 +9,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/data/userdata.dart';
+import 'package:scheme/provider/takeimage.dart';
+import 'package:scheme/widget/aadharcardupload.dart';
 import 'dart:io';
 
 import 'package:scheme/widget/registeration.dart';
@@ -37,7 +38,6 @@ class _UploadDoumentState extends State<UploadDoument> {
           "${FirebaseAuth.instance.currentUser!.uid}/udidimg.jpg", udidpic);
       passportimage = await fireStoreFileUpload(
           "${FirebaseAuth.instance.currentUser!.uid}/udidimg.jpg", udidpic);
-   
     } else {
       print("empty");
     }
@@ -47,7 +47,7 @@ class _UploadDoumentState extends State<UploadDoument> {
         .update({
       "aadharimage": aadharImage,
       "udidimage": udidimage,
-      "image":passportimage
+      "image": passportimage
     }).whenComplete(() => Navigator.push(context,
             MaterialPageRoute(builder: (context) => const Register())));
   }
@@ -74,16 +74,13 @@ class _UploadDoumentState extends State<UploadDoument> {
         if (filename == "aadhar") {
           aadharpic = file.path;
           pickedaadhar = true;
-        } 
-        else if (filename == "udid") {
+        } else if (filename == "udid") {
           udidpic = file.path;
           pickedudid = true;
-        }
-        else if (filename == "Image") {
+        } else if (filename == "Image") {
           imagepic = file.path;
           imagepick = true;
-        }
-        else{
+        } else {
           print('Something went Wrong');
         }
       });
@@ -97,151 +94,203 @@ class _UploadDoumentState extends State<UploadDoument> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
-        appBar: AppBar(
-            backgroundColor: bgcolor,
-            elevation: 0,
-            automaticallyImplyLeading: false,
-            centerTitle: true,
-            title: Text(
-              "Upload documents",
-              style: TextStyle(
-                  color: black, fontSize: 34, fontWeight: FontWeight.w700),
-            )),
         body: SingleChildScrollView(
-            child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: Column(
-            children: [
-              SvgPicture.asset(
-                "assets/upload.svg",
-                height: 275,
-                width: width,
-              ),
-              Container(
-                decoration: shadowdecoration,
-                child: Padding(
-                   padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Passport Size photo",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w400),
-                      ),
-                      const Spacer(),
-                      InkWell(
-                        onTap: () =>
-                            picImage(source: ImageSource.camera, filename: "Image")
-                                .whenComplete(() {
-                          setState(() {
-                            imagepick = true;
-                          });
-                        }),
-                        child: imagepick == false
-                            ? const Icon(
-                                Icons.add,
-                                size: 30,
-                              )
-                            : const Icon(
-                                Icons.check,
-                                color: Color.fromRGBO(20, 253, 15, 1),
-                                size: 30,
-                              ),
-                      )
-                    ],
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            child: Center(
+              child: Column(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(top: 30),
+                    child: Text(
+                      "Upload Passport Size photo",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-              ),
-              SizedBox(height: 30,),
-              Container(
-                decoration: shadowdecoration,
-                child: Row(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                      child: Text(
-                        "Aadhar Card",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                    const Spacer(),
-                    InkWell(
-                      onTap: () => picImage(
-                              source: ImageSource.camera, filename: "aadhar")
-                          .whenComplete(() {
-                        setState(() {
-                          pickedaadhar = true;
-                        });
-                      }),
+                  Text(
+                    "(use file format .png, .jpg, .jpeg)",
+                    style: TextStyle(
+                        color: text2,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  SizedBox(
+                    height: height / 8,
+                  ),
+                  Container(
+                      width: width,
+                      decoration: shadowdecoration,
                       child: Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: pickedaadhar == false
-                            ? const Icon(
-                                Icons.add,
-                                size: 30,
-                              )
-                            : const Icon(
-                                Icons.check,
-                                color: Color.fromRGBO(20, 253, 15, 1),
-                                size: 30,
+                        padding: EdgeInsets.symmetric(vertical: 70),
+                        child: Center(
+                          child: Stack(children: [
+                            SvgPicture.asset(
+                              "assets/upload_profile.svg",
+                            ),
+                            Positioned.fill(
+                                child: InkWell(
+                              onTap: () => picImage(
+                                      source: ImageSource.camera,
+                                      filename: "Image")
+                                  .whenComplete(() {
+                                setState(() {
+                                  imagepick = true;
+                                });
+                                imageupload(filename: "fileImage",file: imagepic!);
+                              }),
+                              child: Icon(
+                                Icons.add_circle_outline,
+                                size: 50,
                               ),
-                      ),
-                    )
-                  ],
-                ),
+                            ))
+                          ]),
+                        ),
+                      )),
+                ],
               ),
-              const SizedBox(
-                height: 30,
-              ),
-              Container(
-                decoration: shadowdecoration,
-                child: Row(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                      child: Text(
-                        "UDID Card",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                    const Spacer(),
-                    InkWell(
-                      onTap: () =>
-                          picImage(source: ImageSource.camera, filename: "udid")
-                              .whenComplete(() {
-                        setState(() {
-                          pickedudid = true;
-                        });
-                      }),
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: pickedudid == false
-                            ? const Icon(
-                                Icons.add,
-                                size: 30,
-                              )
-                            : const Icon(
-                                Icons.check,
-                                color: Color.fromRGBO(20, 253, 15, 1),
-                                size: 30,
-                              ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              
-              
-            ],
+            ),
           ),
-        )),
+        ),
+
+        //     child: Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        //   child: Column(
+        //     children: [
+        //       SvgPicture.asset(
+        //         "assets/upload.svg",
+        //         height: 275,
+        //         width: width,
+        //       ),
+        //       Container(
+        //         decoration: shadowdecoration,
+        //         child: Padding(
+        //            padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+        //           child: Row(
+        //             children: [
+        //               Text(
+        //                 "Passport Size photo",
+        //                 style: TextStyle(
+        //                     fontSize: 20, fontWeight: FontWeight.w400),
+        //               ),
+        //               const Spacer(),
+        //               InkWell(
+        //                 onTap: () =>
+        //                     picImage(source: ImageSource.camera, filename: "Image")
+        //                         .whenComplete(() {
+        //                   setState(() {
+        //                     imagepick = true;
+        //                   });
+        //                 }),
+        //                 child: imagepick == false
+        //                     ? const Icon(
+        //                         Icons.add,
+        //                         size: 30,
+        //                       )
+        //                     : const Icon(
+        //                         Icons.check,
+        //                         color: Color.fromRGBO(20, 253, 15, 1),
+        //                         size: 30,
+        //                       ),
+        //               )
+        //             ],
+        //           ),
+        //         ),
+        //       ),
+        //       SizedBox(height: 30,),
+        //       Container(
+        //         decoration: shadowdecoration,
+        //         child: Row(
+        //           children: [
+        //             const Padding(
+        //               padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+        //               child: Text(
+        //                 "Aadhar Card",
+        //                 style: TextStyle(
+        //                     fontSize: 20, fontWeight: FontWeight.w400),
+        //               ),
+        //             ),
+        //             const Spacer(),
+        //             InkWell(
+        //               onTap: () => picImage(
+        //                       source: ImageSource.camera, filename: "aadhar")
+        //                   .whenComplete(() {
+        //                 setState(() {
+        //                   pickedaadhar = true;
+        //                 });
+        //               }),
+        //               child: Padding(
+        //                 padding: const EdgeInsets.only(right: 10),
+        //                 child: pickedaadhar == false
+        //                     ? const Icon(
+        //                         Icons.add,
+        //                         size: 30,
+        //                       )
+        //                     : const Icon(
+        //                         Icons.check,
+        //                         color: Color.fromRGBO(20, 253, 15, 1),
+        //                         size: 30,
+        //                       ),
+        //               ),
+        //             )
+        //           ],
+        //         ),
+        //       ),
+        //       const SizedBox(
+        //         height: 30,
+        //       ),
+        //       Container(
+        //         decoration: shadowdecoration,
+        //         child: Row(
+        //           children: [
+        //             const Padding(
+        //               padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+        //               child: Text(
+        //                 "UDID Card",
+        //                 style: TextStyle(
+        //                     fontSize: 20, fontWeight: FontWeight.w400),
+        //               ),
+        //             ),
+        //             const Spacer(),
+        //             InkWell(
+        //               onTap: () =>
+        //                   picImage(source: ImageSource.camera, filename: "udid")
+        //                       .whenComplete(() {
+        //                 setState(() {
+        //                   pickedudid = true;
+        //                 });
+        //               }),
+        //               child: Padding(
+        //                 padding: const EdgeInsets.only(right: 10),
+        //                 child: pickedudid == false
+        //                     ? const Icon(
+        //                         Icons.add,
+        //                         size: 30,
+        //                       )
+        //                     : const Icon(
+        //                         Icons.check,
+        //                         color: Color.fromRGBO(20, 253, 15, 1),
+        //                         size: 30,
+        //                       ),
+        //               ),
+        //             )
+        //           ],
+        //         ),
+        //       ),
+
+        //     ],
+        //   ),
+        // )
+
         bottomNavigationBar: Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
             child: ElevatedButton(
-                onPressed: () => upload(),
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AadharCard())),
+
+                // upload(),
                 style: ElevatedButton.styleFrom(
                     elevation: 0,
                     shape: RoundedRectangleBorder(

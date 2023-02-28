@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/widget/setting/help.dart';
 import 'package:scheme/widget/setting/permission.dart';
 
@@ -13,6 +14,7 @@ class Setting extends StatefulWidget {
 
 class _SettingState extends State<Setting> {
   @override
+  
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -38,24 +40,11 @@ class _SettingState extends State<Setting> {
       ),
       body: SingleChildScrollView(
           child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
           children: [
-            Container(
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                // border: Border.all(width: 1, color: Colors.grey),
-                borderRadius: BorderRadius.circular(5),
-                boxShadow: const [
-                  BoxShadow(
-                      color: Color(
-                        0x3f000000,
-                      ), //New
-                      blurRadius: 1.0,
-                      offset: Offset(0, 0))
-                ],
-              ),
+            Container(   
+              decoration: shadowdecoration,
               child: InkWell(
                 onTap: () => Navigator.push(
                     context,
@@ -95,22 +84,12 @@ class _SettingState extends State<Setting> {
               height: 24,
             ),
             Container(
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                // border: Border.all(width: 1, color: Colors.grey),
-                borderRadius: BorderRadius.circular(5),
-                boxShadow: const [
-                  BoxShadow(
-                      color: Color(
-                        0x3f000000,
-                      ), //New
-                      blurRadius: 1.0,
-                      offset: Offset(0, 0))
-                ],
-              ),
+              
+              decoration: shadowdecoration,
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(13.0),
                   child: Row(children: [
@@ -144,20 +123,8 @@ class _SettingState extends State<Setting> {
               height: 24,
             ),
             Container(
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                // border: Border.all(width: 1, color: Colors.grey),
-                borderRadius: BorderRadius.circular(5),
-                boxShadow: const [
-                  BoxShadow(
-                      color: Color(
-                        0x3f000000,
-                      ), //New
-                      blurRadius: 1.0,
-                      offset: Offset(0, 0))
-                ],
-              ),
+              
+              decoration: shadowdecoration,
               child: InkWell(
                 onTap: () => {},
                 child: Padding(
@@ -193,20 +160,8 @@ class _SettingState extends State<Setting> {
               height: 24,
             ),
             Container(
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                // border: Border.all(width: 1, color: Colors.grey),
-                borderRadius: BorderRadius.circular(5),
-                boxShadow: const [
-                  BoxShadow(
-                      color: Color(
-                        0x3f000000,
-                      ), //New
-                      blurRadius: 1.0,
-                      offset: Offset(0, 0))
-                ],
-              ),
+              
+              decoration: shadowdecoration,
               child: InkWell(
                 onTap: () {
                   Navigator.push(context,

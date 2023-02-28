@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/model/usermodel.dart';
 import 'package:scheme/provider/phoneauth.dart';
 import 'package:scheme/widget/setting/setting.dart';
@@ -43,7 +44,7 @@ class _ProfileState extends State<Profile> {
                       ? CircleAvatar(
                           radius: 45,
                           child: Image.network(
-                            "$widget.user.image",
+                            "${widget.user.image}",
                             fit: BoxFit.cover,
                           ),
                         )
@@ -80,30 +81,17 @@ class _ProfileState extends State<Profile> {
                 ]),
               ),
               SizedBox(
-                height: height / 8,
+                height: height/8
               ),
               Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  // border: Border.all(width: 1, color: Colors.grey),
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Color(
-                          0x3f000000,
-                        ), //New
-                        blurRadius: 1.0,
-                        offset: Offset(0, 0))
-                  ],
-                ),
+                decoration: shadowdecoration,
                 child: Padding(
-                  padding: const EdgeInsets.all(13.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Row(children: [
                     SvgPicture.asset(
                       "assets/personalcard.svg",
-                      height: 30,
-                      width: 30,
+                      height: 20,
+                      width: 20,
                     ),
                     const SizedBox(
                       width: 5,
@@ -118,38 +106,26 @@ class _ProfileState extends State<Profile> {
                     const Spacer(),
                     SvgPicture.asset(
                       "assets/right_arrow.svg",
-                      height: 30,
-                      width: 30,
+                      height: 25,
+                      width: 25,
                       color: primary,
                     ),
                   ]),
                 ),
               ),
               const SizedBox(
-                height: 24,
+                height: 25,
               ),
               Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  // border: Border.all(width: 1, color: Colors.grey),
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Color(
-                          0x3f000000,
-                        ), //New
-                        blurRadius: 1.0,
-                        offset: Offset(0, 0))
-                  ],
-                ),
+                
+                decoration: shadowdecoration,
                 child: Padding(
-                  padding: const EdgeInsets.all(13.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Row(children: [
                     SvgPicture.asset(
                       "assets/scheme.svg",
-                      height: 30,
-                      width: 30,
+                      height: 20,
+                      width: 20,
                     ),
                     const SizedBox(
                       width: 5,
@@ -164,31 +140,18 @@ class _ProfileState extends State<Profile> {
                     const Spacer(),
                     SvgPicture.asset(
                       "assets/right_arrow.svg",
-                      height: 30,
-                      width: 30,
+                      height: 25,
+                      width: 25,
                       color: primary,
                     ),
                   ]),
                 ),
               ),
               const SizedBox(
-                height: 24,
+                height: 25,
               ),
               Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  // border: Border.all(width: 1, color: Colors.grey),
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Color(
-                          0x3f000000,
-                        ), //New
-                        blurRadius: 1.0,
-                        offset: Offset(0, 0))
-                  ],
-                ),
+                decoration: shadowdecoration,
                 child: InkWell(
                   onTap: () => Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const Setting())),

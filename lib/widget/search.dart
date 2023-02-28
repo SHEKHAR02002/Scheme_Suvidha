@@ -2,6 +2,8 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/Theme/decoration.dart';
+import 'package:scheme/data/userdata.dart';
 
 class Search extends StatefulWidget {
   const Search({super.key});
@@ -11,10 +13,17 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  // String? _schemetype;
-  // final List<String> scheme_items = ['item 1', 'item 2', 'item 3'];
-  final List discounttype = ["Percent", "Flat Discount"];
-  String? dtype = "Percent";
+  final List category = [
+    "Select Scheme",
+    "Health",
+    "Pension",
+    "Business",
+    "Education",
+    "Transport",
+    "Marriage"
+  ];
+  String? categorytype = "Select Scheme";
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -28,21 +37,8 @@ class _SearchState extends State<Search> {
             Row(
               children: [
                 Container(
-                  height: 40,
                   width: width / 1.3,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    // border: Border.all(width: 1, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(30),
-                    boxShadow: const [
-                      BoxShadow(
-                          color: Color(
-                            0x3f000000,
-                          ), //New
-                          blurRadius: 1.0,
-                          offset: Offset(0, 0))
-                    ],
-                  ),
+                  decoration: shadowdecoration,
                   child: TextField(
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.w400),
@@ -53,8 +49,8 @@ class _SearchState extends State<Search> {
                         child: SvgPicture.asset(
                           "assets/search.svg",
                           color: primary,
-                          height: 30,
-                          width: 30,
+                          height: 10,
+                          width: 10,
                         ),
                       ),
                       filled: true,
@@ -112,58 +108,34 @@ class _SearchState extends State<Search> {
                       height: 10,
                     ),
                     DropdownButtonHideUnderline(
-                        child: Container(
-                      width: width,
-                      height: 40,
-                      decoration: BoxDecoration(color: Colors.white),
-                      child: DropdownButton2(
-                        dropdownDecoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12)),
-                       items: const [],
-                        value: dtype,
-                        onChanged: (value) {
-                          setState(() {
-                            dtype = value as String;
-                          });
-                        },
+                      child: Container(
+                        width: width,
+                        decoration: shadowdecoration,
+                        child: DropdownButton2(
+                          dropdownDecoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5)),
+                          // buttonDecoration: shadowdecoration,
+                          items: category
+                              .map((item) => DropdownMenuItem(
+                                    value: item,
+                                    child: Text(
+                                      item,
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: 'Overpass'),
+                                    ),
+                                  ))
+                              .toList(),
+                          value: categorytype,
+                          onChanged: (value) {
+                            categorytype = value as String;
+                          },
+                        ),
                       ),
-                    )),
-                    // Container(
-                    //   width: width,
-                    //   decoration: BoxDecoration(
-                    //       color: bgcolor,
-                    //       borderRadius: BorderRadius.circular(5) //<-- SEE HERE
-                    //       ),
-                    //   child: ButtonTheme(
-                    //     alignedDropdown: true,
-                    //     child: DropdownButton<String>(
-                    //       underline: Container(
-                    //         height: 0,
-                    //       ),
-                    //       elevation: 0,
-                    //       borderRadius: BorderRadius.circular(5),
-                    //       value: _disabilitytype,
-                    //       onChanged: (String? newValue) {
-                    //         setState(() {
-                    //           _disabilitytype = newValue!;
-                    //         });
-                    //       },
-                    //       items: disability_items.map((String value) {
-                    //         return DropdownMenuItem<String>(
-                    //           value: value,
-                    //           child: Text(value),
-                    //         );
-                    //       }).toList(),
-                    //       icon: Visibility(
-                    //           visible: true,
-                    //           child: Icon(
-                    //             Icons.arrow_drop_down_outlined,
-                    //             color: black,
-                    //           )),
-                    //     ),
-                    //   ),
-                    // ),
+                    ),
                     const SizedBox(
                       height: 16,
                     ),
@@ -177,41 +149,35 @@ class _SearchState extends State<Search> {
                     const SizedBox(
                       height: 10,
                     ),
-                    // Container(
-                    //   width: width,
-                    //   decoration: BoxDecoration(
-                    //       color: bgcolor,
-                    //       borderRadius: BorderRadius.circular(5) //<-- SEE HERE
-                    //       ),
-                    //   child: ButtonTheme(
-                    //     alignedDropdown: true,
-                    //     child: DropdownButton<String>(
-                    //       underline: Container(
-                    //         height: 0,
-                    //       ),
-                    //       elevation: 0,
-                    //       borderRadius: BorderRadius.circular(5),
-                    //       value: _schemetype,
-                    //       onChanged: (String? newValue) {
-                    //         setState(() {
-                    //           _schemetype = newValue!;
-                    //         });
-                    //       },
-                    //       items: scheme_items.map((String value) {
-                    //         return DropdownMenuItem<String>(
-                    //           value: value,
-                    //           child: Text(value),
-                    //         );
-                    //       }).toList(),
-                    //       icon: Visibility(
-                    //           visible: true,
-                    //           child: Icon(
-                    //             Icons.arrow_drop_down_outlined,
-                    //             color: black,
-                    //           )),
-                    //     ),
-                    //   ),
-                    // ),
+                    DropdownButtonHideUnderline(
+                      child: Container(
+                        width: width,
+                        decoration: shadowdecoration,
+                        child: DropdownButton2(
+                          dropdownDecoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5)),
+                          // buttonDecoration: shadowdecoration,
+                          items: category
+                              .map((item) => DropdownMenuItem(
+                                    value: item,
+                                    child: Text(
+                                      item,
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: 'Overpass'),
+                                    ),
+                                  ))
+                              .toList(),
+                          value: categorytype,
+                          onChanged: (value) {
+                            categorytype = value as String;
+                          },
+                        ),
+                      ),
+                    ),
                     SizedBox(
                       height: width / 8,
                     ),
