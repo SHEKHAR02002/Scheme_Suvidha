@@ -52,7 +52,7 @@ Future userdataupload() async {
   await FirebaseFirestore.instance
       .collection("Users")
       .doc(FirebaseAuth.instance.currentUser!.uid.toString())
-      .set({
+      .update({
     "userId": FirebaseAuth.instance.currentUser!.uid.toString(),
     "aadharno": aadharNo,
     "name": name,
@@ -64,6 +64,8 @@ Future userdataupload() async {
     "disabilitypercentage": disabilitypercentage,
     "dateissue": dataissue,
     "validupto": validupto,
+    "registeration": true,
+    "verification": false,
     
   });
 }

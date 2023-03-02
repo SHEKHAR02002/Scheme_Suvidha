@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scheme/Screen/home.dart';
 import 'package:scheme/Theme/color.dart';
-import 'package:tbib_splash_screen/splash_screen_view.dart';
+
 class DoneUpload extends StatefulWidget {
   const DoneUpload({super.key});
 
@@ -12,16 +12,64 @@ class DoneUpload extends StatefulWidget {
 class _DoneUploadState extends State<DoneUpload> {
   @override
   Widget build(BuildContext context) {
-    return SplashScreenView(
-      backgroundColor: bgcolor,
-      duration: const Duration(seconds: 1),
-      navigateRoute:
-          
-      const Home(),
-      imageSrc: "assets/logo.png",
-  
-      logoSize: 300,
-      pageRouteTransition: PageRouteTransition.SlideTransition,
+    double width = MediaQuery.of(context).size.width;
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Scheme application pending...",
+              style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: "Zilla"),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              "Keep checking your status",
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w500,
+                fontFamily: "Zilla",
+                color: Color(
+                  0xff3c3c3b,
+                ),
+              ),
+            ),
+            SizedBox(height: 40,),
+            Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20,20),
+                child: ElevatedButton(
+                    onPressed: () {},
+
+                    // upload(),
+                    style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5)),
+                        backgroundColor: primary,
+                        minimumSize: Size(width, 50)),
+                    child: const Text(
+                      "Search other schemes ",
+                      style: TextStyle(
+                          fontFamily: "Overpass",
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700),
+                    ))),
+            GestureDetector(
+              onTap: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Home())),
+              child: Text(
+                "Go to Home",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

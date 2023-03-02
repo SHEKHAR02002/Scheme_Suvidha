@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:scheme/Screen/Agent/agentbottomsheet.dart';
 import 'package:scheme/Screen/Agent/agenthome.dart';
 
 import 'package:scheme/Theme/color.dart';
@@ -143,7 +144,7 @@ class _AgentLoginState extends State<AgentLogin> {
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
             child: ElevatedButton(
                 onPressed: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const AgentHome())),
+                    MaterialPageRoute(builder: (context) => const BottomNavigator())),
                 style: ElevatedButton.styleFrom(
                     elevation: 0,
                     shape: RoundedRectangleBorder(

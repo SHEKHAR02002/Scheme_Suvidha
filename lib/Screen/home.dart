@@ -12,6 +12,7 @@ import 'package:scheme/provider/firebasehelper.dart';
 import 'package:scheme/widget/alertcard.dart';
 import 'package:scheme/widget/campcard.dart';
 import 'package:scheme/widget/campdetail.dart';
+import 'package:scheme/widget/donesplash.dart';
 import 'package:scheme/widget/schemecard.dart';
 import 'package:scheme/widget/search.dart';
 import 'package:scheme/widget/statuscard.dart';
@@ -89,11 +90,14 @@ class _HomeState extends State<Home> {
           ),
           backgroundColor: bgcolor,
           actions: [
-            SvgPicture.asset(
-              "assets/notification.svg",
-              color: Colors.black,
-              height: 30,
-              width: 30,
+            InkWell(
+              onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>DoneUpload())),
+              child: SvgPicture.asset(
+                "assets/notification.svg",
+                color: Colors.black,
+                height: 30,
+                width: 30,
+              ),
             ),
             const SizedBox(
               width: 10,
@@ -145,7 +149,7 @@ class _HomeState extends State<Home> {
                 verify: verification,
               ),
               const SizedBox(height: 24),
-              AlertCard(),
+              register == false?AlertCard():SizedBox.shrink(),
               const SizedBox(
                 height: 20,
               ),
@@ -229,28 +233,28 @@ class _HomeState extends State<Home> {
               SizedBox(height: 20,)
             ],
           ),
-        ),
-        bottomNavigationBar: register == false
-            ? Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
-                child: ElevatedButton(
-                    onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const UploadDoument())),
-                    style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
-                        backgroundColor: primary,
-                        minimumSize: Size(width, 50)),
-                    child: const Text(
-                      "Register",
-                      style: TextStyle(
-                          fontFamily: "Overpass",
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700),
-                    )))
-            : const SizedBox.shrink());
+        ));
+        // bottomNavigationBar: register == false
+        //     ? Padding(
+        //         padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
+        //         child: ElevatedButton(
+        //             onPressed: () => Navigator.push(
+        //                 context,
+        //                 MaterialPageRoute(
+        //                     builder: (context) => const UploadDoument())),
+        //             style: ElevatedButton.styleFrom(
+        //                 elevation: 0,
+        //                 shape: RoundedRectangleBorder(
+        //                     borderRadius: BorderRadius.circular(5)),
+        //                 backgroundColor: primary,
+        //                 minimumSize: Size(width, 50)),
+        //             child: const Text(
+        //               "Register",
+        //               style: TextStyle(
+        //                   fontFamily: "Overpass",
+        //                   fontSize: 18,
+        //                   fontWeight: FontWeight.w700),
+        //             )))
+        //     : const SizedBox.shrink());
   }
 }
