@@ -9,6 +9,7 @@ import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/model/schememodel.dart';
 import 'package:scheme/model/usermodel.dart';
 import 'package:scheme/provider/firebasehelper.dart';
+import 'package:scheme/widget/alertcard.dart';
 import 'package:scheme/widget/campcard.dart';
 import 'package:scheme/widget/campdetail.dart';
 import 'package:scheme/widget/schemecard.dart';
@@ -143,7 +144,9 @@ class _HomeState extends State<Home> {
                 register: register,
                 verify: verification,
               ),
-              SizedBox(
+              const SizedBox(height: 24),
+              AlertCard(),
+              const SizedBox(
                 height: 20,
               ),
               Row(
@@ -165,6 +168,8 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
+              
+
               const SizedBox(height: 30),
               StreamBuilder(
                   stream: FirebaseFirestore.instance

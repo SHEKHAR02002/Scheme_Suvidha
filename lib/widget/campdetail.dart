@@ -49,7 +49,7 @@ class _CampsDetailsState extends State<CampsDetails> {
                   child: Image.network(
                     widget.campdetail.image.toString(),
                     height: 185,
-                    width: width - 60,
+                    width: width,
                     fit: BoxFit.cover,
                   ),
                 ),

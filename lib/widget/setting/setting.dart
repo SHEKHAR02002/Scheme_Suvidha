@@ -51,13 +51,13 @@ class _SettingState extends State<Setting> {
                     MaterialPageRoute(
                         builder: (context) => const Permission())),
                 child: Padding(
-                  padding: const EdgeInsets.all(13.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Row(children: [
                     SvgPicture.asset(
                       "assets/notification.svg",
                       color: primary,
-                      height: 30,
-                      width: 30,
+                      height: 20,
+                      width: 20,
                     ),
                     const SizedBox(
                       width: 5,
@@ -72,8 +72,8 @@ class _SettingState extends State<Setting> {
                     const Spacer(),
                     SvgPicture.asset(
                       "assets/right_arrow.svg",
-                      height: 30,
-                      width: 30,
+                      height: 25,
+                      width: 25,
                       color: primary,
                     ),
                   ]),
@@ -91,12 +91,12 @@ class _SettingState extends State<Setting> {
                   
                 },
                 child: Padding(
-                  padding: const EdgeInsets.all(13.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Row(children: [
                     SvgPicture.asset(
                       "assets/about.svg",
-                      height: 30,
-                      width: 30,
+                      height: 20,
+                      width: 20,
                     ),
                     const SizedBox(
                       width: 5,
@@ -111,8 +111,8 @@ class _SettingState extends State<Setting> {
                     const Spacer(),
                     SvgPicture.asset(
                       "assets/right_arrow.svg",
-                      height: 30,
-                      width: 30,
+                      height: 25,
+                      width: 25,
                       color: primary,
                     ),
                   ]),
@@ -132,8 +132,8 @@ class _SettingState extends State<Setting> {
                   child: Row(children: [
                     SvgPicture.asset(
                       "assets/contact.svg",
-                      height: 30,
-                      width: 30,
+                      height: 20,
+                      width: 20,
                     ),
                     const SizedBox(
                       width: 5,
@@ -148,8 +148,8 @@ class _SettingState extends State<Setting> {
                     const Spacer(),
                     SvgPicture.asset(
                       "assets/right_arrow.svg",
-                      height: 30,
-                      width: 30,
+                      height: 25,
+                      width: 25,
                       color: primary,
                     ),
                   ]),
@@ -172,8 +172,8 @@ class _SettingState extends State<Setting> {
                   child: Row(children: [
                     SvgPicture.asset(
                       "assets/help.svg",
-                      height: 30,
-                      width: 30,
+                      height:20,
+                      width: 20,
                     ),
                     const SizedBox(
                       width: 5,
@@ -188,8 +188,8 @@ class _SettingState extends State<Setting> {
                     const Spacer(),
                     SvgPicture.asset(
                       "assets/right_arrow.svg",
-                      height: 30,
-                      width: 30,
+                      height: 25,
+                      width: 25,
                       color: primary,
                     ),
                   ]),

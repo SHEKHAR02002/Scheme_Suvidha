@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/notifcationprovider.dart';
 
 checkuser() async {
@@ -44,5 +45,25 @@ Future newuser({required String phoneno}) async {
     "schmerenewal": false,
     "newschemalert": false,
     "newcampalert": false,
+  });
+}
+
+Future userdataupload() async {
+  await FirebaseFirestore.instance
+      .collection("Users")
+      .doc(FirebaseAuth.instance.currentUser!.uid.toString())
+      .set({
+    "userId": FirebaseAuth.instance.currentUser!.uid.toString(),
+    "aadharno": aadharNo,
+    "name": name,
+    "dob": dob,
+    "gender": gender,
+    "udidno": udidNo,
+    "udidname": udidname,
+    "disabilitytype": disbilitytype,
+    "disabilitypercentage": disabilitypercentage,
+    "dateissue": dataissue,
+    "validupto": validupto,
+    
   });
 }

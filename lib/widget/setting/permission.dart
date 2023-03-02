@@ -63,10 +63,9 @@ class _PermissionState extends State<Permission> {
           child: Column(
             children: [
               Container(
-                height: 50,
                 decoration: shadowdecoration,
                 child: Padding(
-                  padding: const EdgeInsets.all(14.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Row(
                     children: [
                       Text(
@@ -98,13 +97,13 @@ class _PermissionState extends State<Permission> {
                 ),
               ),
               const SizedBox(
-                height: 38,
+                height: 20,
               ),
               Container(
-                height: 50,
+                
                 decoration:shadowdecoration,
                 child: Padding(
-                  padding: const EdgeInsets.all(14.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Row(
                     children: [
                       Text(
@@ -136,13 +135,13 @@ class _PermissionState extends State<Permission> {
                 ),
               ),
               const SizedBox(
-                height: 38,
+                height: 20,
               ),
               Container(
-                height: 50,
+               
                 decoration: shadowdecoration,
                 child: Padding(
-                  padding: const EdgeInsets.all(14.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Row(
                     children: [
                       Text(
@@ -174,13 +173,13 @@ class _PermissionState extends State<Permission> {
                 ),
               ),
               const SizedBox(
-                height: 38,
+                height: 20,
               ),
               Container(
-                height: 50,
+               
                 decoration: shadowdecoration,
                 child: Padding(
-                  padding: const EdgeInsets.all(14.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Row(
                     children: [
                       Text(
@@ -212,13 +211,13 @@ class _PermissionState extends State<Permission> {
                 ),
               ),
               const SizedBox(
-                height: 38,
+                height: 20
               ),
               Container(
                 // height: 50,
                 decoration: shadowdecoration,
                 child: Padding(
-                  padding: const EdgeInsets.all(14.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Row(
                     children: [
                       Text(

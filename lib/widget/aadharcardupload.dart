@@ -6,7 +6,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
+import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/takeimage.dart';
+import 'package:scheme/widget/campdetail.dart';
 import 'package:scheme/widget/textfield.dart';
 import 'package:scheme/widget/udidcardupload.dart';
 
@@ -188,16 +190,33 @@ class _AadharCardState extends State<AadharCard> {
               ),
               const SizedBox(height: 18),
               TextFieldTake(controller: _phoneNo, title: "Phone No."),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
                   child: ElevatedButton(
-                      onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UdidCardUpload())),
+                      onPressed: () {
+                        setState(() {
+                          if (_aadharNo.text != "" &&
+                              _dob.text != "" &&
+                              _gender.text != "" &&
+                              _name.text != "" &&
+                              _phoneNo.text != "") {
+                            aadharNo = _aadharNo.text;
+                            dob = _dob.text;
+                            gender = _gender.text;
+                            name = _name.text;
+                            phoneNo = _phoneNo.text;
+                          } else {
+                            print("Field is empty");
+                          }
+                        });
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (contex) => UdidCardUpload()));
+                      },
 
                       // upload(),
                       style: ElevatedButton.styleFrom(

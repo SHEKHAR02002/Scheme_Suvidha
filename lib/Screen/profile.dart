@@ -86,7 +86,7 @@ class _ProfileState extends State<Profile> {
               Container(
                 decoration: shadowdecoration,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Row(children: [
                     SvgPicture.asset(
                       "assets/personalcard.svg",
@@ -120,7 +120,7 @@ class _ProfileState extends State<Profile> {
                 
                 decoration: shadowdecoration,
                 child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Row(children: [
                     SvgPicture.asset(
                       "assets/scheme.svg",
@@ -156,12 +156,12 @@ class _ProfileState extends State<Profile> {
                   onTap: () => Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const Setting())),
                   child: Padding(
-                    padding: const EdgeInsets.all(13.0),
+                    padding: const EdgeInsets.all(12.0),
                     child: Row(children: [
                       SvgPicture.asset(
                         "assets/setting.svg",
-                        height: 30,
-                        width: 30,
+                        height: 20,
+                        width: 20,
                       ),
                       const SizedBox(
                         width: 5,
@@ -176,8 +176,8 @@ class _ProfileState extends State<Profile> {
                       const Spacer(),
                       SvgPicture.asset(
                         "assets/right_arrow.svg",
-                        height: 30,
-                        width: 30,
+                        height: 25,
+                        width: 25,
                         color: primary,
                       ),
                     ]),
