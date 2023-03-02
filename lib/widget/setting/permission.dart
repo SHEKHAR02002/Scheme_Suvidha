@@ -215,7 +215,7 @@ class _PermissionState extends State<Permission> {
                 height: 38,
               ),
               Container(
-                height: 50,
+                // height: 50,
                 decoration: shadowdecoration,
                 child: Padding(
                   padding: const EdgeInsets.all(14.0),
@@ -224,7 +224,7 @@ class _PermissionState extends State<Permission> {
                       Text(
                         "New Camps Alert",
                         style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 18,
                             fontWeight: FontWeight.w600,
                             color: primary),
                       ),
@@ -232,13 +232,14 @@ class _PermissionState extends State<Permission> {
                       FlutterSwitch(
                         value: campalert,
                         padding: 0,
-                        height: 24,
+                        height: 25,
                         width: 40,
                         activeColor: const Color(
                           0x996a8caf,
                         ),
                         activeToggleColor: primary,
                         inactiveColor: Colors.grey,
+                        
                         onToggle: ((value) {
                           setState(() {
                             campalert = value;

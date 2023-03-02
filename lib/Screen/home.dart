@@ -1,12 +1,16 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Screen/profile.dart';
 import 'package:scheme/Theme/color.dart';
-import 'package:scheme/api/firebasehelper.dart';
+import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/model/schememodel.dart';
 import 'package:scheme/model/usermodel.dart';
+import 'package:scheme/provider/firebasehelper.dart';
+import 'package:scheme/widget/campcard.dart';
+import 'package:scheme/widget/campdetail.dart';
 import 'package:scheme/widget/schemecard.dart';
 import 'package:scheme/widget/search.dart';
 import 'package:scheme/widget/statuscard.dart';
@@ -26,6 +30,8 @@ class _HomeState extends State<Home> {
   bool loader = true;
   bool register = false;
   bool verification = false;
+  int listlength = 3;
+  List campdetail = [];
 
   checkregister() async {
     user = await FirebaseHelper.getUserModelById(
@@ -42,8 +48,21 @@ class _HomeState extends State<Home> {
     }
   }
 
+  getcampdetail() async {
+    await FirebaseFirestore.instance
+        .collection('Camps')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        campdetail.add(doc.data());
+      }
+    });
+    print(campdetail);
+  }
+
   @override
   void initState() {
+    getcampdetail();
     checkregister();
     super.initState();
   }
@@ -115,17 +134,17 @@ class _HomeState extends State<Home> {
           ],
         ),
         body: SingleChildScrollView(
-            child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               StatusCard(
                 register: register,
                 verify: verification,
               ),
-              const SizedBox(
-                height: 38,
+              SizedBox(
+                height: 20,
               ),
               Row(
                 children: [
@@ -146,12 +165,10 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 30,
-              ),
+              const SizedBox(height: 30),
               StreamBuilder(
                   stream: FirebaseFirestore.instance
-                      .collection('Scheme')
+                      .collection("Schemes")
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
@@ -159,22 +176,55 @@ class _HomeState extends State<Home> {
                     }
                     if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                       List schemdata = List.from(snapshot.data!.docs
-                          .map((doc) => SchemeModel.fromMap(doc)));
+                          .map((doc) => SchemeModel.fromSnapshot(doc)));
                       return ListView.builder(
                           shrinkWrap: true,
-                          physics: const ScrollPhysics(),
-                          itemCount: schemdata.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 2,
                           itemBuilder: (context, index) {
-                            return SchemeCard(
-                              schemedata: schemdata[index],
-                            );
+                            return SchemeCard(schemedata: schemdata[index]);
                           });
                     }
                     return const Center(child: Text("No Data"));
-                  })
+                  }),
+              Text("show more.....",style: TextStyle(color: primary,fontSize: 16,fontWeight: FontWeight.w400),),
+              const SizedBox(height: 30),
+              const Text(
+                "Campaigns",
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: "Zilla"),
+              ),
+              const SizedBox(height: 30),
+              CarouselSlider(
+                options: CarouselOptions(
+                  viewportFraction: 1,
+                  initialPage: 0,
+                  autoPlay: false,
+                  // height: ,
+                  aspectRatio: 1/0.95,
+                  autoPlayInterval: const Duration(seconds: 8),
+                  autoPlayAnimationDuration:
+                      const Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true,
+                  scrollDirection: Axis.horizontal,
+                ),
+                items: campdetail
+                    .map((data) => CampCard(
+                          image: data['image'],
+                          title: data['Category'],
+                          date: data['date'],
+                          id: data['campid'],
+                          place: data['place'],
+                        ))
+                    .toList(),
+              ),
+              SizedBox(height: 20,)
             ],
           ),
-        )),
+        ),
         bottomNavigationBar: register == false
             ? Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),

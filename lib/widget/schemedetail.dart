@@ -42,21 +42,23 @@ class _SchemeDetailState extends State<SchemeDetail> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
                     ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: CachedNetworkImage(
-                            key: UniqueKey(),
-                            cacheManager: customCacheManager,
-                            height: 45,
-                            width: 45,
-                            fit: BoxFit.fill,
-                            imageUrl: widget.schemedata.image.toString(),
-                            placeholder: (context, url) =>
-                                const CircularProgressIndicator())),
+                        // child: CachedNetworkImage(
+                        //     key: UniqueKey(),
+                        //     cacheManager: customCacheManager,
+                        //     height: 45,
+                        //     width: 45,
+                        //     fit: BoxFit.fill,
+                        //     imageUrl: widget.schemedata.image.toString(),
+                        //     placeholder: (context, url) =>
+                        //         const CircularProgressIndicator())
+                                ),
                     const SizedBox(
                       width: 10,
                     ),
@@ -64,22 +66,27 @@ class _SchemeDetailState extends State<SchemeDetail> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.schemedata.name.toString(),
+                          widget.schemedata.schemename.toString(),
+
                           style: TextStyle(
                               color: black,
                               fontFamily: "Overpass",
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.w600),
                         ),
-                        Text(
-                          widget.schemedata.organization.toString(),
-                          style: const TextStyle(
-                              color: Color(
-                                0x72000000,
-                              ),
-                              fontFamily: "Overpass",
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
+                        SizedBox(
+                          width: width-100,
+                          child: Text(
+                            widget.schemedata.organizationname.toString(),
+                            overflow:TextOverflow.clip,
+                            style: const TextStyle(
+                                color: Color(
+                                  0x72000000,
+                                ),
+                                fontFamily: "Overpass",
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400),
+                          ),
                         ),
                       ],
                     ),
@@ -136,7 +143,7 @@ class _SchemeDetailState extends State<SchemeDetail> {
                           borderRadius: BorderRadius.circular(5)),
                       child: Center(
                         child: Text(
-                          widget.schemedata.requirement1.toString(),
+                          widget.schemedata.statename.toString() == "All State / UTs"?"All India":widget.schemedata.statename.toString(),
                           style: TextStyle(
                               color: black,
                               fontSize: 12,
@@ -153,7 +160,7 @@ class _SchemeDetailState extends State<SchemeDetail> {
                           borderRadius: BorderRadius.circular(5)),
                       child: Center(
                         child: Text(
-                          widget.schemedata.requirement2.toString(),
+                          widget.schemedata.category.toString(),
                           style: TextStyle(
                               color: black,
                               fontSize: 12,
@@ -170,7 +177,7 @@ class _SchemeDetailState extends State<SchemeDetail> {
                           borderRadius: BorderRadius.circular(5)),
                       child: Center(
                         child: Text(
-                          widget.schemedata.requirement3.toString(),
+                          widget.schemedata.disabilitypercentage.toString(),
                           style: TextStyle(
                               color: black,
                               fontSize: 12,
@@ -193,7 +200,7 @@ class _SchemeDetailState extends State<SchemeDetail> {
                 Padding(
                   padding: const EdgeInsets.only(left: 8, top: 10),
                   child: Text(
-                    widget.schemedata.description.toString(),
+                    widget.schemedata.shortdescription.toString(),
                     style: const TextStyle(
                         fontFamily: 'Overpass',
                         fontSize: 16,
@@ -203,23 +210,23 @@ class _SchemeDetailState extends State<SchemeDetail> {
                 const SizedBox(
                   height: 24,
                 ),
-                const Text(
-                  "Eligibility Criteria",
-                  style: TextStyle(
-                      fontFamily: 'Overpass',
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8, top: 10),
-                  child: Text(
-                    widget.schemedata.eligibilty.toString(),
-                    style: const TextStyle(
-                        fontFamily: 'Overpass',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400),
-                  ),
-                ),
+                // const Text(
+                //   "Eligibility Criteria",
+                //   style: TextStyle(
+                //       fontFamily: 'Overpass',
+                //       fontSize: 20,
+                //       fontWeight: FontWeight.w600),
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 8, top: 10),
+                //   child: Text(
+                //     widget.schemedata..toString(),
+                //     style: const TextStyle(
+                //         fontFamily: 'Overpass',
+                //         fontSize: 16,
+                //         fontWeight: FontWeight.w400),
+                //   ),
+                // ),
                 const SizedBox(
                   height: 24,
                 ),
@@ -233,7 +240,7 @@ class _SchemeDetailState extends State<SchemeDetail> {
                 Padding(
                   padding: const EdgeInsets.only(left: 8, top: 10),
                   child: Text(
-                    widget.schemedata.benifits.toString(),
+                    widget.schemedata.benefits.toString(),
                     style: const TextStyle(
                         fontFamily: 'Overpass',
                         fontSize: 16,
@@ -253,7 +260,7 @@ class _SchemeDetailState extends State<SchemeDetail> {
                 Padding(
                   padding: const EdgeInsets.only(left: 8, top: 10),
                   child: Text(
-                    widget.schemedata.more.toString(),
+                    widget.schemedata.websitelink.toString(),
                     style: const TextStyle(
                         fontFamily: 'Overpass',
                         fontSize: 16,

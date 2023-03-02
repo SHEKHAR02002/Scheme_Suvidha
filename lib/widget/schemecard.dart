@@ -9,8 +9,11 @@ import 'package:scheme/widget/schemedetail.dart';
 
 class SchemeCard extends StatefulWidget {
   final SchemeModel schemedata;
-  
-  const SchemeCard({super.key, required this.schemedata, });
+
+  const SchemeCard({
+    super.key,
+    required this.schemedata,
+  });
 
   @override
   State<SchemeCard> createState() => _SchemeCardState();
@@ -20,146 +23,156 @@ class _SchemeCardState extends State<SchemeCard> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Container(
-        decoration:shadowdecoration,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          child: Row(
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      width: width,
+      decoration: shadowdecoration,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
                 children: [
-                  Row(
-                    children: [
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: CachedNetworkImage(
-                              key: UniqueKey(),
-                              cacheManager: customCacheManager,
-                              height: 45,
-                              width: 45,
-                              fit: BoxFit.fill,
-                              imageUrl: widget.schemedata.image.toString(),
-                              placeholder: (context, url) =>
-                                  const CircularProgressIndicator())),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.schemedata.name.toString(),
-                            style: TextStyle(
-                                color: black,
-                                fontFamily: "Overpass",
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          Text(
-                            widget.schemedata.organization.toString(),
-                            style: const TextStyle(
-                                color: Color(
-                                  0x72000000,
-                                ),
-                                fontFamily: "Overpass",
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                  // ClipRRect(
+                  //   borderRadius: BorderRadius.circular(10),
+                  //   // child: CachedNetworkImage(
+                  //   //     key: UniqueKey(),
+                  //   //     cacheManager: customCacheManager,
+                  //   //     height: 45,
+                  //   //     width: 45,
+                  //   //     fit: BoxFit.fill,
+                  //   //     imageUrl: widget.schemedata.image.toString(),
+                  //   //     placeholder: (context, url) =>
+                  //   //         const CircularProgressIndicator()
+                  //   //         )
+                  // ),
                   const SizedBox(
-                    height: 28,
+                    width: 10,
                   ),
-                  Row(
-                    children: [
-                      Container(
-                        height: 25,
-                        width: width / 5,
-                        decoration: BoxDecoration(
-                            color: secondary,
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 5, horizontal: 10),
-                          child: Text(
-                            widget.schemedata.requirement1.toString(),
-                            style: TextStyle(
-                                overflow: TextOverflow.clip,
-                                color: black,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400),
-                          ),
+                  SizedBox(
+                    width:  width - 100,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.schemedata.schemename.toString(),
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: black,
+                              fontFamily: "Overpass",
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Container(
-                        height: 25,
-                        width: width / 5,
-                        decoration: BoxDecoration(
-                            color: secondary,
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 10),
-                            child: Text(
-                              widget.schemedata.requirement2.toString(),
-                              style: TextStyle(
-                                  color: black,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ),
+                        Text(
+                          widget.schemedata.organizationname.toString(),
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              color: Color(
+                                0x72000000,
+                              ),
+                              fontFamily: "Overpass",
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Container(
-                        height: 25,
-                        width: width / 5,
-                        decoration: BoxDecoration(
-                            color: secondary,
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Center(
-                          child: Text(
-                            widget.schemedata.requirement3.toString(),
-                            style: TextStyle(
-                                color: black,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                      )
-                    ],
-                  )
+                      ],
+                    ),
+                  ),
                 ],
               ),
-              const Spacer(),
-              InkWell(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SchemeDetail(
-                              schemedata: widget.schemedata,
-                            ))),
-                child: SvgPicture.asset(
-                  "assets/right_arrow.svg",
-                  color: black,
-                  height: 30,
-                  width: 30,
-                ),
+              const SizedBox(
+                height: 28,
               ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    height: 25,
+                    width: width / 5,
+                    decoration: BoxDecoration(
+                        color: secondary,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 10),
+                      child: Text(
+                        widget.schemedata.statename.toString() ==
+                                "All State / UTs"
+                            ? "All India"
+                            : widget.schemedata.statename.toString(),
+                        style: TextStyle(
+                            overflow: TextOverflow.clip,
+                            color: black,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Container(
+                    height: 25,
+                    width: width / 5,
+                    decoration: BoxDecoration(
+                        color: secondary,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 10),
+                        child: Text(
+                          widget.schemedata.category.toString(),
+                          style: TextStyle(
+                              color: black,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    width: width / 5,
+                    decoration: BoxDecoration(
+                        color: secondary,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Center(
+                      child: Text(
+                        widget.schemedata.disabilitypercentage.toString(),
+                        style: TextStyle(
+                            color: black,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  )
+                ],
+              )
             ],
           ),
-        ),
+          // const Spacer(),
+          InkWell(
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SchemeDetail(
+                          schemedata: widget.schemedata,
+                        ))),
+            child: SvgPicture.asset(
+              "assets/right_arrow.svg",
+              color: black,
+              height: 30,
+              width: 30,
+            ),
+          ),
+        ],
       ),
     );
   }
