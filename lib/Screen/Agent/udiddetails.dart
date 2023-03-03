@@ -167,7 +167,9 @@ class _UdidDetailsState extends State<UdidDetails> {
                         .toList(),
                     value: categorytype,
                     onChanged: (value) {
-                      categorytype = value as String;
+                      setState(() {
+                        categorytype = value as String;
+                      });
                     },
                   ),
                 ),
