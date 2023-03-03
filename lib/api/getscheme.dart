@@ -6,10 +6,10 @@ import 'package:scheme/Screen/home.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/data/userdata.dart';
 
-Future getdata() async {
+Future getSchemes() async {
   List schemedata = [];
   await FirebaseFirestore.instance
-      .collection("Scheme")
+      .collection("Schemes")
       .get()
       .then((QuerySnapshot querysnapshot) async {
     for (var doc in querysnapshot.docs) {

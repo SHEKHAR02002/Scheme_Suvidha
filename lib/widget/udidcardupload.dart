@@ -58,10 +58,10 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Align(
+              const Align(
                 alignment: Alignment.center,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 50),
+                  padding: EdgeInsets.only(top: 50),
                   child: Text(
                     "Upload UDID card",
                     style: TextStyle(
@@ -71,7 +71,7 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Center(
@@ -91,13 +91,13 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                                 imageupload(
                                     filename: "udidimage", file: udidpic!);
                               }),
-                          child: Icon(
+                          child: const Icon(
                             Icons.add,
                             size: 50,
                           ))),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Text(
@@ -108,7 +108,7 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                     fontSize: 26,
                     fontWeight: FontWeight.w400),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextFieldTake(controller: _udidNo, title: "UDID Card No."),
@@ -195,7 +195,7 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
@@ -220,7 +220,7 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                         userdataupload().whenComplete(() => Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => DoneUpload())));
+                                builder: (context) => const DoneUpload())));
                       },
                       // upload(),
                       style: ElevatedButton.styleFrom(

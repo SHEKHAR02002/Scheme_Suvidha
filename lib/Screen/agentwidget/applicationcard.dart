@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:scheme/Theme/decoration.dart';
 
 class ApplicationCard extends StatefulWidget {
   const ApplicationCard({super.key});
@@ -39,10 +38,10 @@ class _ApplicationCardState extends State<ApplicationCard> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children:const  [
+                  children: const [
                     Text(
                       'ADIP scheme',
                       style:

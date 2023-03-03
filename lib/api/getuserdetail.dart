@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:scheme/api/checknewuser.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/usermodel.dart';
@@ -9,6 +11,25 @@ import 'package:scheme/provider/notifcationprovider.dart';
 import 'package:scheme/provider/phoneauth.dart';
 
 Future getUserDeatilsApi({required context}) async {
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    RemoteNotification? notification = message.notification;
+    AndroidNotification? android = message.notification?.android;
+    if (notification != null && android != null) {
+      flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              enableLights: false,
+              channel.id,
+              channel.name,
+              playSound: true,
+              icon: '@mipmap/ic_launcher',
+            ),
+          ));
+    }
+  });
   await UserDetails().userExits(context: context);
 }
 
@@ -16,8 +37,7 @@ class UserDetails {
   User user = FirebaseAuth.instance.currentUser!;
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   Future userExits({required context}) async {
-    String? userExit = await checkuser();
-    if (userExit == "Yes") {
+    if (!await checkuser()) {
       await getFCM(uid: user.uid);
       await getUserDetails(context: context);
     } else {

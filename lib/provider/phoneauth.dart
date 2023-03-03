@@ -10,27 +10,31 @@ import 'package:scheme/api/getuserdetail.dart';
 class PhoneAuth {
   FirebaseAuth auth = FirebaseAuth.instance;
   sendOtp({required String phoneNo, required BuildContext context}) async {
+    bool loader = false;
     await auth.verifyPhoneNumber(
       phoneNumber: "+91$phoneNo",
       timeout: const Duration(seconds: 60),
       verificationCompleted: (PhoneAuthCredential credential) {},
       verificationFailed: (FirebaseAuthException e) {},
-      codeSent: (String verificationId, int? resendToken) =>
-          showModalBottomSheet(
-              shape: const RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(25.0))),
-              enableDrag: false,
-              isScrollControlled: true,
-              context: context,
-              builder: (context) => Material(
-                    child: OtpBottomSheet(
-                      phoneNumber: phoneNo,
-                      verificationId: verificationId,
-                    ),
-                  )),
+      codeSent: (String verificationId, int? resendToken) {
+        showModalBottomSheet(
+            shape: const RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(25.0))),
+            enableDrag: false,
+            isScrollControlled: true,
+            context: context,
+            builder: (context) => Material(
+                  child: OtpBottomSheet(
+                    phoneNumber: phoneNo,
+                    verificationId: verificationId,
+                  ),
+                ));
+        loader = true;
+      },
       codeAutoRetrievalTimeout: (String verificationId) {},
     );
+    return loader;
   }
 
   submitOpt(
@@ -55,18 +59,19 @@ class PhoneAuth {
   Future userCredentialAuth(
       {required BuildContext context, required String phoneNo}) async {
     try {
-      String? newUser = await checkuser();
-      if (newUser == "No") {
-        await newuser(phoneno: phoneNo).then((value) async =>
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => const Home()),
-                (route) => false));
-      } else {
-        await getUserDeatilsApi(context: context).then((value) =>
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => const Home()),
-                (route) => false));
-      }
+      await checkuser().then((value) async {
+        if (value) {
+          await newuser(phoneno: phoneNo).then((value) async =>
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const Home()),
+                  (route) => false));
+        } else {
+          await getUserDeatilsApi(context: context).then((value) =>
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const Home()),
+                  (route) => false));
+        }
+      });
     } catch (e) {
       if (kDebugMode) {
         print(e.toString());

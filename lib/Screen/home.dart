@@ -1,23 +1,18 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Screen/profile.dart';
 import 'package:scheme/Theme/color.dart';
-import 'package:scheme/Theme/decoration.dart';
+import 'package:scheme/api/getscheme.dart';
+import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/schememodel.dart';
-import 'package:scheme/model/usermodel.dart';
-import 'package:scheme/provider/firebasehelper.dart';
 import 'package:scheme/widget/alertcard.dart';
 import 'package:scheme/widget/campcard.dart';
-import 'package:scheme/widget/campdetail.dart';
 import 'package:scheme/widget/donesplash.dart';
-import 'package:scheme/widget/filtercontainer.dart';
 import 'package:scheme/widget/schemecard.dart';
 import 'package:scheme/widget/search.dart';
 import 'package:scheme/widget/statuscard.dart';
-import 'package:scheme/widget/upload.dart';
 
 ValueNotifier<List> schemeDataList = ValueNotifier<List>([]);
 
@@ -29,29 +24,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  UserModel? user;
-  bool loader = true;
-  bool register = false;
+  // UserModel? user;
+  bool campLoader = true, schemeLoader = true;
+  bool register = userDetail!.registeration!;
   bool verification = false;
   int listlength = 3;
-  List campdetail = [];
+  List campdetail = [], schemesDetails = [];
 
-  checkregister() async {
-    user = await FirebaseHelper.getUserModelById(
-        uid: FirebaseAuth.instance.currentUser!.uid.toString());
-
-    if (user!.registeration == true) {
-      setState(() {
-        register = true;
-      });
-    } else {
-      setState(() {
-        register = false;
-      });
-    }
-  }
-
-  getcampdetail() async {
+  Future getcampdetail() async {
     await FirebaseFirestore.instance
         .collection('Camps')
         .get()
@@ -60,19 +40,39 @@ class _HomeState extends State<Home> {
         campdetail.add(doc.data());
       }
     });
+    // print(campdetail);
+  }
+
+  Future callApi() async {
+    // await checkregister();
+    await getcampdetail();
+    schemesDetails.addAll(await getSchemes());
     print(campdetail);
+    print(schemesDetails);
+    if (mounted) {
+      if (campdetail.isNotEmpty) {
+        setState(() {
+          campLoader = false;
+        });
+      }
+      if (schemesDetails.isNotEmpty) {
+        setState(() {
+          schemeLoader = false;
+        });
+      }
+    }
   }
 
   @override
   void initState() {
-    getcampdetail();
-    checkregister();
+    callApi();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -93,7 +93,7 @@ class _HomeState extends State<Home> {
           actions: [
             InkWell(
               onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => DoneUpload())),
+                  MaterialPageRoute(builder: (context) => const DoneUpload())),
               child: SvgPicture.asset(
                 "assets/notification.svg",
                 color: Colors.black,
@@ -112,7 +112,7 @@ class _HomeState extends State<Home> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => Profile(
-                                user: user!,
+                                user: userDetail!,
                               ))),
               // : Fluttertoast.showToast(
               //     msg: "You Not Register",
@@ -122,18 +122,18 @@ class _HomeState extends State<Home> {
               //     textColor: Colors.black),
               child: Padding(
                   padding: const EdgeInsets.only(right: 10),
-                  child: user!.image == ""
+                  child: userDetail!.image == ""
                       ? CircleAvatar(
                           radius: 15,
                           child: Image.network(
-                            "https://firebasestorage.googleapis.com/v0/b/scheme-suvidha-admin.appspot.com/o/miscellaneous%2Fdefalutprofile.png?alt=media&token=fbf2357d-d893-43a7-9bcc-412f454691c4",
+                            defaultPic,
                             fit: BoxFit.cover,
                           ),
                         )
                       : CircleAvatar(
                           radius: 15,
                           child: Image.network(
-                            '${user!.image}',
+                            '${userDetail!.image}',
                             fit: BoxFit.cover,
                           ),
                         )),
@@ -151,7 +151,7 @@ class _HomeState extends State<Home> {
                 verify: verification,
               ),
               const SizedBox(height: 24),
-              register == false ? AlertCard() : SizedBox.shrink(),
+              register == false ? const AlertCard() : const SizedBox.shrink(),
               const SizedBox(
                 height: 20,
               ),
@@ -174,34 +174,54 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-              SizedBox(height: 18),
-              
               const SizedBox(height: 30),
-              StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection("Schemes")
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return const Text('Something went wrong');
-                    }
-                    if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-                      List schemdata = List.from(snapshot.data!.docs
-                          .map((doc) => SchemeModel.fromSnapshot(doc)));
-                      return ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: 2,
-                          itemBuilder: (context, index) {
-                            return SchemeCard(schemedata: schemdata[index]);
-                          });
-                    }
-                    return const Center(child: Text("No Data"));
-                  }),
-              Text(
-                "show more.....",
-                style: TextStyle(
-                    color: primary, fontSize: 16, fontWeight: FontWeight.w400),
+              // StreamBuilder(
+              //     stream: FirebaseFirestore.instance
+              //         .collection("Schemes")
+              //         .snapshots(),
+              //     builder: (context, snapshot) {
+              //       if (snapshot.hasError) {
+              //         return const Text('Something went wrong');
+              //       }
+              //       if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+              //         List schemdata = List.from(snapshot.data!.docs
+              //             .map((doc) => SchemeModel.fromSnapshot(doc)));
+              //         return ListView.builder(
+              //             shrinkWrap: true,
+              //             physics: const NeverScrollableScrollPhysics(),
+              //             itemCount: 2,
+              //             itemBuilder: (context, index) {
+              //               return SchemeCard(schemedata: schemdata[index]);
+              //             });
+              //       }
+              //       return const Center(child: Text("No Data"));
+              //     }),
+              schemeLoader
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: listlength,
+                      itemBuilder: (context, index) {
+                        SchemeModel schemdata =
+                            SchemeModel.fromMap(schemesDetails[index]);
+                        return SchemeCard(schemedata: schemdata);
+                      }),
+              TextButton(
+                onPressed: () => setState(() {
+                  if (schemesDetails.length > listlength) {
+                    listlength += 5;
+                  }
+                }),
+                child: Text(
+                  "show more.....",
+                  style: TextStyle(
+                      color: primary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400),
+                ),
               ),
               const SizedBox(height: 30),
               const Text(
@@ -212,35 +232,60 @@ class _HomeState extends State<Home> {
                     fontFamily: "Zilla"),
               ),
               const SizedBox(height: 30),
-              CarouselSlider(
-                options: CarouselOptions(
-                  viewportFraction: 1,
-                  initialPage: 0,
-                  autoPlay: false,
-                  // height: ,
-                  aspectRatio: 1 / 0.95,
-                  autoPlayInterval: const Duration(seconds: 8),
-                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enlargeCenterPage: true,
-                  scrollDirection: Axis.horizontal,
-                ),
-                items: campdetail
-                    .map((data) => CampCard(
-                          image: data['image'],
-                          title: data['Category'],
-                          date: data['date'],
-                          id: data['campid'],
-                          place: data['place'],
-                        ))
-                    .toList(),
-              ),
-              SizedBox(
+              campLoader
+                  ? const Center(child: CircularProgressIndicator())
+                  : CarouselSlider(
+                      options: CarouselOptions(
+                        viewportFraction: 1,
+                        initialPage: 0,
+                        autoPlay: false,
+                        // height: ,
+                        aspectRatio: 1 / 0.95,
+                        autoPlayInterval: const Duration(seconds: 8),
+                        autoPlayAnimationDuration:
+                            const Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enlargeCenterPage: true,
+                        scrollDirection: Axis.horizontal,
+                      ),
+                      items: campdetail
+                          .map((data) => CampCard(
+                                image: data['image'],
+                                title: data['Category'],
+                                date: data['date'],
+                                id: data['campid'],
+                                place: data['place'],
+                              ))
+                          .toList(),
+                    ),
+              const SizedBox(
                 height: 20,
               )
             ],
           ),
         ));
+    // bottomNavigationBar: register == false
+    //     ? Padding(
+    //         padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
+    //         child: ElevatedButton(
+    //             onPressed: () => Navigator.push(
+    //                 context,
+    //                 MaterialPageRoute(
+    //                     builder: (context) => const UploadDoument())),
+    //             style: ElevatedButton.styleFrom(
+    //                 elevation: 0,
+    //                 shape: RoundedRectangleBorder(
+    //                     borderRadius: BorderRadius.circular(5)),
+    //                 backgroundColor: primary,
+    //                 minimumSize: Size(width, 50)),
+    //             child: const Text(
+    //               "Register",
+    //               style: TextStyle(
+    //                   fontFamily: "Overpass",
+    //                   fontSize: 18,
+    //                   fontWeight: FontWeight.w700),
+    //             )))
+    //     : const SizedBox.shrink());
     // bottomNavigationBar: register == false
     //     ? Padding(
     //         padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),

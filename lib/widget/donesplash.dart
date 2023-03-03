@@ -18,17 +18,17 @@ class _DoneUploadState extends State<DoneUpload> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               "Scheme application pending...",
               style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w500,
                   fontFamily: "Zilla"),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Text(
+            const Text(
               "Keep checking your status",
               style: TextStyle(
                 fontSize: 22,
@@ -39,9 +39,11 @@ class _DoneUploadState extends State<DoneUpload> {
                 ),
               ),
             ),
-            SizedBox(height: 40,),
+            const SizedBox(
+              height: 40,
+            ),
             Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20,20),
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
                 child: ElevatedButton(
                     onPressed: () {},
 
@@ -60,9 +62,9 @@ class _DoneUploadState extends State<DoneUpload> {
                           fontWeight: FontWeight.w700),
                     ))),
             GestureDetector(
-              onTap: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Home())),
-              child: Text(
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Home())),
+              child: const Text(
                 "Go to Home",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
               ),

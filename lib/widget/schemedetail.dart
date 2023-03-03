@@ -1,8 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Theme/color.dart';
-import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/schememodel.dart';
 
 class SchemeDetail extends StatefulWidget {
@@ -48,17 +46,17 @@ class _SchemeDetailState extends State<SchemeDetail> {
                 Row(
                   children: [
                     ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        // child: CachedNetworkImage(
-                        //     key: UniqueKey(),
-                        //     cacheManager: customCacheManager,
-                        //     height: 45,
-                        //     width: 45,
-                        //     fit: BoxFit.fill,
-                        //     imageUrl: widget.schemedata.image.toString(),
-                        //     placeholder: (context, url) =>
-                        //         const CircularProgressIndicator())
-                                ),
+                      borderRadius: BorderRadius.circular(10),
+                      // child: CachedNetworkImage(
+                      //     key: UniqueKey(),
+                      //     cacheManager: customCacheManager,
+                      //     height: 45,
+                      //     width: 45,
+                      //     fit: BoxFit.fill,
+                      //     imageUrl: widget.schemedata.image.toString(),
+                      //     placeholder: (context, url) =>
+                      //         const CircularProgressIndicator())
+                    ),
                     const SizedBox(
                       width: 10,
                     ),
@@ -67,7 +65,6 @@ class _SchemeDetailState extends State<SchemeDetail> {
                       children: [
                         Text(
                           widget.schemedata.schemename.toString(),
-
                           style: TextStyle(
                               color: black,
                               fontFamily: "Overpass",
@@ -75,10 +72,10 @@ class _SchemeDetailState extends State<SchemeDetail> {
                               fontWeight: FontWeight.w600),
                         ),
                         SizedBox(
-                          width: width-100,
+                          width: width - 100,
                           child: Text(
                             widget.schemedata.organizationname.toString(),
-                            overflow:TextOverflow.clip,
+                            overflow: TextOverflow.clip,
                             style: const TextStyle(
                                 color: Color(
                                   0x72000000,
@@ -143,7 +140,10 @@ class _SchemeDetailState extends State<SchemeDetail> {
                           borderRadius: BorderRadius.circular(5)),
                       child: Center(
                         child: Text(
-                          widget.schemedata.statename.toString() == "All State / UTs"?"All India":widget.schemedata.statename.toString(),
+                          widget.schemedata.statename.toString() ==
+                                  "All State / UTs"
+                              ? "All India"
+                              : widget.schemedata.statename.toString(),
                           style: TextStyle(
                               color: black,
                               fontSize: 12,

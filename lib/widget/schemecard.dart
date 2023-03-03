@@ -1,9 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
-import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/schememodel.dart';
 import 'package:scheme/widget/schemedetail.dart';
 
@@ -54,7 +52,7 @@ class _SchemeCardState extends State<SchemeCard> {
                     width: 10,
                   ),
                   SizedBox(
-                    width:  width - 100,
+                    width: width - 100,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

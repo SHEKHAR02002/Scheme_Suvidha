@@ -1,14 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/takeimage.dart';
-import 'package:scheme/widget/campdetail.dart';
 import 'package:scheme/widget/textfield.dart';
 import 'package:scheme/widget/udidcardupload.dart';
 
@@ -58,10 +55,10 @@ class _AadharCardState extends State<AadharCard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Align(
+              const Align(
                 alignment: Alignment.center,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 50),
+                  padding: EdgeInsets.only(top: 50),
                   child: Text(
                     "Upload Aadhar card",
                     style: TextStyle(
@@ -71,7 +68,7 @@ class _AadharCardState extends State<AadharCard> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Center(
@@ -91,13 +88,13 @@ class _AadharCardState extends State<AadharCard> {
                                 imageupload(
                                     filename: "aadharimage", file: aadharpic!);
                               }),
-                          child: Icon(
+                          child: const Icon(
                             Icons.add,
                             size: 50,
                           ))),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Text(
@@ -108,7 +105,7 @@ class _AadharCardState extends State<AadharCard> {
                     fontSize: 26,
                     fontWeight: FontWeight.w400),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextFieldTake(controller: _aadharNo, title: "Aadhar Card No"),
@@ -216,7 +213,6 @@ class _AadharCardState extends State<AadharCard> {
                             context,
                             MaterialPageRoute(
                                 builder: (contex) => const UdidCardUpload()));
-                                
                       },
 
                       // upload(),

@@ -15,9 +15,8 @@ class _AlertCardState extends State<AlertCard> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return Stack(
-      children:[
-        Container(
+    return Stack(children: [
+      Container(
         width: width,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -27,7 +26,8 @@ class _AlertCardState extends State<AlertCard> {
                 colors: [secondary3, primary])),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(
               children: [
                 SvgPicture.asset(
@@ -35,25 +35,26 @@ class _AlertCardState extends State<AlertCard> {
                   height: 30,
                   width: 30,
                 ),
-                Text("REGISTER YOURSELF FIRST",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                const Text("REGISTER YOURSELF FIRST",
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             const Text('To take advantage of the latest schemes.',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     backgroundColor: primary, elevation: 0),
                 onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const UploadDoument())),
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UploadDoument())),
                 child: const Text(
                   "REGISTER",
                   style: TextStyle(
@@ -64,11 +65,13 @@ class _AlertCardState extends State<AlertCard> {
           ]),
         ),
       ),
-      Positioned(
-        top:10,
-        right: 10,
-        child: Icon(CupertinoIcons.clear,size: 20,))
-      ] 
-    );
+      const Positioned(
+          top: 10,
+          right: 10,
+          child: Icon(
+            CupertinoIcons.clear,
+            size: 20,
+          ))
+    ]);
   }
 }

@@ -91,7 +91,7 @@ class _RegisterState extends State<Register> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Text(
                   "Aadhar Card Details",
                   style: TextStyle(
@@ -180,7 +180,7 @@ class _RegisterState extends State<Register> {
                 const SizedBox(height: 18),
                 TextFieldTake(controller: _phoneNo, title: "Phone No."),
                 // aadharform(width: width),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Text(
                   "UDID Card Details",
                   style: TextStyle(
@@ -195,11 +195,11 @@ class _RegisterState extends State<Register> {
                 const SizedBox(height: 18),
                 TextFieldTake(
                     controller: _disbilitytype, title: "Disability Type"),
-                    const SizedBox(height: 18),
+                const SizedBox(height: 18),
                 TextFieldTake(
                     controller: _disabilitypercentage,
                     title: "Disability Percentage"),
-                    const SizedBox(height: 18),
+                const SizedBox(height: 18),
                 Row(
                   children: [
                     Column(
@@ -219,7 +219,7 @@ class _RegisterState extends State<Register> {
                         Container(
                           height: 50,
                           width: width / 2.4,
-                          decoration:shadowdecoration,
+                          decoration: shadowdecoration,
                           child: TextField(
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w400),
@@ -273,12 +273,11 @@ class _RegisterState extends State<Register> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 // udidform(width: width)
               ],
             ),
           ),
-          
         ),
         bottomNavigationBar: Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),

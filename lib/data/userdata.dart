@@ -13,6 +13,7 @@ String? udidNo,
     passportimage;
 
 UserModel? userDetail;
-
+String defaultPic =
+    "https://firebasestorage.googleapis.com/v0/b/scheme-suvidha-admin.appspot.com/o/miscellaneous%2Fdefalutprofile.png?alt=media&token=fbf2357d-d893-43a7-9bcc-412f454691c4";
 final customCacheManager = CacheManager(Config('customCacheManager',
     stalePeriod: const Duration(minutes: 2), maxNrOfCacheObjects: 100));

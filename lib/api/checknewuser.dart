@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/notifcationprovider.dart';
 
-checkuser() async {
-  String? newuser = "";
+Future checkuser() async {
+  bool newuser = true;
   String uid = FirebaseAuth.instance.currentUser!.uid.toString();
   await FirebaseFirestore.instance
       .collection("Users")
@@ -13,9 +13,9 @@ checkuser() async {
       .then((docsnapshot) {
     if (docsnapshot.exists) {
       getFCM(uid: uid);
-      newuser = 'Yes';
+      newuser = false;
     } else {
-      newuser = "No";
+      newuser = true;
     }
   });
   return newuser;
@@ -37,6 +37,7 @@ Future newuser({required String phoneno}) async {
     "dateissue": "",
     "validupto": "",
     "aadharimage": "",
+    "token": "",
     "udidimage": "",
     "image": "",
     "registeration": false,
@@ -46,6 +47,7 @@ Future newuser({required String phoneno}) async {
     "newschemalert": false,
     "newcampalert": false,
   });
+  await getFCM(uid: uid);
 }
 
 Future userdataupload() async {
@@ -66,6 +68,5 @@ Future userdataupload() async {
     "validupto": validupto,
     "registeration": true,
     "verification": false,
-    
   });
 }

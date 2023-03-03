@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -98,7 +97,7 @@ class _UploadDoumentState extends State<UploadDoument> {
     return Scaffold(
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             child: Center(
               child: Column(
                 children: [
@@ -124,7 +123,7 @@ class _UploadDoumentState extends State<UploadDoument> {
                       width: width,
                       decoration: shadowdecoration,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 70),
+                        padding: const EdgeInsets.symmetric(vertical: 70),
                         child: Center(
                           child: Stack(children: [
                             SvgPicture.asset(
@@ -139,9 +138,10 @@ class _UploadDoumentState extends State<UploadDoument> {
                                 setState(() {
                                   imagepick = true;
                                 });
-                                imageupload(filename: "fileImage",file: imagepic!);
+                                imageupload(
+                                    filename: "fileImage", file: imagepic!);
                               }),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.add_circle_outline,
                                 size: 50,
                               ),
@@ -287,8 +287,10 @@ class _UploadDoumentState extends State<UploadDoument> {
         bottomNavigationBar: Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
             child: ElevatedButton(
-                onPressed: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AadharCard())),
+                onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AadharCard())),
 
                 // upload(),
                 style: ElevatedButton.styleFrom(

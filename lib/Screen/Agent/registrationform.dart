@@ -33,11 +33,10 @@ class _RegistrationFormState extends State<RegistrationForm> {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children:  [
+            children: [
               const TextFieldTake(title: "Agent Name"),
               const SizedBox(height: 20),
               const TextFieldTake(title: "Email ID"),
-              
               const SizedBox(height: 20),
               Text(
                 "Aadhar Card Details",
@@ -58,7 +57,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "DOB",
                         style: TextStyle(
                           fontFamily: "Overpass",
@@ -66,13 +65,13 @@ class _RegistrationFormState extends State<RegistrationForm> {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Container(
                         height: 50,
                         width: width / 2.4,
                         decoration: shadowdecoration,
                         child: TextField(
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w400,
                             color: Colors.black,
@@ -89,11 +88,11 @@ class _RegistrationFormState extends State<RegistrationForm> {
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Gender",
                         style: TextStyle(
                           fontFamily: "Overpass",
@@ -101,13 +100,13 @@ class _RegistrationFormState extends State<RegistrationForm> {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Container(
                         height: 50,
                         width: width / 2.4,
                         decoration: shadowdecoration,
                         child: TextField(
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w400,
                             color: Colors.black,
@@ -135,10 +134,12 @@ class _RegistrationFormState extends State<RegistrationForm> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      fixedSize: Size(350, 50)),
-                  onPressed: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => UdidDetails())),
-                  child: Text(
+                      fixedSize: const Size(350, 50)),
+                  onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const UdidDetails())),
+                  child: const Text(
                     "Continue",
                     style: TextStyle(
                       fontSize: 20,
@@ -168,7 +169,7 @@ class _TextFieldTakeState extends State<TextFieldTake> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(widget.title,
-            style:const TextStyle(
+            style: const TextStyle(
               fontFamily: "Overpass",
               fontSize: 20,
               fontWeight: FontWeight.w400,

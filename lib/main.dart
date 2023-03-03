@@ -23,8 +23,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: "Overpass",
         scaffoldBackgroundColor: bgcolor,
-        backgroundColor: bgcolor,
         primaryColor: primary,
+        // colorScheme: ColorScheme(background: bgcolor),
       ),
       home: const Main(),
     );

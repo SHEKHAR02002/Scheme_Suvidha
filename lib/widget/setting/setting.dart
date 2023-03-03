@@ -14,7 +14,6 @@ class Setting extends StatefulWidget {
 
 class _SettingState extends State<Setting> {
   @override
-  
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -43,7 +42,7 @@ class _SettingState extends State<Setting> {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
           children: [
-            Container(   
+            Container(
               decoration: shadowdecoration,
               child: InkWell(
                 onTap: () => Navigator.push(
@@ -84,12 +83,9 @@ class _SettingState extends State<Setting> {
               height: 24,
             ),
             Container(
-              
               decoration: shadowdecoration,
               child: InkWell(
-                onTap: () {
-                  
-                },
+                onTap: () {},
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Row(children: [
@@ -123,7 +119,6 @@ class _SettingState extends State<Setting> {
               height: 24,
             ),
             Container(
-              
               decoration: shadowdecoration,
               child: InkWell(
                 onTap: () => {},
@@ -160,19 +155,18 @@ class _SettingState extends State<Setting> {
               height: 24,
             ),
             Container(
-              
               decoration: shadowdecoration,
               child: InkWell(
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) => Help())));
+                      MaterialPageRoute(builder: ((context) => const Help())));
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(13.0),
                   child: Row(children: [
                     SvgPicture.asset(
                       "assets/help.svg",
-                      height:20,
+                      height: 20,
                       width: 20,
                     ),
                     const SizedBox(

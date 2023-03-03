@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Screen/Agent/agetprofile.dart';
-import 'package:scheme/Screen/Agent/registrationform.dart';
 import 'package:scheme/Screen/agentwidget/applicationcard.dart';
 import 'package:scheme/Screen/agentwidget/overvieewcard.dart';
 import 'package:scheme/Theme/color.dart';
-import 'package:scheme/Theme/decoration.dart';
 
 class AgentHome extends StatefulWidget {
   const AgentHome({super.key});
@@ -34,7 +32,10 @@ class _AgentHomeState extends State<AgentHome> {
               width: 10,
             ),
             InkWell(
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>AgentProfile())),
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const AgentProfile())),
               child: Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: CircleAvatar(

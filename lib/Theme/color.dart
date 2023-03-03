@@ -9,11 +9,10 @@ Color secondary2 = const Color(
 );
 Color secondary3 = const Color.fromRGBO(174, 235, 243, 1);
 Color black = Colors.black;
-Color text2 = Color(
-      0xff545454,
-    );
+Color text2 = const Color(
+  0xff545454,
+);
 
-
-Color lightgray =  Color(
-      0xffe7e7e7,
-    );
+Color lightgray = const Color(
+  0xffe7e7e7,
+);

@@ -1,11 +1,10 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/model/campmodel.dart';
 
 class CampsDetails extends StatefulWidget {
   final CampsModel campdetail;
-  const CampsDetails({super.key,required this.campdetail});
+  const CampsDetails({super.key, required this.campdetail});
 
   @override
   State<CampsDetails> createState() => _CampsDetailsState();
@@ -13,7 +12,7 @@ class CampsDetails extends StatefulWidget {
 
 class _CampsDetailsState extends State<CampsDetails> {
   int current = 0;
-  List data=[];
+  List data = [];
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -25,11 +24,11 @@ class _CampsDetailsState extends State<CampsDetails> {
         elevation: 0,
         leading: InkWell(
             onTap: () => Navigator.pop(context),
-            child: Icon(
+            child: const Icon(
               Icons.arrow_back_ios_new,
               color: Colors.black,
             )),
-        title: Text(
+        title: const Text(
           "NGO Campaign",
           style: TextStyle(
               color: Colors.black,
@@ -44,16 +43,18 @@ class _CampsDetailsState extends State<CampsDetails> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Image.network(
-                    widget.campdetail.image.toString(),
-                    height: 185,
-                    width: width,
-                    fit: BoxFit.cover,
-                  ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.network(
+                  widget.campdetail.image.toString(),
+                  height: 185,
+                  width: width,
+                  fit: BoxFit.cover,
                 ),
-              SizedBox(height: 20,),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               Text(
                 "Know your rights - an initiative towards your better future ",
                 style: TextStyle(
@@ -62,19 +63,47 @@ class _CampsDetailsState extends State<CampsDetails> {
               const SizedBox(
                 height: 18,
               ),
-              Text("Description :${widget.campdetail.campdescription}",style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),),
+              Text(
+                "Description :${widget.campdetail.campdescription}",
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+              ),
               const SizedBox(height: 20),
-              Text("Category :${widget.campdetail.campcategory}",style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),),
+              Text(
+                "Category :${widget.campdetail.campcategory}",
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+              ),
               const SizedBox(height: 20),
-              Text("Camp benefit :${widget.campdetail.campbenefit}",style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),),
+              Text(
+                "Camp benefit :${widget.campdetail.campbenefit}",
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+              ),
               const SizedBox(height: 20),
-              Text("Organization :${widget.campdetail.camporganization}",style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),),
+              Text(
+                "Organization :${widget.campdetail.camporganization}",
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+              ),
               const SizedBox(height: 20),
-              Text("Place :${widget.campdetail.campplace}",style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),),
+              Text(
+                "Place :${widget.campdetail.campplace}",
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+              ),
               const SizedBox(height: 20),
-              Text("Time :${widget.campdetail.camptime}",style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),),
+              Text(
+                "Time :${widget.campdetail.camptime}",
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+              ),
               const SizedBox(height: 20),
-              Text("Date:${widget.campdetail.date}",style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),),
+              Text(
+                "Date:${widget.campdetail.date}",
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+              ),
             ],
           ),
         ),
@@ -98,11 +127,11 @@ class _TextContentState extends State<TextContent> {
       children: [
         Text(
           widget.heading,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
         ),
         Text(
           widget.content,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
         )
       ],
     );

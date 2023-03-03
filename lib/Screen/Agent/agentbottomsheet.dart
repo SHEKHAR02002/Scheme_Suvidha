@@ -40,7 +40,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: GNav(
               haptic: true,
-              tabs: [
+              tabs: const [
                 GButton(
                   icon: Icons.home,
                   // text: "Home",
@@ -64,7 +64,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
               selectedIndex: selectedIndex,
               onTabChange: (int index) {
                 if (index == selectedIndex && selectedIndex == 0) {
-                  Home();
+                  const Home();
                 }
                 setState(() {
                   selectedIndex = index;

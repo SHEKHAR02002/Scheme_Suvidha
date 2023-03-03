@@ -29,21 +29,19 @@ class _AgentProfileState extends State<AgentProfile> {
                 height: height / 3,
                 width: width,
                 child: Column(children: [
-                  
-                      CircleAvatar(
-                          radius: 45,
-                          child: Image.network(
-                            "https://firebasestorage.googleapis.com/v0/b/scheme-suvidha-admin.appspot.com/o/miscellaneous%2Fdefalutprofile.png?alt=media&token=fbf2357d-d893-43a7-9bcc-412f454691c4",
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                  CircleAvatar(
+                    radius: 45,
+                    child: Image.network(
+                      "https://firebasestorage.googleapis.com/v0/b/scheme-suvidha-admin.appspot.com/o/miscellaneous%2Fdefalutprofile.png?alt=media&token=fbf2357d-d893-43a7-9bcc-412f454691c4",
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(
+                  const Text(
                     "",
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(
                     height: 10,
@@ -55,16 +53,13 @@ class _AgentProfileState extends State<AgentProfile> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(
+                  const Text(
                     "",
-                    style: const TextStyle(
-                        fontSize: 12, fontWeight: FontWeight.w400),
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
                   )
                 ]),
               ),
-              SizedBox(
-                height: height/8
-              ),
+              SizedBox(height: height / 8),
               Container(
                 decoration: shadowdecoration,
                 child: Padding(
@@ -75,7 +70,6 @@ class _AgentProfileState extends State<AgentProfile> {
                       height: 20,
                       width: 20,
                     ),
-                    
                     const SizedBox(
                       width: 5,
                     ),
@@ -100,7 +94,6 @@ class _AgentProfileState extends State<AgentProfile> {
                 height: 25,
               ),
               Container(
-                
                 decoration: shadowdecoration,
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),

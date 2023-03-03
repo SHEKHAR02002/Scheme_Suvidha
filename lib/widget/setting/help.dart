@@ -25,7 +25,7 @@ class _HelpState extends State<Help> {
         ),
         automaticallyImplyLeading: false,
         centerTitle: true,
-        title: Text("Help",
+        title: const Text("Help",
             style: TextStyle(
               color: Colors.black,
               fontFamily: "Zilla",
@@ -35,15 +35,15 @@ class _HelpState extends State<Help> {
       ),
       body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-                  children: [
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
             Container(
               decoration: shadowdecoration,
               child: TextField(
                 maxLines: 8,
                 keyboardType: TextInputType.multiline,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w400,
                   color: Colors.black,
@@ -51,12 +51,14 @@ class _HelpState extends State<Help> {
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(color: Colors.transparent)),
+                        borderSide:
+                            const BorderSide(color: Colors.transparent)),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(color: Colors.transparent)),
+                        borderSide:
+                            const BorderSide(color: Colors.transparent)),
                     hintText: "write your query or feedback here..",
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                       color: Color(
                         0xff9f9f9f,
                       ),
@@ -65,41 +67,43 @@ class _HelpState extends State<Help> {
                     )),
               ),
             ),
-            SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     backgroundColor: primary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    fixedSize: Size(350, 55)),
+                    fixedSize: const Size(350, 55)),
                 onPressed: () {},
-                child: Text(
+                child: const Text(
                   "Send Query",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
                   ),
                 )),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     backgroundColor: primary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    fixedSize: Size(350, 55)),
+                    fixedSize: const Size(350, 55)),
                 onPressed: () {},
-                child: Text(
+                child: const Text(
                   "Send Email",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
                   ),
                 ))
-                  ],
-                ),
-          )),
+          ],
+        ),
+      )),
     );
   }
 }
