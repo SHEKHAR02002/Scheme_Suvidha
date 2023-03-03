@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:scheme/Screen/Agent/agetprofile.dart';
 import 'package:scheme/Screen/Agent/registrationform.dart';
 import 'package:scheme/Screen/agentwidget/applicationcard.dart';
 import 'package:scheme/Screen/agentwidget/overvieewcard.dart';
@@ -32,15 +33,18 @@ class _AgentHomeState extends State<AgentHome> {
             const SizedBox(
               width: 10,
             ),
-            Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: CircleAvatar(
-                  radius: 15,
-                  child: Image.network(
-                    "https://firebasestorage.googleapis.com/v0/b/scheme-suvidha-admin.appspot.com/o/miscellaneous%2Fdefalutprofile.png?alt=media&token=fbf2357d-d893-43a7-9bcc-412f454691c4",
-                    fit: BoxFit.cover,
-                  ),
-                ))
+            InkWell(
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>AgentProfile())),
+              child: Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: CircleAvatar(
+                    radius: 15,
+                    child: Image.network(
+                      "https://firebasestorage.googleapis.com/v0/b/scheme-suvidha-admin.appspot.com/o/miscellaneous%2Fdefalutprofile.png?alt=media&token=fbf2357d-d893-43a7-9bcc-412f454691c4",
+                      fit: BoxFit.cover,
+                    ),
+                  )),
+            )
           ],
         ),
         body: SingleChildScrollView(

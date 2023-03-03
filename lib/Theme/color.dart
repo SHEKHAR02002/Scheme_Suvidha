@@ -14,3 +14,6 @@ Color text2 = Color(
     );
 
 
+Color lightgray =  Color(
+      0xffe7e7e7,
+    );

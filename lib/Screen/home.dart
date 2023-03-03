@@ -13,6 +13,7 @@ import 'package:scheme/widget/alertcard.dart';
 import 'package:scheme/widget/campcard.dart';
 import 'package:scheme/widget/campdetail.dart';
 import 'package:scheme/widget/donesplash.dart';
+import 'package:scheme/widget/filtercontainer.dart';
 import 'package:scheme/widget/schemecard.dart';
 import 'package:scheme/widget/search.dart';
 import 'package:scheme/widget/statuscard.dart';
@@ -91,7 +92,8 @@ class _HomeState extends State<Home> {
           backgroundColor: bgcolor,
           actions: [
             InkWell(
-              onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>DoneUpload())),
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DoneUpload())),
               child: SvgPicture.asset(
                 "assets/notification.svg",
                 color: Colors.black,
@@ -149,7 +151,7 @@ class _HomeState extends State<Home> {
                 verify: verification,
               ),
               const SizedBox(height: 24),
-              register == false?AlertCard():SizedBox.shrink(),
+              register == false ? AlertCard() : SizedBox.shrink(),
               const SizedBox(
                 height: 20,
               ),
@@ -172,8 +174,8 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
+              SizedBox(height: 18),
               
-
               const SizedBox(height: 30),
               StreamBuilder(
                   stream: FirebaseFirestore.instance
@@ -196,7 +198,11 @@ class _HomeState extends State<Home> {
                     }
                     return const Center(child: Text("No Data"));
                   }),
-              Text("show more.....",style: TextStyle(color: primary,fontSize: 16,fontWeight: FontWeight.w400),),
+              Text(
+                "show more.....",
+                style: TextStyle(
+                    color: primary, fontSize: 16, fontWeight: FontWeight.w400),
+              ),
               const SizedBox(height: 30),
               const Text(
                 "Campaigns",
@@ -212,10 +218,9 @@ class _HomeState extends State<Home> {
                   initialPage: 0,
                   autoPlay: false,
                   // height: ,
-                  aspectRatio: 1/0.95,
+                  aspectRatio: 1 / 0.95,
                   autoPlayInterval: const Duration(seconds: 8),
-                  autoPlayAnimationDuration:
-                      const Duration(milliseconds: 800),
+                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
                   autoPlayCurve: Curves.fastOutSlowIn,
                   enlargeCenterPage: true,
                   scrollDirection: Axis.horizontal,
@@ -230,31 +235,33 @@ class _HomeState extends State<Home> {
                         ))
                     .toList(),
               ),
-              SizedBox(height: 20,)
+              SizedBox(
+                height: 20,
+              )
             ],
           ),
         ));
-        // bottomNavigationBar: register == false
-        //     ? Padding(
-        //         padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
-        //         child: ElevatedButton(
-        //             onPressed: () => Navigator.push(
-        //                 context,
-        //                 MaterialPageRoute(
-        //                     builder: (context) => const UploadDoument())),
-        //             style: ElevatedButton.styleFrom(
-        //                 elevation: 0,
-        //                 shape: RoundedRectangleBorder(
-        //                     borderRadius: BorderRadius.circular(5)),
-        //                 backgroundColor: primary,
-        //                 minimumSize: Size(width, 50)),
-        //             child: const Text(
-        //               "Register",
-        //               style: TextStyle(
-        //                   fontFamily: "Overpass",
-        //                   fontSize: 18,
-        //                   fontWeight: FontWeight.w700),
-        //             )))
-        //     : const SizedBox.shrink());
+    // bottomNavigationBar: register == false
+    //     ? Padding(
+    //         padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
+    //         child: ElevatedButton(
+    //             onPressed: () => Navigator.push(
+    //                 context,
+    //                 MaterialPageRoute(
+    //                     builder: (context) => const UploadDoument())),
+    //             style: ElevatedButton.styleFrom(
+    //                 elevation: 0,
+    //                 shape: RoundedRectangleBorder(
+    //                     borderRadius: BorderRadius.circular(5)),
+    //                 backgroundColor: primary,
+    //                 minimumSize: Size(width, 50)),
+    //             child: const Text(
+    //               "Register",
+    //               style: TextStyle(
+    //                   fontFamily: "Overpass",
+    //                   fontSize: 18,
+    //                   fontWeight: FontWeight.w700),
+    //             )))
+    //     : const SizedBox.shrink());
   }
 }
