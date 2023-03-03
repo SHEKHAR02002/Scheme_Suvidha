@@ -6,7 +6,7 @@ import 'package:scheme/Screen/Agent/registrationform.dart';
 import 'package:scheme/Screen/home.dart';
 import 'package:scheme/Theme/color.dart';
 
-int selectedIndex = 0;
+
 
 class BottomNavigator extends StatefulWidget {
   const BottomNavigator({super.key});
@@ -16,6 +16,7 @@ class BottomNavigator extends StatefulWidget {
 }
 
 class _BottomNavigatorState extends State<BottomNavigator> {
+  int currentIndex = 0;
   final screen = [
     const AgentHome(),
     const RegistrationForm(),
@@ -24,56 +25,24 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: selectedIndex,
-        children: screen,
-      ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Visibility(
-            child: Card(
-          color: Colors.white,
-          elevation: 10,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: GNav(
-              haptic: true,
-              tabs: const [
-                GButton(
-                  icon: Icons.home,
-                  // text: "Home",
-                ),
-                GButton(
-                  icon: Icons.add_circle_rounded,
-                  // text: "Add",
-                ),
-                GButton(
-                  icon: Icons.person,
-                  // text: "Profile",
-                )
-              ],
-              duration: const Duration(milliseconds: 400),
-              activeColor: primary,
-              tabBorderRadius: 30,
-              color: secondary3,
-              iconSize: 30,
-              gap: 5,
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              selectedIndex: selectedIndex,
-              onTabChange: (int index) {
-                if (index == selectedIndex && selectedIndex == 0) {
-                  const Home();
-                }
-                setState(() {
-                  selectedIndex = index;
-                });
-              },
-            ),
-          ),
-        )),
-      ),
+     body: IndexedStack(index:currentIndex,children: screen,),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        selectedItemColor: primary,
+        
+        currentIndex: currentIndex,
+        type: BottomNavigationBarType.fixed,
+        onTap: (index)=>setState(() {
+          currentIndex = index;
+        }),
+        iconSize: 28,
+        items: const[
+        BottomNavigationBarItem(icon: Icon(Icons.home),label: ''),
+
+        BottomNavigationBarItem(icon: Icon(Icons.edit),label: ''),
+
+        BottomNavigationBarItem(icon: Icon(Icons.person_2_outlined),label: '')
+      ]),
     );
   }
 }

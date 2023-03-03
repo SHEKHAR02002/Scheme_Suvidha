@@ -59,7 +59,7 @@ class _AgentProfileState extends State<AgentProfile> {
                   )
                 ]),
               ),
-              SizedBox(height: height / 8),
+              SizedBox(height: height / 10),
               Container(
                 decoration: shadowdecoration,
                 child: Padding(
@@ -160,13 +160,13 @@ class _AgentProfileState extends State<AgentProfile> {
           ),
         )),
         bottomNavigationBar: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
             child: ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                     elevation: 0,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
+                        borderRadius: BorderRadius.circular(10)),
                     backgroundColor: primary,
                     minimumSize: Size(width, 50)),
                 child: const Text(
