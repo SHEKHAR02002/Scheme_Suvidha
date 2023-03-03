@@ -17,8 +17,10 @@ class _SplashState extends State<Splash> {
   bool loader = false;
   @override
   void initState() {
-    getUserDeatilsApi(context: context)
-        .whenComplete(() => setState(() => loader = true));
+    FirebaseAuth.instance.currentUser != null
+        ? getUserDeatilsApi(context: context)
+            .whenComplete(() => setState(() => loader = true))
+        : setState(() => loader = true);
     super.initState();
   }
 
