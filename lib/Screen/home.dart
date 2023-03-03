@@ -29,7 +29,9 @@ class _HomeState extends State<Home> {
   bool register = userDetail!.registeration!;
   bool verification = false;
   int listlength = 3;
+  int nowlistlength = 0;
   List campdetail = [], schemesDetails = [];
+  bool nomore = false;
 
   Future getcampdetail() async {
     await FirebaseFirestore.instance
@@ -209,18 +211,44 @@ class _HomeState extends State<Home> {
                             SchemeModel.fromMap(schemesDetails[index]);
                         return SchemeCard(schemedata: schemdata);
                       }),
-              TextButton(
-                onPressed: () => setState(() {
-                  if (schemesDetails.length > listlength) {
-                    listlength += 5;
-                  }
-                }),
-                child: Text(
-                  "show more.....",
-                  style: TextStyle(
-                      color: primary,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () { 
+                    // nomore?
+                    //  setState(() {
+                    //   listlength =3;
+                    //   nomore = false;
+                    //  })
+                    // :
+                    setState(() {
+                    if (schemesDetails.length > listlength) {
+                      nowlistlength += 5;
+                      if(nowlistlength>schemesDetails.length){
+                        setState(() {
+                          listlength = schemesDetails.length;
+                        });
+                      }
+                      else{
+                        listlength = nowlistlength;
+                      }
+                    }
+                    else{
+                      setState(() {   
+                      listlength = schemesDetails.length;
+                      nomore = true;
+                      });
+                    }
+                  });
+
+                  },
+                  child: Text(
+                    nomore?"Less...": "More...",
+                    style: TextStyle(
+                        color: primary,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400),
+                  ),
                 ),
               ),
               const SizedBox(height: 30),

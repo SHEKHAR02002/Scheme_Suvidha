@@ -101,6 +101,7 @@ class _SchemeCardState extends State<SchemeCard> {
                                 "All State / UTs"
                             ? "All India"
                             : widget.schemedata.statename.toString(),
+                            textAlign: TextAlign.center,
                         style: TextStyle(
                             overflow: TextOverflow.clip,
                             color: black,
@@ -124,6 +125,7 @@ class _SchemeCardState extends State<SchemeCard> {
                             vertical: 5, horizontal: 10),
                         child: Text(
                           widget.schemedata.category.toString(),
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                               color: black,
                               fontSize: 12,
@@ -136,19 +138,21 @@ class _SchemeCardState extends State<SchemeCard> {
                     width: 8,
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+                    height: 25,
                     width: width / 5,
                     decoration: BoxDecoration(
                         color: secondary,
                         borderRadius: BorderRadius.circular(5)),
-                    child: Center(
-                      child: Text(
-                        widget.schemedata.disabilitypercentage.toString(),
-                        style: TextStyle(
-                            color: black,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400),
-                      ),
+                    child: Text(
+                      
+                      widget.schemedata.disabilitypercentage.toString(),
+                      overflow: TextOverflow.fade,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: black,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400),
                     ),
                   )
                 ],
