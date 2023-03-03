@@ -27,6 +27,9 @@ class UserModel {
   bool? newschemalert;
   bool? newcampalert;
 
+  String? applyschemename;
+  // DateTime? applydate;
+
   UserModel(
       {required this.aadharimage,
       required this.aadharno,
@@ -48,7 +51,10 @@ class UserModel {
       required this.userId,
       required this.validupto,
       required this.verification,
-      required this.image});
+      required this.image,
+      required this.applyschemename,
+      // required this.applydate,
+      });
 
   UserModel.fromMap(Map<String, dynamic> map) {
     userId = map['userId'];
@@ -78,6 +84,9 @@ class UserModel {
     newcampalert = map['newcampalert'];
 
     image = map['image'];
+
+    applyschemename = map['schemename'];
+    // applydate = map['dataofapply'].toDate();
   }
 
   Map<String, dynamic> toMap() {
@@ -103,7 +112,9 @@ class UserModel {
       'schmerenewal': schmerenewal,
       'newschemalert': newschemalert,
       'newcampalert': newcampalert,
-      'image': image
+      'image': image,
+      'schemename':applyschemename,
+      // 'dataofapply':applydate
     };
   }
 }

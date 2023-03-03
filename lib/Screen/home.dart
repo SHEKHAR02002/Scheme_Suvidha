@@ -209,7 +209,7 @@ class _HomeState extends State<Home> {
                       itemBuilder: (context, index) {
                         SchemeModel schemdata =
                             SchemeModel.fromMap(schemesDetails[index]);
-                        return SchemeCard(schemedata: schemdata);
+                        return SchemeCard(schemedata: schemdata,register: register,);
                       }),
               Align(
                 alignment: Alignment.centerRight,

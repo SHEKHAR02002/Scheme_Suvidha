@@ -4,6 +4,8 @@ import 'package:scheme/Screen/Agent/agetprofile.dart';
 import 'package:scheme/Screen/agentwidget/applicationcard.dart';
 import 'package:scheme/Screen/agentwidget/overvieewcard.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/api/getuserdetail.dart';
+import 'package:scheme/model/usermodel.dart';
 
 class AgentHome extends StatefulWidget {
   const AgentHome({super.key});
@@ -13,6 +15,27 @@ class AgentHome extends StatefulWidget {
 }
 
 class _AgentHomeState extends State<AgentHome> {
+  bool applicationloader = true;
+  List application = [];
+
+  Future callApi() async {
+    application.addAll(await getapplication());
+    if (mounted) {
+      if (application.isNotEmpty) {
+        applicationloader = false;
+        print(application);
+      } else {
+        print("empty");
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    callApi();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -66,9 +89,11 @@ class _AgentHomeState extends State<AgentHome> {
                 child: ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 3,
+                    itemCount: application.length,
                     itemBuilder: (context, index) {
-                      return const ApplicationCard();
+                      UserModel applications =
+                          UserModel.fromMap(application[index]);
+                      return ApplicationCard(applicationdetails: applications,);
                     }),
               )
             ],

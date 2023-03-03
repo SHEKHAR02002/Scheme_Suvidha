@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:scheme/Screen/home.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/api/checknewuser.dart';
 import 'package:scheme/model/schememodel.dart';
+import 'package:scheme/widget/processingpopup.dart';
 
 class SchemeDetail extends StatefulWidget {
   final SchemeModel schemedata;
-  const SchemeDetail({super.key, required this.schemedata});
+  final bool register;
+  const SchemeDetail(
+      {super.key, required this.schemedata, required this.register});
 
   @override
   State<SchemeDetail> createState() => _SchemeDetailState();
@@ -271,22 +276,34 @@ class _SchemeDetailState extends State<SchemeDetail> {
             ),
           ),
         ),
-        bottomNavigationBar: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
-            child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                    backgroundColor: primary,
-                    minimumSize: Size(width, 50)),
-                child: const Text(
-                  "Apply",
-                  style: TextStyle(
-                      fontFamily: "Overpass",
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700),
-                ))));
+        bottomNavigationBar: widget.register
+            ? Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
+                child: ElevatedButton(
+                    onPressed: () async {
+                      showDialog(
+                          context: context,
+                          builder: ((context) => processingPopup(
+                              context: context, msg: "Processing....")));
+                      await schemeapply(
+                              schemename:
+                                  widget.schemedata.schemename.toString())
+                          .whenComplete(() => Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Home())));
+                    },
+                    style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5)),
+                        backgroundColor: primary,
+                        minimumSize: Size(width, 50)),
+                    child: const Text(
+                      "Apply",
+                      style: TextStyle(
+                          fontFamily: "Overpass",
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700),
+                    )))
+            : SizedBox.shrink());
   }
 }

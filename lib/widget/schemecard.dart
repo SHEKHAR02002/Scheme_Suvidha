@@ -7,10 +7,12 @@ import 'package:scheme/widget/schemedetail.dart';
 
 class SchemeCard extends StatefulWidget {
   final SchemeModel schemedata;
+  final bool register;
 
   const SchemeCard({
     super.key,
     required this.schemedata,
+    required this.register
   });
 
   @override
@@ -165,6 +167,7 @@ class _SchemeCardState extends State<SchemeCard> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => SchemeDetail(
+                          register: widget.register,
                           schemedata: widget.schemedata,
                         ))),
             child: SvgPicture.asset(

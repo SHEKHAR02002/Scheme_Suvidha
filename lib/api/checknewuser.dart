@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/notifcationprovider.dart';
 
@@ -68,5 +69,28 @@ Future userdataupload() async {
     "validupto": validupto,
     "registeration": true,
     "verification": false,
+  });
+}
+
+Future schemeapply({required String schemename}) async {
+  await FirebaseFirestore.instance
+      .collection("Application")
+      .doc(FirebaseAuth.instance.currentUser!.uid.toString())
+      .set({
+    "userId": FirebaseAuth.instance.currentUser!.uid.toString(),
+    "aadharno": userDetail!.aadharno,
+    "name": userDetail!.name,
+    "dob": userDetail!.dob,
+    "gender": userDetail!.gender,
+    "udidno": userDetail!.udidno,
+    "udidname": userDetail!.udidname,
+    "disabilitytype": userDetail!.disabilitytype,
+    "disabilitypercentage": userDetail!.disabilitypercentage,
+    "dateissue": userDetail!.dateissue,
+    "validupto": userDetail!.validupto,
+    "registeration": true,
+    "verification": false,
+    "schemename": schemename,
+    "dataofapply": DateTime.now(),
   });
 }

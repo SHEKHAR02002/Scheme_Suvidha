@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:scheme/Screen/agentwidget/verification.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
+import 'package:scheme/model/usermodel.dart';
 
 class UDIDVerification extends StatefulWidget {
-  const UDIDVerification({super.key});
+  final UserModel applicationdetails;
+  const UDIDVerification({super.key,required this.applicationdetails});
 
   @override
   State<UDIDVerification> createState() => _UDIDVerificationState();
@@ -76,13 +78,13 @@ class _UDIDVerificationState extends State<UDIDVerification> {
               ],
             ),
             const SizedBox(height: 30),
-            const TextContainer(title: "UDID Card No.", content: ""),
+             TextContainer(title: "UDID Card No.", content: widget.applicationdetails.udidno.toString()),
             const SizedBox(height: 15),
-            const TextContainer(title: "Name", content: ""),
+             TextContainer(title: "Name", content: widget.applicationdetails.udidname.toString()),
             const SizedBox(height: 15),
-            const TextContainer(title: "Disability Type", content: ""),
+             TextContainer(title: "Disability Type", content: widget.applicationdetails.disabilitytype.toString()),
             const SizedBox(height: 15),
-            const TextContainer(title: "Disability Percentage", content: ""),
+             TextContainer(title: "Disability Percentage", content: widget.applicationdetails.disabilitypercentage.toString()),
             const SizedBox(height: 15),
             Row(
               children: [
@@ -104,8 +106,8 @@ class _UDIDVerificationState extends State<UDIDVerification> {
                         style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.w400),
                         decoration: InputDecoration(
-                          hintText: "",
-                          contentPadding: const EdgeInsets.all(15),
+                          hintText: widget.applicationdetails.dateissue,
+                          contentPadding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
@@ -135,8 +137,8 @@ class _UDIDVerificationState extends State<UDIDVerification> {
                         style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.w400),
                         decoration: InputDecoration(
-                          hintText: "",
-                          contentPadding: const EdgeInsets.all(15),
+                          hintText: widget.applicationdetails.validupto,
+                          contentPadding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
@@ -152,10 +154,7 @@ class _UDIDVerificationState extends State<UDIDVerification> {
             Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
           child: ElevatedButton(
-              onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => UDIDVerification())),
+              onPressed: () {},
 
               // upload(),
               style: ElevatedButton.styleFrom(
@@ -175,10 +174,7 @@ class _UDIDVerificationState extends State<UDIDVerification> {
               Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
           child: ElevatedButton(
-              onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => UDIDVerification())),
+              onPressed: () {},
 
               // upload(),
               style: ElevatedButton.styleFrom(

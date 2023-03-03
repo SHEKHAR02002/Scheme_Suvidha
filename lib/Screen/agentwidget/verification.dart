@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:scheme/Screen/agentwidget/udidverification.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
+import 'package:scheme/model/usermodel.dart';
 
 class AgentVerification extends StatefulWidget {
-  const AgentVerification({super.key});
+  final UserModel applicationdetails;
+  const AgentVerification({super.key, required this.applicationdetails});
 
   @override
   State<AgentVerification> createState() => _AgentVerificationState();
@@ -57,12 +59,12 @@ class _AgentVerificationState extends State<AgentVerification> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Mogambo nakhush",
+                      widget.applicationdetails.name.toString(),
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                     ),
                     Text(
-                      "ADIP scheme",
+                      widget.applicationdetails.applyschemename.toString(),
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w400,
@@ -109,9 +111,13 @@ class _AgentVerificationState extends State<AgentVerification> {
               ],
             ),
             const SizedBox(height: 30),
-            const TextContainer(title: "Aadhar Card No", content: ""),
+            TextContainer(
+                title: "Aadhar Card No",
+                content: widget.applicationdetails.aadharno.toString()),
             const SizedBox(height: 15),
-            const TextContainer(title: "Name", content: ""),
+            TextContainer(
+                title: "Name",
+                content: widget.applicationdetails.name.toString()),
             const SizedBox(height: 15),
             Row(
               children: [
@@ -133,8 +139,9 @@ class _AgentVerificationState extends State<AgentVerification> {
                         style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.w400),
                         decoration: InputDecoration(
-                          hintText: "",
-                          contentPadding: const EdgeInsets.all(15),
+                          hintText: widget.applicationdetails.dob.toString(),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 10),
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
@@ -164,8 +171,9 @@ class _AgentVerificationState extends State<AgentVerification> {
                         style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.w400),
                         decoration: InputDecoration(
-                          hintText: "",
-                          contentPadding: const EdgeInsets.all(15),
+                          hintText: widget.applicationdetails.gender.toString(),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 10),
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
@@ -179,7 +187,9 @@ class _AgentVerificationState extends State<AgentVerification> {
               ],
             ),
             const SizedBox(height: 15),
-            const TextContainer(title: "Phone No.", content: "")
+            TextContainer(
+                title: "Phone No.",
+                content: widget.applicationdetails.phoneno.toString())
           ],
         ),
       ),
@@ -187,7 +197,7 @@ class _AgentVerificationState extends State<AgentVerification> {
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
           child: ElevatedButton(
               onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => UDIDVerification())),
+                  MaterialPageRoute(builder: (context) => UDIDVerification(applicationdetails: widget.applicationdetails,))),
 
               // upload(),
               style: ElevatedButton.styleFrom(
@@ -234,7 +244,8 @@ class _TextContainerState extends State<TextContainer> {
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
             decoration: InputDecoration(
               hintText: widget.content,
-              contentPadding: const EdgeInsets.all(15),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
               filled: true,
               fillColor: Colors.white,
               border: OutlineInputBorder(

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:scheme/Screen/agentwidget/verification.dart';
+import 'package:scheme/model/usermodel.dart';
 
 class ApplicationCard extends StatefulWidget {
-  const ApplicationCard({super.key});
+   final UserModel applicationdetails;
+  const ApplicationCard({super.key,required this.applicationdetails});
 
   @override
   State<ApplicationCard> createState() => _ApplicationCardState();
@@ -11,9 +13,9 @@ class ApplicationCard extends StatefulWidget {
 class _ApplicationCardState extends State<ApplicationCard> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () => Navigator.push(context,
-          MaterialPageRoute(builder: (context) => AgentVerification())),
+          MaterialPageRoute(builder: (context) => AgentVerification(applicationdetails: widget.applicationdetails,))),
       child: Stack(children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
@@ -45,15 +47,15 @@ class _ApplicationCardState extends State<ApplicationCard> {
                   const SizedBox(width: 12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        'ADIP scheme',
+                    children:  [
+                       Text(
+                        widget.applicationdetails.applyschemename.toString(),
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        'Applicant: Danny Danzoupa',
-                        style: TextStyle(
+                          widget.applicationdetails.name.toString(),
+                        style:const  TextStyle(
                             color: Color(
                               0xff545454,
                             ),

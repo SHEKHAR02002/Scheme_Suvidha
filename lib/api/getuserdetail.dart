@@ -57,3 +57,16 @@ class UserDetails {
     });
   }
 }
+
+Future getapplication() async {
+  List applicant = [];
+  await FirebaseFirestore.instance
+      .collection("Application")
+      .get()
+      .then((QuerySnapshot querysnapshot) {
+    for (var doc in querysnapshot.docs) {
+      applicant.add(doc.data());
+    }
+  });
+  return applicant;
+}
