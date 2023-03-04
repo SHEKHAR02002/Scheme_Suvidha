@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:scheme/Screen/Agent/agetprofile.dart';
 import 'package:scheme/Screen/agentwidget/applicationcard.dart';
 import 'package:scheme/Screen/agentwidget/overvieewcard.dart';
 import 'package:scheme/Theme/color.dart';
@@ -51,15 +50,14 @@ class _AgentHomeState extends State<AgentHome> {
               height: 30,
               width: 30,
             ),
-            
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: SvgPicture.asset(
-                        "assets/about.svg",
-                        color: Colors.black,
-                        height: 30,
-                        width: 30,
-                      ),
+                "assets/about.svg",
+                color: Colors.black,
+                height: 30,
+                width: 30,
+              ),
             )
           ],
         ),
@@ -85,7 +83,9 @@ class _AgentHomeState extends State<AgentHome> {
                     itemBuilder: (context, index) {
                       UserModel applications =
                           UserModel.fromMap(application[index]);
-                      return ApplicationCard(applicationdetails: applications,);
+                      return ApplicationCard(
+                        applicationdetails: applications,
+                      );
                     }),
               )
             ],

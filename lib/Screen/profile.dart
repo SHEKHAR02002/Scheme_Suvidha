@@ -80,9 +80,7 @@ class _ProfileState extends State<Profile> {
                   )
                 ]),
               ),
-              SizedBox(
-                height: height/8
-              ),
+              SizedBox(height: height / 8),
               Container(
                 decoration: shadowdecoration,
                 child: Padding(
@@ -117,7 +115,6 @@ class _ProfileState extends State<Profile> {
                 height: 25,
               ),
               Container(
-                
                 decoration: shadowdecoration,
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),

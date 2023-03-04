@@ -4,7 +4,7 @@ import 'package:scheme/model/usermodel.dart';
 
 class ApplicationCard extends StatefulWidget {
   final UserModel applicationdetails;
-  const ApplicationCard({super.key,required this.applicationdetails});
+  const ApplicationCard({super.key, required this.applicationdetails});
 
   @override
   State<ApplicationCard> createState() => _ApplicationCardState();
@@ -14,8 +14,12 @@ class _ApplicationCardState extends State<ApplicationCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.push(context,
-          MaterialPageRoute(builder: (context) => AgentVerification(applicationdetails: widget.applicationdetails,))),
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => AgentVerification(
+                    applicationdetails: widget.applicationdetails,
+                  ))),
       child: Stack(children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
@@ -47,16 +51,16 @@ class _ApplicationCardState extends State<ApplicationCard> {
                   const SizedBox(width: 12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children:  [
-                       Text(
+                    children: [
+                      Text(
                         widget.applicationdetails.applyschemename.toString(),
                         overflow: TextOverflow.clip,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 14, fontWeight: FontWeight.w600),
                       ),
                       Text(
-                          widget.applicationdetails.name.toString(),
-                        style:const  TextStyle(
+                        widget.applicationdetails.name.toString(),
+                        style: const TextStyle(
                             color: Color(
                               0xff545454,
                             ),

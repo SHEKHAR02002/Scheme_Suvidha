@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/notifcationprovider.dart';
 
@@ -90,7 +89,7 @@ Future schemeapply({required String schemename}) async {
     "validupto": userDetail!.validupto,
     "registeration": true,
     "verification": false,
-    "phoneno":userDetail!.phoneno,
+    "phoneno": userDetail!.phoneno,
     "schemename": schemename,
     "dataofapply": DateTime.now(),
   });

@@ -14,8 +14,8 @@ class _FilterContainerState extends State<FilterContainer> {
     return Container(
       decoration: BoxDecoration(
           color: lightgray, borderRadius: BorderRadius.circular(5)),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+      child: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
         child: Text(
           "Health",
           textAlign: TextAlign.center,

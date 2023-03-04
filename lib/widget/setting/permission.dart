@@ -100,8 +100,7 @@ class _PermissionState extends State<Permission> {
                 height: 20,
               ),
               Container(
-                
-                decoration:shadowdecoration,
+                decoration: shadowdecoration,
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Row(
@@ -138,7 +137,6 @@ class _PermissionState extends State<Permission> {
                 height: 20,
               ),
               Container(
-               
                 decoration: shadowdecoration,
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -176,7 +174,6 @@ class _PermissionState extends State<Permission> {
                 height: 20,
               ),
               Container(
-               
                 decoration: shadowdecoration,
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -210,9 +207,7 @@ class _PermissionState extends State<Permission> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 20
-              ),
+              const SizedBox(height: 20),
               Container(
                 // height: 50,
                 decoration: shadowdecoration,
@@ -238,7 +233,6 @@ class _PermissionState extends State<Permission> {
                         ),
                         activeToggleColor: primary,
                         inactiveColor: Colors.grey,
-                        
                         onToggle: ((value) {
                           setState(() {
                             campalert = value;

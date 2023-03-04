@@ -58,4 +58,3 @@ Future register({required context}) async {
   Navigator.push(
       context, MaterialPageRoute(builder: (context) => const Home()));
 }
-

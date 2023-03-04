@@ -209,12 +209,15 @@ class _HomeState extends State<Home> {
                       itemBuilder: (context, index) {
                         SchemeModel schemdata =
                             SchemeModel.fromMap(schemesDetails[index]);
-                        return SchemeCard(schemedata: schemdata,register: register,);
+                        return SchemeCard(
+                          schemedata: schemdata,
+                          register: register,
+                        );
                       }),
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () { 
+                  onPressed: () {
                     // nomore?
                     //  setState(() {
                     //   listlength =3;
@@ -222,28 +225,25 @@ class _HomeState extends State<Home> {
                     //  })
                     // :
                     setState(() {
-                    if (schemesDetails.length > listlength) {
-                      nowlistlength += 5;
-                      if(nowlistlength>schemesDetails.length){
+                      if (schemesDetails.length > listlength) {
+                        nowlistlength += 5;
+                        if (nowlistlength > schemesDetails.length) {
+                          setState(() {
+                            listlength = schemesDetails.length;
+                          });
+                        } else {
+                          listlength = nowlistlength;
+                        }
+                      } else {
                         setState(() {
                           listlength = schemesDetails.length;
+                          nomore = true;
                         });
                       }
-                      else{
-                        listlength = nowlistlength;
-                      }
-                    }
-                    else{
-                      setState(() {   
-                      listlength = schemesDetails.length;
-                      nomore = true;
-                      });
-                    }
-                  });
-
+                    });
                   },
                   child: Text(
-                    nomore?"Less...": "More...",
+                    nomore ? "Less..." : "More...",
                     style: TextStyle(
                         color: primary,
                         fontSize: 16,

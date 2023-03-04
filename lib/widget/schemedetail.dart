@@ -288,8 +288,10 @@ class _SchemeDetailState extends State<SchemeDetail> {
                       await schemeapply(
                               schemename:
                                   widget.schemedata.schemename.toString())
-                          .whenComplete(() => Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Home())));
+                          .whenComplete(() => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Home())));
                     },
                     style: ElevatedButton.styleFrom(
                         elevation: 0,
@@ -304,6 +306,6 @@ class _SchemeDetailState extends State<SchemeDetail> {
                           fontSize: 18,
                           fontWeight: FontWeight.w700),
                     )))
-            : SizedBox.shrink());
+            : const SizedBox.shrink());
   }
 }

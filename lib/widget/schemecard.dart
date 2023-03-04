@@ -9,11 +9,8 @@ class SchemeCard extends StatefulWidget {
   final SchemeModel schemedata;
   final bool register;
 
-  const SchemeCard({
-    super.key,
-    required this.schemedata,
-    required this.register
-  });
+  const SchemeCard(
+      {super.key, required this.schemedata, required this.register});
 
   @override
   State<SchemeCard> createState() => _SchemeCardState();
@@ -103,7 +100,7 @@ class _SchemeCardState extends State<SchemeCard> {
                                 "All State / UTs"
                             ? "All India"
                             : widget.schemedata.statename.toString(),
-                            textAlign: TextAlign.center,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                             overflow: TextOverflow.clip,
                             color: black,
@@ -140,14 +137,14 @@ class _SchemeCardState extends State<SchemeCard> {
                     width: 8,
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                     height: 25,
                     width: width / 5,
                     decoration: BoxDecoration(
                         color: secondary,
                         borderRadius: BorderRadius.circular(5)),
                     child: Text(
-                      
                       widget.schemedata.disabilitypercentage.toString(),
                       overflow: TextOverflow.fade,
                       textAlign: TextAlign.center,

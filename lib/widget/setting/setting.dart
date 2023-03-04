@@ -122,7 +122,8 @@ class _SettingState extends State<Setting> {
             Container(
               decoration: shadowdecoration,
               child: InkWell(
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>ContactUs())),
+                onTap: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const ContactUs())),
                 child: Padding(
                   padding: const EdgeInsets.all(13.0),
                   child: Row(children: [

@@ -52,7 +52,7 @@ class _ContactUsState extends State<ContactUs> {
                   "Didn’t find the answer you were looking for ? Contact our Support Center?",
                   style: TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w400, color: text2)),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Stack(children: [
@@ -66,7 +66,7 @@ class _ContactUsState extends State<ContactUs> {
                         color: primary,
                       ),
                       const SizedBox(width: 10),
-                      Text(
+                      const Text(
                         "Go to Our Website",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w400),
@@ -83,7 +83,7 @@ class _ContactUsState extends State<ContactUs> {
                       color: primary,
                     ))
               ]),
-              SizedBox(
+              const SizedBox(
                 height: 24,
               ),
               Stack(children: [
@@ -97,7 +97,7 @@ class _ContactUsState extends State<ContactUs> {
                         color: primary,
                       ),
                       const SizedBox(width: 10),
-                      Text(
+                      const Text(
                         "Email Us",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w400),
@@ -114,21 +114,24 @@ class _ContactUsState extends State<ContactUs> {
                       color: primary,
                     ))
               ]),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               const Text(
                 "FAQ",
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
               ),
-              SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: 2,
                   itemBuilder: (context, index) {
-                    return FAQ(
-                      question: "In what format the documents are to be uploaded?",
+                    return const FAQ(
+                      question:
+                          "In what format the documents are to be uploaded?",
                       answer: "",
                     );
                   })

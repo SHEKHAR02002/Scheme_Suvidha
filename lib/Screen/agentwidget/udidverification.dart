@@ -6,7 +6,7 @@ import 'package:scheme/model/usermodel.dart';
 
 class UDIDVerification extends StatefulWidget {
   final UserModel applicationdetails;
-  const UDIDVerification({super.key,required this.applicationdetails});
+  const UDIDVerification({super.key, required this.applicationdetails});
 
   @override
   State<UDIDVerification> createState() => _UDIDVerificationState();
@@ -24,11 +24,11 @@ class _UDIDVerificationState extends State<UDIDVerification> {
         centerTitle: true,
         leading: InkWell(
             onTap: () => Navigator.pop(context),
-            child: Icon(
+            child: const Icon(
               Icons.arrow_back_ios,
               color: Colors.black,
             )),
-        title: Text(
+        title: const Text(
           "Verification",
           style: TextStyle(
               color: Colors.black,
@@ -38,7 +38,7 @@ class _UDIDVerificationState extends State<UDIDVerification> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -58,7 +58,7 @@ class _UDIDVerificationState extends State<UDIDVerification> {
                   "UDID Card",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
                 ),
-                Spacer(),
+                const Spacer(),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         elevation: 0,
@@ -66,7 +66,7 @@ class _UDIDVerificationState extends State<UDIDVerification> {
                           borderRadius: BorderRadius.circular(5),
                         ),
                         backgroundColor: primary,
-                        minimumSize: Size(80, 30)),
+                        minimumSize: const Size(80, 30)),
                     onPressed: () {},
                     child: const Text(
                       "View",
@@ -78,20 +78,29 @@ class _UDIDVerificationState extends State<UDIDVerification> {
               ],
             ),
             const SizedBox(height: 30),
-             TextContainer(title: "UDID Card No.", content: widget.applicationdetails.udidno.toString()),
+            TextContainer(
+                title: "UDID Card No.",
+                content: widget.applicationdetails.udidno.toString()),
             const SizedBox(height: 15),
-             TextContainer(title: "Name", content: widget.applicationdetails.udidname.toString()),
+            TextContainer(
+                title: "Name",
+                content: widget.applicationdetails.udidname.toString()),
             const SizedBox(height: 15),
-             TextContainer(title: "Disability Type", content: widget.applicationdetails.disabilitytype.toString()),
+            TextContainer(
+                title: "Disability Type",
+                content: widget.applicationdetails.disabilitytype.toString()),
             const SizedBox(height: 15),
-             TextContainer(title: "Disability Percentage", content: widget.applicationdetails.disabilitypercentage.toString()),
+            TextContainer(
+                title: "Disability Percentage",
+                content:
+                    widget.applicationdetails.disabilitypercentage.toString()),
             const SizedBox(height: 15),
             Row(
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Date Of Issue",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
@@ -107,7 +116,8 @@ class _UDIDVerificationState extends State<UDIDVerification> {
                             fontSize: 18, fontWeight: FontWeight.w400),
                         decoration: InputDecoration(
                           hintText: widget.applicationdetails.dateissue,
-                          contentPadding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
@@ -118,11 +128,11 @@ class _UDIDVerificationState extends State<UDIDVerification> {
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Valid Upto",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
@@ -138,7 +148,8 @@ class _UDIDVerificationState extends State<UDIDVerification> {
                             fontSize: 18, fontWeight: FontWeight.w400),
                         decoration: InputDecoration(
                           hintText: widget.applicationdetails.validupto,
-                          contentPadding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
@@ -150,50 +161,51 @@ class _UDIDVerificationState extends State<UDIDVerification> {
                   ],
                 ),
               ],
-            ),SizedBox(height: 20,),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
-          child: ElevatedButton(
-              onPressed: () {},
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+                child: ElevatedButton(
+                    onPressed: () {},
 
-              // upload(),
-              style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5)),
-                  backgroundColor: primary,
-                  minimumSize: Size(width, 40)),
-              child: const Text(
-                "Accept",
-                style: TextStyle(
-                    fontFamily: "Overpass",
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700),
-              ))),
-              
-              Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
-          child: ElevatedButton(
-              onPressed: () {},
+                    // upload(),
+                    style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5)),
+                        backgroundColor: primary,
+                        minimumSize: Size(width, 40)),
+                    child: const Text(
+                      "Accept",
+                      style: TextStyle(
+                          fontFamily: "Overpass",
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700),
+                    ))),
+            Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+                child: ElevatedButton(
+                    onPressed: () {},
 
-              // upload(),
-              style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5)),
-                  backgroundColor: primary,
-                  minimumSize: Size(width, 40)),
-              child: const Text(
-                "Reject",
-                style: TextStyle(
-                    fontFamily: "Overpass",
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700),
-              ))),
+                    // upload(),
+                    style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5)),
+                        backgroundColor: primary,
+                        minimumSize: Size(width, 40)),
+                    child: const Text(
+                      "Reject",
+                      style: TextStyle(
+                          fontFamily: "Overpass",
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700),
+                    ))),
           ],
         ),
       ),
-     
     );
   }
 }

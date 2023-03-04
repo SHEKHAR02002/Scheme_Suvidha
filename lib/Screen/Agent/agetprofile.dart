@@ -63,7 +63,10 @@ class _AgentProfileState extends State<AgentProfile> {
               ),
               SizedBox(height: height / 10),
               GestureDetector(
-                onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ResetPassword())),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ResetPassword())),
                 child: Container(
                   decoration: shadowdecoration,
                   child: Padding(
@@ -99,8 +102,10 @@ class _AgentProfileState extends State<AgentProfile> {
                 height: 25,
               ),
               GestureDetector(
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AgentHistory())),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AgentHistory())),
                 child: Container(
                   decoration: shadowdecoration,
                   child: Padding(

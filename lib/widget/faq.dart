@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:scheme/Theme/color.dart';
+
 class FAQ extends StatefulWidget {
-  final String question,answer;
-  const FAQ({super.key,required this.answer,required this.question});
+  final String question, answer;
+  const FAQ({super.key, required this.answer, required this.question});
 
   @override
   State<FAQ> createState() => _FAQState();

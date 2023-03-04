@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scheme/Screen/agentwidget/udidverification.dart';
 import 'package:scheme/Theme/color.dart';
@@ -25,11 +24,11 @@ class _AgentVerificationState extends State<AgentVerification> {
         centerTitle: true,
         leading: InkWell(
             onTap: () => Navigator.pop(context),
-            child: Icon(
+            child: const Icon(
               Icons.arrow_back_ios,
               color: Colors.black,
             )),
-        title: Text(
+        title: const Text(
           "Verification",
           style: TextStyle(
               color: Colors.black,
@@ -39,7 +38,7 @@ class _AgentVerificationState extends State<AgentVerification> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -52,7 +51,7 @@ class _AgentVerificationState extends State<AgentVerification> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Column(
@@ -60,13 +59,13 @@ class _AgentVerificationState extends State<AgentVerification> {
                   children: [
                     Text(
                       widget.applicationdetails.name.toString(),
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w500),
                     ),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Text(
-                        widget.applicationdetails.applyschemename.toString(), 
+                        widget.applicationdetails.applyschemename.toString(),
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
@@ -94,7 +93,7 @@ class _AgentVerificationState extends State<AgentVerification> {
                   "Aadhar Card",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
                 ),
-                Spacer(),
+                const Spacer(),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         elevation: 0,
@@ -102,7 +101,7 @@ class _AgentVerificationState extends State<AgentVerification> {
                           borderRadius: BorderRadius.circular(5),
                         ),
                         backgroundColor: primary,
-                        minimumSize: Size(80, 30)),
+                        minimumSize: const Size(80, 30)),
                     onPressed: () {},
                     child: const Text(
                       "View",
@@ -127,7 +126,7 @@ class _AgentVerificationState extends State<AgentVerification> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "DOB",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
@@ -155,11 +154,11 @@ class _AgentVerificationState extends State<AgentVerification> {
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Gender",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
@@ -199,8 +198,12 @@ class _AgentVerificationState extends State<AgentVerification> {
       bottomNavigationBar: Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
           child: ElevatedButton(
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => UDIDVerification(applicationdetails: widget.applicationdetails,))),
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => UDIDVerification(
+                            applicationdetails: widget.applicationdetails,
+                          ))),
 
               // upload(),
               style: ElevatedButton.styleFrom(
@@ -236,7 +239,7 @@ class _TextContainerState extends State<TextContainer> {
       children: [
         Text(
           widget.title,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
         ),
         Container(
           height: 40,
