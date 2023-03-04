@@ -63,12 +63,15 @@ class _AgentVerificationState extends State<AgentVerification> {
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                     ),
-                    Text(
-                      widget.applicationdetails.applyschemename.toString(),
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                          color: text2),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Text(
+                        widget.applicationdetails.applyschemename.toString(), 
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: text2),
+                      ),
                     )
                   ],
                 )

@@ -90,6 +90,7 @@ Future schemeapply({required String schemename}) async {
     "validupto": userDetail!.validupto,
     "registeration": true,
     "verification": false,
+    "phoneno":userDetail!.phoneno,
     "schemename": schemename,
     "dataofapply": DateTime.now(),
   });

@@ -3,7 +3,7 @@ import 'package:scheme/Screen/agentwidget/verification.dart';
 import 'package:scheme/model/usermodel.dart';
 
 class ApplicationCard extends StatefulWidget {
-   final UserModel applicationdetails;
+  final UserModel applicationdetails;
   const ApplicationCard({super.key,required this.applicationdetails});
 
   @override
@@ -50,8 +50,9 @@ class _ApplicationCardState extends State<ApplicationCard> {
                     children:  [
                        Text(
                         widget.applicationdetails.applyschemename.toString(),
+                        overflow: TextOverflow.clip,
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600),
+                            fontSize: 14, fontWeight: FontWeight.w600),
                       ),
                       Text(
                           widget.applicationdetails.name.toString(),

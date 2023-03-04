@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:scheme/Screen/Agent/agenthistory.dart';
+import 'package:scheme/Screen/agentwidget/resetpassword.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 
@@ -60,67 +62,74 @@ class _AgentProfileState extends State<AgentProfile> {
                 ]),
               ),
               SizedBox(height: height / 10),
-              Container(
-                decoration: shadowdecoration,
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Row(children: [
-                    SvgPicture.asset(
-                      "assets/key.svg",
-                      height: 20,
-                      width: 20,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "Reset Password",
-                      style: TextStyle(
-                          color: primary,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    const Spacer(),
-                    SvgPicture.asset(
-                      "assets/right_arrow.svg",
-                      height: 25,
-                      width: 25,
-                      color: primary,
-                    ),
-                  ]),
+              GestureDetector(
+                onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ResetPassword())),
+                child: Container(
+                  decoration: shadowdecoration,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(children: [
+                      SvgPicture.asset(
+                        "assets/key.svg",
+                        height: 20,
+                        width: 20,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "Reset Password",
+                        style: TextStyle(
+                            color: primary,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      const Spacer(),
+                      SvgPicture.asset(
+                        "assets/right_arrow.svg",
+                        height: 25,
+                        width: 25,
+                        color: primary,
+                      ),
+                    ]),
+                  ),
                 ),
               ),
               const SizedBox(
                 height: 25,
               ),
-              Container(
-                decoration: shadowdecoration,
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Row(children: [
-                    SvgPicture.asset(
-                      "assets/watch.svg",
-                      height: 20,
-                      width: 20,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "History",
-                      style: TextStyle(
-                          color: primary,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    const Spacer(),
-                    SvgPicture.asset(
-                      "assets/right_arrow.svg",
-                      height: 25,
-                      width: 25,
-                      color: primary,
-                    ),
-                  ]),
+              GestureDetector(
+                onTap: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AgentHistory())),
+                child: Container(
+                  decoration: shadowdecoration,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(children: [
+                      SvgPicture.asset(
+                        "assets/watch.svg",
+                        height: 20,
+                        width: 20,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "History",
+                        style: TextStyle(
+                            color: primary,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      const Spacer(),
+                      SvgPicture.asset(
+                        "assets/right_arrow.svg",
+                        height: 25,
+                        width: 25,
+                        color: primary,
+                      ),
+                    ]),
+                  ),
                 ),
               ),
               const SizedBox(
