@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
+import 'package:scheme/widget/setting/contact.dart';
 import 'package:scheme/widget/setting/help.dart';
 import 'package:scheme/widget/setting/permission.dart';
 
@@ -121,7 +122,7 @@ class _SettingState extends State<Setting> {
             Container(
               decoration: shadowdecoration,
               child: InkWell(
-                onTap: () => {},
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>ContactUs())),
                 child: Padding(
                   padding: const EdgeInsets.all(13.0),
                   child: Row(children: [
