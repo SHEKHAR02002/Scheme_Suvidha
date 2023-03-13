@@ -12,11 +12,7 @@ class StatusCard extends StatelessWidget {
       height: 150,
       width: width,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [secondary3, primary])),
+          borderRadius: BorderRadius.circular(5), color: secondary),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         const Padding(
           padding: EdgeInsets.only(left: 12, top: 18),

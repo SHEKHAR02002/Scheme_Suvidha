@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:scheme/Screen/agentwidget/filtercontainer.dart';
 import 'package:scheme/Screen/profile.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/api/getscheme.dart';
@@ -25,7 +26,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   // UserModel? user;
-  bool campLoader = true, schemeLoader = true;
+  bool campLoader = true, schemeLoader = true, filterclicked = false;
   bool register = userDetail!.registeration!;
   bool verification = false;
   int listlength = 3;
@@ -168,36 +169,51 @@ class _HomeState extends State<Home> {
                         fontWeight: FontWeight.w400),
                   ),
                   const Spacer(),
-                  SvgPicture.asset(
-                    "assets/filter.svg",
-                    color: black,
-                    height: 30,
-                    width: 30,
+                  InkWell(
+                    onTap: () {
+                      if (filterclicked) {
+                        setState(() {
+                          filterclicked = false;
+                        });
+                      } else {
+                        setState(() {
+                          filterclicked = true;
+                        });
+                      }
+                    },
+                    child: SvgPicture.asset(
+                      "assets/filter.svg",
+                      color: black,
+                      height: 30,
+                      width: 30,
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(height: 30),
-              // StreamBuilder(
-              //     stream: FirebaseFirestore.instance
-              //         .collection("Schemes")
-              //         .snapshots(),
-              //     builder: (context, snapshot) {
-              //       if (snapshot.hasError) {
-              //         return const Text('Something went wrong');
-              //       }
-              //       if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-              //         List schemdata = List.from(snapshot.data!.docs
-              //             .map((doc) => SchemeModel.fromSnapshot(doc)));
-              //         return ListView.builder(
-              //             shrinkWrap: true,
-              //             physics: const NeverScrollableScrollPhysics(),
-              //             itemCount: 2,
-              //             itemBuilder: (context, index) {
-              //               return SchemeCard(schemedata: schemdata[index]);
-              //             });
-              //       }
-              //       return const Center(child: Text("No Data"));
-              //     }),
+              const SizedBox(height: 20),
+              filterclicked
+                  ? SizedBox(
+                      height: 25,
+                      width: width,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          FilterContainer(selectfilter: () {}, title: 'Health'),
+                          FilterContainer(
+                              selectfilter: () {}, title: 'Pension'),
+                          FilterContainer(
+                              selectfilter: () {}, title: 'Business'),
+                          FilterContainer(
+                              selectfilter: () {}, title: 'Education'),
+                          FilterContainer(
+                              selectfilter: () {}, title: 'Transport'),
+                          FilterContainer(
+                              selectfilter: () {}, title: 'Marriage'),
+                        ],
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+              const SizedBox(height: 20),
               schemeLoader
                   ? const Center(
                       child: CircularProgressIndicator(),
