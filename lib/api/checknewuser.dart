@@ -94,3 +94,11 @@ Future schemeapply({required String schemename}) async {
     "dataofapply": DateTime.now(),
   });
 }
+
+Future update() async {
+  await FirebaseFirestore.instance
+      .collection("Users")
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .update(
+          {"aadharno": aadharNo, "name": name, "dob": dob, "gender": gender});
+}

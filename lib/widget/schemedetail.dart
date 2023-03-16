@@ -288,10 +288,11 @@ class _SchemeDetailState extends State<SchemeDetail> {
                       await schemeapply(
                               schemename:
                                   widget.schemedata.schemename.toString())
-                          .whenComplete(() => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Home())));
+                          .whenComplete(() => Navigator.of(context)
+                              .pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => const Home()),
+                                  (route) => false));
                     },
                     style: ElevatedButton.styleFrom(
                         elevation: 0,

@@ -70,3 +70,22 @@ Future getapplication() async {
   });
   return applicant;
 }
+
+Future agentlogin({required String email, required String password}) async {
+  bool status = false;
+  try {
+    await FirebaseFirestore.instance
+        .collection("AgentUser")
+        .where("agentEmail", isEqualTo: email.toString())
+        .where("agentPassword", isEqualTo: password)
+        .get()
+        .then((value) => {
+              if (value.size == 1) {status = true} else {status = false}
+            });
+
+    return status;
+  } catch (e) {
+    print(e.toString());
+    return false;
+  }
+}

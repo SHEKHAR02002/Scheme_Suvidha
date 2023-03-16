@@ -111,12 +111,12 @@ class _HomeState extends State<Home> {
               onTap: () =>
                   // register
                   //     ?
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Profile(
-                                user: userDetail!,
-                              ))),
+                  Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) => Profile(
+                          user: userDetail!,
+                        )),
+              ),
               // : Fluttertoast.showToast(
               //     msg: "You Not Register",
               //     toastLength: Toast.LENGTH_LONG,

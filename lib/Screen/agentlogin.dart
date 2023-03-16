@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:scheme/Screen/Agent/agentbottomsheet.dart';
+import 'package:scheme/Screen/agentwidget/agentregistration.dart';
 
 import 'package:scheme/Theme/color.dart';
 
@@ -12,10 +12,13 @@ class AgentLogin extends StatefulWidget {
 }
 
 class _AgentLoginState extends State<AgentLogin> {
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    bool present = false;
     return Scaffold(
         // backgroundColor: bgcolor,
         body: SafeArea(
@@ -79,6 +82,7 @@ class _AgentLoginState extends State<AgentLogin> {
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(5)),
                     ),
+                    controller: _email,
                   ),
                 ),
               ),
@@ -133,6 +137,7 @@ class _AgentLoginState extends State<AgentLogin> {
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(5)),
                     ),
+                    controller: _password,
                   ),
                 ),
               ),
@@ -142,10 +147,12 @@ class _AgentLoginState extends State<AgentLogin> {
         bottomNavigationBar: Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
             child: ElevatedButton(
-                onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const BottomNavigator())),
+                onPressed: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => const AgentRegistration()),
+                      (route) => false);
+                },
                 style: ElevatedButton.styleFrom(
                     elevation: 0,
                     shape: RoundedRectangleBorder(
