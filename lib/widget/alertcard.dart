@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Theme/color.dart';
@@ -65,13 +64,6 @@ class _AlertCardState extends State<AlertCard> {
           ]),
         ),
       ),
-      const Positioned(
-          top: 10,
-          right: 10,
-          child: Icon(
-            CupertinoIcons.clear,
-            size: 20,
-          ))
     ]);
   }
 }

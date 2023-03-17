@@ -30,20 +30,26 @@ Future getUserDeatilsApi({required context}) async {
           ));
     }
   });
-  await UserDetails().userExits(context: context);
+  // await UserDetails().userExits(context: context);
+  User user = FirebaseAuth.instance.currentUser!;
+  if (!await checkuser()) {
+    await getFCM(uid: user.uid);
+    await UserDetails().getUserDetails(context: context);
+  } else {
+    await PhoneAuth().logOut(context: context);
+  }
 }
 
 class UserDetails {
-  User user = FirebaseAuth.instance.currentUser!;
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-  Future userExits({required context}) async {
-    if (!await checkuser()) {
-      await getFCM(uid: user.uid);
-      await getUserDetails(context: context);
-    } else {
-      await PhoneAuth().logOut(context: context);
-    }
-  }
+  // Future userExits({required context}) async {
+  //   if (!await checkuser()) {
+  //     await getFCM(uid: user.uid);
+  //     await getUserDetails(context: context);
+  //   } else {
+  //     await PhoneAuth().logOut(context: context);
+  //   }
+  // }
 
   Future getUserDetails({required context}) async {
     await FirebaseFirestore.instance
@@ -54,6 +60,7 @@ class UserDetails {
       var data = docSnapshot.data();
       userDetail = UserModel.fromMap(data!);
       log(data["phoneno"]);
+      registration = data["registeration"];
     });
   }
 }

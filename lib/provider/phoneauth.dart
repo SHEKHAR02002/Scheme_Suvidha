@@ -6,6 +6,7 @@ import 'package:scheme/Screen/login.dart';
 import 'package:scheme/Screen/otpbottom.dart';
 import 'package:scheme/api/checknewuser.dart';
 import 'package:scheme/api/getuserdetail.dart';
+import 'package:scheme/widget/registrationalertpopup.dart';
 
 class PhoneAuth {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -65,11 +66,15 @@ class PhoneAuth {
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) => const Home()),
                   (route) => false));
+          showDialog(
+              context: context,
+              builder: (context) => const RegistrationAlertPopup());
         } else {
-          await getUserDeatilsApi(context: context).then((value) =>
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => const Home()),
-                  (route) => false));
+          await getUserDeatilsApi(context: context).whenComplete(() {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const Home()),
+                (route) => false);
+          });
         }
       });
     } catch (e) {

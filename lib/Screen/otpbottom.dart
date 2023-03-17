@@ -70,6 +70,15 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
                   verificationId: widget.verificationId,
                   smsCode: _smsCode.text,
                   context: context)),
+          const SizedBox(
+            height: 20,
+          ),
+          const Text(
+            "click here to edit phone number",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 15, fontWeight: FontWeight.w400, fontFamily: "Zilla"),
+          )
         ]),
       ),
       bottomNavigationBar: Padding(

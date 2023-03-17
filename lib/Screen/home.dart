@@ -11,6 +11,7 @@ import 'package:scheme/model/schememodel.dart';
 import 'package:scheme/widget/alertcard.dart';
 import 'package:scheme/widget/campcard.dart';
 import 'package:scheme/widget/donesplash.dart';
+import 'package:scheme/widget/registrationalertpopup.dart';
 import 'package:scheme/widget/schemecard.dart';
 import 'package:scheme/widget/search.dart';
 import 'package:scheme/widget/statuscard.dart';
@@ -50,8 +51,8 @@ class _HomeState extends State<Home> {
     // await checkregister();
     await getcampdetail();
     schemesDetails.addAll(await getSchemes());
-    print(campdetail);
-    print(schemesDetails);
+    // print(campdetail);
+    // print(schemesDetails);
     if (mounted) {
       if (campdetail.isNotEmpty) {
         setState(() {
@@ -64,11 +65,18 @@ class _HomeState extends State<Home> {
         });
       }
     }
+    if (!registration) {
+      showDialog(
+          context: context,
+          builder: (context) => const RegistrationAlertPopup());
+    }
   }
 
   @override
   void initState() {
     callApi();
+    // log(registration.toString());
+
     super.initState();
   }
 
@@ -108,21 +116,12 @@ class _HomeState extends State<Home> {
               width: 10,
             ),
             InkWell(
-              onTap: () =>
-                  // register
-                  //     ?
-                  Navigator.of(context).push(
+              onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
                     builder: (context) => Profile(
                           user: userDetail!,
                         )),
               ),
-              // : Fluttertoast.showToast(
-              //     msg: "You Not Register",
-              //     toastLength: Toast.LENGTH_LONG,
-              //     fontSize: 20,
-              //     backgroundColor: secondary,
-              //     textColor: Colors.black),
               child: Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: userDetail!.image == ""
