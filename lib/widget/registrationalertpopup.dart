@@ -13,10 +13,13 @@ class _RegistrationAlertPopupState extends State<RegistrationAlertPopup> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(
+      title: Text(
         'Registration Alert !',
         style: TextStyle(
-            fontSize: 26, fontFamily: "Zilla", fontWeight: FontWeight.w400),
+            fontSize: 26,
+            fontFamily: "Zilla",
+            fontWeight: FontWeight.w400,
+            color: primary),
       ),
       content: const Text(
         'Complete Your Registration',

@@ -143,7 +143,7 @@ class _HomeState extends State<Home> {
           ],
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,22 +192,41 @@ class _HomeState extends State<Home> {
               const SizedBox(height: 20),
               filterclicked
                   ? SizedBox(
-                      height: 25,
-                      width: width,
+                      height: 70,
                       child: ListView(
                         scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
                         children: [
-                          FilterContainer(selectfilter: () {}, title: 'Health'),
                           FilterContainer(
-                              selectfilter: () {}, title: 'Pension'),
+                            selectfilter: () {},
+                            title: 'Health',
+                            path: "assets/medical.svg",
+                          ),
                           FilterContainer(
-                              selectfilter: () {}, title: 'Business'),
+                            selectfilter: () {},
+                            title: 'Pension',
+                            path: "assets/retirement.svg",
+                          ),
                           FilterContainer(
-                              selectfilter: () {}, title: 'Education'),
+                            selectfilter: () {},
+                            title: 'Business',
+                            path: "assets/Growth.svg",
+                          ),
                           FilterContainer(
-                              selectfilter: () {}, title: 'Transport'),
+                            selectfilter: () {},
+                            title: 'Education',
+                            path: "assets/mortarboard.svg",
+                          ),
                           FilterContainer(
-                              selectfilter: () {}, title: 'Marriage'),
+                            selectfilter: () {},
+                            title: 'Transport',
+                            path: "assets/car.svg",
+                          ),
+                          FilterContainer(
+                            selectfilter: () {},
+                            title: 'Marriage',
+                            path: "assets/wedding.svg",
+                          ),
                         ],
                       ),
                     )

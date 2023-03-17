@@ -19,10 +19,7 @@ class _AlertCardState extends State<AlertCard> {
         width: width,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            gradient: LinearGradient(
-                begin: Alignment.bottomLeft,
-                end: Alignment.topRight,
-                colors: [secondary3, primary])),
+            border: Border.all(color: primary, width: 2)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
           child:
@@ -33,6 +30,9 @@ class _AlertCardState extends State<AlertCard> {
                   "assets/error.svg",
                   height: 30,
                   width: 30,
+                ),
+                const SizedBox(
+                  width: 10,
                 ),
                 const Text("REGISTER YOURSELF FIRST",
                     style:
