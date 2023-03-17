@@ -6,9 +6,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/api/checknewuser.dart';
+import 'package:scheme/api/scanimage.dart';
 import 'package:scheme/data/userdata.dart';
+import 'package:scheme/provider/imagecopper.dart';
 import 'package:scheme/provider/takeimage.dart';
 import 'package:scheme/widget/donesplash.dart';
+import 'package:scheme/widget/processingpopup.dart';
 import 'package:scheme/widget/textfield.dart';
 
 class UdidCardUpload extends StatefulWidget {
@@ -25,24 +28,21 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
   final TextEditingController _disabilitypercentage = TextEditingController();
   final TextEditingController _dataissue = TextEditingController();
   final TextEditingController _validupto = TextEditingController();
-  String? udidpic = "";
+  String udidpic = "";
   bool pickedudid = false;
 
   Future<dynamic> picaadhar({required source, required String filename}) async {
     try {
       final XFile? image = await ImagePicker().pickImage(source: source);
-
-      final File file = File(image!.path);
+      String cropFile = await cropImage(pickedFile: image);
+      // final File file = File(image!.path);
       setState(() {
-        if (filename == "udid") {
-          udidpic = file.path;
-          pickedudid = true;
-        } else {
-          print('Something went Wrong');
-        }
+        udidpic = cropFile;
+        pickedudid = true;
       });
     } catch (e) {
       if (kDebugMode) {
+        print('Something went Wrong');
         print(e.toString());
       }
     }
@@ -75,26 +75,36 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                 height: 20,
               ),
               Center(
-                child: Container(
-                  width: width,
-                  decoration: shadowdecoration,
-                  child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 65),
-                      child: InkWell(
-                          onTap: () => picaadhar(
-                                      source: ImageSource.camera,
-                                      filename: "udid")
-                                  .whenComplete(() {
-                                setState(() {
-                                  pickedudid = true;
-                                });
-                                imageupload(
-                                    filename: "udidimage", file: udidpic!);
-                              }),
-                          child: const Icon(
-                            Icons.add,
-                            size: 50,
-                          ))),
+                child: InkWell(
+                  onTap: () =>
+                      picaadhar(source: ImageSource.gallery, filename: "udid")
+                          .whenComplete(() async {
+                    if (udidpic == '') {
+                      return;
+                    }
+                    showDialog(
+                        context: context,
+                        builder: (c) => processingPopup(
+                            context: context, msg: "Scanning Image"));
+                    await getUDIDDetails(path: udidpic).then((value) {
+                      _disabilitypercentage.text = value["percent"].toString();
+                      _disbilitytype.text = value["type"].toString();
+                      _udidNo.text = value["udid"].toString();
+                    }).whenComplete(() async => Navigator.pop(context));
+                    await imageupload(filename: "udidimage", file: udidpic);
+                  }),
+                  child: pickedudid
+                      ? Image.file(File(udidpic))
+                      : Container(
+                          width: width,
+                          decoration: shadowdecoration,
+                          child: const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 65),
+                              child: Icon(
+                                Icons.add,
+                                size: 50,
+                              )),
+                        ),
                 ),
               ),
               const SizedBox(

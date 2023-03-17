@@ -19,6 +19,9 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
+
+          /// ```
+
           AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
 

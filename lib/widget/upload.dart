@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/data/userdata.dart';
-import 'package:scheme/provider/takeimage.dart';
+import 'package:scheme/provider/imagecopper.dart';
 import 'package:scheme/widget/aadharcardupload.dart';
 import 'dart:io';
 
@@ -25,29 +25,18 @@ class _UploadDoumentState extends State<UploadDoument> {
   bool pickedaadhar = false;
   bool pickedudid = false;
   bool imagepick = false;
-  String? aadharpic = "";
-  String? udidpic = "";
-  String? imagepic = "";
+
+  String imagepic = "";
 
   upload() async {
-    if (aadharpic != "" && udidpic != "" && imagepic != "") {
-      aadharImage = await fireStoreFileUpload(
-          "${FirebaseAuth.instance.currentUser!.uid}/aadharimg.jpg", aadharpic);
-      udidimage = await fireStoreFileUpload(
-          "${FirebaseAuth.instance.currentUser!.uid}/udidimg.jpg", udidpic);
-      passportimage = await fireStoreFileUpload(
-          "${FirebaseAuth.instance.currentUser!.uid}/udidimg.jpg", udidpic);
-    } else {
-      print("empty");
-    }
+    passportimage = await fireStoreFileUpload(
+        "${FirebaseAuth.instance.currentUser!.uid}/userphoto.jpg", imagepic);
+
     await FirebaseFirestore.instance
         .collection("Users")
         .doc(FirebaseAuth.instance.currentUser!.uid.toString())
-        .update({
-      "aadharimage": aadharImage,
-      "udidimage": udidimage,
-      "image": passportimage
-    }).whenComplete(() => Navigator.push(context,
+        .update({"image": passportimage}).whenComplete(() => Navigator.push(
+            context,
             MaterialPageRoute(builder: (context) => const Register())));
   }
 
@@ -64,24 +53,16 @@ class _UploadDoumentState extends State<UploadDoument> {
     return pathValue;
   }
 
-  Future<dynamic> picImage({required source, required String filename}) async {
+  Future<dynamic> picImage({
+    required source,
+  }) async {
     try {
       final XFile? image = await ImagePicker().pickImage(source: source);
-
-      final File file = File(image!.path);
+      String cropFile = await userImagecopper(pickedFile: image);
+      // final File file = File(image!.path);
       setState(() {
-        if (filename == "aadhar") {
-          aadharpic = file.path;
-          pickedaadhar = true;
-        } else if (filename == "udid") {
-          udidpic = file.path;
-          pickedudid = true;
-        } else if (filename == "Image") {
-          imagepic = file.path;
-          imagepick = true;
-        } else {
-          print('Something went Wrong');
-        }
+        imagepic = cropFile;
+        imagepick = true;
       });
     } catch (e) {
       if (kDebugMode) {
@@ -95,19 +76,18 @@ class _UploadDoumentState extends State<UploadDoument> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-            child: Center(
+        body: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 30),
-                    child: Text(
-                      "Upload Passport Size photo",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
+                  const Text(
+                    "Upload Passport Size photo",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     "(use file format .png, .jpg, .jpeg)",
@@ -116,39 +96,31 @@ class _UploadDoumentState extends State<UploadDoument> {
                         fontSize: 14,
                         fontWeight: FontWeight.w400),
                   ),
-                  SizedBox(
-                    height: height / 8,
-                  ),
-                  Container(
-                      width: width,
-                      decoration: shadowdecoration,
-                      child: Padding(
+                  InkWell(
+                    onTap: () => picImage(
+                      source: ImageSource.camera,
+                    ),
+                    child: Container(
+                        width: width,
+                        decoration: shadowdecoration,
+                        margin: const EdgeInsets.symmetric(vertical: 30),
                         padding: const EdgeInsets.symmetric(vertical: 70),
                         child: Center(
                           child: Stack(children: [
-                            SvgPicture.asset(
-                              "assets/upload_profile.svg",
-                            ),
-                            Positioned.fill(
-                                child: InkWell(
-                              onTap: () => picImage(
-                                      source: ImageSource.camera,
-                                      filename: "Image")
-                                  .whenComplete(() {
-                                setState(() {
-                                  imagepick = true;
-                                });
-                                imageupload(
-                                    filename: "fileImage", file: imagepic!);
-                              }),
-                              child: const Icon(
+                            imagepick
+                                ? Image.file(File(imagepic))
+                                : SvgPicture.asset(
+                                    "assets/upload_profile.svg",
+                                  ),
+                            const Positioned.fill(
+                              child: Icon(
                                 Icons.add_circle_outline,
                                 size: 50,
                               ),
-                            ))
+                            )
                           ]),
-                        ),
-                      )),
+                        )),
+                  ),
                 ],
               ),
             ),

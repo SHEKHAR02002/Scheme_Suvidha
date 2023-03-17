@@ -2,24 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 
-class TextFieldTake extends StatefulWidget {
+class TextFieldTake extends StatelessWidget {
   final String title;
   final TextEditingController controller;
+  final TextInputType typeofKeyboard;
   const TextFieldTake(
-      {super.key, required this.controller, required this.title});
+      {super.key,
+      required this.controller,
+      required this.title,
+      this.typeofKeyboard = TextInputType.text});
 
-  @override
-  State<TextFieldTake> createState() => _TextFieldTakeState();
-}
-
-class _TextFieldTakeState extends State<TextFieldTake> {
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          widget.title,
+          title,
           style: TextStyle(
               color: black,
               fontFamily: "Overpass",
@@ -33,7 +32,7 @@ class _TextFieldTakeState extends State<TextFieldTake> {
           height: 45,
           decoration: shadowdecoration,
           child: TextField(
-            // keyboardType: TextInputType.number,
+            keyboardType: TextInputType.number,
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(15),
@@ -43,7 +42,7 @@ class _TextFieldTakeState extends State<TextFieldTake> {
                   borderSide: BorderSide.none,
                   borderRadius: BorderRadius.circular(5)),
             ),
-            controller: widget.controller,
+            controller: controller,
           ),
         ),
       ],
