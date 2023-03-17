@@ -1,11 +1,15 @@
 import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
+import 'package:scheme/api/scanimage.dart';
 import 'package:scheme/data/userdata.dart';
+import 'package:scheme/provider/imagecopper.dart';
 import 'package:scheme/provider/takeimage.dart';
+import 'package:scheme/widget/processingpopup.dart';
 import 'package:scheme/widget/textfield.dart';
 import 'package:scheme/widget/udidcardupload.dart';
 
@@ -22,20 +26,22 @@ class _AadharCardState extends State<AadharCard> {
   final TextEditingController _gender = TextEditingController();
   final TextEditingController _name = TextEditingController();
   final TextEditingController _phoneNo = TextEditingController();
-  String? aadharpic = "";
+  String aadharpic = "";
   bool pickedaadhar = false;
 
   Future<dynamic> picaadhar({required source, required String filename}) async {
     try {
       final XFile? image = await ImagePicker().pickImage(source: source);
-
-      final File file = File(image!.path);
+      String cropFile = await cropImage(pickedFile: image);
+      // final File file = File(image!.path);
       setState(() {
         if (filename == "aadhar") {
-          aadharpic = file.path;
+          aadharpic = cropFile;
           pickedaadhar = true;
         } else {
-          print('Something went Wrong');
+          if (kDebugMode) {
+            print('Something went Wrong');
+          }
         }
       });
     } catch (e) {
@@ -71,27 +77,47 @@ class _AadharCardState extends State<AadharCard> {
               const SizedBox(
                 height: 20,
               ),
-              Center(
-                child: Container(
-                  width: width,
-                  decoration: shadowdecoration,
-                  child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 65),
-                      child: InkWell(
-                          onTap: () => picaadhar(
-                                      source: ImageSource.camera,
-                                      filename: "aadhar")
-                                  .whenComplete(() {
-                                setState(() {
-                                  pickedaadhar = true;
-                                });
-                                imageupload(
-                                    filename: "aadharimage", file: aadharpic!);
-                              }),
-                          child: const Icon(
-                            Icons.add,
-                            size: 50,
-                          ))),
+              InkWell(
+                onTap: () =>
+                    picaadhar(source: ImageSource.gallery, filename: "aadhar")
+                        .whenComplete(() async {
+                  if (aadharpic == '') {
+                    return;
+                  }
+                  showDialog(
+                      context: context,
+                      builder: (c) => processingPopup(
+                          context: context, msg: "Scanning Image"));
+
+                  await getAadharDetails(path: aadharpic).then((value) {
+                    try {
+                      _aadharNo.text = value["aadhar_number"].toString();
+                      _dob.text = value["dob"].toString();
+                      _gender.text = value["gender"].toString();
+                      _name.text = value["name"].toString();
+                    } catch (e) {
+                      _aadharNo.text = "";
+                      _dob.text = "";
+                      _gender.text = "";
+                      _name.text = "";
+                      _phoneNo.text = "";
+                    }
+                  }).whenComplete(() => Navigator.pop(context));
+                  await imageupload(filename: "aadharimage", file: aadharpic);
+                }),
+                child: Center(
+                  child: pickedaadhar
+                      ? Image.file(File(aadharpic))
+                      : Container(
+                          width: width,
+                          decoration: shadowdecoration,
+                          child: const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 65),
+                              child: Icon(
+                                Icons.add,
+                                size: 50,
+                              )),
+                        ),
                 ),
               ),
               const SizedBox(
@@ -186,7 +212,10 @@ class _AadharCardState extends State<AadharCard> {
                 ],
               ),
               const SizedBox(height: 18),
-              TextFieldTake(controller: _phoneNo, title: "Phone No."),
+              TextFieldTake(
+                  controller: _phoneNo,
+                  title: "Phone No.",
+                  typeofKeyboard: const TextInputType.numberWithOptions()),
               const SizedBox(
                 height: 20,
               ),
