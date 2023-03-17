@@ -97,7 +97,13 @@ class _UploadDoumentState extends State<UploadDoument> {
                         fontWeight: FontWeight.w400),
                   ),
                   InkWell(
-                    onTap: () => picImage(
+                    onTap: () =>
+                        //   showDialog(
+                        //       context: context,
+                        //       builder: (context) => const ImageSourcePopup());
+                        // },
+
+                        picImage(
                       source: ImageSource.camera,
                     ),
                     child: Container(
