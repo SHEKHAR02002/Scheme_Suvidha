@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
 Future getAadharDetails({required String path}) async {
@@ -9,7 +10,9 @@ Future getAadharDetails({required String path}) async {
     Uri.parse(url),
   );
 
-  print(path);
+  if (kDebugMode) {
+    print(path);
+  }
   request.headers.addAll(
       {"Accept": "application/json", "content-type": "application/json"});
   // request.headers;
@@ -29,7 +32,9 @@ Future getUDIDDetails({required String path}) async {
     Uri.parse(url),
   );
 
-  print(path);
+  if (kDebugMode) {
+    print(path);
+  }
   request.headers.addAll(
       {"Accept": "application/json", "content-type": "application/json"});
   // request.headers;

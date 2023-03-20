@@ -5,13 +5,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Screen/agentwidget/filtercontainer.dart';
 import 'package:scheme/Screen/profile.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/api/getrecommendschemes.dart';
 import 'package:scheme/api/getscheme.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/schememodel.dart';
 import 'package:scheme/widget/alertcard.dart';
 import 'package:scheme/widget/campcard.dart';
 import 'package:scheme/widget/imagesourcepopup.dart';
-import 'package:scheme/widget/registrationalertpopup.dart';
 import 'package:scheme/widget/schemecard.dart';
 import 'package:scheme/widget/search.dart';
 import 'package:scheme/widget/statuscard.dart';
@@ -27,12 +27,15 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   // UserModel? user;
-  bool campLoader = true, schemeLoader = true, filterclicked = false;
+  bool campLoader = true,
+      schemeLoader = true,
+      filterclicked = false,
+      recommedLoader = true;
   bool register = userDetail!.registeration!;
   bool verification = false;
   int listlength = 3;
   int nowlistlength = 0;
-  List campdetail = [], schemesDetails = [];
+  List campdetail = [], schemesDetails = [], recommend = [];
   bool nomore = false;
 
   Future getcampdetail() async {
@@ -50,6 +53,8 @@ class _HomeState extends State<Home> {
   Future getFilter({required String filter}) async {
     setState(() {
       schemeLoader = true;
+      listlength = 3;
+      nomore = false;
       schemesDetails.clear();
     });
     schemesDetails.addAll(await getSchemes(filter: filter));
@@ -60,7 +65,10 @@ class _HomeState extends State<Home> {
 
   Future callApi() async {
     // await checkregister();
+    campdetail.clear();
+    schemesDetails.clear();
     await getcampdetail();
+    recommend.addAll(await getrecommendApi());
     schemesDetails.addAll(await getSchemes());
     // print(campdetail);
     // print(schemesDetails);
@@ -75,11 +83,11 @@ class _HomeState extends State<Home> {
           schemeLoader = false;
         });
       }
-    }
-    if (!registration) {
-      showDialog(
-          context: context,
-          builder: (context) => const RegistrationAlertPopup());
+      if (recommend.isNotEmpty) {
+        setState(() {
+          recommedLoader = false;
+        });
+      }
     }
   }
 
@@ -94,7 +102,11 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-
+    // if (!registration) {
+    //   showDialog(
+    //       context: context,
+    //       builder: (context) => const RegistrationAlertPopup());
+    // }
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -168,6 +180,37 @@ class _HomeState extends State<Home> {
               ),
               const SizedBox(height: 24),
               register == false ? const AlertCard() : const SizedBox.shrink(),
+              const SizedBox(
+                height: 20,
+              ),
+              registration
+                  ? Text(
+                      "Recommend For You",
+                      style: TextStyle(
+                          color: black,
+                          fontFamily: "Zilla",
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400),
+                    )
+                  : const SizedBox.shrink(),
+              registration
+                  ? recommedLoader
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: recommend.length,
+                          itemBuilder: (context, index) {
+                            SchemeModel schemdata =
+                                SchemeModel.fromMap(recommend[index]);
+                            return SchemeCard(
+                              schemedata: schemdata,
+                              register: register,
+                            );
+                          })
+                  : const SizedBox.shrink(),
               const SizedBox(
                 height: 20,
               ),
@@ -255,7 +298,9 @@ class _HomeState extends State<Home> {
                   : ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: listlength,
+                      itemCount: schemesDetails.length < listlength
+                          ? schemesDetails.length
+                          : listlength,
                       itemBuilder: (context, index) {
                         SchemeModel schemdata =
                             SchemeModel.fromMap(schemesDetails[index]);
