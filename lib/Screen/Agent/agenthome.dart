@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:scheme/Screen/agentwidget/applicationcard.dart';
 import 'package:scheme/Screen/agentwidget/overvieewcard.dart';
 import 'package:scheme/Theme/color.dart';
@@ -67,6 +68,15 @@ class _AgentHomeState extends State<AgentHome> {
           elevation: 0,
           automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
+          leading: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.asset(
+              "assets/logo.png",
+              height: 100,
+              width: 100,
+              fit: BoxFit.cover,
+            ),
+          ),
           actions: [
             SvgPicture.asset(
               "assets/notification.svg",
@@ -95,15 +105,40 @@ class _AgentHomeState extends State<AgentHome> {
             children: [
               const OverviewCard(),
               const SizedBox(height: 30),
-              !myapplicationloader
-                  ? Text(
-                      'My Applications',
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: primary),
+              application.isEmpty && myapplication.isEmpty
+                  ? Center(
+                      child: Column(
+                        children: [
+                          Text(
+                            'My Applications',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: primary),
+                          ),
+                          Lottie.asset("animations/waiting.json",
+                              height: 200, width: 200),
+                          const Text(
+                            "Take a break !\nThere are no applications yet.",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          )
+                        ],
+                      ),
                     )
-                  : const SizedBox.shrink(),
+                  : !myapplicationloader
+                      ? Text(
+                          'My Applications',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: primary),
+                        )
+                      : const SizedBox.shrink(),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 15),
                 child: ListView.builder(

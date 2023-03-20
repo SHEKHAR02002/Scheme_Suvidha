@@ -57,7 +57,7 @@ class _SchemeCardState extends State<SchemeCard> {
                       children: [
                         Text(
                           widget.schemedata.schemename.toString(),
-                          overflow: TextOverflow.ellipsis,
+                          overflow: TextOverflow.fade,
                           style: TextStyle(
                               color: black,
                               fontFamily: "Overpass",

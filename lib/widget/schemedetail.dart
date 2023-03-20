@@ -71,13 +71,17 @@ class _SchemeDetailState extends State<SchemeDetail> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          widget.schemedata.schemename.toString(),
-                          style: TextStyle(
-                              color: black,
-                              fontFamily: "Overpass",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600),
+                        SizedBox(
+                          width: width - 100,
+                          child: Text(
+                            widget.schemedata.schemename.toString(),
+                            overflow: TextOverflow.clip,
+                            style: TextStyle(
+                                color: black,
+                                fontFamily: "Overpass",
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600),
+                          ),
                         ),
                         SizedBox(
                           width: width - 100,

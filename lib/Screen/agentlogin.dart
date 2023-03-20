@@ -64,11 +64,11 @@ class _AgentLoginState extends State<AgentLogin> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // SvgPicture.asset(
-                //   "assets/login_svg2.svg",
-                //   height: height / 2,
-                //   width: width,
-                // ),
+                SvgPicture.asset(
+                  "assets/login_svg2.svg",
+                  height: height / 2,
+                  width: width,
+                ),
                 const SizedBox(
                   height: 10,
                 ),

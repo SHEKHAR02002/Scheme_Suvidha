@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:scheme/Screen/home.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 
@@ -199,7 +200,11 @@ class _SearchState extends State<Search> {
                       height: 14,
                     ),
                     ElevatedButton(
-                        onPressed: () async {},
+                        onPressed: () => Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Home()),
+                            (route) => false),
                         // =>Navigator.push(context, MaterialPageRoute(builder: (context)=>OtpBottomSheet())),
                         style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
