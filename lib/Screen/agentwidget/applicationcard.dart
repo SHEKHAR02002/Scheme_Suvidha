@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:scheme/Screen/agentwidget/activeapplictionpopup.dart';
 import 'package:scheme/Screen/agentwidget/verification.dart';
 import 'package:scheme/model/usermodel.dart';
 
 class ApplicationCard extends StatefulWidget {
   final UserModel applicationdetails;
-  const ApplicationCard({super.key, required this.applicationdetails});
+  final bool activate;
+  const ApplicationCard(
+      {super.key, required this.applicationdetails, required this.activate});
 
   @override
   State<ApplicationCard> createState() => _ApplicationCardState();
@@ -13,13 +16,24 @@ class ApplicationCard extends StatefulWidget {
 class _ApplicationCardState extends State<ApplicationCard> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => AgentVerification(
-                    applicationdetails: widget.applicationdetails,
-                  ))),
+      onTap: () {
+        !widget.activate
+            ? showDialog(
+                context: context,
+                builder: (context) => ActiveApplication(
+                      applicationdetails: widget.applicationdetails,
+                      username: widget.applicationdetails.name.toString(),
+                      userid: widget.applicationdetails.userId.toString(),
+                    ))
+            : Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AgentVerification(
+                          applicationdetails: widget.applicationdetails,
+                        )));
+      },
       child: Stack(children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
@@ -54,7 +68,7 @@ class _ApplicationCardState extends State<ApplicationCard> {
                     children: [
                       Text(
                         widget.applicationdetails.applyschemename.toString(),
-                        overflow: TextOverflow.clip,
+                        overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                             fontSize: 14, fontWeight: FontWeight.w600),
                       ),

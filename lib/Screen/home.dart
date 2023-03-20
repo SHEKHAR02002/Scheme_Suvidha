@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Screen/agentwidget/filtercontainer.dart';
@@ -8,6 +9,7 @@ import 'package:scheme/Theme/color.dart';
 import 'package:scheme/api/getscheme.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/schememodel.dart';
+import 'package:scheme/model/usermodel.dart';
 import 'package:scheme/widget/alertcard.dart';
 import 'package:scheme/widget/campcard.dart';
 import 'package:scheme/widget/imagesourcepopup.dart';
@@ -80,6 +82,25 @@ class _HomeState extends State<Home> {
       showDialog(
           context: context,
           builder: (context) => const RegistrationAlertPopup());
+    }
+
+    Future getUserDetails({required context}) async {
+      bool status = false;
+      await FirebaseFirestore.instance
+          .collection("Users")
+          .doc(FirebaseAuth.instance.currentUser!.uid.toString())
+          .collection("AppliedScheme")
+          .doc(userDetail!.applicationid)
+          .get()
+          .then((docSnapshot) async {
+        var data = docSnapshot.data();
+        userDetail = UserModel.fromMap(data!);
+
+        status = data["verification"];
+      });
+      setState(() {
+        verification = status;
+      });
     }
   }
 

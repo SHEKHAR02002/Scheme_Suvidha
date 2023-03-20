@@ -10,7 +10,7 @@ class TextFieldTake extends StatelessWidget {
       {super.key,
       required this.controller,
       required this.title,
-      this.typeofKeyboard = TextInputType.text});
+      required this.typeofKeyboard});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class TextFieldTake extends StatelessWidget {
           height: 45,
           decoration: shadowdecoration,
           child: TextField(
-            keyboardType: TextInputType.number,
+            keyboardType: typeofKeyboard,
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(15),

@@ -71,12 +71,39 @@ Future userdataupload() async {
   });
 }
 
-Future schemeapply({required String schemename}) async {
+Future schemeapply(
+    {required String schemename, required String applicationid}) async {
   await FirebaseFirestore.instance
       .collection("Application")
       .doc(FirebaseAuth.instance.currentUser!.uid.toString())
       .set({
     "userId": FirebaseAuth.instance.currentUser!.uid.toString(),
+    "aadharno": userDetail!.aadharno,
+    "Applicationid": applicationid,
+    "name": userDetail!.name,
+    "dob": userDetail!.dob,
+    "gender": userDetail!.gender,
+    "udidno": userDetail!.udidno,
+    "udidname": userDetail!.udidname,
+    "disabilitytype": userDetail!.disabilitytype,
+    "disabilitypercentage": userDetail!.disabilitypercentage,
+    "dateissue": userDetail!.dateissue,
+    "validupto": userDetail!.validupto,
+    "registeration": true,
+    "verification": false,
+    "phoneno": userDetail!.phoneno,
+    "schemename": schemename,
+    "dataofapply": DateTime.now(),
+  });
+
+  await FirebaseFirestore.instance
+      .collection("Users")
+      .doc(FirebaseAuth.instance.currentUser!.uid.toString())
+      .collection("AppliedScheme")
+      .doc(applicationid)
+      .set({
+    "userId": FirebaseAuth.instance.currentUser!.uid.toString(),
+    "Applicationid": applicationid,
     "aadharno": userDetail!.aadharno,
     "name": userDetail!.name,
     "dob": userDetail!.dob,

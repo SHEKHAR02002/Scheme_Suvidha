@@ -1,6 +1,7 @@
 class UserModel {
   String? userId;
   String? image;
+  String? applicationid;
 
   String? aadharno;
   String? name;
@@ -30,34 +31,36 @@ class UserModel {
   String? applyschemename;
   // DateTime? applydate;
 
-  UserModel({
-    required this.aadharimage,
-    required this.aadharno,
-    required this.dateissue,
-    required this.disabilitypercentage,
-    required this.disabilitytype,
-    required this.dob,
-    required this.gender,
-    required this.name,
-    required this.newcampalert,
-    required this.newschemalert,
-    required this.phoneno,
-    required this.pushpermission,
-    required this.registeration,
-    required this.schmerenewal,
-    required this.udidimage,
-    required this.udidname,
-    required this.udidno,
-    required this.userId,
-    required this.validupto,
-    required this.verification,
-    required this.image,
-    required this.applyschemename,
-    // required this.applydate,
-  });
+  UserModel(
+      {required this.aadharimage,
+      required this.aadharno,
+      required this.dateissue,
+      required this.disabilitypercentage,
+      required this.disabilitytype,
+      required this.dob,
+      required this.gender,
+      required this.name,
+      required this.newcampalert,
+      required this.newschemalert,
+      required this.phoneno,
+      required this.pushpermission,
+      required this.registeration,
+      required this.schmerenewal,
+      required this.udidimage,
+      required this.udidname,
+      required this.udidno,
+      required this.userId,
+      required this.validupto,
+      required this.verification,
+      required this.image,
+      required this.applyschemename,
+      required this.applicationid
+      // required this.applydate,
+      });
 
   UserModel.fromMap(Map<String, dynamic> map) {
     userId = map['userId'];
+    applicationid = map['Applicationid'];
 
     aadharimage = map['aadharimage'];
     aadharno = map['aadharno'];
@@ -92,6 +95,7 @@ class UserModel {
   Map<String, dynamic> toMap() {
     return {
       'userId': userId,
+      "Applicationid": applicationid,
       'aadharimage': aadharimage,
       'aadharno': aadharno,
       'name': name,

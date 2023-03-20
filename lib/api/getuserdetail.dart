@@ -78,6 +78,21 @@ Future getapplication() async {
   return applicant;
 }
 
+Future getmyapplication() async {
+  List myapplicant = [];
+  await FirebaseFirestore.instance
+      .collection("AgentUser")
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .collection("YourApplications")
+      .get()
+      .then((QuerySnapshot querysnapshot) {
+    for (var doc in querysnapshot.docs) {
+      myapplicant.add(doc.data());
+    }
+  });
+  return myapplicant;
+}
+
 Future agentlogin({required String email, required String password}) async {
   bool status = false;
   try {

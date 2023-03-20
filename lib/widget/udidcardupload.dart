@@ -121,16 +121,29 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
               const SizedBox(
                 height: 20,
               ),
-              TextFieldTake(controller: _udidNo, title: "UDID Card No."),
-              const SizedBox(height: 18),
-              TextFieldTake(controller: _udidname, title: "Name"),
+              TextFieldTake(
+                controller: _udidNo,
+                title: "UDID Card No.",
+                typeofKeyboard: TextInputType.number,
+              ),
               const SizedBox(height: 18),
               TextFieldTake(
-                  controller: _disbilitytype, title: "Disability Type"),
+                controller: _udidname,
+                title: "Name",
+                typeofKeyboard: TextInputType.text,
+              ),
               const SizedBox(height: 18),
               TextFieldTake(
-                  controller: _disabilitypercentage,
-                  title: "Disability Percentage"),
+                controller: _disbilitytype,
+                title: "Disability Type",
+                typeofKeyboard: TextInputType.text,
+              ),
+              const SizedBox(height: 18),
+              TextFieldTake(
+                controller: _disabilitypercentage,
+                title: "Disability Percentage",
+                typeofKeyboard: TextInputType.text,
+              ),
               const SizedBox(height: 18),
               Row(
                 children: [

@@ -15,10 +15,13 @@ class AgentHome extends StatefulWidget {
 
 class _AgentHomeState extends State<AgentHome> {
   bool applicationloader = true;
+  bool myapplicationloader = true;
   List application = [];
+  List myapplication = [];
 
   callApi() async {
     List temp = [];
+    List temp1 = [];
     temp.addAll(await getapplication());
     if (mounted) {
       setState(() {
@@ -29,6 +32,21 @@ class _AgentHomeState extends State<AgentHome> {
       if (application.isNotEmpty) {
         applicationloader = false;
         print(application);
+      } else {
+        print("empty");
+      }
+    }
+
+    temp1.addAll(await getmyapplication());
+    if (mounted) {
+      setState(() {
+        myapplication.addAll(temp1);
+      });
+    }
+    if (mounted) {
+      if (myapplication.isNotEmpty) {
+        myapplicationloader = false;
+        print(myapplication);
       } else {
         print("empty");
       }
@@ -78,6 +96,26 @@ class _AgentHomeState extends State<AgentHome> {
               const OverviewCard(),
               const SizedBox(height: 30),
               Text(
+                'My Applications',
+                style: TextStyle(
+                    fontSize: 16, fontWeight: FontWeight.w500, color: primary),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15),
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: myapplication.length,
+                    itemBuilder: (context, index) {
+                      UserModel myapplications =
+                          UserModel.fromMap(myapplication[index]);
+                      return ApplicationCard(
+                        activate: true,
+                        applicationdetails: myapplications,
+                      );
+                    }),
+              ),
+              Text(
                 'Applications',
                 style: TextStyle(
                     fontSize: 16, fontWeight: FontWeight.w500, color: primary),
@@ -92,6 +130,7 @@ class _AgentHomeState extends State<AgentHome> {
                       UserModel applications =
                           UserModel.fromMap(application[index]);
                       return ApplicationCard(
+                        activate: false,
                         applicationdetails: applications,
                       );
                     }),

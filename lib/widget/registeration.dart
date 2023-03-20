@@ -100,9 +100,17 @@ class _RegisterState extends State<Register> {
                       fontSize: 26,
                       fontWeight: FontWeight.w400),
                 ),
-                TextFieldTake(controller: _aadharNo, title: "Aadhar Card No"),
+                TextFieldTake(
+                  controller: _aadharNo,
+                  title: "Aadhar Card No",
+                  typeofKeyboard: TextInputType.number,
+                ),
                 const SizedBox(height: 18),
-                TextFieldTake(controller: _name, title: "Name"),
+                TextFieldTake(
+                  controller: _name,
+                  title: "Name",
+                  typeofKeyboard: TextInputType.text,
+                ),
                 const SizedBox(height: 18),
                 Row(
                   children: [
@@ -178,7 +186,11 @@ class _RegisterState extends State<Register> {
                   ],
                 ),
                 const SizedBox(height: 18),
-                TextFieldTake(controller: _phoneNo, title: "Phone No."),
+                TextFieldTake(
+                  controller: _phoneNo,
+                  title: "Phone No.",
+                  typeofKeyboard: TextInputType.number,
+                ),
                 // aadharform(width: width),
                 const SizedBox(height: 30),
                 Text(
@@ -189,16 +201,29 @@ class _RegisterState extends State<Register> {
                       fontSize: 26,
                       fontWeight: FontWeight.w400),
                 ),
-                TextFieldTake(controller: _udidNo, title: "UDID Card No."),
-                const SizedBox(height: 18),
-                TextFieldTake(controller: _udidname, title: "Name"),
+                TextFieldTake(
+                  controller: _udidNo,
+                  title: "UDID Card No.",
+                  typeofKeyboard: TextInputType.number,
+                ),
                 const SizedBox(height: 18),
                 TextFieldTake(
-                    controller: _disbilitytype, title: "Disability Type"),
+                  controller: _udidname,
+                  title: "Name",
+                  typeofKeyboard: TextInputType.text,
+                ),
                 const SizedBox(height: 18),
                 TextFieldTake(
-                    controller: _disabilitypercentage,
-                    title: "Disability Percentage"),
+                  controller: _disbilitytype,
+                  title: "Disability Type",
+                  typeofKeyboard: TextInputType.text,
+                ),
+                const SizedBox(height: 18),
+                TextFieldTake(
+                  controller: _disabilitypercentage,
+                  title: "Disability Percentage",
+                  typeofKeyboard: TextInputType.text,
+                ),
                 const SizedBox(height: 18),
                 Row(
                   children: [

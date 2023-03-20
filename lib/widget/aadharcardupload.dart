@@ -134,9 +134,16 @@ class _AadharCardState extends State<AadharCard> {
               const SizedBox(
                 height: 20,
               ),
-              TextFieldTake(controller: _aadharNo, title: "Aadhar Card No"),
+              TextFieldTake(
+                controller: _aadharNo,
+                title: "Aadhar Card No",
+                typeofKeyboard: TextInputType.number,
+              ),
               const SizedBox(height: 18),
-              TextFieldTake(controller: _name, title: "Name"),
+              TextFieldTake(
+                  controller: _name,
+                  title: "Name",
+                  typeofKeyboard: TextInputType.text),
               const SizedBox(height: 18),
               Row(
                 children: [

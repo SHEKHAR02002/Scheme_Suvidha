@@ -62,8 +62,10 @@ class _DoneUploadState extends State<DoneUpload> {
                           fontWeight: FontWeight.w700),
                     ))),
             GestureDetector(
-              onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Home())),
+              onTap: () => Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Home()),
+                  (route) => false),
               child: const Text(
                 "Go to Home",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),

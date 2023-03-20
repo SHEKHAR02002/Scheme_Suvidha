@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:scheme/Screen/Agent/agentbottomsheet.dart';
 import 'package:scheme/Screen/agentwidget/verification.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
+import 'package:scheme/api/agentfuncation.dart';
 import 'package:scheme/model/usermodel.dart';
 
 class UDIDVerification extends StatefulWidget {
@@ -168,7 +170,15 @@ class _UDIDVerificationState extends State<UDIDVerification> {
             Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
                 child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      applicationaccept(
+                          applicationdetails: widget.applicationdetails);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const BottomNavigator()),
+                          (route) => false);
+                    },
 
                     // upload(),
                     style: ElevatedButton.styleFrom(

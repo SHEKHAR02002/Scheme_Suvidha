@@ -5,6 +5,9 @@ import 'package:scheme/Theme/color.dart';
 import 'package:scheme/api/checknewuser.dart';
 import 'package:scheme/model/schememodel.dart';
 import 'package:scheme/widget/processingpopup.dart';
+import 'package:uuid/uuid.dart';
+
+var uuid = const Uuid();
 
 class SchemeDetail extends StatefulWidget {
   final SchemeModel schemedata;
@@ -286,6 +289,7 @@ class _SchemeDetailState extends State<SchemeDetail> {
                           builder: ((context) => processingPopup(
                               context: context, msg: "Processing....")));
                       await schemeapply(
+                              applicationid: uuid.v1(),
                               schemename:
                                   widget.schemedata.schemename.toString())
                           .whenComplete(() => Navigator.of(context)
