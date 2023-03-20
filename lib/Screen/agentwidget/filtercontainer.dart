@@ -29,6 +29,7 @@ class _FilterContainerState extends State<FilterContainer> {
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         margin: const EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
+          color: clicked ? primary : Colors.white,
           border: Border.all(color: secondary),
           borderRadius: BorderRadius.circular(10),
         ),
@@ -37,7 +38,7 @@ class _FilterContainerState extends State<FilterContainer> {
           children: [
             SvgPicture.asset(
               widget.path,
-              color: primary,
+              color: clicked ? Colors.white : primary,
               height: 30,
               width: 30,
             ),
@@ -46,7 +47,11 @@ class _FilterContainerState extends State<FilterContainer> {
             ),
             Text(
               widget.title,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: clicked ? Colors.white : Colors.black,
+              ),
             ),
           ],
         ),

@@ -140,36 +140,36 @@ class _AgentProfileState extends State<AgentProfile> {
               const SizedBox(
                 height: 25,
               ),
-              Container(
-                decoration: shadowdecoration,
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Row(children: [
-                    SvgPicture.asset(
-                      "assets/setting.svg",
-                      height: 20,
-                      width: 20,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "Setting",
-                      style: TextStyle(
-                          color: primary,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    const Spacer(),
-                    SvgPicture.asset(
-                      "assets/right_arrow.svg",
-                      height: 25,
-                      width: 25,
-                      color: primary,
-                    ),
-                  ]),
-                ),
-              )
+              // Container(
+              //   decoration: shadowdecoration,
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(12.0),
+              //     child: Row(children: [
+              //       SvgPicture.asset(
+              //         "assets/setting.svg",
+              //         height: 20,
+              //         width: 20,
+              //       ),
+              //       const SizedBox(
+              //         width: 5,
+              //       ),
+              //       Text(
+              //         "Setting",
+              //         style: TextStyle(
+              //             color: primary,
+              //             fontSize: 20,
+              //             fontWeight: FontWeight.w600),
+              //       ),
+              //       const Spacer(),
+              //       SvgPicture.asset(
+              //         "assets/right_arrow.svg",
+              //         height: 25,
+              //         width: 25,
+              //         color: primary,
+              //       ),
+              //     ]),
+              //   ),
+              // )
             ],
           ),
         )),

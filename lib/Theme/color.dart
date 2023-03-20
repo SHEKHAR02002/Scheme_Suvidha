@@ -16,3 +16,7 @@ Color text2 = const Color(
 Color lightgray = const Color(
   0xffe7e7e7,
 );
+
+Color advertisement = const Color(
+  0xbfbffbff,
+);

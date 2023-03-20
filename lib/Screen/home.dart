@@ -40,6 +40,8 @@ class _HomeState extends State<Home> {
   List campdetail = [], schemesDetails = [], recommend = [];
   bool nomore = false;
 
+  bool clicked = false;
+
   Future getcampdetail() async {
     await FirebaseFirestore.instance
         .collection('Camps')
@@ -214,6 +216,7 @@ class _HomeState extends State<Home> {
                           fontWeight: FontWeight.w400),
                     )
                   : const SizedBox.shrink(),
+              const SizedBox(height: 20),
               registration
                   ? recommedLoader
                       ? const Center(
@@ -404,6 +407,57 @@ class _HomeState extends State<Home> {
                     ),
               const SizedBox(
                 height: 20,
+              ),
+              Stack(
+                children: [
+                  Container(
+                    width: width,
+                    decoration: BoxDecoration(
+                        color: advertisement,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: primary)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Need help in registering or applying\nscheme ??",
+                            style: TextStyle(
+                                color: primary,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: "Zilla"),
+                          ),
+                          Text(
+                            "We got verified agents that would\nhelp you",
+                            style: TextStyle(
+                                color: primary,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: "Zilla"),
+                          ),
+                          ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: primary, elevation: 0),
+                              onPressed: () {},
+                              child: const Text(
+                                "know more",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white),
+                              ))
+                        ],
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                      right: 0,
+                      top: 5,
+                      child: SvgPicture.asset("assets/avd.svg"))
+                ],
               )
             ],
           ),

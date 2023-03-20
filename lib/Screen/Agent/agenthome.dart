@@ -95,11 +95,15 @@ class _AgentHomeState extends State<AgentHome> {
             children: [
               const OverviewCard(),
               const SizedBox(height: 30),
-              Text(
-                'My Applications',
-                style: TextStyle(
-                    fontSize: 16, fontWeight: FontWeight.w500, color: primary),
-              ),
+              !myapplicationloader
+                  ? Text(
+                      'My Applications',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: primary),
+                    )
+                  : const SizedBox.shrink(),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 15),
                 child: ListView.builder(
@@ -115,11 +119,15 @@ class _AgentHomeState extends State<AgentHome> {
                       );
                     }),
               ),
-              Text(
-                'Applications',
-                style: TextStyle(
-                    fontSize: 16, fontWeight: FontWeight.w500, color: primary),
-              ),
+              !applicationloader
+                  ? Text(
+                      'Applications',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: primary),
+                    )
+                  : const SizedBox.shrink(),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 15),
                 child: ListView.builder(
