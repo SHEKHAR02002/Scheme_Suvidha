@@ -252,34 +252,35 @@ class _AgentRegistrationState extends State<AgentRegistration> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  var agentDetails = {
-                    "name": _agentname.text,
-                    "address": _agentaddress.text,
-                    "gender": _agentgender.text,
-                    "dob": _agentdob.text,
-                    "pincode": _agentpincode.text,
-                    "occuption": _agentoccuption.text,
-                  };
-                  if (_agentname.text != "" &&
-                      _agentgender.text == "" &&
-                      _agentdob.text != "" &&
-                      _agentoccuption.text != "" &&
-                      _agentaddress.text != "" &&
-                      _agentpincode.text != "") {
-                    setState(() {
-                      agentname = _agentname.text;
-                      agentgender = _agentgender.text;
-                      agentdob = _agentdob.text;
-                      agentoccuption = _agentoccuption.text;
-                      agentaddress = _agentaddress.text;
-                      agentpincode = _agentpincode.text;
-                    });
-                  }
+                  // var agentDetails = {
+                  //   "name": _agentname.text,
+                  //   "address": _agentaddress.text,
+                  //   "gender": _agentgender.text,
+                  //   "dob": _agentdob.text,
+                  //   "pincode": _agentpincode.text,
+                  //   "occuption": _agentoccuption.text,
+                  // };
+
+                  setState(() {
+                    if (_agentname.text != "" &&
+                        _agentgender.text == "" &&
+                        _agentdob.text != "" &&
+                        _agentoccuption.text != "" &&
+                        _agentaddress.text != "" &&
+                        _agentpincode.text != "") {}
+                    agentname = _agentname.text;
+                    agentgender = _agentgender.text;
+                    agentdob = _agentdob.text;
+                    agentoccuption = _agentoccuption.text;
+                    agentaddress = _agentaddress.text;
+                    agentpincode = _agentpincode.text;
+                  });
+
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => PassConfirm(
-                                angetDetails: agentDetails,
+                          builder: (context) => const PassConfirm(
+                              // angetDetails: agentDetails,
                               )));
                 },
                 style: ElevatedButton.styleFrom(

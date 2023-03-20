@@ -11,8 +11,8 @@ import 'package:scheme/data/userdata.dart';
 import '../Agent/agentbottomsheet.dart';
 
 class PassConfirm extends StatefulWidget {
-  final dynamic angetDetails;
-  const PassConfirm({super.key, required this.angetDetails});
+  // final dynamic angetDetails;
+  const PassConfirm({super.key});
 
   @override
   State<PassConfirm> createState() => _PassConfirmState();
@@ -40,12 +40,12 @@ class _PassConfirmState extends State<PassConfirm> {
               "userId": FirebaseAuth.instance.currentUser!.uid,
               "email": email,
               "password": password,
-              "name": widget.angetDetails.name,
-              "dob": widget.angetDetails.dob,
-              "gender": widget.angetDetails.gender,
-              "occupation": widget.angetDetails.occuption,
-              "address": widget.angetDetails.address,
-              "pincode": widget.angetDetails.pincode
+              "name": agentname,
+              "dob": agentdob,
+              "gender": agentgender,
+              "occupation": agentoccuption,
+              "address": agentaddress,
+              "pincode": agentpincode
             }).whenComplete(() => signComplete = true)
           : null;
       return signComplete;
@@ -208,25 +208,26 @@ class _PassConfirmState extends State<PassConfirm> {
                 const SizedBox(height: 80),
                 ElevatedButton(
                     onPressed: () {
-                      if (_agentemail.text != "" && _agentpassword.text != "") {
-                        if (_agentpassword.text == _agentconfirmpass.text) {
-                          setState(() {
+                      setState(() {
+                        if (_agentemail.text != "" &&
+                            _agentpassword.text != "") {
+                          if (_agentpassword.text == _agentconfirmpass.text) {
                             agentemailid = _agentemail.text;
                             agentpassword = _agentpassword.text;
-                          });
-                          singup(
-                                  email: _agentemail.text,
-                                  password: _agentpassword.text)
-                              .whenComplete(() => Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const BottomNavigator()),
-                                  (route) => false));
-                        } else {
-                          print("Your Password Not Match");
+                          } else {
+                            print("Your Password Not Match");
+                          }
                         }
-                      }
+                      });
+                      singup(
+                              email: _agentemail.text,
+                              password: _agentpassword.text)
+                          .whenComplete(() => Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const BottomNavigator()),
+                              (route) => false));
                     },
 
                     // Navigator.push(

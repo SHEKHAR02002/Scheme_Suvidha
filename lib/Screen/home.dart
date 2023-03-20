@@ -215,7 +215,6 @@ class _HomeState extends State<Home> {
                             selectfilter: () => getFilter(
                                 filter: "Health & for purchase of aids"),
                             title: 'Health',
-                            
                             path: "assets/medical.svg",
                           ),
                           FilterContainer(
