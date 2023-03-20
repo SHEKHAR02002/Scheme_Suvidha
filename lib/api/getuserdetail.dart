@@ -107,7 +107,7 @@ Future agentlogin({required String email, required String password}) async {
 
     return status;
   } catch (e) {
-    print(e.toString());
+    log(e.toString());
     return false;
   }
 }

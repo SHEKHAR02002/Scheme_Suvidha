@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -242,7 +243,7 @@ class _AadharCardState extends State<AadharCard> {
                             name = _name.text;
                             phoneNo = _phoneNo.text;
                           } else {
-                            print("Field is empty");
+                            log("Field is empty");
                           }
                         });
                         Navigator.push(

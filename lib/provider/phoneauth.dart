@@ -6,7 +6,6 @@ import 'package:scheme/Screen/login.dart';
 import 'package:scheme/Screen/otpbottom.dart';
 import 'package:scheme/api/checknewuser.dart';
 import 'package:scheme/api/getuserdetail.dart';
-import 'package:scheme/widget/registrationalertpopup.dart';
 
 class PhoneAuth {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -62,13 +61,11 @@ class PhoneAuth {
     try {
       await checkuser().then((value) async {
         if (value) {
-          await newuser(phoneno: phoneNo).then((value) async =>
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => const Home()),
-                  (route) => false));
-          showDialog(
-              context: context,
-              builder: (context) => const RegistrationAlertPopup());
+          await newuser(phoneno: phoneNo).whenComplete(() async =>
+              await UserDetails().getUserDetails(context: context).whenComplete(
+                  () => Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => const Home()),
+                      (route) => false)));
         } else {
           await getUserDeatilsApi(context: context).whenComplete(() {
             Navigator.of(context).pushAndRemoveUntil(
