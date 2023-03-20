@@ -10,7 +10,6 @@ import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/schememodel.dart';
 import 'package:scheme/widget/alertcard.dart';
 import 'package:scheme/widget/campcard.dart';
-import 'package:scheme/widget/donesplash.dart';
 import 'package:scheme/widget/imagesourcepopup.dart';
 import 'package:scheme/widget/registrationalertpopup.dart';
 import 'package:scheme/widget/schemecard.dart';
@@ -46,6 +45,17 @@ class _HomeState extends State<Home> {
       }
     });
     // print(campdetail);
+  }
+
+  Future getFilter({required String filter}) async {
+    setState(() {
+      schemeLoader = true;
+      schemesDetails.clear();
+    });
+    schemesDetails.addAll(await getSchemes(filter: filter));
+    setState(() {
+      schemeLoader = false;
+    });
   }
 
   Future callApi() async {
@@ -202,32 +212,35 @@ class _HomeState extends State<Home> {
                         shrinkWrap: true,
                         children: [
                           FilterContainer(
-                            selectfilter: () {},
+                            selectfilter: () => getFilter(
+                                filter: "Health & for purchase of aids"),
                             title: 'Health',
+                            
                             path: "assets/medical.svg",
                           ),
                           FilterContainer(
-                            selectfilter: () {},
+                            selectfilter: () => getFilter(filter: "Pension"),
                             title: 'Pension',
                             path: "assets/retirement.svg",
                           ),
                           FilterContainer(
-                            selectfilter: () {},
+                            selectfilter: () => getFilter(filter: "Business"),
                             title: 'Business',
                             path: "assets/Growth.svg",
                           ),
                           FilterContainer(
-                            selectfilter: () {},
+                            selectfilter: () =>
+                                getFilter(filter: "Career/ Education"),
                             title: 'Education',
                             path: "assets/mortarboard.svg",
                           ),
                           FilterContainer(
-                            selectfilter: () {},
+                            selectfilter: () => getFilter(filter: "Transport"),
                             title: 'Transport',
                             path: "assets/car.svg",
                           ),
                           FilterContainer(
-                            selectfilter: () {},
+                            selectfilter: () => getFilter(filter: "Marriage"),
                             title: 'Marriage',
                             path: "assets/wedding.svg",
                           ),

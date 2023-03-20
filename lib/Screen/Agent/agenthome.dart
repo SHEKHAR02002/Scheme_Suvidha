@@ -18,7 +18,13 @@ class _AgentHomeState extends State<AgentHome> {
   List application = [];
 
   callApi() async {
-    application.addAll(await getapplication());
+    List temp = [];
+    temp.addAll(await getapplication());
+    if (mounted) {
+      setState(() {
+        application.addAll(temp);
+      });
+    }
     if (mounted) {
       if (application.isNotEmpty) {
         applicationloader = false;
@@ -50,15 +56,17 @@ class _AgentHomeState extends State<AgentHome> {
               height: 30,
               width: 30,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: SvgPicture.asset(
-                "assets/about.svg",
-                color: Colors.black,
-                height: 30,
-                width: 30,
-              ),
-            )
+            applicationloader
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: SvgPicture.asset(
+                      "assets/about.svg",
+                      color: Colors.black,
+                      height: 30,
+                      width: 30,
+                    ),
+                  )
+                : const SizedBox.shrink()
           ],
         ),
         body: SingleChildScrollView(

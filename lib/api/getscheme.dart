@@ -6,16 +6,28 @@ import 'package:scheme/Screen/home.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/data/userdata.dart';
 
-Future getSchemes() async {
+Future getSchemes({String filter = "none"}) async {
   List schemedata = [];
-  await FirebaseFirestore.instance
-      .collection("Schemes")
-      .get()
-      .then((QuerySnapshot querysnapshot) async {
-    for (var doc in querysnapshot.docs) {
-      schemedata.add(doc.data());
-    }
-  });
+  if (filter != "none") {
+    await FirebaseFirestore.instance
+        .collection("Schemes")
+        .where("category", isEqualTo: filter)
+        .get()
+        .then((QuerySnapshot querysnapshot) async {
+      for (var doc in querysnapshot.docs) {
+        schemedata.add(doc.data());
+      }
+    });
+  } else {
+    await FirebaseFirestore.instance
+        .collection("Schemes")
+        .get()
+        .then((QuerySnapshot querysnapshot) async {
+      for (var doc in querysnapshot.docs) {
+        schemedata.add(doc.data());
+      }
+    });
+  }
 
   return schemedata;
 }

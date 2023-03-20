@@ -25,4 +25,6 @@ String? agentname,
     agentdob,
     agentoccuption,
     agentaddress,
-    agentpincode;
+    agentpincode,
+    agentemailid,
+    agentpassword;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scheme/Screen/agentwidget/passconfirm.dart';
 import 'package:scheme/Screen/login.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
@@ -251,19 +252,35 @@ class _AgentRegistrationState extends State<AgentRegistration> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  setState(() {
-                    agentname = _agentname.text;
-                    agentgender = _agentgender.text;
-                    agentdob = _agentdob.text;
-                    agentoccuption = _agentoccuption.text;
-                    agentaddress = _agentaddress.text;
-                    agentpincode = _agentpincode.text;
-                  });
-
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const PassConfirm()));
+                  var agentDetails = {
+                    "name": _agentname.text,
+                    "address": _agentaddress.text,
+                    "gender": _agentgender.text,
+                    "dob": _agentdob.text,
+                    "pincode": _agentpincode.text,
+                    "occuption": _agentoccuption.text,
+                  };
+                  if (_agentname.text != "" &&
+                      _agentgender.text == "" &&
+                      _agentdob.text != "" &&
+                      _agentoccuption.text != "" &&
+                      _agentaddress.text != "" &&
+                      _agentpincode.text != "") {
+                    setState(() {
+                      agentname = _agentname.text;
+                      agentgender = _agentgender.text;
+                      agentdob = _agentdob.text;
+                      agentoccuption = _agentoccuption.text;
+                      agentaddress = _agentaddress.text;
+                      agentpincode = _agentpincode.text;
+                    });
+                  }
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PassConfirm(
+                                angetDetails: agentDetails,
+                              )));
                 },
                 style: ElevatedButton.styleFrom(
                     elevation: 0,

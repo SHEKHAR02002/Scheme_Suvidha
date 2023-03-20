@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Screen/agentwidget/agentregistration.dart';
 import 'package:scheme/Theme/color.dart';
+
+import 'Agent/agentbottomsheet.dart';
 
 class AgentLogin extends StatefulWidget {
   const AgentLogin({super.key});
@@ -13,6 +16,42 @@ class AgentLogin extends StatefulWidget {
 class _AgentLoginState extends State<AgentLogin> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
+
+  Future singin({required String email, required String password}) async {
+    bool signComplete = false;
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password)
+          .catchError((e) {
+        if (e.code == 'user-not-found') {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('No user found for that email.'),
+          ));
+          return false;
+        } else if (e.code == 'wrong-password') {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Wrong password provided for that user.'),
+          ));
+          return false;
+        }
+        return false;
+      }).then((value) {
+        if (value.user!.uid.isNotEmpty) {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const BottomNavigator()),
+              (route) => false);
+          return true;
+        } else {
+          return false;
+        }
+      });
+      return signComplete;
+    } on FirebaseAuthException {
+      return signComplete;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -150,7 +189,11 @@ class _AgentLoginState extends State<AgentLogin> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (_email.text != "" && _password.text != "") {
+                      singin(email: _email.text, password: _password.text);
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                       elevation: 0,
                       shape: RoundedRectangleBorder(
@@ -166,11 +209,12 @@ class _AgentLoginState extends State<AgentLogin> {
                   )),
               const SizedBox(height: 20),
               GestureDetector(
-                onTap: () => Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const AgentRegistration()),
-                    (route) => false),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AgentRegistration()));
+                },
                 child: RichText(
                     text: TextSpan(children: [
                   TextSpan(

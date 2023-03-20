@@ -20,6 +20,9 @@ class _FilterContainerState extends State<FilterContainer> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: () {
+        widget.selectfilter();
+      },
       child: Container(
         // width: 20,
         // height: 60,

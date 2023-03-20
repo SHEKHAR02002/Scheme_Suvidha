@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Screen/Agent/agenthistory.dart';
 import 'package:scheme/Screen/agentwidget/resetpassword.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
+import 'package:scheme/provider/phoneauth.dart';
 
 class AgentProfile extends StatefulWidget {
   const AgentProfile({super.key});
@@ -176,7 +176,9 @@ class _AgentProfileState extends State<AgentProfile> {
         bottomNavigationBar: Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
             child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  PhoneAuth().logOut(context: context);
+                },
                 style: ElevatedButton.styleFrom(
                     elevation: 0,
                     shape: RoundedRectangleBorder(
