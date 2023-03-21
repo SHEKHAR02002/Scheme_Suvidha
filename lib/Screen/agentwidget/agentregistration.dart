@@ -250,54 +250,57 @@ class _AgentRegistrationState extends State<AgentRegistration> {
             const SizedBox(
               height: 20,
             ),
-            ElevatedButton(
-                onPressed: () {
-                  // var agentDetails = {
-                  //   "name": _agentname.text,
-                  //   "address": _agentaddress.text,
-                  //   "gender": _agentgender.text,
-                  //   "dob": _agentdob.text,
-                  //   "pincode": _agentpincode.text,
-                  //   "occuption": _agentoccuption.text,
-                  // };
-
-                  setState(() {
-                    if (_agentname.text != "" &&
-                        _agentgender.text == "" &&
-                        _agentdob.text != "" &&
-                        _agentoccuption.text != "" &&
-                        _agentaddress.text != "" &&
-                        _agentpincode.text != "") {}
-                    agentname = _agentname.text;
-                    agentgender = _agentgender.text;
-                    agentdob = _agentdob.text;
-                    agentoccuption = _agentoccuption.text;
-                    agentaddress = _agentaddress.text;
-                    agentpincode = _agentpincode.text;
-                  });
-
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PassConfirm(
-                              // angetDetails: agentDetails,
-                              )));
-                },
-                style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                    backgroundColor: primary,
-                    minimumSize: Size(width, 50)),
-                child: const Text(
-                  "Submit",
-                  style: TextStyle(
-                      fontFamily: "Overpass",
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700),
-                )),
           ],
         ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: ElevatedButton(
+            onPressed: () {
+              // var agentDetails = {
+              //   "name": _agentname.text,
+              //   "address": _agentaddress.text,
+              //   "gender": _agentgender.text,
+              //   "dob": _agentdob.text,
+              //   "pincode": _agentpincode.text,
+              //   "occuption": _agentoccuption.text,
+              // };
+
+              setState(() {
+                if (_agentname.text != "" &&
+                    _agentgender.text == "" &&
+                    _agentdob.text != "" &&
+                    _agentoccuption.text != "" &&
+                    _agentaddress.text != "" &&
+                    _agentpincode.text != "") {}
+                agentname = _agentname.text;
+                agentgender = _agentgender.text;
+                agentdob = _agentdob.text;
+                agentoccupation = _agentoccuption.text;
+                agentaddress = _agentaddress.text;
+                agentpincode = _agentpincode.text;
+              });
+
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PassConfirm(
+                          // angetDetails: agentDetails,
+                          )));
+            },
+            style: ElevatedButton.styleFrom(
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5)),
+                backgroundColor: primary,
+                minimumSize: Size(width, 50)),
+            child: const Text(
+              "Next",
+              style: TextStyle(
+                  fontFamily: "Overpass",
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700),
+            )),
       ),
     );
   }

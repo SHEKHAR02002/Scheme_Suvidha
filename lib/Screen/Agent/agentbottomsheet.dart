@@ -13,6 +13,7 @@ class BottomNavigator extends StatefulWidget {
 
 class _BottomNavigatorState extends State<BottomNavigator> {
   int currentIndex = 0;
+
   final screen = [
     const AgentHome(),
     const RegistrationForm(),

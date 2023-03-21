@@ -7,7 +7,7 @@ import 'package:scheme/Screen/Agent/agentbottomsheet.dart';
 import 'package:scheme/Screen/home.dart';
 import 'package:scheme/Screen/login.dart';
 import 'package:scheme/Theme/color.dart';
-import 'package:scheme/api/getuserdetail.dart';
+import 'package:scheme/data/userdata.dart';
 import 'package:tbib_splash_screen/splash_screen.dart';
 
 class Splash extends StatefulWidget {
@@ -18,22 +18,12 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-  bool loader = false, checkUser = true;
-
-  Future callApi() async {
-    FirebaseAuth.instance.currentUser != null
-        ? await getUserDeatilsApi(context: context)
-        : null;
-    FirebaseAuth.instance.currentUser != null
-        ? checkUser =
-            await checkwhichUser(uid: FirebaseAuth.instance.currentUser!.uid)
-        : null;
-  }
+  bool loader = false;
 
   @override
   void initState() {
-    callApi()
-        .whenComplete(() => mounted ? setState(() => loader = true) : null);
+    Future.delayed(
+        const Duration(seconds: 3), () => setState(() => loader = true));
     super.initState();
   }
 
@@ -45,7 +35,7 @@ class _SplashState extends State<Splash> {
       duration: const Duration(seconds: 1),
       navigateRoute: FirebaseAuth.instance.currentUser == null
           ? const Login()
-          : checkUser
+          : isagent
               ? const Home()
               : const BottomNavigator(),
       imageSrc: "assets/logo.png",

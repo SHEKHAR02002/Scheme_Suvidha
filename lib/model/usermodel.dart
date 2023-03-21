@@ -122,3 +122,51 @@ class UserModel {
     };
   }
 }
+
+class AgentModel {
+  String? uid,
+      name,
+      gender,
+      dob,
+      occupation,
+      address,
+      pincode,
+      emailid,
+      password;
+  bool verification = false;
+
+  AgentModel(
+      {required this.address,
+      required this.verification,
+      required this.dob,
+      required this.uid,
+      required this.emailid,
+      required this.gender,
+      required this.name,
+      required this.occupation,
+      required this.password,
+      required this.pincode});
+
+  AgentModel.fromMap(Map<String, dynamic> map) {
+    name = map["name"];
+    dob = map["dob"];
+    emailid = map["email"];
+    password = map["password"];
+    verification = map["verification"];
+    uid = map["userId"];
+    address = map["address"];
+    occupation = map["occupation"];
+    pincode = map["pincode"];
+  }
+  Map<String, dynamic> toMap() => {
+        "name": name,
+        "dob": dob,
+        "email": emailid,
+        "password": password,
+        "verification": verification,
+        "uid": uid,
+        "address": address,
+        "pincode": pincode,
+        "occupation": occupation,
+      };
+}

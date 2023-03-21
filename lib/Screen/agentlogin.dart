@@ -18,24 +18,11 @@ class _AgentLoginState extends State<AgentLogin> {
   final TextEditingController _password = TextEditingController();
 
   Future singin({required String email, required String password}) async {
-    bool signComplete = false;
+    // bool signComplete = false;
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
-          .catchError((e) {
-        if (e.code == 'user-not-found') {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('No user found for that email.'),
-          ));
-          return false;
-        } else if (e.code == 'wrong-password') {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('Wrong password provided for that user.'),
-          ));
-          return false;
-        }
-        return false;
-      }).then((value) {
+          .then((value) {
         if (value.user!.uid.isNotEmpty) {
           Navigator.pushAndRemoveUntil(
               context,
@@ -46,9 +33,19 @@ class _AgentLoginState extends State<AgentLogin> {
           return false;
         }
       });
-      return signComplete;
-    } on FirebaseAuthException {
-      return signComplete;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('No user found for that email.'),
+        ));
+        return false;
+      } else if (e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Wrong password provided for that user.'),
+        ));
+        return false;
+      }
+      return false;
     }
   }
 
@@ -201,7 +198,7 @@ class _AgentLoginState extends State<AgentLogin> {
                       backgroundColor: primary,
                       minimumSize: Size(width, 50)),
                   child: const Text(
-                    "Submit",
+                    "Login",
                     style: TextStyle(
                         fontFamily: "Overpass",
                         fontSize: 18,

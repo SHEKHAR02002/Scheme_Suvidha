@@ -40,10 +40,11 @@ class _PassConfirmState extends State<PassConfirm> {
               "userId": FirebaseAuth.instance.currentUser!.uid,
               "email": email,
               "password": password,
+              "verification": false,
               "name": agentname,
               "dob": agentdob,
               "gender": agentgender,
-              "occupation": agentoccuption,
+              "occupation": agentoccupation,
               "address": agentaddress,
               "pincode": agentpincode
             }).whenComplete(() => signComplete = true)
@@ -59,8 +60,6 @@ class _PassConfirmState extends State<PassConfirm> {
           content: Text('The account already exists for that email.'),
         ));
       }
-      return signComplete;
-    } catch (e) {
       log(e.toString());
       return signComplete;
     }

@@ -59,11 +59,11 @@ class PhoneAuth {
   Future userCredentialAuth(
       {required BuildContext context, required String phoneNo}) async {
     try {
-      await checkuser().then((value) async {
-        if (value) {
+      await checkuser(context: context).then((value) async {
+        if (value == "") {
           await newuser(phoneno: phoneNo).whenComplete(() async =>
-              await UserDetails().getUserDetails(context: context).whenComplete(
-                  () => Navigator.of(context).pushAndRemoveUntil(
+              await getUserDeatilsApi(context: context).whenComplete(() =>
+                  Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) => const Home()),
                       (route) => false)));
         } else {

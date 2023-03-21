@@ -8,9 +8,9 @@ import 'package:scheme/api/checknewuser.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/usermodel.dart';
 import 'package:scheme/provider/notifcationprovider.dart';
-import 'package:scheme/provider/phoneauth.dart';
 
 Future getUserDeatilsApi({required context}) async {
+  await checkuser(context: context);
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     RemoteNotification? notification = message.notification;
     AndroidNotification? android = message.notification?.android;
@@ -31,13 +31,6 @@ Future getUserDeatilsApi({required context}) async {
     }
   });
   // await UserDetails().userExits(context: context);
-  User user = FirebaseAuth.instance.currentUser!;
-  if (!await checkuser()) {
-    await getFCM(uid: user.uid);
-    await UserDetails().getUserDetails(context: context);
-  } else {
-    await PhoneAuth().logOut(context: context);
-  }
 }
 
 class UserDetails {
@@ -51,17 +44,12 @@ class UserDetails {
   //   }
   // }
 
-  Future getUserDetails({required context}) async {
-    await FirebaseFirestore.instance
-        .collection("Users")
-        .doc(FirebaseAuth.instance.currentUser!.uid.toString())
-        .get()
-        .then((docSnapshot) async {
-      var data = docSnapshot.data();
-      userDetail = UserModel.fromMap(data!);
-      log(data["phoneno"]);
-      registration = data["registeration"];
-    });
+  Future getUserDetails(
+      {required DocumentSnapshot<Map<String, dynamic>> docSnapshot}) async {
+    var data = docSnapshot.data();
+    userDetail = UserModel.fromMap(data!);
+    log(data["phoneno"]);
+    registration = data["registeration"];
   }
 }
 
@@ -76,6 +64,11 @@ Future getapplication() async {
     }
   });
   return applicant;
+}
+
+Future getAgentDetails(
+    {required DocumentSnapshot<Map<String, dynamic>> doc}) async {
+  agentDetails = AgentModel.fromMap(doc.data()!);
 }
 
 Future getmyapplication() async {

@@ -1,24 +1,71 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:scheme/api/getuserdetail.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/notifcationprovider.dart';
 
-Future checkuser() async {
-  bool newuser = true;
-  String uid = FirebaseAuth.instance.currentUser!.uid.toString();
+// Future checkuser() async {
+//   bool newuser = true;
+//   String uid = FirebaseAuth.instance.currentUser!.uid.toString();
+//   await FirebaseFirestore.instance
+//       .collection("Users")
+//       .doc(uid)
+//       .get()
+//       .then((docsnapshot) {
+//     if (docsnapshot.exists) {
+//       getFCM(uid: uid);
+//       newuser = false;
+//     } else {
+//       newuser = true;
+//     }
+//   });
+//   return newuser;
+// }
+
+Future<String> checkuser({required BuildContext context}) async {
+  String newUser = "";
+
+  String uid = FirebaseAuth.instance.currentUser!.uid;
+
   await FirebaseFirestore.instance
       .collection("Users")
       .doc(uid)
       .get()
-      .then((docsnapshot) {
-    if (docsnapshot.exists) {
-      getFCM(uid: uid);
-      newuser = false;
+      .then((docSnapshot) async {
+    if (docSnapshot.exists) {
+      await getFCM(uid: uid).whenComplete(() async =>
+          await UserDetails().getUserDetails(docSnapshot: docSnapshot));
+      newUser = "Users";
     } else {
-      newuser = true;
+      newUser = "";
     }
   });
-  return newuser;
+  if (newUser != "Users") {
+    newUser = await agentCheckLogin() == true ? "AgentUser" : "";
+  }
+  return newUser;
+}
+
+Future<bool> agentCheckLogin() async {
+  bool agent = false;
+  String uid = FirebaseAuth.instance.currentUser!.uid;
+  await FirebaseFirestore.instance
+      .collection("AgentUser")
+      .doc(uid)
+      .get()
+      .then((docSnapshot) async => {
+            if (docSnapshot.exists)
+              {
+                isagent = true,
+                await getFCM(uid: uid).whenComplete(
+                    () async => getAgentDetails(doc: docSnapshot)),
+                agent = true
+              }
+            else
+              {agent = false}
+          });
+  return agent;
 }
 
 Future newuser({required String phoneno}) async {
