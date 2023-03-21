@@ -66,11 +66,14 @@ class _ApplicationCardState extends State<ApplicationCard> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.applicationdetails.applyschemename.toString(),
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w600),
+                      SizedBox(
+                        width: width - 100,
+                        child: Text(
+                          widget.applicationdetails.applyschemename.toString(),
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w600),
+                        ),
                       ),
                       Text(
                         widget.applicationdetails.name.toString(),

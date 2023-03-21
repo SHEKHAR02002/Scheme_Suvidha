@@ -6,6 +6,7 @@ import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/model/usermodel.dart';
 import 'package:scheme/provider/phoneauth.dart';
+// import 'package:scheme/widget/applyschemedetail.dart';
 import 'package:scheme/widget/editaadhar.dart';
 import 'package:scheme/widget/setting/setting.dart';
 
@@ -133,34 +134,40 @@ class _ProfileState extends State<Profile> {
               const SizedBox(
                 height: 25,
               ),
-              Container(
-                decoration: shadowdecoration,
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Row(children: [
-                    SvgPicture.asset(
-                      "assets/scheme.svg",
-                      height: 20,
-                      width: 20,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "Scheme Details",
-                      style: TextStyle(
-                          color: primary,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    const Spacer(),
-                    SvgPicture.asset(
-                      "assets/right_arrow.svg",
-                      height: 25,
-                      width: 25,
-                      color: primary,
-                    ),
-                  ]),
+              InkWell(
+                // onTap: () => Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => const ApplySchemeDetail())),
+                child: Container(
+                  decoration: shadowdecoration,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(children: [
+                      SvgPicture.asset(
+                        "assets/scheme.svg",
+                        height: 20,
+                        width: 20,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "Scheme Details",
+                        style: TextStyle(
+                            color: primary,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      const Spacer(),
+                      SvgPicture.asset(
+                        "assets/right_arrow.svg",
+                        height: 25,
+                        width: 25,
+                        color: primary,
+                      ),
+                    ]),
+                  ),
                 ),
               ),
               const SizedBox(
