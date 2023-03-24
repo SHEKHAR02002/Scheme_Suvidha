@@ -35,7 +35,7 @@ class _SplashState extends State<Splash> {
       duration: const Duration(seconds: 1),
       navigateRoute: FirebaseAuth.instance.currentUser == null
           ? const Login()
-          : isagent
+          : !isagent
               ? const Home()
               : const BottomNavigator(),
       imageSrc: "assets/logo.png",

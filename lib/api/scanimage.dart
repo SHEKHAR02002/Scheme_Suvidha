@@ -19,7 +19,10 @@ Future getAadharDetails({required String path}) async {
   request.files.add(await MultipartFile.fromPath('file', path));
   // var res = await request.send();
   Response response = await Response.fromStream(await request.send());
-  if (response.body == "data invaild") {
+  if (response.body == "data invaild" && response.body.toString() == "EOF") {
+    return null;
+  }
+  if (response.statusCode != 200) {
     return null;
   }
   return jsonDecode(response.body);
@@ -41,7 +44,10 @@ Future getUDIDDetails({required String path}) async {
   request.files.add(await MultipartFile.fromPath('file', path));
   // var res = await request.send();
   Response response = await Response.fromStream(await request.send());
-  if (response.body == "data invaild") {
+  if (response.body == "data invaild" && response.body.toString() == "EOF") {
+    return null;
+  }
+  if (response.statusCode != 200) {
     return null;
   }
   return jsonDecode(response.body);

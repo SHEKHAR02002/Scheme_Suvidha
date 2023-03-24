@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:scheme/Screen/Agent/agenthome.dart';
 import 'package:scheme/Screen/Agent/agetprofile.dart';
-import 'package:scheme/Screen/Agent/registrationform.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/widget/upload.dart';
 
 class BottomNavigator extends StatefulWidget {
   const BottomNavigator({super.key});
@@ -16,7 +16,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
 
   final screen = [
     const AgentHome(),
-    const RegistrationForm(),
+    const UploadDoument(),
     const AgentProfile(),
   ];
   @override

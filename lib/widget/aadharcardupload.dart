@@ -104,7 +104,11 @@ class _AadharCardState extends State<AadharCard> {
                       _phoneNo.text = "";
                     }
                   }).whenComplete(() => Navigator.pop(context));
-                  await imageupload(filename: "aadharimage", file: aadharpic);
+                  isagent
+                      ? setState(() {
+                          agentbyaadharimage = aadharpic;
+                        })
+                      : imageupload(filename: "aadharimage", file: aadharpic);
                 }),
                 child: Center(
                   child: pickedaadhar
@@ -231,21 +235,37 @@ class _AadharCardState extends State<AadharCard> {
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
                   child: ElevatedButton(
                       onPressed: () {
-                        setState(() {
-                          if (_aadharNo.text != "" &&
-                              _dob.text != "" &&
-                              _gender.text != "" &&
-                              _name.text != "" &&
-                              _phoneNo.text != "") {
-                            aadharNo = _aadharNo.text;
-                            dob = _dob.text;
-                            gender = _gender.text;
-                            name = _name.text;
-                            phoneNo = _phoneNo.text;
-                          } else {
-                            log("Field is empty");
-                          }
-                        });
+                        isagent
+                            ? setState(() {
+                                if (_aadharNo.text != "" &&
+                                    _dob.text != "" &&
+                                    _gender.text != "" &&
+                                    _name.text != "" &&
+                                    _phoneNo.text != "") {
+                                  aadharNo = _aadharNo.text;
+                                  dob = _dob.text;
+                                  gender = _gender.text;
+                                  name = _name.text;
+                                  phoneNo = _phoneNo.text;
+                                } else {
+                                  log("Field is empty");
+                                }
+                              })
+                            : setState(() {
+                                if (_aadharNo.text != "" &&
+                                    _dob.text != "" &&
+                                    _gender.text != "" &&
+                                    _name.text != "" &&
+                                    _phoneNo.text != "") {
+                                  agentaadharNo = _aadharNo.text;
+                                  agentbydob = _dob.text;
+                                  agentbygender = _gender.text;
+                                  agentbyname = _name.text;
+                                  agentbyphoneNo = _phoneNo.text;
+                                } else {
+                                  log("Field is empty");
+                                }
+                              });
                         Navigator.push(
                             context,
                             MaterialPageRoute(

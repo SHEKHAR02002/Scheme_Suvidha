@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:scheme/Screen/Agent/applyuserscheme.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/api/checknewuser.dart';
@@ -91,7 +92,14 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                       _disbilitytype.text = value["type"].toString();
                       _udidNo.text = value["udid"].toString();
                     }).whenComplete(() async => Navigator.pop(context));
-                    await imageupload(filename: "udidimage", file: udidpic);
+                    isagent
+                        ? setState(
+                            () {
+                              agentbyudidimage = udidpic;
+                            },
+                          )
+                        : await imageupload(
+                            filename: "udidimage", file: udidpic);
                   }),
                   child: pickedudid
                       ? Image.file(File(udidpic))
@@ -240,10 +248,19 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                             validupto = _validupto.text;
                           }
                         });
-                        userdataupload().whenComplete(() => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const DoneUpload())));
+                        !isagent
+                            ? userdataupload().whenComplete(() =>
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const DoneUpload())))
+                            : Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ApplyUserScheme()),
+                                (route) => false);
                       },
                       // upload(),
                       style: ElevatedButton.styleFrom(

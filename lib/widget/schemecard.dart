@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:scheme/Screen/Agent/agentbottomsheet.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/model/schememodel.dart';
@@ -8,9 +9,13 @@ import 'package:scheme/widget/schemedetail.dart';
 class SchemeCard extends StatefulWidget {
   final SchemeModel schemedata;
   final bool register;
+  final bool agent;
 
   const SchemeCard(
-      {super.key, required this.schemedata, required this.register});
+      {super.key,
+      required this.schemedata,
+      required this.register,
+      required this.agent});
 
   @override
   State<SchemeCard> createState() => _SchemeCardState();
@@ -160,13 +165,17 @@ class _SchemeCardState extends State<SchemeCard> {
           ),
           // const Spacer(),
           InkWell(
-            onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => SchemeDetail(
-                          register: widget.register,
-                          schemedata: widget.schemedata,
-                        ))),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => !widget.agent
+                          ? SchemeDetail(
+                              register: widget.register,
+                              schemedata: widget.schemedata,
+                            )
+                          : const BottomNavigator()));
+            },
             child: SvgPicture.asset(
               "assets/right_arrow.svg",
               color: black,

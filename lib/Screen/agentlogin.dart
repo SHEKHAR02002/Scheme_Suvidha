@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Screen/agentwidget/agentregistration.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/api/checknewuser.dart';
 
 import 'Agent/agentbottomsheet.dart';
 
@@ -22,12 +23,14 @@ class _AgentLoginState extends State<AgentLogin> {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
-          .then((value) {
+          .then((value) async {
         if (value.user!.uid.isNotEmpty) {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const BottomNavigator()),
-              (route) => false);
+          await checkuser(context: context).whenComplete(() =>
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const BottomNavigator()),
+                  (route) => false));
           return true;
         } else {
           return false;

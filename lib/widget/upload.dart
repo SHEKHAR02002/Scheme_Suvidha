@@ -61,7 +61,7 @@ class _UploadDoumentState extends State<UploadDoument> {
       String cropFile = await userImagecopper(pickedFile: image);
       // final File file = File(image!.path);
       setState(() {
-        imagepic = cropFile;
+        isagent ? imagepic = cropFile : agentbyimage = cropFile;
         imagepick = true;
       });
     } catch (e) {
@@ -97,13 +97,7 @@ class _UploadDoumentState extends State<UploadDoument> {
                         fontWeight: FontWeight.w400),
                   ),
                   InkWell(
-                    onTap: () =>
-                        //   showDialog(
-                        //       context: context,
-                        //       builder: (context) => const ImageSourcePopup());
-                        // },
-
-                        picImage(
+                    onTap: () => picImage(
                       source: ImageSource.camera,
                     ),
                     child: Container(
@@ -132,136 +126,6 @@ class _UploadDoumentState extends State<UploadDoument> {
             ),
           ),
         ),
-
-        //     child: Padding(
-        //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        //   child: Column(
-        //     children: [
-        //       SvgPicture.asset(
-        //         "assets/upload.svg",
-        //         height: 275,
-        //         width: width,
-        //       ),
-        //       Container(
-        //         decoration: shadowdecoration,
-        //         child: Padding(
-        //            padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-        //           child: Row(
-        //             children: [
-        //               Text(
-        //                 "Passport Size photo",
-        //                 style: TextStyle(
-        //                     fontSize: 20, fontWeight: FontWeight.w400),
-        //               ),
-        //               const Spacer(),
-        //               InkWell(
-        //                 onTap: () =>
-        //                     picImage(source: ImageSource.camera, filename: "Image")
-        //                         .whenComplete(() {
-        //                   setState(() {
-        //                     imagepick = true;
-        //                   });
-        //                 }),
-        //                 child: imagepick == false
-        //                     ? const Icon(
-        //                         Icons.add,
-        //                         size: 30,
-        //                       )
-        //                     : const Icon(
-        //                         Icons.check,
-        //                         color: Color.fromRGBO(20, 253, 15, 1),
-        //                         size: 30,
-        //                       ),
-        //               )
-        //             ],
-        //           ),
-        //         ),
-        //       ),
-        //       SizedBox(height: 30,),
-        //       Container(
-        //         decoration: shadowdecoration,
-        //         child: Row(
-        //           children: [
-        //             const Padding(
-        //               padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-        //               child: Text(
-        //                 "Aadhar Card",
-        //                 style: TextStyle(
-        //                     fontSize: 20, fontWeight: FontWeight.w400),
-        //               ),
-        //             ),
-        //             const Spacer(),
-        //             InkWell(
-        //               onTap: () => picImage(
-        //                       source: ImageSource.camera, filename: "aadhar")
-        //                   .whenComplete(() {
-        //                 setState(() {
-        //                   pickedaadhar = true;
-        //                 });
-        //               }),
-        //               child: Padding(
-        //                 padding: const EdgeInsets.only(right: 10),
-        //                 child: pickedaadhar == false
-        //                     ? const Icon(
-        //                         Icons.add,
-        //                         size: 30,
-        //                       )
-        //                     : const Icon(
-        //                         Icons.check,
-        //                         color: Color.fromRGBO(20, 253, 15, 1),
-        //                         size: 30,
-        //                       ),
-        //               ),
-        //             )
-        //           ],
-        //         ),
-        //       ),
-        //       const SizedBox(
-        //         height: 30,
-        //       ),
-        //       Container(
-        //         decoration: shadowdecoration,
-        //         child: Row(
-        //           children: [
-        //             const Padding(
-        //               padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-        //               child: Text(
-        //                 "UDID Card",
-        //                 style: TextStyle(
-        //                     fontSize: 20, fontWeight: FontWeight.w400),
-        //               ),
-        //             ),
-        //             const Spacer(),
-        //             InkWell(
-        //               onTap: () =>
-        //                   picImage(source: ImageSource.camera, filename: "udid")
-        //                       .whenComplete(() {
-        //                 setState(() {
-        //                   pickedudid = true;
-        //                 });
-        //               }),
-        //               child: Padding(
-        //                 padding: const EdgeInsets.only(right: 10),
-        //                 child: pickedudid == false
-        //                     ? const Icon(
-        //                         Icons.add,
-        //                         size: 30,
-        //                       )
-        //                     : const Icon(
-        //                         Icons.check,
-        //                         color: Color.fromRGBO(20, 253, 15, 1),
-        //                         size: 30,
-        //                       ),
-        //               ),
-        //             )
-        //           ],
-        //         ),
-        //       ),
-
-        //     ],
-        //   ),
-        // )
-
         bottomNavigationBar: Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
             child: ElevatedButton(

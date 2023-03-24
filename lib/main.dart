@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -69,7 +67,7 @@ class _MainState extends State<Main> {
   Future callApi() async {
     if (FirebaseAuth.instance.currentUser != null) {
       await getUserDeatilsApi(context: context);
-      log("working${FirebaseAuth.instance.currentUser!.uid}");
+
       // await checkwhichUser(uid: FirebaseAuth.instance.currentUser!.uid);
     }
   }

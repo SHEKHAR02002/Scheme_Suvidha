@@ -28,3 +28,18 @@ String? agentname,
     agentpincode,
     agentemailid,
     agentpassword;
+
+String? agentbyimage,
+    agentbyaadharimage,
+    agentbyudidimage,
+    agentaadharNo,
+    agentbydob,
+    agentbygender,
+    agentbyname,
+    agentbyphoneNo,
+    agentbyudidNo,
+    agentbyudidname,
+    agentbydisbilitytype,
+    agentbydisabilitypercentage,
+    agentbydataissue,
+    agentbyvalidupto;

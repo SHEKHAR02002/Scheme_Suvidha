@@ -32,7 +32,7 @@ class _HomeState extends State<Home> {
       schemeLoader = true,
       filterclicked = false,
       recommedLoader = true;
-  bool register = userDetail!.registeration!;
+  bool register = registration;
   bool verification = false;
   int listlength = 3;
   int nowlistlength = 0;
@@ -67,7 +67,7 @@ class _HomeState extends State<Home> {
   }
 
   Future callApi() async {
-    // await checkregister();
+    // getUserDetails();
     campdetail.clear();
     schemesDetails.clear();
     await getcampdetail();
@@ -93,7 +93,7 @@ class _HomeState extends State<Home> {
       }
     }
 
-    Future getUserDetails({required context}) async {
+    Future getUserDetails() async {
       bool status = false;
       await FirebaseFirestore.instance
           .collection("Users")
@@ -233,6 +233,7 @@ class _HomeState extends State<Home> {
                               return SchemeCard(
                                 schemedata: schemdata,
                                 register: register,
+                                agent: false,
                               );
                             })
                     : const SizedBox.shrink(),
@@ -333,6 +334,7 @@ class _HomeState extends State<Home> {
                           return SchemeCard(
                             schemedata: schemdata,
                             register: register,
+                            agent: false,
                           );
                         }),
                 Align(
