@@ -62,8 +62,6 @@ Future<bool> agentCheckLogin() async {
                     () async => getAgentDetails(doc: docSnapshot)),
                 agent = true
               }
-            else
-              {agent = false}
           });
   return agent;
 }

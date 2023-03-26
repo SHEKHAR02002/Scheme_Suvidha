@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,9 +13,13 @@ import 'package:scheme/api/scanimage.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/imagecopper.dart';
 import 'package:scheme/provider/takeimage.dart';
+import 'package:scheme/widget/aadharcardupload.dart';
 import 'package:scheme/widget/donesplash.dart';
 import 'package:scheme/widget/processingpopup.dart';
 import 'package:scheme/widget/textfield.dart';
+import 'package:scheme/widget/upload.dart';
+
+String udidpic = "";
 
 class UdidCardUpload extends StatefulWidget {
   const UdidCardUpload({super.key});
@@ -29,7 +35,6 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
   final TextEditingController _disabilitypercentage = TextEditingController();
   final TextEditingController _dataissue = TextEditingController();
   final TextEditingController _validupto = TextEditingController();
-  String udidpic = "";
   bool pickedudid = false;
 
   Future<dynamic> picaadhar({required source, required String filename}) async {
@@ -47,6 +52,26 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
         print(e.toString());
       }
     }
+  }
+
+  Future uploadImgdata() async {
+    var passportimage = await fireStoreFileUpload(
+        "${FirebaseAuth.instance.currentUser!.uid}/userphoto.jpg", imagepic);
+
+    var addharpiclink = await fireStoreFileUpload(
+        "${FirebaseAuth.instance.currentUser!.uid}/aadharcard.jpg", aadharpic);
+
+    var udidpiclink = await fireStoreFileUpload(
+        "${FirebaseAuth.instance.currentUser!.uid}/udidcard.jpg", udidpic);
+
+    await FirebaseFirestore.instance
+        .collection("Users")
+        .doc(FirebaseAuth.instance.currentUser!.uid.toString())
+        .update({
+      "image": passportimage,
+      "udidimage": udidpiclink,
+      "aadharimage": addharpiclink
+    });
   }
 
   @override
@@ -232,7 +257,11 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
               Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
                   child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        showDialog(
+                            context: context,
+                            builder: (c) => processingPopup(
+                                context: context, msg: "Uploading data"));
                         setState(() {
                           if (_udidNo.text != "" &&
                               _udidname.text != "" &&
@@ -248,13 +277,18 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                             validupto = _validupto.text;
                           }
                         });
+
                         !isagent
-                            ? userdataupload().whenComplete(() =>
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const DoneUpload())))
+                            ? await uploadImgdata().whenComplete(
+                                () => userdataupload().whenComplete(() => {
+                                      registration = true,
+                                      Navigator.pop(context),
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const DoneUpload()))
+                                    }))
                             : Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(

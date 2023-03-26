@@ -14,6 +14,8 @@ import 'dart:io';
 
 import 'package:scheme/widget/registeration.dart';
 
+String imagepic = "";
+
 class UploadDoument extends StatefulWidget {
   const UploadDoument({super.key});
 
@@ -25,8 +27,6 @@ class _UploadDoumentState extends State<UploadDoument> {
   bool pickedaadhar = false;
   bool pickedudid = false;
   bool imagepick = false;
-
-  String imagepic = "";
 
   upload() async {
     passportimage = await fireStoreFileUpload(
@@ -61,7 +61,7 @@ class _UploadDoumentState extends State<UploadDoument> {
       String cropFile = await userImagecopper(pickedFile: image);
       // final File file = File(image!.path);
       setState(() {
-        isagent ? imagepic = cropFile : agentbyimage = cropFile;
+        !isagent ? imagepic = cropFile : agentbyimage = cropFile;
         imagepick = true;
       });
     } catch (e) {

@@ -21,13 +21,14 @@ class AadharCard extends StatefulWidget {
   State<AadharCard> createState() => _AadharCardState();
 }
 
+String aadharpic = "";
+
 class _AadharCardState extends State<AadharCard> {
   final TextEditingController _aadharNo = TextEditingController();
   final TextEditingController _dob = TextEditingController();
   final TextEditingController _gender = TextEditingController();
   final TextEditingController _name = TextEditingController();
   final TextEditingController _phoneNo = TextEditingController();
-  String aadharpic = "";
   bool pickedaadhar = false;
 
   Future<dynamic> picaadhar({required source, required String filename}) async {
@@ -235,7 +236,7 @@ class _AadharCardState extends State<AadharCard> {
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
                   child: ElevatedButton(
                       onPressed: () {
-                        isagent
+                        !isagent
                             ? setState(() {
                                 if (_aadharNo.text != "" &&
                                     _dob.text != "" &&
@@ -248,6 +249,10 @@ class _AadharCardState extends State<AadharCard> {
                                   name = _name.text;
                                   phoneNo = _phoneNo.text;
                                 } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text(
+                                              "Enter all the details properly")));
                                   log("Field is empty");
                                 }
                               })
@@ -263,6 +268,10 @@ class _AadharCardState extends State<AadharCard> {
                                   agentbyname = _name.text;
                                   agentbyphoneNo = _phoneNo.text;
                                 } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text(
+                                              "Enter all the details properly")));
                                   log("Field is empty");
                                 }
                               });
