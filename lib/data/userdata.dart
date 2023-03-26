@@ -27,6 +27,7 @@ String? agentimage,
     agentoccupation,
     agentaddress,
     agentpincode,
+    agentphonenumber,
     agentemailid,
     agentpassword;
 

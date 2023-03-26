@@ -26,6 +26,8 @@ class _AgentRegistrationState extends State<AgentRegistration> {
   final TextEditingController _agentoccuption = TextEditingController();
   final TextEditingController _agentaddress = TextEditingController();
   final TextEditingController _agentpincode = TextEditingController();
+  final TextEditingController _agentphonenumber = TextEditingController();
+
   String customimage = "";
   bool imagepicked = false;
 
@@ -329,6 +331,36 @@ class _AgentRegistrationState extends State<AgentRegistration> {
             const SizedBox(
               height: 20,
             ),
+            Text(
+              "Phone No.",
+              style: TextStyle(
+                  color: black,
+                  fontFamily: "Overpass",
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Container(
+              height: 45,
+              decoration: shadowdecoration,
+              child: TextField(
+                keyboardType: TextInputType.number,
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                decoration: InputDecoration(
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(5)),
+                ),
+                controller: _agentphonenumber,
+              ),
+            ),
           ],
         ),
       ),
@@ -342,13 +374,15 @@ class _AgentRegistrationState extends State<AgentRegistration> {
                     _agentdob.text != "" &&
                     _agentoccuption.text != "" &&
                     _agentaddress.text != "" &&
-                    _agentpincode.text != "") {}
+                    _agentpincode.text != "" &&
+                    _agentphonenumber.text != "") {}
                 agentname = _agentname.text;
                 agentgender = _agentgender.text;
                 agentdob = _agentdob.text;
                 agentoccupation = _agentoccuption.text;
                 agentaddress = _agentaddress.text;
                 agentpincode = _agentpincode.text;
+                agentphonenumber = _agentphonenumber.text;
               });
 
               Navigator.push(

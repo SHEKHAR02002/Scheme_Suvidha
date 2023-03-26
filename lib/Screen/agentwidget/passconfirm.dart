@@ -51,6 +51,7 @@ class _PassConfirmState extends State<PassConfirm> {
       "occupation": agentoccupation,
       "address": agentaddress,
       "pincode": agentpincode,
+      "phoneno": agentphonenumber,
       "agentimage": agentimagetemp
     });
   }
