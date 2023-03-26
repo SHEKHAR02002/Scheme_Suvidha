@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scheme/Screen/agentwidget/agentregistration.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/api/checknewuser.dart';
@@ -38,14 +39,25 @@ class _AgentLoginState extends State<AgentLogin> {
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('No user found for that email.'),
-        ));
+        Fluttertoast.showToast(
+            msg: "User Not Found",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: primary,
+            textColor: Colors.white,
+            fontSize: 20.0);
+
         return false;
       } else if (e.code == 'wrong-password') {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Wrong password provided for that user.'),
-        ));
+        Fluttertoast.showToast(
+            msg: "Wrong Password",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: primary,
+            textColor: Colors.white,
+            fontSize: 20.0);
         return false;
       }
       return false;

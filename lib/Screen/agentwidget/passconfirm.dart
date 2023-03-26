@@ -3,16 +3,19 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scheme/Screen/agentwidget/agentregistration.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/data/userdata.dart';
+import 'package:scheme/provider/takeimage.dart';
 
 import '../Agent/agentbottomsheet.dart';
 
 class PassConfirm extends StatefulWidget {
+  final String customimage;
   // final dynamic angetDetails;
-  const PassConfirm({super.key});
+  const PassConfirm({super.key, required this.customimage});
 
   @override
   State<PassConfirm> createState() => _PassConfirmState();
@@ -22,67 +25,65 @@ class _PassConfirmState extends State<PassConfirm> {
   final TextEditingController _agentemail = TextEditingController(),
       _agentpassword = TextEditingController(),
       _agentconfirmpass = TextEditingController();
+  String agentimagetemp = "";
+
+  upload({required String email, required String password}) async {
+    //image upload
+    if (widget.customimage != "") {
+      agentimagetemp = await fireStoreFileUpload(
+          "Agent/${FirebaseAuth.instance.currentUser!.uid}/userphoto.jpg",
+          widget.customimage);
+    } else {
+      agentimagetemp = defaultPic;
+    }
+    //all data upload
+    FirebaseFirestore.instance
+        .collection("AgentUser")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .set({
+      "userId": FirebaseAuth.instance.currentUser!.uid,
+      "email": email,
+      "password": password,
+      "verification": false,
+      "name": agentname,
+      "dob": agentdob,
+      "gender": agentgender,
+      "occupation": agentoccupation,
+      "address": agentaddress,
+      "pincode": agentpincode,
+      "agentimage": agentimagetemp
+    });
+  }
 
   Future singup({required String email, required String password}) async {
-    bool signComplete = false;
     try {
       final credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-
-      credential.user != null
-          ? await FirebaseFirestore.instance
-              .collection("AgentUser")
-              .doc(FirebaseAuth.instance.currentUser!.uid)
-              .set({
-              "userId": FirebaseAuth.instance.currentUser!.uid,
-              "email": email,
-              "password": password,
-              "verification": false,
-              "name": agentname,
-              "dob": agentdob,
-              "gender": agentgender,
-              "occupation": agentoccupation,
-              "address": agentaddress,
-              "pincode": agentpincode
-            }).whenComplete(() => signComplete = true)
-          : null;
-      return signComplete;
+      credential.user != null ? upload(email: email, password: password) : null;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('The password provided is too weak.'),
-        ));
+        Fluttertoast.showToast(
+            msg: "Password is Weak",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: primary,
+            textColor: Colors.white,
+            fontSize: 20.0);
       } else if (e.code == 'email-already-in-use') {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('The account already exists for that email.'),
-        ));
+        Fluttertoast.showToast(
+            msg: "User Already Exist",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: primary,
+            textColor: Colors.white,
+            fontSize: 20.0);
       }
       log(e.toString());
-      return signComplete;
-    }
-  }
-
-  Future singin({required String email, required String password}) async {
-    bool signComplete = false;
-    try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password)
-          .whenComplete(() => signComplete = true);
-      return signComplete;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('No user found for that email.'),
-        ));
-      } else if (e.code == 'wrong-password') {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Wrong password provided for that user.'),
-        ));
-      }
-      return signComplete;
     }
   }
 

@@ -20,7 +20,8 @@ String defaultPic =
 final customCacheManager = CacheManager(Config('customCacheManager',
     stalePeriod: const Duration(minutes: 2), maxNrOfCacheObjects: 100));
 
-String? agentname,
+String? agentimage,
+    agentname,
     agentgender,
     agentdob,
     agentoccupation,
