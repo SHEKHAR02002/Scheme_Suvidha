@@ -120,7 +120,7 @@ Future schemeapply(
     {required String schemename, required String applicationid}) async {
   await FirebaseFirestore.instance
       .collection("Application")
-      .doc(FirebaseAuth.instance.currentUser!.uid.toString())
+      .doc(applicationid)
       .set({
     "userId": FirebaseAuth.instance.currentUser!.uid.toString(),
     "aadharno": userDetail!.aadharno,
