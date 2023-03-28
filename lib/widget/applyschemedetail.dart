@@ -13,8 +13,14 @@ class AppliedScheme extends StatefulWidget {
 
 class _AppliedSchemeState extends State<AppliedScheme> {
   List appliedschemelist = [];
+  bool loader = true;
   Future callApi() async {
     appliedschemelist.addAll(await getappliedscheme());
+    if (appliedschemelist.isNotEmpty && mounted) {
+      setState(() {
+        loader = false;
+      });
+    }
     print(appliedschemelist.length);
   }
 
@@ -50,23 +56,22 @@ class _AppliedSchemeState extends State<AppliedScheme> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Column(
-          children: [
-            ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: appliedschemelist.length,
-                itemBuilder: (context, index) {
-                  ApplySchmeDetail schemdata =
-                      ApplySchmeDetail.fromMap(appliedschemelist[index]);
-                  return CardAppliedScheme(
-                    applyschemes: schemdata,
-                  );
-                })
-          ],
-        ),
-      ),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: loader
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: appliedschemelist.length,
+                  itemBuilder: (context, index) {
+                    ApplySchmeDetail schemdata =
+                        ApplySchmeDetail.fromMap(appliedschemelist[index]);
+                    return CardAppliedScheme(
+                      applyschemes: schemdata,
+                    );
+                  })),
     );
   }
 }
