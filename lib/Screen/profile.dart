@@ -87,13 +87,13 @@ class _ProfileState extends State<Profile> {
                                   user: widget.user,
                                 )))
                     : Fluttertoast.showToast(
-                        msg: "You Are Not Register",
+                        msg: "User Not Found",
                         toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
+                        gravity: ToastGravity.BOTTOM,
                         timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.red,
+                        backgroundColor: primary,
                         textColor: Colors.white,
-                        fontSize: 16.0),
+                        fontSize: 20.0),
                 child: Container(
                   decoration: shadowdecoration,
                   child: Padding(
