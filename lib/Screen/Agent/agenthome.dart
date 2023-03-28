@@ -44,6 +44,11 @@ class _AgentHomeState extends State<AgentHome> {
         myapplication.addAll(temp1);
       });
     }
+    for (var items in myapplication) {
+      application.removeWhere(
+          (element) => element["Applicationid"] == items["Applicationid"]);
+    }
+
     if (mounted) {
       if (myapplication.isNotEmpty) {
         myapplicationloader = false;
