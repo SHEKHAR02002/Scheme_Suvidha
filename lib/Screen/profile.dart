@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
+import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/usermodel.dart';
 import 'package:scheme/provider/phoneauth.dart';
 // import 'package:scheme/widget/applyschemedetail.dart';
@@ -46,18 +47,11 @@ class _ProfileState extends State<Profile> {
                   widget.user.image != ""
                       ? CircleAvatar(
                           radius: 45,
-                          child: Image.network(
-                            "${widget.user.image}",
-                            fit: BoxFit.cover,
-                          ),
-                        )
+                          backgroundImage:
+                              NetworkImage(widget.user.image.toString()))
                       : CircleAvatar(
                           radius: 45,
-                          child: Image.network(
-                            "https://firebasestorage.googleapis.com/v0/b/scheme-suvidha-admin.appspot.com/o/miscellaneous%2Fdefalutprofile.png?alt=media&token=fbf2357d-d893-43a7-9bcc-412f454691c4",
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                          backgroundImage: NetworkImage(defaultPic)),
                   const SizedBox(
                     height: 10,
                   ),

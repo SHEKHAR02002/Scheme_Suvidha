@@ -177,18 +177,11 @@ class _HomeState extends State<Home> {
                     child: userDetail!.image == ""
                         ? CircleAvatar(
                             radius: 15,
-                            child: Image.network(
-                              defaultPic,
-                              fit: BoxFit.cover,
-                            ),
-                          )
+                            backgroundImage: NetworkImage(defaultPic))
                         : CircleAvatar(
                             radius: 15,
-                            child: Image.network(
-                              '${userDetail!.image}',
-                              fit: BoxFit.cover,
-                            ),
-                          )),
+                            backgroundImage:
+                                NetworkImage(userDetail!.image.toString()))),
               )
             ],
           ),
