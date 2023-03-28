@@ -32,6 +32,20 @@ Future getSchemes({String filter = "none"}) async {
   return schemedata;
 }
 
+Future getappliedscheme() async {
+  List appliedscheme = [];
+  await FirebaseFirestore.instance
+      .collection(
+          "Users/${FirebaseAuth.instance.currentUser!.uid}/AppliedScheme")
+      .get()
+      .then((QuerySnapshot querysnapshot) async {
+    for (var doc in querysnapshot.docs) {
+      appliedscheme.add(doc.data());
+    }
+  });
+  return appliedscheme;
+}
+
 Future register({required context}) async {
   String uid = FirebaseAuth.instance.currentUser!.uid.toString();
 

@@ -7,6 +7,7 @@ import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/usermodel.dart';
 import 'package:scheme/provider/phoneauth.dart';
+import 'package:scheme/widget/applyschemedetail.dart';
 // import 'package:scheme/widget/applyschemedetail.dart';
 import 'package:scheme/widget/editaadhar.dart';
 import 'package:scheme/widget/setting/setting.dart';
@@ -129,10 +130,10 @@ class _ProfileState extends State<Profile> {
                 height: 25,
               ),
               InkWell(
-                // onTap: () => Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => const ApplySchemeDetail())),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AppliedScheme())),
                 child: Container(
                   decoration: shadowdecoration,
                   child: Padding(
