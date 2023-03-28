@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:scheme/Screen/agentwidget/udidverification.dart';
 import 'package:scheme/Theme/color.dart';
@@ -6,13 +9,33 @@ import 'package:scheme/model/usermodel.dart';
 
 class AgentVerification extends StatefulWidget {
   final UserModel applicationdetails;
-  const AgentVerification({super.key, required this.applicationdetails});
+
+  const AgentVerification({
+    super.key,
+    required this.applicationdetails,
+  });
 
   @override
   State<AgentVerification> createState() => _AgentVerificationState();
 }
 
 class _AgentVerificationState extends State<AgentVerification> {
+  UserModel? userData;
+  calApi() async {
+    log(widget.applicationdetails.userId.toString());
+    await FirebaseFirestore.instance
+        .doc("Users/${widget.applicationdetails.userId}")
+        .get()
+        .then((DocumentSnapshot<Map<String, dynamic>> documentSnapshot) =>
+            {userData = UserModel.fromMap(documentSnapshot.data()!)});
+  }
+
+  @override
+  void initState() {
+    calApi();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -62,8 +85,8 @@ class _AgentVerificationState extends State<AgentVerification> {
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.w500),
                     ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
+                    SizedBox(
+                      width: 200,
                       child: Text(
                         widget.applicationdetails.applyschemename.toString(),
                         style: TextStyle(
@@ -102,7 +125,13 @@ class _AgentVerificationState extends State<AgentVerification> {
                         ),
                         backgroundColor: primary,
                         minimumSize: const Size(80, 30)),
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (_) => Dialog(
+                                child: Image.network(userData!.aadharimage!),
+                              ));
+                    },
                     child: const Text(
                       "View",
                       style: TextStyle(

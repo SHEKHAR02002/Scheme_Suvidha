@@ -5,9 +5,13 @@ import 'package:scheme/model/usermodel.dart';
 
 class ApplicationCard extends StatefulWidget {
   final UserModel applicationdetails;
+  final String userid;
   final bool activate;
   const ApplicationCard(
-      {super.key, required this.applicationdetails, required this.activate});
+      {super.key,
+      required this.applicationdetails,
+      required this.activate,
+      required this.userid});
 
   @override
   State<ApplicationCard> createState() => _ApplicationCardState();
@@ -31,8 +35,7 @@ class _ApplicationCardState extends State<ApplicationCard> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => AgentVerification(
-                          applicationdetails: widget.applicationdetails,
-                        )));
+                        applicationdetails: widget.applicationdetails)));
       },
       child: Stack(children: [
         Padding(
