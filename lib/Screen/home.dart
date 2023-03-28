@@ -200,7 +200,7 @@ class _HomeState extends State<Home> {
                 const SizedBox(
                   height: 20,
                 ),
-                registration
+                register
                     ? Text(
                         "Recommend For You",
                         style: TextStyle(
@@ -211,7 +211,7 @@ class _HomeState extends State<Home> {
                       )
                     : const SizedBox.shrink(),
                 const SizedBox(height: 20),
-                registration
+                register
                     ? recommedLoader
                         ? const Center(
                             child: CircularProgressIndicator(),

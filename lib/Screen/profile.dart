@@ -79,7 +79,7 @@ class _ProfileState extends State<Profile> {
               ),
               SizedBox(height: height / 8),
               GestureDetector(
-                onTap: () => widget.user.registeration == true
+                onTap: () => registration
                     ? Navigator.push(
                         context,
                         MaterialPageRoute(
