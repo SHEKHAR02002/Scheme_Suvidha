@@ -171,6 +171,7 @@ class _AgentLoginState extends State<AgentLogin> {
                       ],
                     ),
                     child: TextField(
+                      keyboardType: TextInputType.visiblePassword,
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.w400),
                       decoration: InputDecoration(

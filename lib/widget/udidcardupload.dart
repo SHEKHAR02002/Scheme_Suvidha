@@ -157,7 +157,7 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
               TextFieldTake(
                 controller: _udidNo,
                 title: "UDID Card No.",
-                typeofKeyboard: TextInputType.number,
+                typeofKeyboard: TextInputType.text,
               ),
               const SizedBox(height: 18),
               TextFieldTake(
