@@ -50,6 +50,11 @@ applicationaccept({required UserModel applicationdetails}) async {
       .update({"verification": true});
 
   await FirebaseFirestore.instance
+      .collection("Users")
+      .doc(applicationdetails.userId)
+      .update({"verification": true});
+
+  await FirebaseFirestore.instance
       .collection("AgentUser")
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .collection("YourApplications")
