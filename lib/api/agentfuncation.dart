@@ -30,7 +30,7 @@ Future activeapplication({required UserModel applicationdetails}) async {
 
   await FirebaseFirestore.instance
       .collection("Application")
-      .doc(applicationdetails.userId)
+      .doc(applicationdetails.applicationid)
       .delete();
 }
 
