@@ -12,7 +12,7 @@ String? udidNo,
     udidimage,
     passportimage;
 
-bool registration = false, isagent = false;
+bool registration = false, verificationstatus = false, isagent = false;
 AgentModel? agentDetails;
 UserModel? userDetail;
 String defaultPic =

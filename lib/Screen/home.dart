@@ -33,7 +33,7 @@ class _HomeState extends State<Home> {
       filterclicked = false,
       recommedLoader = true;
   bool register = registration;
-  bool verification = false;
+  bool verification = verificationstatus;
   int listlength = 3;
   int nowlistlength = 0;
   List campdetail = [], schemesDetails = [], recommend = [];

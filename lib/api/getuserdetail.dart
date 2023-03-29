@@ -50,6 +50,7 @@ class UserDetails {
     userDetail = UserModel.fromMap(data!);
     log(data["phoneno"]);
     registration = data["registeration"];
+    verificationstatus = data["verification"];
   }
 }
 
