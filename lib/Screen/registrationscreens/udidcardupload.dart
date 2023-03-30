@@ -1,35 +1,41 @@
-import 'dart:developer';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:scheme/Screen/Agent/applyuserscheme.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
+import 'package:scheme/api/checknewuser.dart';
 import 'package:scheme/api/scanimage.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/imagecopper.dart';
 import 'package:scheme/provider/takeimage.dart';
+import 'package:scheme/Screen/registrationscreens/aadharcardupload.dart';
+import 'package:scheme/widget/donesplash.dart';
 import 'package:scheme/widget/processingpopup.dart';
 import 'package:scheme/widget/textfield.dart';
-import 'package:scheme/widget/udidcardupload.dart';
+import 'package:scheme/Screen/registrationscreens/upload.dart';
 
-class AadharCard extends StatefulWidget {
-  const AadharCard({super.key});
+String udidpic = "";
+
+class UdidCardUpload extends StatefulWidget {
+  const UdidCardUpload({super.key});
 
   @override
-  State<AadharCard> createState() => _AadharCardState();
+  State<UdidCardUpload> createState() => _UdidCardUploadState();
 }
 
-String aadharpic = "";
-
-class _AadharCardState extends State<AadharCard> {
-  final TextEditingController _aadharNo = TextEditingController();
-  final TextEditingController _dob = TextEditingController();
-  final TextEditingController _gender = TextEditingController();
-  final TextEditingController _name = TextEditingController();
-  final TextEditingController _phoneNo = TextEditingController();
-  bool pickedaadhar = false;
+class _UdidCardUploadState extends State<UdidCardUpload> {
+  final TextEditingController _udidNo = TextEditingController();
+  final TextEditingController _udidname = TextEditingController();
+  final TextEditingController _disbilitytype = TextEditingController();
+  final TextEditingController _disabilitypercentage = TextEditingController();
+  final TextEditingController _dataissue = TextEditingController();
+  final TextEditingController _validupto = TextEditingController();
+  bool pickedudid = false;
 
   Future<dynamic> picaadhar({required source, required String filename}) async {
     try {
@@ -37,20 +43,35 @@ class _AadharCardState extends State<AadharCard> {
       String cropFile = await cropImage(pickedFile: image);
       // final File file = File(image!.path);
       setState(() {
-        if (filename == "aadhar") {
-          aadharpic = cropFile;
-          pickedaadhar = true;
-        } else {
-          if (kDebugMode) {
-            print('Something went Wrong');
-          }
-        }
+        udidpic = cropFile;
+        pickedudid = true;
       });
     } catch (e) {
       if (kDebugMode) {
+        print('Something went Wrong');
         print(e.toString());
       }
     }
+  }
+
+  Future uploadImgdata() async {
+    var passportimage = await fireStoreFileUpload(
+        "${FirebaseAuth.instance.currentUser!.uid}/userphoto.jpg", imagepic);
+
+    var addharpiclink = await fireStoreFileUpload(
+        "${FirebaseAuth.instance.currentUser!.uid}/aadharcard.jpg", aadharpic);
+
+    var udidpiclink = await fireStoreFileUpload(
+        "${FirebaseAuth.instance.currentUser!.uid}/udidcard.jpg", udidpic);
+
+    await FirebaseFirestore.instance
+        .collection("Users")
+        .doc(FirebaseAuth.instance.currentUser!.uid.toString())
+        .update({
+      "image": passportimage,
+      "udidimage": udidpiclink,
+      "aadharimage": addharpiclink
+    });
   }
 
   @override
@@ -68,7 +89,7 @@ class _AadharCardState extends State<AadharCard> {
                 child: Padding(
                   padding: EdgeInsets.only(top: 50),
                   child: Text(
-                    "Upload Aadhar card",
+                    "Upload UDID card",
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w700,
@@ -79,41 +100,34 @@ class _AadharCardState extends State<AadharCard> {
               const SizedBox(
                 height: 20,
               ),
-              InkWell(
-                onTap: () =>
-                    picaadhar(source: ImageSource.gallery, filename: "aadhar")
-                        .whenComplete(() async {
-                  if (aadharpic == '') {
-                    return;
-                  }
-                  showDialog(
-                      context: context,
-                      builder: (c) => processingPopup(
-                          context: context, msg: "Scanning Image"));
-
-                  await getAadharDetails(path: aadharpic).then((value) {
-                    try {
-                      _aadharNo.text = value["aadhar_number"].toString();
-                      _dob.text = value["dob"].toString();
-                      _gender.text = value["gender"].toString();
-                      _name.text = value["name"].toString();
-                    } catch (e) {
-                      _aadharNo.text = "";
-                      _dob.text = "";
-                      _gender.text = "";
-                      _name.text = "";
-                      _phoneNo.text = "";
+              Center(
+                child: InkWell(
+                  onTap: () =>
+                      picaadhar(source: ImageSource.gallery, filename: "udid")
+                          .whenComplete(() async {
+                    if (udidpic == '') {
+                      return;
                     }
-                  }).whenComplete(() => Navigator.pop(context));
-                  isagent
-                      ? setState(() {
-                          agentbyaadharimage = aadharpic;
-                        })
-                      : imageupload(filename: "aadharimage", file: aadharpic);
-                }),
-                child: Center(
-                  child: pickedaadhar
-                      ? Image.file(File(aadharpic))
+                    showDialog(
+                        context: context,
+                        builder: (c) => processingPopup(
+                            context: context, msg: "Scanning Image"));
+                    await getUDIDDetails(path: udidpic).then((value) {
+                      _disabilitypercentage.text = value["percent"].toString();
+                      _disbilitytype.text = value["type"].toString();
+                      _udidNo.text = value["udid"].toString();
+                    }).whenComplete(() async => Navigator.pop(context));
+                    isagent
+                        ? setState(
+                            () {
+                              agentbyudidimage = udidpic;
+                            },
+                          )
+                        : await imageupload(
+                            filename: "udidimage", file: udidpic);
+                  }),
+                  child: pickedudid
+                      ? Image.file(File(udidpic))
                       : Container(
                           width: width,
                           decoration: shadowdecoration,
@@ -130,7 +144,7 @@ class _AadharCardState extends State<AadharCard> {
                 height: 20,
               ),
               Text(
-                "Aadhar Card Details",
+                "UDID Card Details",
                 style: TextStyle(
                     color: primary,
                     fontFamily: "Overpass",
@@ -141,15 +155,28 @@ class _AadharCardState extends State<AadharCard> {
                 height: 20,
               ),
               TextFieldTake(
-                controller: _aadharNo,
-                title: "Aadhar Card No",
-                typeofKeyboard: TextInputType.number,
+                controller: _udidNo,
+                title: "UDID Card No.",
+                typeofKeyboard: TextInputType.text,
               ),
               const SizedBox(height: 18),
               TextFieldTake(
-                  controller: _name,
-                  title: "Name",
-                  typeofKeyboard: TextInputType.text),
+                controller: _udidname,
+                title: "Name",
+                typeofKeyboard: TextInputType.text,
+              ),
+              const SizedBox(height: 18),
+              TextFieldTake(
+                controller: _disbilitytype,
+                title: "Disability Type",
+                typeofKeyboard: TextInputType.text,
+              ),
+              const SizedBox(height: 18),
+              TextFieldTake(
+                controller: _disabilitypercentage,
+                title: "Disability Percentage",
+                typeofKeyboard: TextInputType.text,
+              ),
               const SizedBox(height: 18),
               Row(
                 children: [
@@ -157,7 +184,7 @@ class _AadharCardState extends State<AadharCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "DOB",
+                        "Date Of Issue",
                         style: TextStyle(
                             color: black,
                             fontFamily: "Overpass",
@@ -182,7 +209,7 @@ class _AadharCardState extends State<AadharCard> {
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(5)),
                           ),
-                          controller: _dob,
+                          controller: _dataissue,
                         ),
                       ),
                     ],
@@ -192,7 +219,7 @@ class _AadharCardState extends State<AadharCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Gender",
+                        "Valid Upto",
                         style: TextStyle(
                             color: black,
                             fontFamily: "Overpass",
@@ -217,70 +244,58 @@ class _AadharCardState extends State<AadharCard> {
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(5)),
                           ),
-                          controller: _gender,
+                          controller: _validupto,
                         ),
                       ),
                     ],
                   ),
                 ],
               ),
-              const SizedBox(height: 18),
-              TextFieldTake(
-                  controller: _phoneNo,
-                  title: "Phone No.",
-                  typeofKeyboard: const TextInputType.numberWithOptions()),
               const SizedBox(
                 height: 20,
               ),
               Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
                   child: ElevatedButton(
-                      onPressed: () {
-                        !isagent
-                            ? setState(() {
-                                if (_aadharNo.text != "" &&
-                                    _dob.text != "" &&
-                                    _gender.text != "" &&
-                                    _name.text != "" &&
-                                    _phoneNo.text != "") {
-                                  aadharNo = _aadharNo.text;
-                                  dob = _dob.text;
-                                  gender = _gender.text;
-                                  name = _name.text;
-                                  phoneNo = _phoneNo.text;
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          content: Text(
-                                              "Enter all the details properly")));
-                                  log("Field is empty");
-                                }
-                              })
-                            : setState(() {
-                                if (_aadharNo.text != "" &&
-                                    _dob.text != "" &&
-                                    _gender.text != "" &&
-                                    _name.text != "" &&
-                                    _phoneNo.text != "") {
-                                  agentaadharNo = _aadharNo.text;
-                                  agentbydob = _dob.text;
-                                  agentbygender = _gender.text;
-                                  agentbyname = _name.text;
-                                  agentbyphoneNo = _phoneNo.text;
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          content: Text(
-                                              "Enter all the details properly")));
-                                  log("Field is empty");
-                                }
-                              });
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (contex) => const UdidCardUpload()));
-                      },
+                      onPressed: () async {
+                        showDialog(
+                            context: context,
+                            builder: (c) => processingPopup(
+                                context: context, msg: "Uploading data"));
+                        setState(() {
+                          if (_udidNo.text != "" &&
+                              _udidname.text != "" &&
+                              _disabilitypercentage.text != "" &&
+                              _disbilitytype.text != '' &&
+                              _dataissue.text != "" &&
+                              _validupto.text != "") {
+                            udidNo = _udidNo.text;
+                            udidname = _udidname.text;
+                            disabilitypercentage = _disabilitypercentage.text;
+                            disbilitytype = _disbilitytype.text;
+                            dataissue = _dataissue.text;
+                            validupto = _validupto.text;
+                          }
+                        });
 
+                        !isagent
+                            ? await uploadImgdata().whenComplete(
+                                () => userdataupload().whenComplete(() => {
+                                      registration = true,
+                                      Navigator.pop(context),
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const DoneUpload()))
+                                    }))
+                            : Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ApplyUserScheme()),
+                                (route) => false);
+                      },
                       // upload(),
                       style: ElevatedButton.styleFrom(
                           elevation: 0,
@@ -289,7 +304,7 @@ class _AadharCardState extends State<AadharCard> {
                           backgroundColor: primary,
                           minimumSize: Size(width, 50)),
                       child: const Text(
-                        "Continue",
+                        "Register",
                         style: TextStyle(
                             fontFamily: "Overpass",
                             fontSize: 18,

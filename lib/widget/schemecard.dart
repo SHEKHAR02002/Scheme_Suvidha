@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Screen/Agent/agentbottomsheet.dart';
+import 'package:scheme/Screen/schemedetail.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/model/schememodel.dart';
-import 'package:scheme/widget/schemedetail.dart';
 
 class SchemeCard extends StatefulWidget {
   final SchemeModel schemedata;

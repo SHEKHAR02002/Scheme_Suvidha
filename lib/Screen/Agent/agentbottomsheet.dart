@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scheme/Screen/Agent/agenthome.dart';
 import 'package:scheme/Screen/Agent/agetprofile.dart';
 import 'package:scheme/Theme/color.dart';
-import 'package:scheme/widget/upload.dart';
+import 'package:scheme/Screen/registrationscreens/upload.dart';
 
 class BottomNavigator extends StatefulWidget {
   const BottomNavigator({super.key});

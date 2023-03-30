@@ -1,18 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:scheme/Screen/registrationscreens/aadharcardupload.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/imagecopper.dart';
-import 'package:scheme/widget/aadharcardupload.dart';
 import 'dart:io';
-
-import 'package:scheme/widget/registeration.dart';
 
 String imagepic = "";
 
@@ -28,17 +24,22 @@ class _UploadDoumentState extends State<UploadDoument> {
   bool pickedudid = false;
   bool imagepick = false;
 
-  upload() async {
-    passportimage = await fireStoreFileUpload(
-        "${FirebaseAuth.instance.currentUser!.uid}/userphoto.jpg", imagepic);
+  // upload() async {
+  //   showDialog(
+  //       context: context,
+  //       builder: (c) =>
+  //           processingPopup(context: context, msg: "Uploading Image"));
+  //   passportimage = await fireStoreFileUpload(
+  //       "${FirebaseAuth.instance.currentUser!.uid}/userphoto.jpg", imagepic);
 
-    await FirebaseFirestore.instance
-        .collection("Users")
-        .doc(FirebaseAuth.instance.currentUser!.uid.toString())
-        .update({"image": passportimage}).whenComplete(() => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const Register())));
-  }
+  //   await FirebaseFirestore.instance
+  //       .collection("Users")
+  //       .doc(FirebaseAuth.instance.currentUser!.uid.toString())
+  //       .update({"image": passportimage}).whenComplete(
+  //     () => Navigator.push(
+  //         context, MaterialPageRoute(builder: (context) => const AadharCard())),
+  //   );
+  // }
 
   Future fireStoreFileUpload(refStorageImage, refImage) async {
     String pathValue = '';
@@ -129,11 +130,12 @@ class _UploadDoumentState extends State<UploadDoument> {
         bottomNavigationBar: Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
             child: ElevatedButton(
-                onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const AadharCard())),
-
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AadharCard()));
+                },
                 // upload(),
                 style: ElevatedButton.styleFrom(
                     elevation: 0,

@@ -1,41 +1,35 @@
+import 'dart:developer';
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:scheme/Screen/Agent/applyuserscheme.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
-import 'package:scheme/api/checknewuser.dart';
 import 'package:scheme/api/scanimage.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/imagecopper.dart';
 import 'package:scheme/provider/takeimage.dart';
-import 'package:scheme/widget/aadharcardupload.dart';
-import 'package:scheme/widget/donesplash.dart';
 import 'package:scheme/widget/processingpopup.dart';
 import 'package:scheme/widget/textfield.dart';
-import 'package:scheme/widget/upload.dart';
+import 'package:scheme/Screen/registrationscreens/udidcardupload.dart';
 
-String udidpic = "";
-
-class UdidCardUpload extends StatefulWidget {
-  const UdidCardUpload({super.key});
+class AadharCard extends StatefulWidget {
+  const AadharCard({super.key});
 
   @override
-  State<UdidCardUpload> createState() => _UdidCardUploadState();
+  State<AadharCard> createState() => _AadharCardState();
 }
 
-class _UdidCardUploadState extends State<UdidCardUpload> {
-  final TextEditingController _udidNo = TextEditingController();
-  final TextEditingController _udidname = TextEditingController();
-  final TextEditingController _disbilitytype = TextEditingController();
-  final TextEditingController _disabilitypercentage = TextEditingController();
-  final TextEditingController _dataissue = TextEditingController();
-  final TextEditingController _validupto = TextEditingController();
-  bool pickedudid = false;
+String aadharpic = "";
+
+class _AadharCardState extends State<AadharCard> {
+  final TextEditingController _aadharNo = TextEditingController();
+  final TextEditingController _dob = TextEditingController();
+  final TextEditingController _gender = TextEditingController();
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _phoneNo = TextEditingController();
+  bool pickedaadhar = false;
 
   Future<dynamic> picaadhar({required source, required String filename}) async {
     try {
@@ -43,35 +37,20 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
       String cropFile = await cropImage(pickedFile: image);
       // final File file = File(image!.path);
       setState(() {
-        udidpic = cropFile;
-        pickedudid = true;
+        if (filename == "aadhar") {
+          aadharpic = cropFile;
+          pickedaadhar = true;
+        } else {
+          if (kDebugMode) {
+            print('Something went Wrong');
+          }
+        }
       });
     } catch (e) {
       if (kDebugMode) {
-        print('Something went Wrong');
         print(e.toString());
       }
     }
-  }
-
-  Future uploadImgdata() async {
-    var passportimage = await fireStoreFileUpload(
-        "${FirebaseAuth.instance.currentUser!.uid}/userphoto.jpg", imagepic);
-
-    var addharpiclink = await fireStoreFileUpload(
-        "${FirebaseAuth.instance.currentUser!.uid}/aadharcard.jpg", aadharpic);
-
-    var udidpiclink = await fireStoreFileUpload(
-        "${FirebaseAuth.instance.currentUser!.uid}/udidcard.jpg", udidpic);
-
-    await FirebaseFirestore.instance
-        .collection("Users")
-        .doc(FirebaseAuth.instance.currentUser!.uid.toString())
-        .update({
-      "image": passportimage,
-      "udidimage": udidpiclink,
-      "aadharimage": addharpiclink
-    });
   }
 
   @override
@@ -89,7 +68,7 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                 child: Padding(
                   padding: EdgeInsets.only(top: 50),
                   child: Text(
-                    "Upload UDID card",
+                    "Upload Aadhar card",
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w700,
@@ -100,34 +79,41 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
               const SizedBox(
                 height: 20,
               ),
-              Center(
-                child: InkWell(
-                  onTap: () =>
-                      picaadhar(source: ImageSource.gallery, filename: "udid")
-                          .whenComplete(() async {
-                    if (udidpic == '') {
-                      return;
+              InkWell(
+                onTap: () =>
+                    picaadhar(source: ImageSource.gallery, filename: "aadhar")
+                        .whenComplete(() async {
+                  if (aadharpic == '') {
+                    return;
+                  }
+                  showDialog(
+                      context: context,
+                      builder: (c) => processingPopup(
+                          context: context, msg: "Scanning Image"));
+
+                  await getAadharDetails(path: aadharpic).then((value) {
+                    try {
+                      _aadharNo.text = value["aadhar_number"].toString();
+                      _dob.text = value["dob"].toString();
+                      _gender.text = value["gender"].toString();
+                      _name.text = value["name"].toString();
+                    } catch (e) {
+                      _aadharNo.text = "";
+                      _dob.text = "";
+                      _gender.text = "";
+                      _name.text = "";
+                      _phoneNo.text = "";
                     }
-                    showDialog(
-                        context: context,
-                        builder: (c) => processingPopup(
-                            context: context, msg: "Scanning Image"));
-                    await getUDIDDetails(path: udidpic).then((value) {
-                      _disabilitypercentage.text = value["percent"].toString();
-                      _disbilitytype.text = value["type"].toString();
-                      _udidNo.text = value["udid"].toString();
-                    }).whenComplete(() async => Navigator.pop(context));
-                    isagent
-                        ? setState(
-                            () {
-                              agentbyudidimage = udidpic;
-                            },
-                          )
-                        : await imageupload(
-                            filename: "udidimage", file: udidpic);
-                  }),
-                  child: pickedudid
-                      ? Image.file(File(udidpic))
+                  }).whenComplete(() => Navigator.pop(context));
+                  isagent
+                      ? setState(() {
+                          agentbyaadharimage = aadharpic;
+                        })
+                      : imageupload(filename: "aadharimage", file: aadharpic);
+                }),
+                child: Center(
+                  child: pickedaadhar
+                      ? Image.file(File(aadharpic))
                       : Container(
                           width: width,
                           decoration: shadowdecoration,
@@ -144,7 +130,7 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                 height: 20,
               ),
               Text(
-                "UDID Card Details",
+                "Aadhar Card Details",
                 style: TextStyle(
                     color: primary,
                     fontFamily: "Overpass",
@@ -155,28 +141,15 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                 height: 20,
               ),
               TextFieldTake(
-                controller: _udidNo,
-                title: "UDID Card No.",
-                typeofKeyboard: TextInputType.text,
+                controller: _aadharNo,
+                title: "Aadhar Card No",
+                typeofKeyboard: TextInputType.number,
               ),
               const SizedBox(height: 18),
               TextFieldTake(
-                controller: _udidname,
-                title: "Name",
-                typeofKeyboard: TextInputType.text,
-              ),
-              const SizedBox(height: 18),
-              TextFieldTake(
-                controller: _disbilitytype,
-                title: "Disability Type",
-                typeofKeyboard: TextInputType.text,
-              ),
-              const SizedBox(height: 18),
-              TextFieldTake(
-                controller: _disabilitypercentage,
-                title: "Disability Percentage",
-                typeofKeyboard: TextInputType.text,
-              ),
+                  controller: _name,
+                  title: "Name",
+                  typeofKeyboard: TextInputType.text),
               const SizedBox(height: 18),
               Row(
                 children: [
@@ -184,7 +157,7 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Date Of Issue",
+                        "DOB",
                         style: TextStyle(
                             color: black,
                             fontFamily: "Overpass",
@@ -209,7 +182,7 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(5)),
                           ),
-                          controller: _dataissue,
+                          controller: _dob,
                         ),
                       ),
                     ],
@@ -219,7 +192,7 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Valid Upto",
+                        "Gender",
                         style: TextStyle(
                             color: black,
                             fontFamily: "Overpass",
@@ -244,58 +217,70 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(5)),
                           ),
-                          controller: _validupto,
+                          controller: _gender,
                         ),
                       ),
                     ],
                   ),
                 ],
               ),
+              const SizedBox(height: 18),
+              TextFieldTake(
+                  controller: _phoneNo,
+                  title: "Phone No.",
+                  typeofKeyboard: const TextInputType.numberWithOptions()),
               const SizedBox(
                 height: 20,
               ),
               Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
                   child: ElevatedButton(
-                      onPressed: () async {
-                        showDialog(
-                            context: context,
-                            builder: (c) => processingPopup(
-                                context: context, msg: "Uploading data"));
-                        setState(() {
-                          if (_udidNo.text != "" &&
-                              _udidname.text != "" &&
-                              _disabilitypercentage.text != "" &&
-                              _disbilitytype.text != '' &&
-                              _dataissue.text != "" &&
-                              _validupto.text != "") {
-                            udidNo = _udidNo.text;
-                            udidname = _udidname.text;
-                            disabilitypercentage = _disabilitypercentage.text;
-                            disbilitytype = _disbilitytype.text;
-                            dataissue = _dataissue.text;
-                            validupto = _validupto.text;
-                          }
-                        });
-
+                      onPressed: () {
                         !isagent
-                            ? await uploadImgdata().whenComplete(
-                                () => userdataupload().whenComplete(() => {
-                                      registration = true,
-                                      Navigator.pop(context),
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const DoneUpload()))
-                                    }))
-                            : Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ApplyUserScheme()),
-                                (route) => false);
+                            ? setState(() {
+                                if (_aadharNo.text != "" &&
+                                    _dob.text != "" &&
+                                    _gender.text != "" &&
+                                    _name.text != "" &&
+                                    _phoneNo.text != "") {
+                                  aadharNo = _aadharNo.text;
+                                  dob = _dob.text;
+                                  gender = _gender.text;
+                                  name = _name.text;
+                                  phoneNo = _phoneNo.text;
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text(
+                                              "Enter all the details properly")));
+                                  log("Field is empty");
+                                }
+                              })
+                            : setState(() {
+                                if (_aadharNo.text != "" &&
+                                    _dob.text != "" &&
+                                    _gender.text != "" &&
+                                    _name.text != "" &&
+                                    _phoneNo.text != "") {
+                                  agentaadharNo = _aadharNo.text;
+                                  agentbydob = _dob.text;
+                                  agentbygender = _gender.text;
+                                  agentbyname = _name.text;
+                                  agentbyphoneNo = _phoneNo.text;
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text(
+                                              "Enter all the details properly")));
+                                  log("Field is empty");
+                                }
+                              });
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (contex) => const UdidCardUpload()));
                       },
+
                       // upload(),
                       style: ElevatedButton.styleFrom(
                           elevation: 0,
@@ -304,7 +289,7 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                           backgroundColor: primary,
                           minimumSize: Size(width, 50)),
                       child: const Text(
-                        "Register",
+                        "Continue",
                         style: TextStyle(
                             fontFamily: "Overpass",
                             fontSize: 18,

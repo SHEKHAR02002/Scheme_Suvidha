@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scheme/Theme/color.dart';
-import 'package:scheme/widget/upload.dart';
+import 'package:scheme/Screen/registrationscreens/upload.dart';
 
 class RegistrationAlertPopup extends StatefulWidget {
   const RegistrationAlertPopup({super.key});

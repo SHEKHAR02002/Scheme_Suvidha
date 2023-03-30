@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scheme/Theme/color.dart';
-import 'package:scheme/widget/campdetail.dart';
+import 'package:scheme/Screen/campdetail.dart';
 import '../provider/firebasehelper.dart';
 
 class CampCard extends StatefulWidget {

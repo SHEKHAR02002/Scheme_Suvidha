@@ -14,7 +14,7 @@ import 'package:scheme/model/usermodel.dart';
 import 'package:scheme/widget/alertcard.dart';
 import 'package:scheme/widget/campcard.dart';
 import 'package:scheme/widget/schemecard.dart';
-import 'package:scheme/widget/search.dart';
+import 'package:scheme/Screen/search.dart';
 import 'package:scheme/widget/statuscard.dart';
 
 ValueNotifier<List> schemeDataList = ValueNotifier<List>([]);

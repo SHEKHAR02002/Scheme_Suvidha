@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Theme/color.dart';
-import 'package:scheme/widget/upload.dart';
+import 'package:scheme/Screen/registrationscreens/upload.dart';
 
 class AlertCard extends StatefulWidget {
   const AlertCard({super.key});
