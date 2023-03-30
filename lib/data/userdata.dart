@@ -20,6 +20,9 @@ String defaultPic =
 final customCacheManager = CacheManager(Config('customCacheManager',
     stalePeriod: const Duration(minutes: 2), maxNrOfCacheObjects: 100));
 
+String organizationpic =
+    "https://firebasestorage.googleapis.com/v0/b/scheme-suvidha-admin.appspot.com/o/miscellaneous%2Fgovt_of_ind_logo.png?alt=media&token=5f0e0211-e6c0-4f02-bfc2-338b65a9c694";
+
 String? agentimage,
     agentname,
     agentgender,

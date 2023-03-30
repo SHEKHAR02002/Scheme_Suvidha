@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Screen/home.dart';
@@ -6,6 +5,7 @@ import 'package:scheme/Theme/color.dart';
 import 'package:scheme/api/checknewuser.dart';
 import 'package:scheme/model/schememodel.dart';
 import 'package:scheme/widget/processingpopup.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
 var uuid = const Uuid();
@@ -21,6 +21,17 @@ class SchemeDetail extends StatefulWidget {
 }
 
 class _SchemeDetailState extends State<SchemeDetail> {
+  Future<void> _launchInBrowser(String url) async {
+    final Uri url0 = Uri.parse(url);
+
+    if (!await launchUrl(
+      url0,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -270,14 +281,19 @@ class _SchemeDetailState extends State<SchemeDetail> {
                       fontSize: 20,
                       fontWeight: FontWeight.w600),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8, top: 10),
-                  child: Text(
-                    widget.schemedata.websitelink.toString(),
-                    style: const TextStyle(
-                        fontFamily: 'Overpass',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400),
+                InkWell(
+                  onTap: () => _launchInBrowser(
+                      widget.schemedata.websitelink.toString()),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8, top: 10),
+                    child: Text(
+                      widget.schemedata.websitelink.toString(),
+                      style: const TextStyle(
+                          fontFamily: 'Overpass',
+                          color: Color.fromARGB(255, 51, 102, 204),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400),
+                    ),
                   ),
                 )
               ],
