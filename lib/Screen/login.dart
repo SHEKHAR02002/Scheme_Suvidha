@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:scheme/Screen/agentlogin.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
@@ -16,6 +18,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final TextEditingController _phoneNo = TextEditingController();
+  String _country = "+91";
   bool loader = false;
   @override
   Widget build(BuildContext context) {
@@ -56,32 +59,42 @@ class _LoginState extends State<Login> {
             const SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Container(
-                height: 50,
-                decoration: shadowdecoration,
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.w400),
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(15),
-                    prefixIcon: const Padding(
-                        padding: EdgeInsets.all(15),
-                        child: Text(
-                          '+91',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w400),
-                        )),
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(5)),
-                  ),
-                  controller: _phoneNo,
+            Container(
+              decoration: shadowdecoration,
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: IntlPhoneField(
+                dropdownTextStyle:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                initialCountryCode: "IN",
+                showDropdownIcon: false,
+                showCountryFlag: false,
+                decoration: InputDecoration(
+                  counterStyle:
+                      const TextStyle(fontSize: 0, fontWeight: FontWeight.w400),
+                  counterText: "",
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(5)),
                 ),
+                controller: _phoneNo,
+                onChanged: (value) {
+                  if (_phoneNo.text.length == 10) {
+                    FocusScopeNode currentFocus = FocusScope.of(context);
+
+                    if (!currentFocus.hasPrimaryFocus) {
+                      currentFocus.unfocus();
+                    }
+                  }
+                },
+                onCountryChanged: (country) {
+                  setState(() {
+                    _country = country.code;
+                  });
+                },
               ),
             ),
           ],
@@ -107,7 +120,7 @@ class _LoginState extends State<Login> {
                       }
                     });
                     loader = await PhoneAuth().sendOtp(
-                      phoneNo: _phoneNo.text,
+                      phoneNo: _country + _phoneNo.text,
                       context: context,
                     );
                   }

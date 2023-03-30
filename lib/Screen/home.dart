@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
       recommedLoader = true;
   bool register = registration;
   bool verification = verificationstatus;
-  int listlength = 3;
+  int listlength = 3, selctedFilter = 0;
   int nowlistlength = 0;
   List campdetail = [], schemesDetails = [], recommend = [];
   bool nomore = false;
@@ -53,11 +53,15 @@ class _HomeState extends State<Home> {
     // print(campdetail);
   }
 
-  Future getFilter({required String filter}) async {
+  Future getFilter({
+    required String filter,
+    required int setFilterIndex,
+  }) async {
     setState(() {
       schemeLoader = true;
       listlength = 3;
       nomore = false;
+      selctedFilter = setFilterIndex;
       schemesDetails.clear();
     });
     schemesDetails.addAll(await getSchemes(filter: filter));
@@ -68,6 +72,11 @@ class _HomeState extends State<Home> {
 
   Future callApi() async {
     // getUserDetails();
+    setState(() {
+      campLoader = true;
+      recommedLoader = true;
+      schemeLoader = true;
+    });
     campdetail.clear();
     schemesDetails.clear();
     await getcampdetail();
@@ -242,72 +251,81 @@ class _HomeState extends State<Home> {
                           fontWeight: FontWeight.w400),
                     ),
                     const Spacer(),
-                    InkWell(
-                      onTap: () {
-                        if (filterclicked) {
-                          setState(() {
-                            filterclicked = false;
-                          });
-                        } else {
-                          setState(() {
-                            filterclicked = true;
-                          });
-                        }
-                      },
-                      child: SvgPicture.asset(
-                        "assets/filter.svg",
-                        color: black,
-                        height: 30,
-                        width: 30,
-                      ),
-                    ),
+                    selctedFilter != 0
+                        ? InkWell(
+                            onTap: () async {
+                              setState(() {
+                                selctedFilter = 0;
+                                schemeLoader = true;
+                              });
+                              schemesDetails.addAll(await getSchemes());
+                              if (schemesDetails.isNotEmpty) {
+                                setState(() {
+                                  schemeLoader = false;
+                                });
+                              }
+                            },
+                            child: Icon(
+                              Icons.clear_all_outlined,
+                              color: primary,
+                            ))
+                        : const SizedBox.shrink()
                   ],
                 ),
                 const SizedBox(height: 20),
-                filterclicked
-                    ? SizedBox(
-                        height: 70,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          children: [
-                            FilterContainer(
-                              selectfilter: () => getFilter(
-                                  filter: "Health & for purchase of aids"),
-                              title: 'Health',
-                              path: "assets/medical.svg",
-                            ),
-                            FilterContainer(
-                              selectfilter: () => getFilter(filter: "Pension"),
-                              title: 'Pension',
-                              path: "assets/retirement.svg",
-                            ),
-                            FilterContainer(
-                              selectfilter: () => getFilter(filter: "Business"),
-                              title: 'Business',
-                              path: "assets/Growth.svg",
-                            ),
-                            FilterContainer(
-                              selectfilter: () =>
-                                  getFilter(filter: "Career/ Education"),
-                              title: 'Education',
-                              path: "assets/mortarboard.svg",
-                            ),
-                            FilterContainer(
-                              selectfilter: () =>
-                                  getFilter(filter: "Transport"),
-                              title: 'Transport',
-                              path: "assets/car.svg",
-                            ),
-                            FilterContainer(
-                              selectfilter: () => getFilter(filter: "Marriage"),
-                              title: 'Marriage',
-                              path: "assets/wedding.svg",
-                            ),
-                          ],
-                        ),
-                      )
-                    : const SizedBox.shrink(),
+                SizedBox(
+                  height: 70,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    children: [
+                      FilterContainer(
+                        selectfilter: () => getFilter(
+                            filter: "Health & for purchase of aids",
+                            setFilterIndex: 1),
+                        title: 'Health',
+                        path: "assets/medical.svg",
+                        seletedFilterindex: selctedFilter,
+                        myindex: 1,
+                      ),
+                      FilterContainer(
+                          selectfilter: () =>
+                              getFilter(filter: "Pension", setFilterIndex: 2),
+                          title: 'Pension',
+                          path: "assets/retirement.svg",
+                          seletedFilterindex: selctedFilter,
+                          myindex: 2),
+                      FilterContainer(
+                          selectfilter: () =>
+                              getFilter(filter: "Business", setFilterIndex: 3),
+                          title: 'Business',
+                          path: "assets/Growth.svg",
+                          seletedFilterindex: selctedFilter,
+                          myindex: 3),
+                      FilterContainer(
+                          selectfilter: () => getFilter(
+                              filter: "Career/ Education", setFilterIndex: 4),
+                          title: 'Education',
+                          path: "assets/mortarboard.svg",
+                          seletedFilterindex: selctedFilter,
+                          myindex: 4),
+                      FilterContainer(
+                          selectfilter: () =>
+                              getFilter(filter: "Transport", setFilterIndex: 5),
+                          title: 'Transport',
+                          path: "assets/car.svg",
+                          seletedFilterindex: selctedFilter,
+                          myindex: 5),
+                      FilterContainer(
+                          selectfilter: () =>
+                              getFilter(filter: "Marriage", setFilterIndex: 6),
+                          title: 'Marriage',
+                          path: "assets/wedding.svg",
+                          seletedFilterindex: selctedFilter,
+                          myindex: 6),
+                    ],
+                  ),
+                ),
                 const SizedBox(height: 20),
                 schemeLoader
                     ? const Center(

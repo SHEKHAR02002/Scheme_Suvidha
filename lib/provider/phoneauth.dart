@@ -12,7 +12,7 @@ class PhoneAuth {
   sendOtp({required String phoneNo, required BuildContext context}) async {
     bool loader = false;
     await auth.verifyPhoneNumber(
-      phoneNumber: "+91$phoneNo",
+      phoneNumber: phoneNo,
       timeout: const Duration(seconds: 60),
       verificationCompleted: (PhoneAuthCredential credential) {},
       verificationFailed: (FirebaseAuthException e) {},

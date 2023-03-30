@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pinput/pinput.dart';
+import 'package:scheme/Screen/login.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/provider/phoneauth.dart';
 
@@ -73,50 +74,60 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
           const SizedBox(
             height: 20,
           ),
-          const Text(
-            "click here to edit phone number",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 15, fontWeight: FontWeight.w400, fontFamily: "Zilla"),
+          InkWell(
+            onTap: () => Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (_) => const Login()),
+                (route) => false),
+            child: Text(
+              "click here to edit phone number ${widget.phoneNumber}",
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: "Zilla"),
+            ),
           )
         ]),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 50),
-        child: ElevatedButton(
-            onPressed: () async {
-              if (_smsCode.text.length == 6) {
-                setState(() {
-                  loader = true;
-                });
-                Future.delayed(const Duration(seconds: 30), () {
-                  if (mounted) {
+        child: loader
+            ? const CircularProgressIndicator()
+            : ElevatedButton(
+                onPressed: () async {
+                  if (_smsCode.text.length == 6) {
                     setState(() {
-                      loader = false;
+                      loader = true;
                     });
+                    Future.delayed(const Duration(seconds: 30), () {
+                      if (mounted) {
+                        setState(() {
+                          loader = false;
+                        });
+                      }
+                    });
+                    PhoneAuth().submitOpt(
+                        phoneNo: widget.phoneNumber,
+                        verificationId: widget.verificationId,
+                        smsCode: _smsCode.text,
+                        context: context);
                   }
-                });
-                PhoneAuth().submitOpt(
-                    phoneNo: widget.phoneNumber,
-                    verificationId: widget.verificationId,
-                    smsCode: _smsCode.text,
-                    context: context);
-              }
-            },
-            // =>Navigator.push(context, MaterialPageRoute(builder: (context)=>OtpBottomSheet())),
-            style: ElevatedButton.styleFrom(
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5)),
-                backgroundColor: primary,
-                minimumSize: Size(width, 50)),
-            child: const Text(
-              "Submit",
-              style: TextStyle(
-                  fontFamily: "Overpass",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700),
-            )),
+                },
+                // =>Navigator.push(context, MaterialPageRoute(builder: (context)=>OtpBottomSheet())),
+                style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    backgroundColor: primary,
+                    minimumSize: Size(width, 50)),
+                child: const Text(
+                  "Submit",
+                  style: TextStyle(
+                      fontFamily: "Overpass",
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700),
+                )),
       ),
     );
   }

@@ -4,12 +4,16 @@ import 'package:scheme/Theme/color.dart';
 
 class FilterContainer extends StatefulWidget {
   final String title, path;
+  final int seletedFilterindex, myindex;
   final Function selectfilter;
+
   const FilterContainer(
       {super.key,
       required this.title,
       required this.selectfilter,
-      required this.path});
+      required this.path,
+      required this.seletedFilterindex,
+      required this.myindex});
 
   @override
   State<FilterContainer> createState() => _FilterContainerState();
@@ -22,6 +26,7 @@ class _FilterContainerState extends State<FilterContainer> {
     return InkWell(
       onTap: () {
         widget.selectfilter();
+        setState(() {});
       },
       child: Container(
         // width: 20,
@@ -29,7 +34,9 @@ class _FilterContainerState extends State<FilterContainer> {
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         margin: const EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
-          color: clicked ? primary : Colors.white,
+          color: widget.myindex == widget.seletedFilterindex
+              ? primary
+              : Colors.white,
           border: Border.all(color: secondary),
           borderRadius: BorderRadius.circular(10),
         ),
@@ -38,7 +45,9 @@ class _FilterContainerState extends State<FilterContainer> {
           children: [
             SvgPicture.asset(
               widget.path,
-              color: clicked ? Colors.white : primary,
+              color: widget.myindex == widget.seletedFilterindex
+                  ? Colors.white
+                  : primary,
               height: 30,
               width: 30,
             ),
@@ -50,7 +59,9 @@ class _FilterContainerState extends State<FilterContainer> {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
-                color: clicked ? Colors.white : Colors.black,
+                color: widget.myindex == widget.seletedFilterindex
+                    ? Colors.white
+                    : Colors.black,
               ),
             ),
           ],
