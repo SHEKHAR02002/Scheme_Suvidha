@@ -279,16 +279,18 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                         });
 
                         !isagent
-                            ? await uploadImgdata().whenComplete(
-                                () => userdataupload().whenComplete(() => {
-                                      registration = true,
-                                      Navigator.pop(context),
+                            ? await uploadImgdata().whenComplete(() =>
+                                userdataupload().whenComplete(() async =>
+                                    await checkuser(context: context)
+                                        .whenComplete(() {
+                                      registration = true;
+                                      Navigator.pop(context);
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const DoneUpload()))
-                                    }))
+                                                  const DoneUpload()));
+                                    })))
                             : Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(

@@ -162,9 +162,7 @@ class _HomeState extends State<Home> {
               //     width: 30,
               //   ),
               // ),
-              const SizedBox(
-                width: 10,
-              ),
+
               InkWell(
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
@@ -176,12 +174,12 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.only(right: 10),
                     child: userDetail!.image == ""
                         ? CircleAvatar(
-                            radius: 15,
-                            backgroundImage: NetworkImage(defaultPic))
+                            foregroundImage: NetworkImage(defaultPic))
                         : CircleAvatar(
-                            radius: 15,
-                            backgroundImage:
-                                NetworkImage(userDetail!.image.toString()))),
+                            // borderRadius: BorderRadius.circular(15),
+                            foregroundImage: NetworkImage(
+                            userDetail!.image.toString(),
+                          ))),
               )
             ],
           ),
