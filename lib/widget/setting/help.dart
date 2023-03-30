@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 
@@ -10,8 +13,21 @@ class Help extends StatefulWidget {
 }
 
 class _HelpState extends State<Help> {
+  sendquery({required String userquery}) {
+    FirebaseFirestore.instance
+        .collection("Users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("Query")
+        .doc()
+        .set({
+      "uid": FirebaseAuth.instance.currentUser!.uid,
+      "Query": userquery
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    TextEditingController quey = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -65,6 +81,7 @@ class _HelpState extends State<Help> {
                       fontSize: 20,
                       fontWeight: FontWeight.w400,
                     )),
+                controller: quey,
               ),
             ),
             const SizedBox(
@@ -77,7 +94,29 @@ class _HelpState extends State<Help> {
                       borderRadius: BorderRadius.circular(5),
                     ),
                     fixedSize: const Size(350, 55)),
-                onPressed: () {},
+                onPressed: () {
+                  if (quey.text.isNotEmpty) {
+                    sendquery(userquery: quey.text);
+                    quey.clear();
+                    Fluttertoast.showToast(
+                        msg: "Query send ",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: primary,
+                        textColor: Colors.white,
+                        fontSize: 20.0);
+                  } else {
+                    Fluttertoast.showToast(
+                        msg: "Query Empty",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: primary,
+                        textColor: Colors.white,
+                        fontSize: 20.0);
+                  }
+                },
                 child: const Text(
                   "Send Query",
                   style: TextStyle(
