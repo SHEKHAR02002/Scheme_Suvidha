@@ -14,7 +14,7 @@ import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/imagecopper.dart';
 import 'package:scheme/provider/takeimage.dart';
 import 'package:scheme/Screen/registrationscreens/aadharcardupload.dart';
-import 'package:scheme/widget/donesplash.dart';
+import 'package:scheme/Screen/registrationscreens/donesplash.dart';
 import 'package:scheme/widget/processingpopup.dart';
 import 'package:scheme/widget/textfield.dart';
 import 'package:scheme/Screen/registrationscreens/upload.dart';
