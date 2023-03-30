@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:scheme/Screen/registrationscreens/upload.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/data/userdata.dart';
@@ -39,45 +40,78 @@ class _ProfileState extends State<Profile> {
           child: Column(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                decoration: BoxDecoration(
-                    color: secondary3, borderRadius: BorderRadius.circular(20)),
-                height: height / 3,
-                width: width,
-                child: Column(children: [
-                  widget.user.image != ""
-                      ? CircleAvatar(
-                          radius: 45,
-                          backgroundImage:
-                              NetworkImage(widget.user.image.toString()))
-                      : CircleAvatar(
-                          radius: 45,
-                          backgroundImage: NetworkImage(defaultPic)),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    widget.user.name!,
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    "Location",
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    widget.user.phoneno!,
-                    style: const TextStyle(
-                        fontSize: 12, fontWeight: FontWeight.w400),
-                  )
-                ]),
-              ),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  decoration: BoxDecoration(
+                      color: secondary3,
+                      borderRadius: BorderRadius.circular(20)),
+                  height: height / 3,
+                  width: width,
+                  child: registration
+                      ? Column(children: [
+                          widget.user.image != ""
+                              ? CircleAvatar(
+                                  radius: 45,
+                                  backgroundImage: NetworkImage(
+                                      widget.user.image.toString()))
+                              : CircleAvatar(
+                                  radius: 45,
+                                  backgroundImage: NetworkImage(defaultPic)),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            widget.user.name!,
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w600),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text(
+                            "Location",
+                            style: TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.w400),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            widget.user.phoneno!,
+                            style: const TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.w400),
+                          )
+                        ])
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                  radius: 45,
+                                  backgroundImage: NetworkImage(defaultPic)),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      fixedSize: const Size(100, 20),
+                                      backgroundColor: primary,
+                                      elevation: 0),
+                                  onPressed: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const UploadDoument())),
+                                  child: const Text(
+                                    "Register",
+                                    style: TextStyle(
+                                        fontFamily: "Zilla",
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white),
+                                  )),
+                            ],
+                          ),
+                        )),
               SizedBox(height: height / 8),
               GestureDetector(
                 onTap: () => registration
