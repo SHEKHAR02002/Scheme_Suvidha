@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/Theme/decoration.dart';
 
 class NotificationCenter extends StatefulWidget {
   const NotificationCenter({super.key});
@@ -31,6 +32,17 @@ class _NotificationCenterState extends State<NotificationCenter> {
               fontFamily: "Zilla",
               fontSize: 24,
               fontWeight: FontWeight.w400),
+        ),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: Container(
+          decoration: shadowdecoration,
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child:
+                Text("Registration Successful ! Now you can find your scheme"),
+          ),
         ),
       ),
     );
