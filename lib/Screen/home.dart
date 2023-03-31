@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Screen/agentwidget/filtercontainer.dart';
+import 'package:scheme/Screen/notificationcenter.dart';
 import 'package:scheme/Screen/profile.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/api/getrecommendschemes.dart';
@@ -158,20 +159,26 @@ class _HomeState extends State<Home> {
             ),
             backgroundColor: bgcolor,
             actions: [
-              // InkWell(
-              //   onTap: () {
-              //     showDialog(
-              //         context: context,
-              //         builder: (context) => const ImageSourcePopup());
-              //   },
-              //   child: SvgPicture.asset(
-              //     "assets/notification.svg",
-              //     color: Colors.black,
-              //     height: 30,
-              //     width: 30,
-              //   ),
-              // ),
-
+              InkWell(
+                onTap: () {
+                  //showDialog(
+                  //  context: context,
+                  //builder: (context) => const ImageSourcePopup());
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const NotificationCenter()));
+                },
+                child: SvgPicture.asset(
+                  "assets/notification.svg",
+                  color: Colors.black,
+                  height: 35,
+                  width: 35,
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
               InkWell(
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
