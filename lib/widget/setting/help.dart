@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Help extends StatefulWidget {
   const Help({super.key});
@@ -23,6 +24,18 @@ class _HelpState extends State<Help> {
       "uid": FirebaseAuth.instance.currentUser!.uid,
       "Query": userquery
     });
+  }
+
+  Future sendEmail() async {
+    String email = "shekharingale14@gmail.com";
+    // final String url = 'mailto:$email?subject=${Uri.encodeFull(subject)}';
+
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: email,
+    );
+
+    await launchUrl(emailLaunchUri);
   }
 
   @override
@@ -132,7 +145,17 @@ class _HelpState extends State<Help> {
                       borderRadius: BorderRadius.circular(5),
                     ),
                     fixedSize: const Size(350, 55)),
-                onPressed: () {},
+                onPressed: () => sendEmail().whenComplete(() => {
+                      quey.clear(),
+                      Fluttertoast.showToast(
+                          msg: "Query send ",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: primary,
+                          textColor: Colors.white,
+                          fontSize: 20.0)
+                    }),
                 child: const Text(
                   "Send Email",
                   style: TextStyle(

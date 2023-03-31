@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scheme/Theme/color.dart';
@@ -11,6 +12,28 @@ class ContactUs extends StatefulWidget {
 }
 
 class _ContactUsState extends State<ContactUs> {
+  List faq = [];
+  callapi() async {
+    faq.clear();
+    await FirebaseFirestore.instance
+        .collection("FAQ")
+        .get()
+        .then((QuerySnapshot querysnapshot) async {
+      for (var doc in querysnapshot.docs) {
+        faq.add(doc.data());
+      }
+    });
+    print(faq);
+  }
+
+  @override
+  void initState() {
+    callapi();
+
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -127,13 +150,11 @@ class _ContactUsState extends State<ContactUs> {
               ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 2,
+                  itemCount: faq.length,
                   itemBuilder: (context, index) {
-                    return const FAQ(
-                      question:
-                          "In what format the documents are to be uploaded?",
-                      answer: "",
-                    );
+                    return FAQ(
+                        question: faq[index]["question"],
+                        answer: faq[index]["answer"]);
                   })
             ],
           ),
