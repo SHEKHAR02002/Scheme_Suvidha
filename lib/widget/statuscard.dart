@@ -40,7 +40,9 @@ class StatusCard extends StatelessWidget {
                 animationDuration: const Duration(milliseconds: 800),
                 chartLegendSpacing: 32,
                 chartRadius: MediaQuery.of(context).size.width / 3.2,
-                colorList: [secondary, primary],
+                colorList:
+                    register ? [secondary, primary] : [secondary, secondary],
+
                 initialAngleInDegree: 0,
                 chartType: ChartType.ring,
                 ringStrokeWidth: 15,
