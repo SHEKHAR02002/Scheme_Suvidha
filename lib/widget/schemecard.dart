@@ -1,8 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:scheme/Screen/Agent/agentbottomsheet.dart';
-import 'package:scheme/Screen/schemedetail.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/data/userdata.dart';
@@ -42,8 +40,8 @@ class _SchemeCardState extends State<SchemeCard> {
                   child: CachedNetworkImage(
                       key: UniqueKey(),
                       cacheManager: customCacheManager,
-                      height: 120,
-                      width: 100,
+                      height: 80,
+                      width: 74,
                       fit: BoxFit.fill,
                       imageUrl: organizationpic,
                       placeholder: (context, url) =>
@@ -62,7 +60,7 @@ class _SchemeCardState extends State<SchemeCard> {
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                         fontFamily: "Zilla",
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(
@@ -83,17 +81,44 @@ class _SchemeCardState extends State<SchemeCard> {
                     children: [
                       Icon(
                         CupertinoIcons.circle_fill,
-                        size: 14,
+                        size: 9,
                         color: primary,
                       ),
                       const SizedBox(
-                        width: 5,
+                        width: 3,
                       ),
                       Text(
-                        widget.schemedata.category.toString(),
+                        widget.schemedata.statename.toString() ==
+                                    "All State / UTs" ||
+                                widget.schemedata.statename.toString() ==
+                                    "All State & Govenment of India"
+                            ? "All State"
+                            : widget.schemedata.statename.toString(),
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                          fontSize: 14,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(
+                        width: width / 18,
+                      ),
+                      Icon(
+                        CupertinoIcons.circle_fill,
+                        size: 9,
+                        color: primary,
+                      ),
+                      const SizedBox(
+                        width: 3,
+                      ),
+                      Text(
+                        widget.schemedata.category.toString() ==
+                                "Health & for purchase of aids"
+                            ? "Health"
+                            : widget.schemedata.category.toString(),
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 12,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -101,33 +126,6 @@ class _SchemeCardState extends State<SchemeCard> {
                   ),
                   const SizedBox(
                     height: 10,
-                  ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(100, 20),
-                            backgroundColor: primary,
-                            elevation: 0),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => !widget.agent
-                                      ? SchemeDetail(
-                                          register: widget.register,
-                                          schemedata: widget.schemedata,
-                                        )
-                                      : const BottomNavigator()));
-                        },
-                        child: const Text(
-                          "Details",
-                          style: TextStyle(
-                              fontFamily: "Zilla",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white),
-                        )),
                   ),
                 ],
               ),
