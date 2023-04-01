@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Screen/agentwidget/filtercontainer.dart';
@@ -16,6 +17,7 @@ import 'package:scheme/widget/ngocards.dart';
 import 'package:scheme/widget/campcardgrid.dart';
 import 'package:scheme/widget/schemecard.dart';
 import 'package:scheme/Screen/search.dart';
+import 'package:scheme/widget/statusapplyschemecard.dart';
 import 'package:scheme/widget/statuscard.dart';
 
 ValueNotifier<List> schemeDataList = ValueNotifier<List>([]);
@@ -29,20 +31,19 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   // UserModel? user;
-  bool campLoader = true,
-      schemeLoader = true,
-      filterclicked = false,
-      recommedLoader = true,
-      ngoLoader = true;
+  bool filterclicked = false, recommedLoader = true;
+
   bool register = registration;
   bool verification = verificationstatus;
   int listlength = 3, selctedFilter = 0;
   int nowlistlength = 0;
-  List campdetail = [], ngodetail = [], schemesDetails = [], recommend = [];
+  List recommend = [];
   bool nomore = false;
 
   bool clicked = false;
-
+  //camps
+  List campdetail = [];
+  bool campLoader = true;
   Future getcampdetail() async {
     await FirebaseFirestore.instance
         .collection('Camps')
@@ -55,6 +56,9 @@ class _HomeState extends State<Home> {
     // print(campdetail);
   }
 
+  //NGO
+  List ngodetail = [];
+  bool ngoLoader = true;
   Future getngodetail() async {
     await FirebaseFirestore.instance
         .collection('Ngos')
@@ -67,6 +71,26 @@ class _HomeState extends State<Home> {
     // print(campdetail);
   }
 
+  //applied Scheme
+
+  List appliedscheme = [];
+  bool appliedschemeloader = true;
+  Future getappliedscheme() async {
+    await FirebaseFirestore.instance
+        .collection(
+            'Users/${FirebaseAuth.instance.currentUser!.uid}/AppliedScheme')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        appliedscheme.add(doc.data());
+      }
+    });
+    // print(campdetail);
+  }
+
+  // Filter Scheme
+  List schemesDetails = [];
+  bool schemeLoader = true;
   Future getFilter({
     required String filter,
     required int setFilterIndex,
@@ -91,13 +115,16 @@ class _HomeState extends State<Home> {
       ngoLoader = true;
       recommedLoader = true;
       schemeLoader = true;
+      appliedschemeloader = false;
     });
     recommend.clear();
     campdetail.clear();
     ngodetail.clear();
     schemesDetails.clear();
+    appliedscheme.clear();
     await getcampdetail();
     await getngodetail();
+    await getappliedscheme();
     recommend.addAll(await getrecommendApi());
     schemesDetails.addAll(await getSchemes());
     // print(campdetail);
@@ -233,10 +260,36 @@ class _HomeState extends State<Home> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                StatusCard(
-                  register: register,
-                  verify: verification,
-                ),
+                appliedscheme.isEmpty
+                    ? StatusCard(
+                        register: register,
+                        verify: verification,
+                      )
+                    : Container(
+                        decoration: shadowdecoration,
+                        child: CarouselSlider(
+                          options: CarouselOptions(
+                            viewportFraction: 1,
+                            initialPage: 0,
+                            autoPlay: false,
+                            // height: ,
+                            aspectRatio: 1 / 0.5,
+                            autoPlayInterval: const Duration(seconds: 8),
+                            autoPlayAnimationDuration:
+                                const Duration(milliseconds: 800),
+                            autoPlayCurve: Curves.fastOutSlowIn,
+                            enlargeCenterPage: true,
+                            scrollDirection: Axis.horizontal,
+                          ),
+                          items: appliedscheme
+                              .map((data) => ApplySchemeStatus(
+                                    schemename: data['schemename'],
+                                    id: data['schemeId'],
+                                    progress: data['progress'],
+                                  ))
+                              .toList(),
+                        ),
+                      ),
                 const SizedBox(height: 24),
                 register == false ? const AlertCard() : const SizedBox.shrink(),
                 const SizedBox(

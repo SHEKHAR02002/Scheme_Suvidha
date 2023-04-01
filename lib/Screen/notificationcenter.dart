@@ -36,13 +36,21 @@ class _NotificationCenterState extends State<NotificationCenter> {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Container(
-          decoration: shadowdecoration,
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child:
-                Text("Registration Successful ! Now you can find your scheme"),
-          ),
+        child: Column(
+          children: [
+            Container(
+              decoration: shadowdecoration,
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: Text(
+                    "Registration Successful ! Now you can find your scheme"),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            // const ApplySchemeStatus()
+          ],
         ),
       ),
     );
