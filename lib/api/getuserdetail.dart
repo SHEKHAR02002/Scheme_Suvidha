@@ -48,7 +48,6 @@ class UserDetails {
       {required DocumentSnapshot<Map<String, dynamic>> docSnapshot}) async {
     var data = docSnapshot.data();
     userDetail = UserModel.fromMap(data!);
-    log(data["phoneno"]);
     registration = data["registeration"];
     verificationstatus = data["verification"];
   }

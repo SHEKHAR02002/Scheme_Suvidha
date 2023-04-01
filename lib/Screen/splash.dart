@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:scheme/Screen/Agent/agentbottomsheet.dart';
@@ -19,15 +16,20 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-  bool loader = false;
+  bool loader = false, newUser = true;
   Future callApi() async {
     if (FirebaseAuth.instance.currentUser != null) {
-      await getUserDeatilsApi(context: context)
-          .whenComplete(() => setState(() => loader = true));
+      await getUserDeatilsApi(context: context).whenComplete(() => setState(() {
+            loader = true;
+            newUser = false;
+          }));
 
       // await checkwhichUser(uid: FirebaseAuth.instance.currentUser!.uid);
     } else {
-      setState(() => loader = true);
+      setState(() {
+        newUser = true;
+        loader = true;
+      });
     }
   }
 
@@ -43,7 +45,7 @@ class _SplashState extends State<Splash> {
       backgroundColor: bgcolor,
       navigateWhere: loader,
       duration: const Duration(seconds: 1),
-      navigateRoute: FirebaseAuth.instance.currentUser == null
+      navigateRoute: newUser
           ? const Login()
           : !isagent
               ? const Home()
@@ -53,12 +55,4 @@ class _SplashState extends State<Splash> {
       pageRouteTransition: PageRouteTransition.SlideTransition,
     );
   }
-}
-
-Future<bool> checkwhichUser({required String uid}) async {
-  // log(FirebaseAuth.instance.currentUser);
-  return await FirebaseFirestore.instance.doc("Users/$uid").get().then((value) {
-    log(value.exists.toString());
-    return value.exists;
-  });
 }

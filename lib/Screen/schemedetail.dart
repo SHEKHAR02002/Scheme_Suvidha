@@ -310,7 +310,7 @@ class _SchemeDetailState extends State<SchemeDetail> {
                           builder: ((context) => processingPopup(
                               context: context, msg: "Processing....")));
                       await schemeapply(
-                              applicationid: uuid.v1(),
+                              schemeid: widget.schemedata.schemeid.toString(),
                               schemename:
                                   widget.schemedata.schemename.toString())
                           .whenComplete(() => Navigator.of(context)

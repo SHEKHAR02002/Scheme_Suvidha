@@ -26,38 +26,24 @@ class _AgentHomeState extends State<AgentHome> {
     List temp = [];
     List temp1 = [];
     temp.addAll(await getapplication());
+    temp1.addAll(await getmyapplication());
+    for (var items in myapplication) {
+      temp1.removeWhere(
+          (element) => element["Applicationid"] == items["Applicationid"]);
+    }
     if (mounted) {
       setState(() {
         application.addAll(temp);
-      });
-    }
-    if (mounted) {
-      if (application.isNotEmpty) {
-        applicationloader = false;
-        print(application);
-      } else {
-        print("empty");
-      }
-    }
 
-    temp1.addAll(await getmyapplication());
-    if (mounted) {
-      setState(() {
+        if (application.isNotEmpty) {
+          applicationloader = false;
+        }
+
         myapplication.addAll(temp1);
+        if (myapplication.isNotEmpty) {
+          myapplicationloader = false;
+        }
       });
-    }
-    for (var items in myapplication) {
-      application.removeWhere(
-          (element) => element["Applicationid"] == items["Applicationid"]);
-    }
-
-    if (mounted) {
-      if (myapplication.isNotEmpty) {
-        myapplicationloader = false;
-        print(myapplication);
-      } else {
-        print("empty");
-      }
     }
   }
 

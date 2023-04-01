@@ -1,5 +1,5 @@
 class SchemeModel {
-  // String? schemeid;
+  String? schemeid;
   String? agegroup;
   String? annualicome;
   String? benefits;
@@ -15,7 +15,7 @@ class SchemeModel {
   String? websitelink;
 
   SchemeModel(
-      // this.schemeid,
+      this.schemeid,
       this.agegroup,
       this.annualicome,
       this.benefits,
@@ -32,7 +32,7 @@ class SchemeModel {
 
   Map<String, dynamic> toMap() {
     return {
-      // "schemeid": schemeid,
+      "schemeid": schemeid,
       "ageGroup": agegroup,
       "annualIncome": annualicome,
       "benefits": benefits,
@@ -51,6 +51,7 @@ class SchemeModel {
 
   SchemeModel.fromSnapshot(snapshot)
       : agegroup = snapshot.data()['ageGroup'],
+        schemeid = snapshot.data(["schemeId"]),
         annualicome = snapshot.data()['annualIncome'],
         benefits = snapshot.data()['benefits'],
         category = snapshot.data()['category'],
@@ -65,8 +66,7 @@ class SchemeModel {
         websitelink = snapshot.data()['websiteLink'];
 
   SchemeModel.fromMap(map)
-      :
-        // schemeid = map['schemeid'];
+      : schemeid = map['schemeId'],
         agegroup = map["ageGroup"],
         annualicome = map["annualIncome"],
         benefits = map["benefits"],

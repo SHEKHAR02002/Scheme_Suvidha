@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Screen/agentwidget/filtercontainer.dart';
@@ -11,7 +10,6 @@ import 'package:scheme/api/getrecommendschemes.dart';
 import 'package:scheme/api/getscheme.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/schememodel.dart';
-import 'package:scheme/model/usermodel.dart';
 import 'package:scheme/widget/alertcard.dart';
 import 'package:scheme/widget/campcard.dart';
 import 'package:scheme/widget/schemecard.dart';
@@ -78,6 +76,7 @@ class _HomeState extends State<Home> {
       recommedLoader = true;
       schemeLoader = true;
     });
+    recommend.clear();
     campdetail.clear();
     schemesDetails.clear();
     await getcampdetail();
@@ -103,24 +102,24 @@ class _HomeState extends State<Home> {
       }
     }
 
-    Future getUserDetails() async {
-      bool status = false;
-      await FirebaseFirestore.instance
-          .collection("Users")
-          .doc(FirebaseAuth.instance.currentUser!.uid.toString())
-          .collection("AppliedScheme")
-          .doc(userDetail!.applicationid)
-          .get()
-          .then((docSnapshot) async {
-        var data = docSnapshot.data();
-        userDetail = UserModel.fromMap(data!);
+    // Future getUserDetails() async {
+    //   bool status = false;
+    //   await FirebaseFirestore.instance
+    //       .collection("Users")
+    //       .doc(FirebaseAuth.instance.currentUser!.uid.toString())
+    //       .collection("AppliedScheme")
+    //       .doc(userDetail!.applicationid)
+    //       .get()
+    //       .then((docSnapshot) async {
+    //     var data = docSnapshot.data();
+    //     userDetail = UserModel.fromMap(data!);
 
-        status = data["verification"];
-      });
-      setState(() {
-        verification = status;
-      });
-    }
+    //     status = data["verification"];
+    //   });
+    //   setState(() {
+    //     verification = status;
+    //   });
+    // }
   }
 
   @override
@@ -144,18 +143,11 @@ class _HomeState extends State<Home> {
       child: Scaffold(
           appBar: AppBar(
             elevation: 0,
-            title: Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: InkWell(
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Search())),
-                child: SvgPicture.asset(
-                  "assets/search.svg",
-                  color: primary,
-                  height: 30,
-                  width: 30,
-                ),
-              ),
+            title: Image.asset(
+              "assets/logo.png",
+              height: 60,
+              width: 60,
+              fit: BoxFit.cover,
             ),
             backgroundColor: bgcolor,
             actions: [
@@ -179,6 +171,32 @@ class _HomeState extends State<Home> {
               const SizedBox(
                 width: 10,
               ),
+              // InkWell(
+              //   onTap: () {
+              //     showDialog(
+              //         context: context,
+              //         builder: (context) => const ImageSourcePopup());
+              //   },
+              //   child: SvgPicture.asset(
+              //     "assets/notification.svg",
+              //     color: Colors.black,
+              //     height: 30,
+              //     width: 30,
+              //   ),
+              // ),
+              InkWell(
+                onTap: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Search())),
+                child: SvgPicture.asset(
+                  "assets/search.svg",
+                  color: primary,
+                  height: 30,
+                  width: 30,
+                ),
+              ),
+              const SizedBox(
+                width: 20,
+              ),
               InkWell(
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
@@ -188,7 +206,7 @@ class _HomeState extends State<Home> {
                 ),
                 child: Padding(
                     padding: const EdgeInsets.only(right: 10),
-                    child: userDetail!.image == ""
+                    child: userDetail!.image != ""
                         ? CircleAvatar(
                             foregroundImage: NetworkImage(defaultPic))
                         : CircleAvatar(

@@ -30,7 +30,6 @@ class _ContactUsState extends State<ContactUs> {
   void initState() {
     callapi();
 
-    // TODO: implement initState
     super.initState();
   }
 
