@@ -122,7 +122,7 @@ class _ProfileState extends State<Profile> {
                                   user: widget.user,
                                 )))
                     : Fluttertoast.showToast(
-                        msg: "User Not Found",
+                        msg: "User Not Register",
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.BOTTOM,
                         timeInSecForIosWeb: 1,

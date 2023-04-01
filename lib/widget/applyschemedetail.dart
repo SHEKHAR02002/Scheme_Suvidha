@@ -3,6 +3,7 @@ import 'package:scheme/Theme/color.dart';
 import 'package:scheme/api/getscheme.dart';
 import 'package:scheme/model/appliedschememodel.dart';
 import 'package:scheme/widget/applyschemecard.dart';
+import 'package:tbib_splash_screen/splash_screen_view.dart';
 
 class AppliedScheme extends StatefulWidget {
   const AppliedScheme({super.key});
@@ -55,23 +56,28 @@ class _AppliedSchemeState extends State<AppliedScheme> {
               fontWeight: FontWeight.w400),
         ),
       ),
-      body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: loader
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: appliedschemelist.length,
-                  itemBuilder: (context, index) {
-                    ApplySchmeDetail schemdata =
-                        ApplySchmeDetail.fromMap(appliedschemelist[index]);
-                    return CardAppliedScheme(
-                      applyschemes: schemdata,
-                    );
-                  })),
+      body: appliedschemelist.isEmpty
+          ? Center(
+              child: Lottie.asset("animations/empty.json",
+                  height: 500, width: 500),
+            )
+          : SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: loader
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: appliedschemelist.length,
+                      itemBuilder: (context, index) {
+                        ApplySchmeDetail schemdata =
+                            ApplySchmeDetail.fromMap(appliedschemelist[index]);
+                        return CardAppliedScheme(
+                          applyschemes: schemdata,
+                        );
+                      })),
     );
   }
 }

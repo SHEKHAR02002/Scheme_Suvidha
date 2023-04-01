@@ -38,17 +38,17 @@ class CampsModel {
     };
   }
 
-  CampsModel.fromSnapshot(snapshot)
-      : campbenefit = snapshot.data()['campbenefit'],
-        campcategory = snapshot.data()['Category'],
-        campdescription = snapshot.data()['discription'],
-        campid = snapshot.data()['campid'],
-        camporganization = snapshot.data()['Organization'],
-        campplace = snapshot.data()['place'],
-        camptime = snapshot.data()['time'],
-        date = snapshot.data()['date'],
-        image = snapshot.data()['image'],
-        name = snapshot.data()['campname'];
+  // CampsModel.fromSnapshot(snapshot)
+  //     : campbenefit = snapshot.data()['campbenefit'],
+  //       campcategory = snapshot.data()['Category'],
+  //       campdescription = snapshot.data()['discription'],
+  //       campid = snapshot.data()['campid'],
+  //       camporganization = snapshot.data()['Organization'],
+  //       campplace = snapshot.data()['place'],
+  //       camptime = snapshot.data()['time'],
+  //       date = snapshot.data()['date'],
+  //       image = snapshot.data()['image'],
+  //       name = snapshot.data()['campname'];
 
   CampsModel.fromMap(Map<String, dynamic> map) {
     campbenefit = map['campbenefit'];

@@ -6,12 +6,14 @@ import 'package:scheme/Screen/agentwidget/filtercontainer.dart';
 import 'package:scheme/Screen/notificationcenter.dart';
 import 'package:scheme/Screen/profile.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/api/getrecommendschemes.dart';
 import 'package:scheme/api/getscheme.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/schememodel.dart';
 import 'package:scheme/widget/alertcard.dart';
-import 'package:scheme/widget/campcard.dart';
+import 'package:scheme/widget/ngocards.dart';
+import 'package:scheme/widget/campcardgrid.dart';
 import 'package:scheme/widget/schemecard.dart';
 import 'package:scheme/Screen/search.dart';
 import 'package:scheme/widget/statuscard.dart';
@@ -30,12 +32,13 @@ class _HomeState extends State<Home> {
   bool campLoader = true,
       schemeLoader = true,
       filterclicked = false,
-      recommedLoader = true;
+      recommedLoader = true,
+      ngoLoader = true;
   bool register = registration;
   bool verification = verificationstatus;
   int listlength = 3, selctedFilter = 0;
   int nowlistlength = 0;
-  List campdetail = [], schemesDetails = [], recommend = [];
+  List campdetail = [], ngodetail = [], schemesDetails = [], recommend = [];
   bool nomore = false;
 
   bool clicked = false;
@@ -47,6 +50,18 @@ class _HomeState extends State<Home> {
         .then((QuerySnapshot querySnapshot) {
       for (var doc in querySnapshot.docs) {
         campdetail.add(doc.data());
+      }
+    });
+    // print(campdetail);
+  }
+
+  Future getngodetail() async {
+    await FirebaseFirestore.instance
+        .collection('Ngos')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        ngodetail.add(doc.data());
       }
     });
     // print(campdetail);
@@ -73,13 +88,16 @@ class _HomeState extends State<Home> {
     // getUserDetails();
     setState(() {
       campLoader = true;
+      ngoLoader = true;
       recommedLoader = true;
       schemeLoader = true;
     });
     recommend.clear();
     campdetail.clear();
+    ngodetail.clear();
     schemesDetails.clear();
     await getcampdetail();
+    await getngodetail();
     recommend.addAll(await getrecommendApi());
     schemesDetails.addAll(await getSchemes());
     // print(campdetail);
@@ -88,6 +106,11 @@ class _HomeState extends State<Home> {
       if (campdetail.isNotEmpty) {
         setState(() {
           campLoader = false;
+        });
+      }
+      if (ngodetail.isNotEmpty) {
+        setState(() {
+          ngoLoader = false;
         });
       }
       if (schemesDetails.isNotEmpty) {
@@ -392,41 +415,63 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 const Text(
-                  "Campaigns",
+                  "NearBy NGOs",
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
                       fontFamily: "Zilla"),
                 ),
-                campLoader
+                const SizedBox(
+                  height: 20,
+                ),
+                ngoLoader
                     ? const Center(child: CircularProgressIndicator())
-                    : CarouselSlider(
-                        options: CarouselOptions(
-                          viewportFraction: 1,
-                          initialPage: 0,
-                          autoPlay: false,
-                          // height: ,
-                          aspectRatio: 1 / 0.95,
-                          autoPlayInterval: const Duration(seconds: 8),
-                          autoPlayAnimationDuration:
-                              const Duration(milliseconds: 800),
-                          autoPlayCurve: Curves.fastOutSlowIn,
-                          enlargeCenterPage: true,
-                          scrollDirection: Axis.horizontal,
+                    : Container(
+                        decoration: shadowdecoration,
+                        child: CarouselSlider(
+                          options: CarouselOptions(
+                            viewportFraction: 1,
+                            initialPage: 0,
+                            autoPlay: false,
+                            // height: ,
+                            aspectRatio: 1 / 1.1,
+                            autoPlayInterval: const Duration(seconds: 8),
+                            autoPlayAnimationDuration:
+                                const Duration(milliseconds: 800),
+                            autoPlayCurve: Curves.fastOutSlowIn,
+                            enlargeCenterPage: true,
+                            scrollDirection: Axis.horizontal,
+                          ),
+                          items: ngodetail
+                              .map((data) => NGOCard(
+                                    image: data['ngoLogo'],
+                                    name: data['ngoName'],
+                                    ngoid: data['ngoId'],
+                                    address: data['ngoAddress'],
+                                    phone: data['ngoContact'],
+                                  ))
+                              .toList(),
                         ),
-                        items: campdetail
-                            .map((data) => CampCard(
-                                  image: data['image'],
-                                  title: data['Category'],
-                                  date: data['date'],
-                                  id: data['campid'],
-                                  place: data['place'],
-                                ))
-                            .toList(),
                       ),
                 const SizedBox(
                   height: 20,
                 ),
+                Text(
+                  "Campaigns",
+                  style: TextStyle(
+                      color: black,
+                      fontFamily: "Zilla",
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                CampView(
+                  ngoDataList: campdetail,
+                  width: width,
+                ),
+                const SizedBox(height: 20),
                 Stack(
                   children: [
                     Container(
@@ -477,7 +522,10 @@ class _HomeState extends State<Home> {
                         top: 5,
                         child: SvgPicture.asset("assets/avd.svg"))
                   ],
-                )
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
               ],
             ),
           )),
