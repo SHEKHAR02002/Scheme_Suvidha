@@ -145,12 +145,25 @@ class _HomeState extends State<Home> {
             elevation: 0,
             title: Image.asset(
               "assets/logo.png",
-              height: 60,
-              width: 60,
+              height: 40,
+              width: 40,
               fit: BoxFit.cover,
             ),
             backgroundColor: bgcolor,
             actions: [
+              InkWell(
+                onTap: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Search())),
+                child: SvgPicture.asset(
+                  "assets/search.svg",
+                  color: primary,
+                  height: 30,
+                  width: 30,
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
               InkWell(
                 onTap: () {
                   //showDialog(
@@ -163,39 +176,12 @@ class _HomeState extends State<Home> {
                 },
                 child: SvgPicture.asset(
                   "assets/notification.svg",
-                  color: Colors.black,
                   height: 35,
                   width: 35,
                 ),
               ),
               const SizedBox(
                 width: 10,
-              ),
-              // InkWell(
-              //   onTap: () {
-              //     showDialog(
-              //         context: context,
-              //         builder: (context) => const ImageSourcePopup());
-              //   },
-              //   child: SvgPicture.asset(
-              //     "assets/notification.svg",
-              //     color: Colors.black,
-              //     height: 30,
-              //     width: 30,
-              //   ),
-              // ),
-              InkWell(
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Search())),
-                child: SvgPicture.asset(
-                  "assets/search.svg",
-                  color: primary,
-                  height: 30,
-                  width: 30,
-                ),
-              ),
-              const SizedBox(
-                width: 20,
               ),
               InkWell(
                 onTap: () => Navigator.of(context).push(
@@ -208,12 +194,13 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.only(right: 10),
                     child: userDetail!.image != ""
                         ? CircleAvatar(
+                            radius: 15,
                             foregroundImage: NetworkImage(defaultPic))
                         : CircleAvatar(
-                            // borderRadius: BorderRadius.circular(15),
+                            radius: 15,
                             foregroundImage: NetworkImage(
-                            userDetail!.image.toString(),
-                          ))),
+                              userDetail!.image.toString(),
+                            ))),
               )
             ],
           ),
@@ -242,7 +229,6 @@ class _HomeState extends State<Home> {
                             fontWeight: FontWeight.w400),
                       )
                     : const SizedBox.shrink(),
-                const SizedBox(height: 20),
                 register
                     ? recommedLoader
                         ? const Center(
@@ -262,9 +248,6 @@ class _HomeState extends State<Home> {
                               );
                             })
                     : const SizedBox.shrink(),
-                const SizedBox(
-                  height: 20,
-                ),
                 Row(
                   children: [
                     Text(
@@ -408,7 +391,6 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 30),
                 const Text(
                   "Campaigns",
                   style: TextStyle(
@@ -416,7 +398,6 @@ class _HomeState extends State<Home> {
                       fontWeight: FontWeight.w500,
                       fontFamily: "Zilla"),
                 ),
-                const SizedBox(height: 30),
                 campLoader
                     ? const Center(child: CircularProgressIndicator())
                     : CarouselSlider(

@@ -50,7 +50,7 @@ class _SplashState extends State<Splash> {
           : !isagent
               ? const Home()
               : const BottomNavigator(),
-      imageSrc: "assets/logo.png",
+      imageSrc: "assets/splashlogo.png",
       logoSize: 300,
       pageRouteTransition: PageRouteTransition.SlideTransition,
     );
