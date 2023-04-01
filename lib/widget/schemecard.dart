@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:scheme/Screen/Agent/agentbottomsheet.dart';
+import 'package:scheme/Screen/schemedetail.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/data/userdata.dart';
@@ -25,112 +27,123 @@ class _SchemeCardState extends State<SchemeCard> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-      decoration: shadowdecoration,
-      child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              decoration: shadowdecoration,
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: CachedNetworkImage(
-                      key: UniqueKey(),
-                      cacheManager: customCacheManager,
-                      height: 80,
-                      width: 74,
-                      fit: BoxFit.fill,
-                      imageUrl: organizationpic,
-                      placeholder: (context, url) =>
-                          const CircularProgressIndicator())),
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            SizedBox(
-              width: width - 180,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.schemedata.schemename.toString(),
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        fontFamily: "Zilla",
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    widget.schemedata.organizationname.toString(),
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        color: text2),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        CupertinoIcons.circle_fill,
-                        size: 9,
-                        color: primary,
-                      ),
-                      const SizedBox(
-                        width: 3,
-                      ),
-                      Text(
-                        widget.schemedata.statename.toString() ==
-                                    "All State / UTs" ||
-                                widget.schemedata.statename.toString() ==
-                                    "All State & Govenment of India"
-                            ? "All State"
-                            : widget.schemedata.statename.toString(),
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(
-                        width: width / 18,
-                      ),
-                      Icon(
-                        CupertinoIcons.circle_fill,
-                        size: 9,
-                        color: primary,
-                      ),
-                      const SizedBox(
-                        width: 3,
-                      ),
-                      Text(
-                        widget.schemedata.category.toString() ==
-                                "Health & for purchase of aids"
-                            ? "Health"
-                            : widget.schemedata.category.toString(),
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                ],
+    return InkWell(
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => !widget.agent
+                  ? SchemeDetail(
+                      register: widget.register,
+                      schemedata: widget.schemedata,
+                    )
+                  : const BottomNavigator())),
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        decoration: shadowdecoration,
+        child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                decoration: shadowdecoration,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: CachedNetworkImage(
+                        key: UniqueKey(),
+                        cacheManager: customCacheManager,
+                        height: 80,
+                        width: 74,
+                        fit: BoxFit.fill,
+                        imageUrl: organizationpic,
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator())),
               ),
-            )
-          ]),
+              const SizedBox(
+                width: 20,
+              ),
+              SizedBox(
+                width: width - 180,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.schemedata.schemename.toString(),
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontFamily: "Zilla",
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      widget.schemedata.organizationname.toString(),
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                          color: text2),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          CupertinoIcons.circle_fill,
+                          size: 9,
+                          color: primary,
+                        ),
+                        const SizedBox(
+                          width: 3,
+                        ),
+                        Text(
+                          widget.schemedata.statename.toString() ==
+                                      "All State / UTs" ||
+                                  widget.schemedata.statename.toString() ==
+                                      "All State & Govenment of India"
+                              ? "All State"
+                              : widget.schemedata.statename.toString(),
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        SizedBox(
+                          width: width / 18,
+                        ),
+                        Icon(
+                          CupertinoIcons.circle_fill,
+                          size: 9,
+                          color: primary,
+                        ),
+                        const SizedBox(
+                          width: 3,
+                        ),
+                        Text(
+                          widget.schemedata.category.toString() ==
+                                  "Health & for purchase of aids"
+                              ? "Health"
+                              : widget.schemedata.category.toString(),
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
+              )
+            ]),
+      ),
     );
     // Container(
     //   margin: const EdgeInsets.symmetric(vertical: 10),
