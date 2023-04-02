@@ -17,6 +17,10 @@ import 'package:scheme/widget/ngocards.dart';
 import 'package:scheme/widget/campcardgrid.dart';
 import 'package:scheme/widget/schemecard.dart';
 import 'package:scheme/Screen/search.dart';
+import 'package:scheme/widget/skeleton/campsskeleton.dart';
+import 'package:scheme/widget/skeleton/ngocardskeleton.dart';
+import 'package:scheme/widget/skeleton/schemecardskeleton.dart';
+import 'package:scheme/widget/skeleton/schemestatuscard.dart';
 import 'package:scheme/widget/statusapplyschemecard.dart';
 import 'package:scheme/widget/statuscard.dart';
 
@@ -174,7 +178,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    callApi();
+    Future.delayed(const Duration(seconds: 20), () => callApi());
     // log(registration.toString());
 
     super.initState();
@@ -265,31 +269,33 @@ class _HomeState extends State<Home> {
                         register: register,
                         verify: verification,
                       )
-                    : Container(
-                        decoration: shadowdecoration,
-                        child: CarouselSlider(
-                          options: CarouselOptions(
-                            viewportFraction: 1,
-                            initialPage: 0,
-                            autoPlay: false,
-                            // height: ,
-                            aspectRatio: 1 / 0.5,
-                            autoPlayInterval: const Duration(seconds: 8),
-                            autoPlayAnimationDuration:
-                                const Duration(milliseconds: 800),
-                            autoPlayCurve: Curves.fastOutSlowIn,
-                            enlargeCenterPage: true,
-                            scrollDirection: Axis.horizontal,
+                    : appliedschemeloader
+                        ? const SchemeStatusCard()
+                        : Container(
+                            decoration: shadowdecoration,
+                            child: CarouselSlider(
+                              options: CarouselOptions(
+                                viewportFraction: 1,
+                                initialPage: 0,
+                                autoPlay: false,
+                                // height: ,
+                                aspectRatio: 1 / 0.5,
+                                autoPlayInterval: const Duration(seconds: 8),
+                                autoPlayAnimationDuration:
+                                    const Duration(milliseconds: 800),
+                                autoPlayCurve: Curves.fastOutSlowIn,
+                                enlargeCenterPage: true,
+                                scrollDirection: Axis.horizontal,
+                              ),
+                              items: appliedscheme
+                                  .map((data) => ApplySchemeStatus(
+                                        schemename: data['schemename'],
+                                        id: data['schemeId'],
+                                        progress: data['progress'],
+                                      ))
+                                  .toList(),
+                            ),
                           ),
-                          items: appliedscheme
-                              .map((data) => ApplySchemeStatus(
-                                    schemename: data['schemename'],
-                                    id: data['schemeId'],
-                                    progress: data['progress'],
-                                  ))
-                              .toList(),
-                        ),
-                      ),
                 const SizedBox(height: 24),
                 register == false ? const AlertCard() : const SizedBox.shrink(),
                 const SizedBox(
@@ -307,9 +313,7 @@ class _HomeState extends State<Home> {
                     : const SizedBox.shrink(),
                 register
                     ? recommedLoader
-                        ? const Center(
-                            child: CircularProgressIndicator(),
-                          )
+                        ? const SkeltonSchemeCard()
                         : ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
@@ -412,9 +416,7 @@ class _HomeState extends State<Home> {
                 ),
                 const SizedBox(height: 20),
                 schemeLoader
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
+                    ? const SkeltonSchemeCard()
                     : ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -478,7 +480,7 @@ class _HomeState extends State<Home> {
                   height: 20,
                 ),
                 ngoLoader
-                    ? const Center(child: CircularProgressIndicator())
+                    ? const NGOCardSkeleton()
                     : Container(
                         decoration: shadowdecoration,
                         child: CarouselSlider(
@@ -520,10 +522,12 @@ class _HomeState extends State<Home> {
                 const SizedBox(
                   height: 10,
                 ),
-                CampView(
-                  ngoDataList: campdetail,
-                  width: width,
-                ),
+                campLoader
+                    ? const CampsSkeleton()
+                    : CampView(
+                        ngoDataList: campdetail,
+                        width: width,
+                      ),
                 const SizedBox(height: 20),
                 Stack(
                   children: [

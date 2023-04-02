@@ -7,6 +7,7 @@ import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/schememodel.dart';
+import 'package:skeleton_text/skeleton_text.dart';
 
 class SchemeCard extends StatefulWidget {
   final SchemeModel schemedata;
@@ -56,8 +57,15 @@ class _SchemeCardState extends State<SchemeCard> {
                         width: 74,
                         fit: BoxFit.fill,
                         imageUrl: organizationpic,
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator())),
+                        placeholder: (context, url) => SkeletonAnimation(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.grey[300]),
+                                height: 80,
+                                width: 74,
+                              ),
+                            ))),
               ),
               const SizedBox(
                 width: 20,
