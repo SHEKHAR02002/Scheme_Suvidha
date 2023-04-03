@@ -178,7 +178,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 20), () => callApi());
+    Future.delayed(const Duration(seconds: 8), () => callApi());
     // log(registration.toString());
 
     super.initState();

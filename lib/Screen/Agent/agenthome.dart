@@ -22,10 +22,10 @@ class _AgentHomeState extends State<AgentHome> {
 
   Future callApi() async {
     myapplication.clear();
-    application.clear();
+    // application.clear();
     List temp = [];
     List temp1 = [];
-    temp.addAll(await getapplication());
+    // temp.addAll(await getapplication());
     temp1.addAll(await getmyapplication());
     for (var items in myapplication) {
       temp1.removeWhere(
@@ -99,7 +99,6 @@ class _AgentHomeState extends State<AgentHome> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const OverviewCard(),
-                  const SizedBox(height: 30),
                   application.isEmpty && myapplication.isEmpty
                       ? Center(
                           child: Column(

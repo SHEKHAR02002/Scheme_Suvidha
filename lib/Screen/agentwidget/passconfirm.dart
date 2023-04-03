@@ -4,13 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:scheme/Screen/Agent/agentwaiting.dart';
 import 'package:scheme/Screen/agentwidget/agentregistration.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/takeimage.dart';
-
-import '../Agent/agentbottomsheet.dart';
 
 class PassConfirm extends StatefulWidget {
   final String customimage;
@@ -223,12 +222,21 @@ class _PassConfirmState extends State<PassConfirm> {
                       singup(
                               email: _agentemail.text,
                               password: _agentpassword.text)
-                          .whenComplete(() => Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const BottomNavigator()),
-                              (route) => false));
+                          .whenComplete(() =>
+                              //  agentDetails!.verification
+                              //     ? Navigator.pushAndRemoveUntil(
+                              //         context,
+                              //         MaterialPageRoute(
+                              //             builder: (context) =>
+                              //                 const BottomNavigator()),
+                              //         (route) => false)
+                              //     :
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const AgentWaiting()),
+                                  (route) => false));
                     },
 
                     // Navigator.push(
