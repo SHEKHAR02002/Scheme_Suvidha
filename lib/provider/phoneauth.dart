@@ -13,7 +13,7 @@ class PhoneAuth {
     bool loader = false;
     await auth.verifyPhoneNumber(
       phoneNumber: phoneNo,
-      timeout: const Duration(seconds: 60),
+      timeout: const Duration(seconds: 120),
       verificationCompleted: (PhoneAuthCredential credential) {},
       verificationFailed: (FirebaseAuthException e) {},
       codeSent: (String verificationId, int? resendToken) {
