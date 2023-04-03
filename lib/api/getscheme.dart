@@ -84,3 +84,79 @@ Future register({required context}) async {
   Navigator.push(
       context, MaterialPageRoute(builder: (context) => const Home()));
 }
+
+Future schemeapply({
+  required String schemename,
+  required String schemeid,
+}) async {
+  bool checkActiveScheme = await FirebaseFirestore.instance
+      .collection(
+          "Users/${FirebaseAuth.instance.currentUser!.uid}/AppliedScheme")
+      .where(
+        "progress",
+        isLessThan: 4,
+      )
+      .get()
+      .then((value) {
+    return value.docs.isEmpty;
+  });
+
+  if (checkActiveScheme) {
+    var refAppicationId =
+        await FirebaseFirestore.instance.collection("Application").add({
+      "userId": FirebaseAuth.instance.currentUser!.uid.toString(),
+      "userName": userDetail!.name,
+      "schemeId": schemeid,
+      "Activited": false,
+      "progress": 0,
+      "status": " waiting for under process",
+      "phoneno": userDetail!.phoneno,
+      "schemename": schemename,
+      "dataofapply": DateTime.now(),
+    });
+
+    await FirebaseFirestore.instance
+        .collection("Application")
+        .doc(refAppicationId.id)
+        .update({"Applicationid": refAppicationId.id});
+
+    await FirebaseFirestore.instance
+        .collection("Users")
+        .doc(FirebaseAuth.instance.currentUser!.uid.toString())
+        .collection("AppliedScheme")
+        .doc(refAppicationId.id)
+        .set({
+      "Applicationid": refAppicationId.id,
+      "status": " waiting for under process",
+      "userId": FirebaseAuth.instance.currentUser!.uid.toString(),
+      "userName": userDetail!.name,
+      "schemeId": schemeid,
+      "Activited": false,
+      "progress": 0,
+      "phoneno": userDetail!.phoneno,
+      "schemename": schemename,
+      "dataofapply": DateTime.now(),
+    });
+  } else {
+    Fluttertoast.showToast(
+        msg: "Can't apply for any scheme while being in active scheme",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        fontSize: 20,
+        backgroundColor: primary,
+        textColor: Colors.white);
+  }
+}
+
+Future getapplication() async {
+  List applicant = [];
+  await FirebaseFirestore.instance
+      .collection("Application")
+      .get()
+      .then((QuerySnapshot querysnapshot) {
+    for (var doc in querysnapshot.docs) {
+      applicant.add(doc.data());
+    }
+  });
+  return applicant;
+}

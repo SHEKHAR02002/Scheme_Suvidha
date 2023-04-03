@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:scheme/Screen/Agent/applyuserscheme.dart';
 import 'package:scheme/Theme/color.dart';
@@ -11,6 +12,7 @@ import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/api/checknewuser.dart';
 import 'package:scheme/api/scanimage.dart';
 import 'package:scheme/data/userdata.dart';
+import 'package:scheme/provider/datepicker.dart';
 import 'package:scheme/provider/imagecopper.dart';
 import 'package:scheme/provider/takeimage.dart';
 import 'package:scheme/Screen/registrationscreens/aadharcardupload.dart';
@@ -74,6 +76,34 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
     });
   }
 
+  Widget setValidUpto() => Dialog(
+        // insetPadding: const EdgeInsets.all(20),
+
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            TextButton(
+                onPressed: () {
+                  _validupto.text = "Permanent";
+                  Navigator.pop(context);
+                },
+                child: const Text("Set Permanent")),
+            TextButton(
+                onPressed: () {
+                  DatePicker().getDate(
+                      context: context,
+                      setDate: (date) {
+                        date == null
+                            ? _validupto.text = _validupto.text
+                            : _validupto.text = date;
+                        Navigator.pop(context);
+                      },
+                      before: false);
+                },
+                child: const Text("Set The Date"))
+          ]),
+        ),
+      );
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -116,6 +146,7 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                       _disabilitypercentage.text = value["percent"].toString();
                       _disbilitytype.text = value["type"].toString();
                       _udidNo.text = value["udid"].toString();
+                      _dataissue.text = value["doi"].toString();
                     }).whenComplete(() async => Navigator.pop(context));
                     isagent
                         ? setState(
@@ -123,11 +154,13 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                               agentbyudidimage = udidpic;
                             },
                           )
-                        : await imageupload(
-                            filename: "udidimage", file: udidpic);
+                        : null;
                   }),
                   child: pickedudid
-                      ? Image.file(File(udidpic))
+                      ? Image.file(
+                          File(udidpic),
+                          fit: BoxFit.contain,
+                        )
                       : Container(
                           width: width,
                           decoration: shadowdecoration,
@@ -157,12 +190,6 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
               TextFieldTake(
                 controller: _udidNo,
                 title: "UDID Card No.",
-                typeofKeyboard: TextInputType.text,
-              ),
-              const SizedBox(height: 18),
-              TextFieldTake(
-                controller: _udidname,
-                title: "Name",
                 typeofKeyboard: TextInputType.text,
               ),
               const SizedBox(height: 18),
@@ -199,6 +226,13 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                         width: width / 2.4,
                         decoration: shadowdecoration,
                         child: TextField(
+                          onTap: () => DatePicker().getDate(
+                              context: context,
+                              setDate: (date) => date == null
+                                  ? _dataissue.text = _dataissue.text
+                                  : _dataissue.text = date,
+                              before: true),
+                          readOnly: true,
                           style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.w400),
                           decoration: InputDecoration(
@@ -234,6 +268,9 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                         width: width / 2.4,
                         decoration: shadowdecoration,
                         child: TextField(
+                          onTap: () => showDialog(
+                              context: context, builder: (_) => setValidUpto()),
+                          readOnly: true,
                           style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.w400),
                           decoration: InputDecoration(
@@ -262,41 +299,46 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                             context: context,
                             builder: (c) => processingPopup(
                                 context: context, msg: "Uploading data"));
-                        setState(() {
-                          if (_udidNo.text != "" &&
-                              _udidname.text != "" &&
-                              _disabilitypercentage.text != "" &&
-                              _disbilitytype.text != '' &&
-                              _dataissue.text != "" &&
-                              _validupto.text != "") {
-                            udidNo = _udidNo.text;
-                            udidname = _udidname.text;
-                            disabilitypercentage = _disabilitypercentage.text;
-                            disbilitytype = _disbilitytype.text;
-                            dataissue = _dataissue.text;
-                            validupto = _validupto.text;
-                          }
-                        });
 
-                        !isagent
-                            ? await uploadImgdata().whenComplete(() =>
-                                userdataupload().whenComplete(() async =>
-                                    await checkuser(context: context)
-                                        .whenComplete(() {
-                                      registration = true;
-                                      Navigator.pop(context);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const DoneUpload()));
-                                    })))
-                            : Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ApplyUserScheme()),
-                                (route) => false);
+                        if (_udidNo.text != "" &&
+                            _disabilitypercentage.text != "" &&
+                            _disbilitytype.text != '' &&
+                            _dataissue.text != "" &&
+                            _validupto.text != "") {
+                          udidNo = _udidNo.text;
+                          disabilitypercentage = _disabilitypercentage.text;
+                          disbilitytype = _disbilitytype.text;
+                          dataissue = _dataissue.text;
+                          validupto = _validupto.text;
+
+                          !isagent
+                              ? await uploadImgdata().whenComplete(() =>
+                                  userdataupload().whenComplete(() async =>
+                                      await checkuser(context: context)
+                                          .whenComplete(() {
+                                        registration = true;
+                                        Navigator.pop(context);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const DoneUpload()));
+                                      })))
+                              : Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ApplyUserScheme()),
+                                  (route) => false);
+                        } else {
+                          Fluttertoast.showToast(
+                              msg: "Fill the details properly",
+                              toastLength: Toast.LENGTH_LONG,
+                              fontSize: 20,
+                              backgroundColor: secondary,
+                              textColor: Colors.black);
+                          return;
+                        }
                       },
                       // upload(),
                       style: ElevatedButton.styleFrom(

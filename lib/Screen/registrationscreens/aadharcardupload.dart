@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,6 +9,7 @@ import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/api/scanimage.dart';
 import 'package:scheme/data/userdata.dart';
+import 'package:scheme/provider/datepicker.dart';
 import 'package:scheme/provider/imagecopper.dart';
 import 'package:scheme/provider/takeimage.dart';
 import 'package:scheme/widget/processingpopup.dart';
@@ -97,6 +99,9 @@ class _AadharCardState extends State<AadharCard> {
                       _dob.text = value["dob"].toString();
                       _gender.text = value["gender"].toString();
                       _name.text = value["name"].toString();
+                      _phoneNo.text = FirebaseAuth
+                          .instance.currentUser!.phoneNumber
+                          .toString();
                     } catch (e) {
                       _aadharNo.text = "";
                       _dob.text = "";
@@ -172,6 +177,13 @@ class _AadharCardState extends State<AadharCard> {
                         width: width / 2.4,
                         decoration: shadowdecoration,
                         child: TextField(
+                          onTap: () => DatePicker().getDate(
+                              context: context,
+                              setDate: (date) => date == null
+                                  ? _dob.text = _dob.text
+                                  : _dob.text = date,
+                              before: true),
+                          readOnly: true,
                           style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.w400),
                           decoration: InputDecoration(

@@ -53,19 +53,6 @@ class UserDetails {
   }
 }
 
-Future getapplication() async {
-  List applicant = [];
-  await FirebaseFirestore.instance
-      .collection("Application")
-      .get()
-      .then((QuerySnapshot querysnapshot) {
-    for (var doc in querysnapshot.docs) {
-      applicant.add(doc.data());
-    }
-  });
-  return applicant;
-}
-
 Future getAgentDetails(
     {required DocumentSnapshot<Map<String, dynamic>> doc}) async {
   agentDetails = AgentModel.fromMap(doc.data()!);

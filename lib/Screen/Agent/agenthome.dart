@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:scheme/Screen/agentwidget/applicationcard.dart';
 import 'package:scheme/Screen/agentwidget/overvieewcard.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/api/getscheme.dart';
 import 'package:scheme/api/getuserdetail.dart';
 import 'package:scheme/model/usermodel.dart';
 
