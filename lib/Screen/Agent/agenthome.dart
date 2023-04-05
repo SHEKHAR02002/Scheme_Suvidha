@@ -16,32 +16,15 @@ class AgentHome extends StatefulWidget {
 
 class _AgentHomeState extends State<AgentHome> {
   bool applicationloader = true;
-  bool myapplicationloader = true;
   List application = [];
-  List myapplication = [];
 
   Future callApi() async {
-    myapplication.clear();
-    // application.clear();
-    List temp = [];
-    // List temp1 = [];
-    temp.addAll(await getapplication());
-    // temp1.addAll(await getmyapplication());
-    // for (var items in myapplication) {
-    //   temp1.removeWhere(
-    //       (element) => element["Applicationid"] == items["Applicationid"]);
-    // }
+    application.clear();
+    application.addAll(await getapplication());
     if (mounted) {
       setState(() {
-        application.addAll(temp);
-
         if (application.isNotEmpty) {
           applicationloader = false;
-        }
-
-        // myapplication.addAll(temp1);
-        if (myapplication.isNotEmpty) {
-          myapplicationloader = false;
         }
       });
     }
@@ -100,7 +83,7 @@ class _AgentHomeState extends State<AgentHome> {
                 children: [
                   const OverviewCard(),
                   const SizedBox(height: 30),
-                  application.isEmpty && myapplication.isEmpty
+                  application.isEmpty
                       ? Center(
                           child: Column(
                             children: [
