@@ -4,8 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Screen/agentwidget/filtercontainer.dart';
-import 'package:scheme/Screen/notificationcenter.dart';
 import 'package:scheme/Screen/profile.dart';
+import 'package:scheme/Screen/registrationscreens/uploaddocument.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/api/getrecommendschemes.dart';
@@ -224,10 +224,14 @@ class _HomeState extends State<Home> {
                   //showDialog(
                   //  context: context,
                   //builder: (context) => const ImageSourcePopup());
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => const NotificationCenter()));
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const NotificationCenter()));
+                          builder: (context) => const UploadDocument()));
                 },
                 child: SvgPicture.asset(
                   "assets/notification.svg",

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:scheme/Theme/color.dart';
 import 'package:scheme/api/getuserdetail.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/notifcationprovider.dart';
@@ -104,4 +106,34 @@ Future update() async {
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .update(
           {"aadharno": aadharNo, "name": name, "dob": dob, "gender": gender});
+
+  Fluttertoast.showToast(
+      msg: "Aadhar Detail Update",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: primary,
+      textColor: Colors.white,
+      fontSize: 20.0);
+}
+
+Future updateudid() async {
+  await FirebaseFirestore.instance
+      .collection("Users")
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .update({
+    "udidno": udidNo,
+    "disabilitytype": disbilitytype,
+    "disabilitypercentage": disabilitypercentage,
+    "dateissue": dataissue,
+    "validupto": validupto
+  });
+  Fluttertoast.showToast(
+      msg: "UDID Detail Update",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: primary,
+      textColor: Colors.white,
+      fontSize: 20.0);
 }

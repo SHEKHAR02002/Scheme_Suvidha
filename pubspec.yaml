@@ -71,6 +71,7 @@ dependencies:
   intl_phone_field: ^3.1.0
   url_launcher: ^6.1.10
   skeleton_text: ^3.0.0
+  
  
   
 

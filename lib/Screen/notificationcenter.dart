@@ -12,6 +12,14 @@ class NotificationCenter extends StatefulWidget {
 class _NotificationCenterState extends State<NotificationCenter> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    int currentStep = 0;
+    List<Step> getsteps() => [
+          Step(title: const Text("Step1"), content: Container()),
+          Step(title: const Text("Step2"), content: Container()),
+          Step(title: const Text("Step3"), content: Container())
+        ];
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: bgcolor,

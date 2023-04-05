@@ -10,7 +10,8 @@ import 'package:scheme/model/usermodel.dart';
 import 'package:scheme/provider/phoneauth.dart';
 import 'package:scheme/widget/applyschemedetail.dart';
 // import 'package:scheme/widget/applyschemedetail.dart';
-import 'package:scheme/widget/editaadhar.dart';
+import 'package:scheme/widget/setting/editaadhar.dart';
+import 'package:scheme/widget/setting/editudid.dart';
 import 'package:scheme/widget/setting/setting.dart';
 
 class Profile extends StatefulWidget {
@@ -112,15 +113,14 @@ class _ProfileState extends State<Profile> {
                             ],
                           ),
                         )),
-              SizedBox(height: height / 8),
+              const SizedBox(height: 30),
               GestureDetector(
                 onTap: () => registration
                     ? Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => EditAadhar(
-                                  user: widget.user,
-                                )))
+                            builder: (context) =>
+                                EditAadhar(user: widget.user)))
                     : Fluttertoast.showToast(
                         msg: "User Not Register",
                         toastLength: Toast.LENGTH_SHORT,
@@ -143,7 +143,49 @@ class _ProfileState extends State<Profile> {
                         width: 5,
                       ),
                       Text(
-                        "Aadhar Details",
+                        "Update Aadhar Details",
+                        style: TextStyle(
+                            color: primary,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      const Spacer(),
+                      SvgPicture.asset(
+                        "assets/right_arrow.svg",
+                        height: 25,
+                        width: 25,
+                        color: primary,
+                      ),
+                    ]),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              InkWell(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Editudid(
+                        user: widget.user,
+                      ),
+                    )),
+                child: Container(
+                  decoration: shadowdecoration,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(children: [
+                      SvgPicture.asset(
+                        "assets/udid.svg",
+                        height: 20,
+                        width: 20,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "Update UDID Details",
                         style: TextStyle(
                             color: primary,
                             fontSize: 20,
