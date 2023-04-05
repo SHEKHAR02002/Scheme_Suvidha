@@ -70,7 +70,7 @@ class _ApplicationCardState extends State<ApplicationCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: width - 100,
+                        width: width - 140,
                         child: Text(
                           widget.applicationdetails.applyschemename.toString(),
                           overflow: TextOverflow.ellipsis,

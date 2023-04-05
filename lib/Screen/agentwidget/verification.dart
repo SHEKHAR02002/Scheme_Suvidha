@@ -105,7 +105,7 @@ class _AgentVerificationState extends State<AgentVerification> {
               style: TextStyle(
                   fontSize: 22, fontWeight: FontWeight.w400, color: primary),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 10),
             Row(
               children: [
                 const Icon(
@@ -141,7 +141,7 @@ class _AgentVerificationState extends State<AgentVerification> {
                     ))
               ],
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
             TextContainer(
                 title: "Aadhar Card No",
                 content: widget.applicationdetails.aadharno.toString()),

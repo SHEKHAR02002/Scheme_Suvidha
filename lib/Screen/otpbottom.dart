@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pinput/pinput.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:scheme/Screen/login.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/provider/phoneauth.dart';
@@ -25,6 +26,30 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    double? fontsize16 =
+        ResponsiveValue(context, defaultValue: 16.0, valueWhen: const [
+      Condition.smallerThan(name: MOBILE, value: 12.0),
+      Condition.largerThan(name: TABLET, value: 30.0)
+    ]).value as double;
+    double? fontsize18 =
+        ResponsiveValue(context, defaultValue: 18.0, valueWhen: const [
+      Condition.smallerThan(name: MOBILE, value: 14.0),
+      Condition.largerThan(name: TABLET, value: 32.0)
+    ]).value as double;
+    double? fontsize24 =
+        ResponsiveValue(context, defaultValue: 24.0, valueWhen: const [
+      Condition.smallerThan(name: MOBILE, value: 20.0),
+      Condition.largerThan(name: TABLET, value: 32.0)
+    ]).value as double;
+    double? btnheight =
+        ResponsiveValue(context, defaultValue: 50.0, valueWhen: const [
+      Condition.smallerThan(name: MOBILE, value: 30.0),
+      Condition.largerThan(name: TABLET, value: 75.0)
+    ]).value as double;
+    double? gap = ResponsiveValue(context, defaultValue: 0.0, valueWhen: const [
+      Condition.smallerThan(name: MOBILE, value: 0.0),
+      Condition.largerThan(name: TABLET, value: 10.0)
+    ]).value as double;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(children: [
@@ -41,17 +66,20 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
             style: TextStyle(
                 color: primary,
                 fontFamily: "Zilla",
-                fontSize: 24,
+                fontSize: fontsize24,
                 fontWeight: FontWeight.w400),
           ),
           const SizedBox(
             height: 20,
           ),
+          SizedBox(
+            height: gap,
+          ),
           Pinput(
               defaultPinTheme: PinTheme(
                   margin: const EdgeInsets.symmetric(horizontal: 2),
-                  width: 40,
-                  height: 50,
+                  width: btnheight,
+                  height: btnheight,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       boxShadow: const [
@@ -74,6 +102,9 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
           const SizedBox(
             height: 20,
           ),
+          SizedBox(
+            height: gap,
+          ),
           InkWell(
             onTap: () => Navigator.pushAndRemoveUntil(
                 context,
@@ -82,8 +113,8 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
             child: Text(
               "click here to edit phone number ${widget.phoneNumber}",
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                  fontSize: 15,
+              style: TextStyle(
+                  fontSize: fontsize16,
                   fontWeight: FontWeight.w400,
                   fontFamily: "Zilla"),
             ),
@@ -120,12 +151,12 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
                     backgroundColor: primary,
-                    minimumSize: Size(width, 50)),
-                child: const Text(
+                    minimumSize: Size(width, btnheight)),
+                child: Text(
                   "Submit",
                   style: TextStyle(
                       fontFamily: "Overpass",
-                      fontSize: 18,
+                      fontSize: fontsize18,
                       fontWeight: FontWeight.w700),
                 )),
       ),

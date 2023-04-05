@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Screen/registrationscreens/upload.dart';
 
@@ -14,6 +15,30 @@ class _AlertCardState extends State<AlertCard> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    double? fontsize14 =
+        ResponsiveValue(context, defaultValue: 14.0, valueWhen: const [
+      Condition.smallerThan(name: MOBILE, value: 10.0),
+      Condition.largerThan(name: TABLET, value: 26.0)
+    ]).value as double;
+    double? fontsize16 =
+        ResponsiveValue(context, defaultValue: 16.0, valueWhen: const [
+      Condition.smallerThan(name: MOBILE, value: 12.0),
+      Condition.largerThan(name: TABLET, value: 30.0)
+    ]).value as double;
+    double? size20 =
+        ResponsiveValue(context, defaultValue: 20.0, valueWhen: const [
+      Condition.smallerThan(name: MOBILE, value: 16.0),
+      Condition.largerThan(name: TABLET, value: 32.0)
+    ]).value as double;
+    double? iconsize =
+        ResponsiveValue(context, defaultValue: 30.0, valueWhen: const [
+      Condition.smallerThan(name: MOBILE, value: 20.0),
+      Condition.largerThan(name: TABLET, value: 50.0)
+    ]).value as double;
+    double? gap = ResponsiveValue(context, defaultValue: 8.0, valueWhen: const [
+      Condition.smallerThan(name: MOBILE, value: 6.0),
+      Condition.largerThan(name: TABLET, value: 10.0)
+    ]).value as double;
     return Stack(children: [
       Container(
         width: width,
@@ -28,36 +53,39 @@ class _AlertCardState extends State<AlertCard> {
               children: [
                 SvgPicture.asset(
                   "assets/error.svg",
-                  height: 30,
-                  width: 30,
+                  height: iconsize,
+                  width: iconsize,
                 ),
                 const SizedBox(
                   width: 10,
                 ),
-                const Text("REGISTER YOURSELF FIRST",
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                Text("REGISTER YOURSELF FIRST",
+                    style: TextStyle(
+                        fontSize: fontsize16, fontWeight: FontWeight.w600)),
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Text('To take advantage of the latest schemes.',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
-            const SizedBox(
-              height: 10,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Text('To take advantage of the latest schemes.',
+                  style: TextStyle(
+                      fontSize: fontsize14, fontWeight: FontWeight.w400)),
             ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: primary, elevation: 0),
+                    backgroundColor: primary,
+                    elevation: 0,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: size20, vertical: gap),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5))),
                 onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const UploadDoument())),
-                child: const Text(
+                child: Text(
                   "REGISTER",
                   style: TextStyle(
-                      fontSize: 14,
+                      fontSize: fontsize14,
                       fontWeight: FontWeight.w600,
                       color: Colors.white),
                 ))

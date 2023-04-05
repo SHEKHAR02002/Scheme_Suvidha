@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:scheme/Screen/registrationscreens/aadharcardupload.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
@@ -76,6 +77,26 @@ class _UploadDoumentState extends State<UploadDoument> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    double? fontsize14 =
+        ResponsiveValue(context, defaultValue: 14.0, valueWhen: const [
+      Condition.smallerThan(name: MOBILE, value: 10.0),
+      Condition.largerThan(name: TABLET, value: 26.0)
+    ]).value as double;
+    double? fontsize20 =
+        ResponsiveValue(context, defaultValue: 20.0, valueWhen: const [
+      Condition.smallerThan(name: MOBILE, value: 16.0),
+      Condition.largerThan(name: TABLET, value: 34.0)
+    ]).value as double;
+    double? iconsize =
+        ResponsiveValue(context, defaultValue: 50.0, valueWhen: const [
+      Condition.smallerThan(name: MOBILE, value: 40.0),
+      Condition.largerThan(name: TABLET, value: 70.0)
+    ]).value as double;
+    double? imgsize =
+        ResponsiveValue(context, defaultValue: 240.0, valueWhen: const [
+      Condition.smallerThan(name: MOBILE, value: 200.0),
+      Condition.largerThan(name: TABLET, value: 350.0)
+    ]).value as double;
     return Scaffold(
         body: SafeArea(
           child: Center(
@@ -86,15 +107,16 @@ class _UploadDoumentState extends State<UploadDoument> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     "Upload Passport Size photo",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: fontsize20, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     "(use file format .png, .jpg, .jpeg)",
                     style: TextStyle(
                         color: text2,
-                        fontSize: 14,
+                        fontSize: fontsize14,
                         fontWeight: FontWeight.w400),
                   ),
                   InkWell(
@@ -112,11 +134,13 @@ class _UploadDoumentState extends State<UploadDoument> {
                                 ? Image.file(File(imagepic))
                                 : SvgPicture.asset(
                                     "assets/upload_profile.svg",
+                                    height: imgsize,
+                                    width: imgsize,
                                   ),
-                            const Positioned.fill(
+                            Positioned.fill(
                               child: Icon(
                                 Icons.add_circle_outline,
-                                size: 50,
+                                size: iconsize,
                               ),
                             )
                           ]),

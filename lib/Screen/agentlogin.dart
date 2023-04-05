@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -18,6 +19,7 @@ class AgentLogin extends StatefulWidget {
 class _AgentLoginState extends State<AgentLogin> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
+  bool showPassword = false;
 
   Future singin({required String email, required String password}) async {
     // bool signComplete = false;
@@ -171,11 +173,19 @@ class _AgentLoginState extends State<AgentLogin> {
                       ],
                     ),
                     child: TextField(
+                      obscureText: showPassword,
                       keyboardType: TextInputType.visiblePassword,
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.w400),
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.all(15),
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                showPassword = !showPassword;
+                              });
+                            },
+                            icon: const Icon(CupertinoIcons.eye_slash_fill)),
                         prefixIcon: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: SvgPicture.asset(
