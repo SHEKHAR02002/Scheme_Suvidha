@@ -29,6 +29,7 @@ class FirebaseHelper {
       for (var tempData in temp) {
         ngoDetail = NgoModel.fromMap(tempData);
       }
+      return ngoDetail;
     }
     return null;
   }

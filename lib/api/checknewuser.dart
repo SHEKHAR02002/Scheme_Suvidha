@@ -97,70 +97,8 @@ Future userdataupload() async {
     "validupto": validupto,
     "registeration": true,
     "verification": false,
+    "msg": ""
   });
-}
-
-Future schemeapply({
-  required String schemename,
-  required String schemeid,
-}) async {
-  bool checkActiveScheme = await FirebaseFirestore.instance
-      .collection(
-          "Users/${FirebaseAuth.instance.currentUser!.uid}/AppliedScheme")
-      .where(
-        "progress",
-        isLessThan: 4,
-      )
-      .get()
-      .then((value) {
-    return value.docs.isEmpty;
-  });
-
-  if (checkActiveScheme) {
-    var refAppicationId =
-        await FirebaseFirestore.instance.collection("Application").add({
-      "userId": FirebaseAuth.instance.currentUser!.uid.toString(),
-      "userName": userDetail!.name,
-      "schemeId": schemeid,
-      "Activited": false,
-      "progress": 0,
-      "status": " waiting for under process",
-      "phoneno": userDetail!.phoneno,
-      "schemename": schemename,
-      "dataofapply": DateTime.now(),
-    });
-
-    await FirebaseFirestore.instance
-        .collection("Application")
-        .doc(refAppicationId.id)
-        .update({"Applicationid": refAppicationId.id});
-
-    await FirebaseFirestore.instance
-        .collection("Users")
-        .doc(FirebaseAuth.instance.currentUser!.uid.toString())
-        .collection("AppliedScheme")
-        .doc(refAppicationId.id)
-        .set({
-      "Applicationid": refAppicationId.id,
-      "status": " waiting for under process",
-      "userId": FirebaseAuth.instance.currentUser!.uid.toString(),
-      "userName": userDetail!.name,
-      "schemeId": schemeid,
-      "Activited": false,
-      "progress": 0,
-      "phoneno": userDetail!.phoneno,
-      "schemename": schemename,
-      "dataofapply": DateTime.now(),
-    });
-  } else {
-    Fluttertoast.showToast(
-        msg: "Can't apply for any scheme while being in active scheme",
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.BOTTOM,
-        fontSize: 20,
-        backgroundColor: primary,
-        textColor: Colors.white);
-  }
 }
 
 Future update() async {
@@ -169,4 +107,34 @@ Future update() async {
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .update(
           {"aadharno": aadharNo, "name": name, "dob": dob, "gender": gender});
+
+  Fluttertoast.showToast(
+      msg: "Aadhar Detail Update",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: primary,
+      textColor: Colors.white,
+      fontSize: 20.0);
+}
+
+Future updateudid() async {
+  await FirebaseFirestore.instance
+      .collection("Users")
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .update({
+    "udidno": udidNo,
+    "disabilitytype": disbilitytype,
+    "disabilitypercentage": disabilitypercentage,
+    "dateissue": dataissue,
+    "validupto": validupto
+  });
+  Fluttertoast.showToast(
+      msg: "UDID Detail Update",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: primary,
+      textColor: Colors.white,
+      fontSize: 20.0);
 }

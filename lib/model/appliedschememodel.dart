@@ -1,31 +1,34 @@
 class ApplySchmeDetail {
   String? applicationid;
   String? userid;
-  String? disabilitytype;
-  String? schmename;
-  // String? applydate;
-  bool? verification;
-  String? aadharno;
   String? name;
+  bool? activited;
+  String? phoneno;
+  int? progress;
+  String? schemeid;
+  String? schemename;
+  String? status;
 
   ApplySchmeDetail(
-      {required this.aadharno,
+      {required this.activited,
       required this.applicationid,
-      // required this.applydate,
-      required this.disabilitytype,
       required this.name,
-      required this.schmename,
-      required this.userid,
-      required this.verification});
+      required this.phoneno,
+      required this.progress,
+      required this.schemeid,
+      required this.schemename,
+      required this.status,
+      required this.userid});
 
   ApplySchmeDetail.fromMap(Map<String, dynamic> map) {
-    aadharno = map['aadharno'];
+    activited = map['Activited'];
     applicationid = map['Applicationid'];
-    // applydate = map['dataofapply'];
-    disabilitytype = map['disabilitytype'];
-    name = map['name'];
-    schmename = map['schemename'];
+    name = map['userName'];
+    phoneno = map['phoneno'];
+    progress = map['progress'];
+    schemeid = map['schemeId'];
+    schemename = map['schemename'];
+    status = map['status'];
     userid = map['userId'];
-    verification = map['verification'];
   }
 }

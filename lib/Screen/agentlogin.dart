@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:scheme/Screen/Agent/agentwaiting.dart';
 import 'package:scheme/Screen/agentwidget/agentregistration.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/api/checknewuser.dart';
+import 'package:scheme/data/userdata.dart';
 
 import 'Agent/agentbottomsheet.dart';
 
@@ -28,11 +30,16 @@ class _AgentLoginState extends State<AgentLogin> {
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) async {
         if (value.user!.uid.isNotEmpty) {
-          await checkuser(context: context).whenComplete(() =>
-              Navigator.pushAndRemoveUntil(
+          await checkuser(context: context).whenComplete(() => agentDetails!
+                  .verification
+              ? Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const BottomNavigator()),
+                  (route) => false)
+              : Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AgentWaiting()),
                   (route) => false));
           return true;
         } else {

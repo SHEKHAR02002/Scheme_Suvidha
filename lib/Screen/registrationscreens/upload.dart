@@ -7,11 +7,28 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:scheme/Screen/registrationscreens/aadharcardupload.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
+import 'package:scheme/command/screenstate.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/imagecopper.dart';
 import 'dart:io';
 
 String imagepic = "";
+
+Future<dynamic> takepicImage() async {
+  try {
+    final XFile? image =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    String cropFile = await userImagecopper(pickedFile: image);
+    // final File file = File(image!.path);
+
+    !isagent ? imagepic = cropFile : agentbyimage = cropFile;
+    imagepick = true;
+  } catch (e) {
+    if (kDebugMode) {
+      print(e.toString());
+    }
+  }
+}
 
 class UploadDoument extends StatefulWidget {
   const UploadDoument({super.key});
@@ -20,10 +37,27 @@ class UploadDoument extends StatefulWidget {
   State<UploadDoument> createState() => _UploadDoumentState();
 }
 
-class _UploadDoumentState extends State<UploadDoument> {
-  bool pickedaadhar = false;
-  bool pickedudid = false;
-  bool imagepick = false;
+bool imagepick = false;
+
+class _UploadDoumentState extends State<UploadDoument> with RouteAware {
+  @override
+  void initState() {
+    screenSate = "userphoto";
+    setVisuals("userphoto");
+    super.initState();
+  }
+
+  @override
+  void didPush() {
+    setVisuals("addharcardpage");
+    super.didPush();
+  }
+
+  @override
+  void didPop() {
+    setVisuals("Home");
+    super.didPop();
+  }
 
   // upload() async {
   //   showDialog(
@@ -97,82 +131,88 @@ class _UploadDoumentState extends State<UploadDoument> {
       Condition.smallerThan(name: MOBILE, value: 200.0),
       Condition.largerThan(name: TABLET, value: 350.0)
     ]).value as double;
-    return Scaffold(
-        body: SafeArea(
-          child: Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Upload Passport Size photo",
-                    style: TextStyle(
-                        fontSize: fontsize20, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "(use file format .png, .jpg, .jpeg)",
-                    style: TextStyle(
-                        color: text2,
-                        fontSize: fontsize14,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  InkWell(
-                    onTap: () => picImage(
-                      source: ImageSource.camera,
+    return RefreshIndicator(
+      onRefresh: () async {
+        setState(() {});
+      },
+      child: Scaffold(
+          body: SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Upload Passport Size photo",
+                      style: TextStyle(
+                          fontSize: fontsize20, fontWeight: FontWeight.bold),
                     ),
-                    child: Container(
-                        width: width,
-                        decoration: shadowdecoration,
-                        margin: const EdgeInsets.symmetric(vertical: 30),
-                        padding: const EdgeInsets.symmetric(vertical: 70),
-                        child: Center(
-                          child: Stack(children: [
-                            imagepick
-                                ? Image.file(File(imagepic))
-                                : SvgPicture.asset(
-                                    "assets/upload_profile.svg",
-                                    height: imgsize,
-                                    width: imgsize,
-                                  ),
-                            Positioned.fill(
-                              child: Icon(
-                                Icons.add_circle_outline,
-                                size: iconsize,
-                              ),
-                            )
-                          ]),
-                        )),
-                  ),
-                ],
+                    Text(
+                      "(use file format .png, .jpg, .jpeg)",
+                      style: TextStyle(
+                          color: text2,
+                          fontSize: fontsize14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                    InkWell(
+                      onTap: () => picImage(
+                        source: ImageSource.camera,
+                      ),
+                      child: Container(
+                          width: width,
+                          decoration: shadowdecoration,
+                          margin: const EdgeInsets.symmetric(vertical: 30),
+                          padding: const EdgeInsets.symmetric(vertical: 70),
+                          child: Center(
+                            child: Stack(children: [
+                              imagepick
+                                  ? Image.file(File(imagepic))
+                                  : SvgPicture.asset(
+                                      "assets/upload_profile.svg",
+                                      height: imgsize,
+                                      width: imgsize,
+                                    ),
+                              Positioned.fill(
+                                child: Icon(
+                                  Icons.add_circle_outline,
+                                  size: iconsize,
+                                ),
+                              )
+                            ]),
+                          )),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        bottomNavigationBar: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
-            child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AadharCard()));
-                },
-                // upload(),
-                style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                    backgroundColor: primary,
-                    minimumSize: Size(width, 50)),
-                child: const Text(
-                  "Continue",
-                  style: TextStyle(
-                      fontFamily: "Overpass",
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700),
-                ))));
+          bottomNavigationBar: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
+              child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AadharCard()));
+                  },
+                  // upload(),
+                  style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                      backgroundColor: primary,
+                      minimumSize: Size(width, 50)),
+                  child: const Text(
+                    "Continue",
+                    style: TextStyle(
+                        fontFamily: "Overpass",
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700),
+                  )))),
+    );
   }
 }

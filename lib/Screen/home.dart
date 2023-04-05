@@ -1,3 +1,4 @@
+import 'package:alan_voice/alan_voice.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -5,12 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:scheme/Screen/agentwidget/filtercontainer.dart';
-import 'package:scheme/Screen/notificationcenter.dart';
 import 'package:scheme/Screen/profile.dart';
+import 'package:scheme/Screen/registrationscreens/uploaddocument.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/api/getrecommendschemes.dart';
 import 'package:scheme/api/getscheme.dart';
+import 'package:scheme/command/screenstate.dart';
+import 'package:scheme/command/voicecommands.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/schememodel.dart';
 import 'package:scheme/widget/alertcard.dart';
@@ -93,6 +96,21 @@ class _HomeState extends State<Home> {
     // print(campdetail);
   }
 
+  getAlan() {
+    /// Init Alan Button with project key from Alan Studio
+    AlanVoice.addButton(
+        "2138334cc4efdbd5298ac6d09db1a2f22e956eca572e1d8b807a3e2338fdd0dc/stage",
+        buttonAlign: AlanVoice.BUTTON_ALIGN_RIGHT);
+
+    getfunc(value, getValue) => setState(() {
+          value = getValue;
+        });
+
+    /// Handle commands from Alan Studio
+    AlanVoice.onCommand
+        .add((command) => handleCommand(command.data, context, getfunc));
+  }
+
   // Filter Scheme
   List schemesDetails = [];
   bool schemeLoader = true;
@@ -115,6 +133,11 @@ class _HomeState extends State<Home> {
 
   Future callApi() async {
     // getUserDetails();
+    setVisuals("Home");
+    screenSate = "Home";
+    if (userDetail == null) {
+      FirebaseAuth.instance.signOut();
+    }
     setState(() {
       campLoader = true;
       ngoLoader = true;
@@ -179,7 +202,10 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 20), () => callApi());
+    getAlan();
+
+    // Future.delayed(const Duration(seconds: 3), () => callApi());
+    callApi();
     // log(registration.toString());
 
     super.initState();
@@ -235,10 +261,14 @@ class _HomeState extends State<Home> {
                   //showDialog(
                   //  context: context,
                   //builder: (context) => const ImageSourcePopup());
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => const NotificationCenter()));
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const NotificationCenter()));
+                          builder: (context) => const UploadDocument()));
                 },
                 child: SvgPicture.asset(
                   "assets/notification.svg",

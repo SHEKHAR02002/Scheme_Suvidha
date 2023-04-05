@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:scheme/Screen/Agent/agentbottomsheet.dart';
+import 'package:scheme/Screen/Agent/agentwaiting.dart';
 import 'package:scheme/Screen/home.dart';
 import 'package:scheme/Screen/login.dart';
 import 'package:scheme/Theme/color.dart';
@@ -49,7 +50,9 @@ class _SplashState extends State<Splash> {
           ? const Login()
           : !isagent
               ? const Home()
-              : const BottomNavigator(),
+              : agentDetails!.verification
+                  ? const BottomNavigator()
+                  : const AgentWaiting(),
       imageSrc: "assets/splashlogo.png",
       logoSize: 300,
       pageRouteTransition: PageRouteTransition.SlideTransition,

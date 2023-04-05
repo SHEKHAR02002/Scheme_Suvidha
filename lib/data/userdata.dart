@@ -11,7 +11,7 @@ String? udidNo,
     validupto,
     udidimage,
     passportimage;
-
+String screenSate = "Home";
 bool registration = false, verificationstatus = false, isagent = false;
 AgentModel? agentDetails;
 UserModel? userDetail;

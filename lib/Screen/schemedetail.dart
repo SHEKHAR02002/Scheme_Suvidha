@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Screen/home.dart';
 import 'package:scheme/Theme/color.dart';
-import 'package:scheme/api/checknewuser.dart';
+import 'package:scheme/api/getscheme.dart';
 import 'package:scheme/model/schememodel.dart';
 import 'package:scheme/widget/processingpopup.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -231,26 +231,6 @@ class _SchemeDetailState extends State<SchemeDetail> {
                         fontWeight: FontWeight.w400),
                   ),
                 ),
-                const SizedBox(
-                  height: 24,
-                ),
-                // const Text(
-                //   "Eligibility Criteria",
-                //   style: TextStyle(
-                //       fontFamily: 'Overpass',
-                //       fontSize: 20,
-                //       fontWeight: FontWeight.w600),
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 8, top: 10),
-                //   child: Text(
-                //     widget.schemedata..toString(),
-                //     style: const TextStyle(
-                //         fontFamily: 'Overpass',
-                //         fontSize: 16,
-                //         fontWeight: FontWeight.w400),
-                //   ),
-                // ),
                 const SizedBox(
                   height: 24,
                 ),

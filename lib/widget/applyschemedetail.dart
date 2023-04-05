@@ -77,7 +77,8 @@ class _AppliedSchemeState extends State<AppliedScheme> {
                         return CardAppliedScheme(
                           applyschemes: schemdata,
                         );
-                      })),
+                      }),
+            ),
     );
   }
 }
