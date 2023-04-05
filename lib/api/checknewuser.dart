@@ -97,6 +97,7 @@ Future userdataupload() async {
     "validupto": validupto,
     "registeration": true,
     "verification": false,
+    "msg": ""
   });
 }
 

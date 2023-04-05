@@ -88,7 +88,7 @@ class UserModel {
 
     image = map['image'];
 
-    applyschemename = map['schemename'];
+    applyschemename = map['schemeName'];
     // applydate = map['dataofapply'].toDate();
   }
 

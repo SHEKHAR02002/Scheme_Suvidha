@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lottie/lottie.dart';
 import 'package:scheme/Screen/agentwidget/applicationcard.dart';
 import 'package:scheme/Screen/agentwidget/overvieewcard.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/api/getscheme.dart';
-import 'package:scheme/api/getuserdetail.dart';
 import 'package:scheme/model/usermodel.dart';
+import 'package:tbib_splash_screen/splash_screen_view.dart';
 
 class AgentHome extends StatefulWidget {
   const AgentHome({super.key});
@@ -17,32 +16,15 @@ class AgentHome extends StatefulWidget {
 
 class _AgentHomeState extends State<AgentHome> {
   bool applicationloader = true;
-  bool myapplicationloader = true;
   List application = [];
-  List myapplication = [];
 
   Future callApi() async {
-    myapplication.clear();
-    // application.clear();
-    List temp = [];
-    List temp1 = [];
-    // temp.addAll(await getapplication());
-    temp1.addAll(await getmyapplication());
-    for (var items in myapplication) {
-      temp1.removeWhere(
-          (element) => element["Applicationid"] == items["Applicationid"]);
-    }
+    application.clear();
+    application.addAll(await getapplication());
     if (mounted) {
       setState(() {
-        application.addAll(temp);
-
         if (application.isNotEmpty) {
           applicationloader = false;
-        }
-
-        myapplication.addAll(temp1);
-        if (myapplication.isNotEmpty) {
-          myapplicationloader = false;
         }
       });
     }
@@ -100,18 +82,11 @@ class _AgentHomeState extends State<AgentHome> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const OverviewCard(),
-                  application.isEmpty && myapplication.isEmpty
+                  const SizedBox(height: 30),
+                  application.isEmpty
                       ? Center(
                           child: Column(
                             children: [
-                              Text(
-                                'My Applications',
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: primary),
-                              ),
                               Lottie.asset("animations/waiting.json",
                                   height: 200, width: 200),
                               const Text(
@@ -125,31 +100,32 @@ class _AgentHomeState extends State<AgentHome> {
                             ],
                           ),
                         )
-                      : !myapplicationloader
-                          ? Text(
-                              'My Applications',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: primary),
-                            )
-                          : const SizedBox.shrink(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: myapplication.length,
-                        itemBuilder: (context, index) {
-                          UserModel myapplications =
-                              UserModel.fromMap(myapplication[index]);
-                          return ApplicationCard(
-                            activate: true,
-                            userid: myapplications.userId.toString(),
-                            applicationdetails: myapplications,
-                          );
-                        }),
-                  ),
+                      : const SizedBox.shrink(),
+                  //     : !myapplicationloader
+                  //         ? Text(
+                  //             'My Applications',
+                  //             style: TextStyle(
+                  //                 fontSize: 16,
+                  //                 fontWeight: FontWeight.w500,
+                  //                 color: primary),
+                  //           )
+                  //         : const SizedBox.shrink(),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(vertical: 15),
+                  //   child: ListView.builder(
+                  //       shrinkWrap: true,
+                  //       physics: const NeverScrollableScrollPhysics(),
+                  //       itemCount: myapplication.length,
+                  //       itemBuilder: (context, index) {
+                  //         UserModel myapplications =
+                  //             UserModel.fromMap(myapplication[index]);
+                  //         return ApplicationCard(
+                  //           activate: true,
+                  //           userid: myapplications.userId.toString(),
+                  //           applicationdetails: myapplications,
+                  //         );
+                  //       }),
+                  // ),
                   !applicationloader
                       ? Text(
                           'Applications',
@@ -159,22 +135,24 @@ class _AgentHomeState extends State<AgentHome> {
                               color: primary),
                         )
                       : const SizedBox.shrink(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: application.length,
-                        itemBuilder: (context, index) {
-                          UserModel applications =
-                              UserModel.fromMap(application[index]);
-                          return ApplicationCard(
-                            userid: applications.userId.toString(),
-                            activate: false,
-                            applicationdetails: applications,
-                          );
-                        }),
-                  )
+                  !applicationloader
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: application.length,
+                              itemBuilder: (context, index) {
+                                UserModel applications =
+                                    UserModel.fromMap(application[index]);
+                                return ApplicationCard(
+                                  userid: applications.userId.toString(),
+                                  activate: false,
+                                  applicationdetails: applications,
+                                );
+                              }),
+                        )
+                      : const SizedBox.shrink()
                 ],
               )),
         ));

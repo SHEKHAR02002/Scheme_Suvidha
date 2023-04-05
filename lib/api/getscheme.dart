@@ -149,11 +149,13 @@ Future schemeapply({
 }
 
 Future getapplication() async {
-  List applicant = [];
+  List<Map<String, dynamic>> applicant = [];
   await FirebaseFirestore.instance
-      .collection("Application")
+      .collection("Users")
+      .where("registeration", isEqualTo: true)
+      .where("verification", isEqualTo: false)
       .get()
-      .then((QuerySnapshot querysnapshot) {
+      .then((QuerySnapshot<Map<String, dynamic>> querysnapshot) async {
     for (var doc in querysnapshot.docs) {
       applicant.add(doc.data());
     }
