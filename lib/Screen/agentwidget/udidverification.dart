@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:scheme/Screen/Agent/agentbottomsheet.dart';
 import 'package:scheme/Screen/agentwidget/verification.dart';
@@ -5,6 +6,9 @@ import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/api/agentfuncation.dart';
 import 'package:scheme/model/usermodel.dart';
+import 'package:scheme/widget/processingpopup.dart';
+
+import '../../data/userdata.dart';
 
 class UDIDVerification extends StatefulWidget {
   final UserModel applicationdetails;
@@ -15,6 +19,7 @@ class UDIDVerification extends StatefulWidget {
 }
 
 class _UDIDVerificationState extends State<UDIDVerification> {
+  final TextEditingController _msg = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -69,7 +74,23 @@ class _UDIDVerificationState extends State<UDIDVerification> {
                         ),
                         backgroundColor: primary,
                         minimumSize: const Size(80, 30)),
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (_) => Dialog(
+                                child: CachedNetworkImage(
+                                    key: UniqueKey(),
+                                    cacheManager: customCacheManager,
+                                    // height: 80,
+                                    // width: 74,
+                                    fit: BoxFit.fill,
+                                    imageUrl: widget
+                                        .applicationdetails.udidimage
+                                        .toString(),
+                                    placeholder: (context, url) => const Center(
+                                        child: CircularProgressIndicator())),
+                              ));
+                    },
                     child: const Text(
                       "View",
                       style: TextStyle(
@@ -170,14 +191,22 @@ class _UDIDVerificationState extends State<UDIDVerification> {
             Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
                 child: ElevatedButton(
-                    onPressed: () {
-                      applicationaccept(
-                          applicationdetails: widget.applicationdetails);
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const BottomNavigator()),
-                          (route) => false);
+                    onPressed: () async {
+                      showDialog(
+                          context: context,
+                          builder: (c) => processingPopup(
+                              context: context,
+                              msg: "Acceptng the User Documents"));
+                      await verifyUser(
+                              accepted: true,
+                              userId:
+                                  widget.applicationdetails.userId.toString())
+                          .whenComplete(() => Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const BottomNavigator()),
+                              (route) => false));
                     },
 
                     // upload(),
@@ -197,7 +226,80 @@ class _UDIDVerificationState extends State<UDIDVerification> {
             Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
                 child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (_) => Dialog(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          "Review",
+                                          style: TextStyle(
+                                              fontSize: 28,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 20),
+                                          child: TextField(
+                                            controller: _msg,
+                                            style: const TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w400),
+                                            decoration: InputDecoration(
+                                              hintText:
+                                                  "Write a review for rejection",
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10,
+                                                      horizontal: 10),
+                                              filled: true,
+                                              fillColor: Colors.white,
+                                              border: OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                      width: 1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5)),
+                                            ),
+                                          ),
+                                        ),
+                                        ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor: primary,
+                                                fixedSize: Size(width, 40)),
+                                            onPressed: () async {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (c) => processingPopup(
+                                                      context: context,
+                                                      msg:
+                                                          "Rejecting the User Documents"));
+                                              await verifyUser(
+                                                      accepted: false,
+                                                      msg: _msg.text,
+                                                      userId: widget
+                                                          .applicationdetails
+                                                          .userId
+                                                          .toString())
+                                                  .whenComplete(() => Navigator
+                                                      .pushAndRemoveUntil(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  const BottomNavigator()),
+                                                          (route) => false));
+                                            },
+                                            child:
+                                                const Text("Send the Review"))
+                                      ]),
+                                ),
+                              ));
+                    },
 
                     // upload(),
                     style: ElevatedButton.styleFrom(

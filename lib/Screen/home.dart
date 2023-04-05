@@ -114,6 +114,9 @@ class _HomeState extends State<Home> {
 
   Future callApi() async {
     // getUserDetails();
+    if (userDetail == null) {
+      FirebaseAuth.instance.signOut();
+    }
     setState(() {
       campLoader = true;
       ngoLoader = true;

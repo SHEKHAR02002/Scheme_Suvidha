@@ -1,10 +1,12 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:scheme/Screen/agentwidget/udidverification.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
+import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/usermodel.dart';
 
 class AgentVerification extends StatefulWidget {
@@ -69,10 +71,12 @@ class _AgentVerificationState extends State<AgentVerification> {
               children: [
                 CircleAvatar(
                   radius: 40,
-                  child: Image.network(
-                    "https://firebasestorage.googleapis.com/v0/b/scheme-suvidha-admin.appspot.com/o/miscellaneous%2Fdefalutprofile.png?alt=media&token=fbf2357d-d893-43a7-9bcc-412f454691c4",
-                    fit: BoxFit.cover,
-                  ),
+                  foregroundImage: widget.applicationdetails.image != null
+                      ? NetworkImage(widget.applicationdetails.image.toString())
+                      : const NetworkImage(
+                          "https://firebasestorage.googleapis.com/v0/b/scheme-suvidha-admin.appspot.com/o/miscellaneous%2Fdefalutprofile.png?alt=media&token=fbf2357d-d893-43a7-9bcc-412f454691c4",
+                          // fit: BoxFit.cover,
+                        ),
                 ),
                 const SizedBox(
                   width: 10,
@@ -88,7 +92,7 @@ class _AgentVerificationState extends State<AgentVerification> {
                     SizedBox(
                       width: 200,
                       child: Text(
-                        widget.applicationdetails.applyschemename.toString(),
+                        widget.applicationdetails.disabilitytype.toString(),
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
@@ -129,7 +133,17 @@ class _AgentVerificationState extends State<AgentVerification> {
                       showDialog(
                           context: context,
                           builder: (_) => Dialog(
-                                child: Image.network(userData!.aadharimage!),
+                                child: CachedNetworkImage(
+                                    key: UniqueKey(),
+                                    cacheManager: customCacheManager,
+                                    // height: 80,
+                                    // width: 74,
+                                    fit: BoxFit.fill,
+                                    imageUrl: widget
+                                        .applicationdetails.aadharimage
+                                        .toString(),
+                                    placeholder: (context, url) => const Center(
+                                        child: CircularProgressIndicator())),
                               ));
                     },
                     child: const Text(
