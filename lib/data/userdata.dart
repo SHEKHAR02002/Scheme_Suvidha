@@ -10,7 +10,7 @@ String? udidNo,
     dataissue,
     validupto,
     udidimage,
-    passportimage;
+    image;
 String screenSate = "Home";
 bool registration = false, verificationstatus = false, isagent = false;
 AgentModel? agentDetails;
