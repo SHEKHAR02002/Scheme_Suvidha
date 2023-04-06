@@ -367,6 +367,7 @@ class _HomeState extends State<Home> {
                                 SchemeModel schemdata =
                                     SchemeModel.fromMap(recommend[index]);
                                 return SchemeCard(
+                                  verification: verification,
                                   schemedata: schemdata,
                                   register: register,
                                   agent: false,
@@ -472,6 +473,7 @@ class _HomeState extends State<Home> {
                             SchemeModel schemdata =
                                 SchemeModel.fromMap(schemesDetails[index]);
                             return SchemeCard(
+                              verification: verification,
                               schemedata: schemdata,
                               register: register,
                               agent: false,

@@ -96,11 +96,9 @@ Future verifyUser(
 
 Future agentbyregistration() async {
   var details = await FirebaseFirestore.instance
-      .collection("AgentUser")
-      .doc(FirebaseAuth.instance.currentUser!.uid.toString())
-      .collection("FormFilled")
+      .collection("Agentdoneregisterations")
       .add({
-    "userId": FirebaseAuth.instance.currentUser!.uid.toString(),
+    "agentId": FirebaseAuth.instance.currentUser!.uid.toString(),
     "image": agentbyimage,
     "aadharno": aadharNo,
     "name": name,
@@ -127,9 +125,32 @@ Future agentbyregistration() async {
     "ageprooftype": ageprooftype
   });
   FirebaseFirestore.instance
-      .collection("AgentUser")
-      .doc(FirebaseAuth.instance.currentUser!.uid.toString())
-      .collection("FormFilled")
+      .collection("Agentdoneregisterations")
       .doc(details.id)
       .update({"applicationid": details.id});
+}
+
+agentapplyscheme({
+  required String schemeid,
+  required String schemename,
+  required String userphoneno,
+  required String registerid,
+}) async {
+  var refAppicationId =
+      await FirebaseFirestore.instance.collection("Application").add({
+    "userId": FirebaseAuth.instance.currentUser!.uid.toString(),
+    "userName": userDetail!.name,
+    "schemeId": schemeid,
+    "Activited": false,
+    "progress": 0,
+    "status": " waiting for under process",
+    "phoneno": userDetail!.phoneno,
+    "schemename": schemename,
+    "dataofapply": DateTime.now(),
+  });
+
+  await FirebaseFirestore.instance
+      .collection("Application")
+      .doc(refAppicationId.id)
+      .update({"Applicationid": refAppicationId.id});
 }

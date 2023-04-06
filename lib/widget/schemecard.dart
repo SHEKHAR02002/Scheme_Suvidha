@@ -14,12 +14,14 @@ class SchemeCard extends StatefulWidget {
   final SchemeModel schemedata;
   final bool register;
   final bool agent;
+  final bool verification;
 
   const SchemeCard(
       {super.key,
       required this.schemedata,
       required this.register,
-      required this.agent});
+      required this.agent,
+      required this.verification});
 
   @override
   State<SchemeCard> createState() => _SchemeCardState();
@@ -71,6 +73,7 @@ class _SchemeCardState extends State<SchemeCard> {
           MaterialPageRoute(
               builder: (context) => !widget.agent
                   ? SchemeDetail(
+                      verification: widget.verification,
                       register: widget.register,
                       schemedata: widget.schemedata,
                     )

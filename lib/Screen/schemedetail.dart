@@ -13,8 +13,12 @@ var uuid = const Uuid();
 class SchemeDetail extends StatefulWidget {
   final SchemeModel schemedata;
   final bool register;
+  final bool verification;
   const SchemeDetail(
-      {super.key, required this.schemedata, required this.register});
+      {super.key,
+      required this.schemedata,
+      required this.register,
+      required this.verification});
 
   @override
   State<SchemeDetail> createState() => _SchemeDetailState();
@@ -280,7 +284,7 @@ class _SchemeDetailState extends State<SchemeDetail> {
             ),
           ),
         ),
-        bottomNavigationBar: widget.register
+        bottomNavigationBar: widget.register && widget.verification
             ? Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
                 child: ElevatedButton(
