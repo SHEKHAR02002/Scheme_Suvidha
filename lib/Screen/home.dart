@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:scheme/Screen/agentwidget/filtercontainer.dart';
+import 'package:scheme/Screen/knowagent.dart';
 import 'package:scheme/Screen/notificationcenter.dart';
 import 'package:scheme/Screen/profile.dart';
 import 'package:scheme/Theme/color.dart';
@@ -615,7 +616,11 @@ class _HomeState extends State<Home> {
                                               BorderRadius.circular(10)),
                                       side: BorderSide(
                                           width: 1.0, color: primary)),
-                                  onPressed: () {},
+                                  onPressed: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const KnowAgent())),
                                   child: const Text(
                                     "know more",
                                     style: TextStyle(
