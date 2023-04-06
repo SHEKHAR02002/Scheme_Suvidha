@@ -606,14 +606,20 @@ class _HomeState extends State<Home> {
                               ),
                               ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      backgroundColor: primary, elevation: 0),
+                                      backgroundColor: Colors.white,
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      side: BorderSide(
+                                          width: 1.0, color: primary)),
                                   onPressed: () {},
                                   child: const Text(
                                     "know more",
                                     style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black),
                                   ))
                             ],
                           ),
