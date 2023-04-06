@@ -53,6 +53,7 @@ dependencies:
   pie_chart: ^5.3.2
   uuid: ^3.0.7
   fluttertoast: ^8.2.1
+  file_picker: ^5.2.7
   
   
    # for firebase

@@ -1,22 +1,19 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:scheme/Screen/Agent/applyuserscheme.dart';
+import 'package:scheme/Screen/registrationscreens/uploaddocument.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
-import 'package:scheme/api/checknewuser.dart';
 import 'package:scheme/api/scanimage.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/datepicker.dart';
 import 'package:scheme/provider/imagecopper.dart';
 import 'package:scheme/provider/takeimage.dart';
 import 'package:scheme/Screen/registrationscreens/aadharcardupload.dart';
-import 'package:scheme/Screen/registrationscreens/donesplash.dart';
 import 'package:scheme/widget/processingpopup.dart';
 import 'package:scheme/widget/textfield.dart';
 import 'package:scheme/Screen/registrationscreens/upload.dart';
@@ -66,13 +63,10 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
     var udidpiclink = await fireStoreFileUpload(
         "${FirebaseAuth.instance.currentUser!.uid}/udidcard.jpg", udidpic);
 
-    await FirebaseFirestore.instance
-        .collection("Users")
-        .doc(FirebaseAuth.instance.currentUser!.uid.toString())
-        .update({
-      "image": passportimage,
-      "udidimage": udidpiclink,
-      "aadharimage": addharpiclink
+    setState(() {
+      image = passportimage;
+      aadharimage = addharpiclink;
+      udidimage = udidpiclink;
     });
   }
 
@@ -295,11 +289,6 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
                   child: ElevatedButton(
                       onPressed: () async {
-                        showDialog(
-                            context: context,
-                            builder: (c) => processingPopup(
-                                context: context, msg: "Uploading data"));
-
                         if (_udidNo.text != "" &&
                             _disabilitypercentage.text != "" &&
                             _disbilitytype.text != '' &&
@@ -311,25 +300,12 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                           dataissue = _dataissue.text;
                           validupto = _validupto.text;
 
-                          !isagent
-                              ? await uploadImgdata().whenComplete(() =>
-                                  userdataupload().whenComplete(() async =>
-                                      await checkuser(context: context)
-                                          .whenComplete(() {
-                                        registration = true;
-                                        Navigator.pop(context);
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const DoneUpload()));
-                                      })))
-                              : Navigator.pushAndRemoveUntil(
+                          await uploadImgdata().whenComplete(() =>
+                              Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const ApplyUserScheme()),
-                                  (route) => false);
+                                          const UploadDocument())));
                         } else {
                           Fluttertoast.showToast(
                               msg: "Fill the details properly",
@@ -348,7 +324,7 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                           backgroundColor: primary,
                           minimumSize: Size(width, 50)),
                       child: const Text(
-                        "Register",
+                        "Next",
                         style: TextStyle(
                             fontFamily: "Overpass",
                             fontSize: 18,

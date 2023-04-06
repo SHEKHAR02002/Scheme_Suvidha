@@ -85,19 +85,29 @@ Future userdataupload() async {
       .doc(FirebaseAuth.instance.currentUser!.uid.toString())
       .update({
     "userId": FirebaseAuth.instance.currentUser!.uid.toString(),
+    "image": image,
     "aadharno": aadharNo,
     "name": name,
     "dob": dob,
     "gender": gender,
+    "aadharimage": aadharimage,
+    "udidimage": udidimage,
     "udidno": udidNo,
-    "udidname": udidname,
     "disabilitytype": disbilitytype,
     "disabilitypercentage": disabilitypercentage,
     "dateissue": dataissue,
     "validupto": validupto,
     "registeration": true,
     "verification": false,
-    "msg": ""
+    "msg": "",
+    "addressproof": addressprooflink,
+    "ageproof": ageprooflink,
+    "domacaile": domacilelink,
+    "income": incomecertilink,
+    "lastyear": lastyearlink,
+    "parentid": parentidlink,
+    "addressprooftype": addresproftype,
+    "ageprooftype": ageprooftype
   });
 }
 

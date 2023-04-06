@@ -1,8 +1,8 @@
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:scheme/model/usermodel.dart';
 
-String aadharImage = "", fcmToken = "";
-String? aadharNo, dob, gender, name, phoneNo, aadharimage, image;
+String fcmToken = "";
+String? aadharNo, dob, gender, name, phoneNo, aadharimage;
 String? udidNo,
     udidname,
     disbilitytype,
@@ -10,7 +10,7 @@ String? udidNo,
     dataissue,
     validupto,
     udidimage,
-    passportimage;
+    image;
 
 bool registration = false, verificationstatus = false, isagent = false;
 AgentModel? agentDetails;
@@ -48,3 +48,12 @@ String? agentbyimage,
     agentbydisabilitypercentage,
     agentbydataissue,
     agentbyvalidupto;
+
+String? addressprooflink,
+    addresproftype,
+    ageprooftype,
+    ageprooflink,
+    domacilelink,
+    incomecertilink,
+    lastyearlink,
+    parentidlink;
