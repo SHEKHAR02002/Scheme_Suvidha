@@ -15,7 +15,7 @@ class Editudid extends StatefulWidget {
 
 class _EditudidState extends State<Editudid> {
   final TextEditingController _editudid = TextEditingController();
-  final TextEditingController _editname = TextEditingController();
+  // final TextEditingController _editname = TextEditingController();
   final TextEditingController _editdisability = TextEditingController();
   final TextEditingController _editdisabilitypercentage =
       TextEditingController();

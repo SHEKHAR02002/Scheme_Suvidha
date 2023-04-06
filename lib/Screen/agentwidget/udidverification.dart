@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:scheme/Screen/Agent/agentbottomsheet.dart';
 import 'package:scheme/Screen/agentwidget/verification.dart';
@@ -7,8 +7,6 @@ import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/api/agentfuncation.dart';
 import 'package:scheme/model/usermodel.dart';
 import 'package:scheme/widget/processingpopup.dart';
-
-import '../../data/userdata.dart';
 
 class UDIDVerification extends StatefulWidget {
   final UserModel applicationdetails;
@@ -78,18 +76,16 @@ class _UDIDVerificationState extends State<UDIDVerification> {
                       showDialog(
                           context: context,
                           builder: (_) => Dialog(
-                                child: CachedNetworkImage(
-                                    key: UniqueKey(),
-                                    cacheManager: customCacheManager,
-                                    // height: 80,
-                                    // width: 74,
-                                    fit: BoxFit.fill,
-                                    imageUrl: widget
-                                        .applicationdetails.udidimage
-                                        .toString(),
-                                    placeholder: (context, url) => const Center(
-                                        child: CircularProgressIndicator())),
-                              ));
+                                  child: ExtendedImage.network(
+                                widget.applicationdetails.udidimage.toString(),
+                                fit: BoxFit.fill,
+                                mode: ExtendedImageMode.gesture,
+
+                                cache: true,
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(30.0)),
+                                //cancelToken: cancellationToken,
+                              )));
                     },
                     child: const Text(
                       "View",

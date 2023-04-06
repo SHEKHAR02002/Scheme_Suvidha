@@ -16,8 +16,8 @@ String imagepic = "";
 
 Future<dynamic> takepicImage() async {
   try {
-    final XFile? image =
-        await ImagePicker().pickImage(source: ImageSource.camera);
+    final XFile? image = await ImagePicker()
+        .pickImage(source: ImageSource.camera, imageQuality: 40);
     String cropFile = await userImagecopper(pickedFile: image);
     // final File file = File(image!.path);
 
@@ -93,7 +93,8 @@ class _UploadDoumentState extends State<UploadDoument> with RouteAware {
     required source,
   }) async {
     try {
-      final XFile? image = await ImagePicker().pickImage(source: source);
+      final XFile? image =
+          await ImagePicker().pickImage(source: source, imageQuality: 40);
       String cropFile = await userImagecopper(pickedFile: image);
       // final File file = File(image!.path);
       setState(() {

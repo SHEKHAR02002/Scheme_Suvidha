@@ -27,7 +27,6 @@ Future getFilter({
   required String filter,
 }) async {
   filterscheme.addAll(await getSchemes(filter: filter));
-  print(filterscheme);
 }
 
 class _SearchState extends State<Search> {

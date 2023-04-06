@@ -23,7 +23,6 @@ class _ContactUsState extends State<ContactUs> {
         faq.add(doc.data());
       }
     });
-    print(faq);
   }
 
   @override
