@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:scheme/Theme/color.dart';
 
 class StatusCard extends StatelessWidget {
@@ -12,6 +13,16 @@ class StatusCard extends StatelessWidget {
       "Verification": 5,
     };
     double width = MediaQuery.of(context).size.width;
+    double? fontsize16 =
+        ResponsiveValue(context, defaultValue: 16.0, valueWhen: const [
+      Condition.smallerThan(name: MOBILE, value: 12.0),
+      Condition.largerThan(name: TABLET, value: 30.0)
+    ]).value as double;
+    double? fontsize20 =
+        ResponsiveValue(context, defaultValue: 20.0, valueWhen: const [
+      Condition.smallerThan(name: MOBILE, value: 16.0),
+      Condition.largerThan(name: TABLET, value: 34.0)
+    ]).value as double;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       width: width,
@@ -20,43 +31,35 @@ class StatusCard extends StatelessWidget {
           border: Border.all(color: primary),
           borderRadius: BorderRadius.circular(5)),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        const Text(
+        Text(
           "Your Status",
           style: TextStyle(
               color: Colors.black,
               fontFamily: "Zilla",
-              fontSize: 20,
+              fontSize: fontsize20,
               fontWeight: FontWeight.w500),
         ),
-        const SizedBox(
-          height: 8,
-        ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              RichText(
-                text: TextSpan(
-                  text: 'Registration       ',
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+          child: RichText(
+            text: TextSpan(
+              text: 'Registration       ',
+              style: TextStyle(
+                  color: text2,
+                  fontFamily: "Zilla",
+                  fontSize: fontsize16,
+                  fontWeight: FontWeight.w500),
+              children: <TextSpan>[
+                TextSpan(
+                  text: register ? "Done" : "Not Done",
                   style: TextStyle(
-                      color: text2,
+                      color: register ? Colors.green : Colors.red,
                       fontFamily: "Zilla",
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: register ? "Done" : "Not Done",
-                      style: TextStyle(
-                          color: register ? Colors.green : Colors.red,
-                          fontFamily: "Zilla",
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ],
+                      fontSize: fontsize16,
+                      fontWeight: FontWeight.w600),
                 ),
-              )
-            ],
+              ],
+            ),
           ),
         ),
       ]),

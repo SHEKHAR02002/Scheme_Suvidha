@@ -1,12 +1,11 @@
 import 'dart:developer';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:scheme/Screen/agentwidget/udidverification.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
-import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/usermodel.dart';
 
 class AgentVerification extends StatefulWidget {
@@ -69,14 +68,33 @@ class _AgentVerificationState extends State<AgentVerification> {
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  radius: 40,
-                  foregroundImage: widget.applicationdetails.image != null
-                      ? NetworkImage(widget.applicationdetails.image.toString())
-                      : const NetworkImage(
-                          "https://firebasestorage.googleapis.com/v0/b/scheme-suvidha-admin.appspot.com/o/miscellaneous%2Fdefalutprofile.png?alt=media&token=fbf2357d-d893-43a7-9bcc-412f454691c4",
-                          // fit: BoxFit.cover,
-                        ),
+                InkWell(
+                  onTap: () => showDialog(
+                      context: context,
+                      builder: (_) => Dialog(
+                              child: ExtendedImage.network(
+                            widget.applicationdetails.image != null
+                                ? widget.applicationdetails.image.toString()
+                                : "https://firebasestorage.googleapis.com/v0/b/scheme-suvidha-admin.appspot.com/o/miscellaneous%2Fdefalutprofile.png?alt=media&token=fbf2357d-d893-43a7-9bcc-412f454691c4",
+                            // fit: BoxFit.cover,
+
+                            fit: BoxFit.fill,
+                            mode: ExtendedImageMode.gesture,
+                            cache: true,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(30.0)),
+                            //cancelToken: cancellationToken,
+                          ))),
+                  child: CircleAvatar(
+                    radius: 40,
+                    foregroundImage: widget.applicationdetails.image != null
+                        ? NetworkImage(
+                            widget.applicationdetails.image.toString())
+                        : const NetworkImage(
+                            "https://firebasestorage.googleapis.com/v0/b/scheme-suvidha-admin.appspot.com/o/miscellaneous%2Fdefalutprofile.png?alt=media&token=fbf2357d-d893-43a7-9bcc-412f454691c4",
+                            // fit: BoxFit.cover,
+                          ),
+                  ),
                 ),
                 const SizedBox(
                   width: 10,
@@ -109,7 +127,7 @@ class _AgentVerificationState extends State<AgentVerification> {
               style: TextStyle(
                   fontSize: 22, fontWeight: FontWeight.w400, color: primary),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 10),
             Row(
               children: [
                 const Icon(
@@ -130,21 +148,34 @@ class _AgentVerificationState extends State<AgentVerification> {
                         backgroundColor: primary,
                         minimumSize: const Size(80, 30)),
                     onPressed: () {
+                      // showDialog(
+                      //     context: context,
+                      //     builder: (_) => Dialog(
+                      //           child: CachedNetworkImage(
+                      //               key: UniqueKey(),
+                      //               cacheManager: customCacheManager,
+                      //               // height: 80,
+                      //               // width: 74,
+                      //               fit: BoxFit.fill,
+                      //               imageUrl: widget
+                      //                   .applicationdetails.aadharimage
+                      //                   .toString(),
+                      //               placeholder: (context, url) => const Center(
+                      //                   child: CircularProgressIndicator())),
+                      //         ));
                       showDialog(
                           context: context,
                           builder: (_) => Dialog(
-                                child: CachedNetworkImage(
-                                    key: UniqueKey(),
-                                    cacheManager: customCacheManager,
-                                    // height: 80,
-                                    // width: 74,
-                                    fit: BoxFit.fill,
-                                    imageUrl: widget
-                                        .applicationdetails.aadharimage
-                                        .toString(),
-                                    placeholder: (context, url) => const Center(
-                                        child: CircularProgressIndicator())),
-                              ));
+                                  child: ExtendedImage.network(
+                                widget.applicationdetails.aadharimage
+                                    .toString(),
+                                fit: BoxFit.fill,
+                                mode: ExtendedImageMode.gesture,
+                                cache: true,
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(30.0)),
+                                //cancelToken: cancellationToken,
+                              )));
                     },
                     child: const Text(
                       "View",
@@ -155,7 +186,7 @@ class _AgentVerificationState extends State<AgentVerification> {
                     ))
               ],
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
             TextContainer(
                 title: "Aadhar Card No",
                 content: widget.applicationdetails.aadharno.toString()),

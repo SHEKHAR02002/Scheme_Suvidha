@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/api/scanimage.dart';
+import 'package:scheme/command/screenstate.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/datepicker.dart';
 import 'package:scheme/provider/imagecopper.dart';
@@ -25,13 +26,32 @@ class AadharCard extends StatefulWidget {
 
 String aadharpic = "";
 
-class _AadharCardState extends State<AadharCard> {
+class _AadharCardState extends State<AadharCard> with RouteAware {
   final TextEditingController _aadharNo = TextEditingController();
   final TextEditingController _dob = TextEditingController();
   final TextEditingController _gender = TextEditingController();
   final TextEditingController _name = TextEditingController();
   final TextEditingController _phoneNo = TextEditingController();
   bool pickedaadhar = false;
+
+  @override
+  void initState() {
+    screenSate = "addharcardpage";
+    setVisuals("addharcardpage");
+    super.initState();
+  }
+
+  @override
+  void didPush() {
+    setVisuals("userphotopage");
+    super.didPush();
+  }
+
+  @override
+  void didPop() {
+    setVisuals("Home");
+    super.didPop();
+  }
 
   Future<dynamic> picaadhar({required source, required String filename}) async {
     try {

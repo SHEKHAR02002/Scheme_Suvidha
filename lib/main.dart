@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:scheme/Screen/splash.dart';
 import 'package:scheme/firebase_options.dart';
 import 'package:scheme/provider/notifcationprovider.dart';
@@ -40,6 +41,15 @@ void main() async {
   );
 
   runApp(MaterialApp(
+    builder: (context, widget) => ResponsiveWrapper.builder(
+      ClampingScrollWrapper.builder(context, widget!),
+      breakpoints: const [
+        ResponsiveBreakpoint.resize(350, name: MOBILE),
+        ResponsiveBreakpoint.autoScale(600, name: TABLET),
+        ResponsiveBreakpoint.resize(800, name: DESKTOP),
+        ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
+      ],
+    ),
     title: 'Scheme',
     theme: ThemeData(
       fontFamily: "Overpass",

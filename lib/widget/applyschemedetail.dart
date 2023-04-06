@@ -22,7 +22,7 @@ class _AppliedSchemeState extends State<AppliedScheme> {
         loader = false;
       });
     }
-    print(appliedschemelist.length);
+    // print(appliedschemelist.length);
   }
 
   @override

@@ -7,6 +7,7 @@ import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/schememodel.dart';
+import 'package:scheme/provider/googletranslator.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 
 class SchemeCard extends StatefulWidget {
@@ -25,9 +26,45 @@ class SchemeCard extends StatefulWidget {
 }
 
 class _SchemeCardState extends State<SchemeCard> {
+  String name = "", orgName = "", state = "", type = "";
+
+  callApi() async {
+    String tempName = await TranslationService().translate(
+        text: widget.schemedata.schemename.toString(), targetLanguage: "Hi");
+    String temporgName = await TranslationService().translate(
+        text: widget.schemedata.organizationname.toString(),
+        targetLanguage: "Hi");
+    String tempState = await TranslationService().translate(
+        text: widget.schemedata.statename.toString() == "All State / UTs" ||
+                widget.schemedata.statename.toString() ==
+                    "All State & Govenment of India"
+            ? "All State"
+            : widget.schemedata.statename.toString(),
+        targetLanguage: "Hi");
+    String temptype = await TranslationService().translate(
+        text: widget.schemedata.category.toString() ==
+                "Health & for purchase of aids"
+            ? "Health"
+            : widget.schemedata.category.toString(),
+        targetLanguage: "Hi");
+    setState(() {
+      name = tempName;
+      orgName = temporgName;
+      state = tempState;
+      type = temptype;
+    });
+  }
+
+  @override
+  void initState() {
+    callApi();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+
     return InkWell(
       onTap: () => Navigator.push(
           context,
@@ -76,7 +113,7 @@ class _SchemeCardState extends State<SchemeCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.schemedata.schemename.toString(),
+                      name,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                           fontFamily: "Zilla",
@@ -87,7 +124,7 @@ class _SchemeCardState extends State<SchemeCard> {
                       height: 5,
                     ),
                     Text(
-                      widget.schemedata.organizationname.toString(),
+                      orgName,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontSize: 15,
@@ -108,12 +145,7 @@ class _SchemeCardState extends State<SchemeCard> {
                           width: 3,
                         ),
                         Text(
-                          widget.schemedata.statename.toString() ==
-                                      "All State / UTs" ||
-                                  widget.schemedata.statename.toString() ==
-                                      "All State & Govenment of India"
-                              ? "All State"
-                              : widget.schemedata.statename.toString(),
+                          state,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 12,
@@ -132,10 +164,7 @@ class _SchemeCardState extends State<SchemeCard> {
                           width: 3,
                         ),
                         Text(
-                          widget.schemedata.category.toString() ==
-                                  "Health & for purchase of aids"
-                              ? "Health"
-                              : widget.schemedata.category.toString(),
+                          type,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 12,

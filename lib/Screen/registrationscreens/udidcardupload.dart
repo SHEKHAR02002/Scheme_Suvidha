@@ -29,7 +29,7 @@ class UdidCardUpload extends StatefulWidget {
 
 class _UdidCardUploadState extends State<UdidCardUpload> {
   final TextEditingController _udidNo = TextEditingController();
-  final TextEditingController _udidname = TextEditingController();
+  // final TextEditingController _udidname = TextEditingController();
   final TextEditingController _disbilitytype = TextEditingController();
   final TextEditingController _disabilitypercentage = TextEditingController();
   final TextEditingController _dataissue = TextEditingController();

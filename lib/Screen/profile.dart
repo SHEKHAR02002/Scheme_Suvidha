@@ -7,6 +7,7 @@ import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/usermodel.dart';
+import 'package:scheme/provider/googletranslator.dart';
 import 'package:scheme/provider/phoneauth.dart';
 import 'package:scheme/widget/applyschemedetail.dart';
 // import 'package:scheme/widget/applyschemedetail.dart';
@@ -23,8 +24,19 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  String name = " ";
+  call() async {
+    String tempname = await TranslationService()
+        .translate(targetLanguage: 'Hi', text: widget.user.name.toString());
+    setState(() {
+      name = tempname;
+    });
+  }
+
   @override
   void initState() {
+    // name = widget.user.name.toString();
+    call();
     if (FirebaseAuth.instance.currentUser!.uid.isNotEmpty) {}
     super.initState();
   }
@@ -61,7 +73,7 @@ class _ProfileState extends State<Profile> {
                             height: 10,
                           ),
                           Text(
-                            widget.user.name!,
+                            name,
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.w600),
                           ),

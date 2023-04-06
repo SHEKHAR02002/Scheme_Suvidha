@@ -72,7 +72,10 @@ dependencies:
   intl_phone_field: ^3.1.0
   url_launcher: ^6.1.10
   skeleton_text: ^3.0.0
-  
+  alan_voice: ^3.12.0
+  intl: ^0.17.0
+  extended_image: ^7.0.2
+  googleapis_auth: ^1.4.0
  
   
 
