@@ -95,12 +95,11 @@ Future verifyUser(
 }
 
 Future agentbyregistration() async {
-  await FirebaseFirestore.instance
+  var details = await FirebaseFirestore.instance
       .collection("AgentUser")
       .doc(FirebaseAuth.instance.currentUser!.uid.toString())
       .collection("FormFilled")
-      .doc()
-      .set({
+      .add({
     "userId": FirebaseAuth.instance.currentUser!.uid.toString(),
     "image": agentbyimage,
     "aadharno": aadharNo,
@@ -108,6 +107,7 @@ Future agentbyregistration() async {
     "dob": dob,
     "gender": gender,
     "aadharimage": agentbyaadharimage,
+    "phoneno": phoneNo,
     "udidimage": agentbyudidimage,
     "udidno": udidNo,
     "disabilitytype": disbilitytype,
@@ -126,4 +126,10 @@ Future agentbyregistration() async {
     "addressprooftype": addresproftype,
     "ageprooftype": ageprooftype
   });
+  FirebaseFirestore.instance
+      .collection("AgentUser")
+      .doc(FirebaseAuth.instance.currentUser!.uid.toString())
+      .collection("FormFilled")
+      .doc(details.id)
+      .update({"applicationid": details.id});
 }

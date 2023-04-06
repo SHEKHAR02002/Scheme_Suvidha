@@ -81,17 +81,19 @@ class _UploadDocumentState extends State<UploadDocument> {
             : "${FirebaseAuth.instance.currentUser!.uid}/Users/$phoneNo/udidcard.jpg",
         udidpic);
 
-    isagent && mounted
-        ? setState(() {
-            agentbyimage = passportimage;
-            agentbyaadharimage = addharpiclink;
-            agentbyudidimage = udidpiclink;
-          })
-        : setState(() {
-            image = passportimage;
-            aadharimage = addharpiclink;
-            udidimage = udidpiclink;
-          });
+    if (mounted) {
+      isagent
+          ? setState(() {
+              agentbyimage = passportimage;
+              agentbyaadharimage = addharpiclink;
+              agentbyudidimage = udidpiclink;
+            })
+          : setState(() {
+              image = passportimage;
+              aadharimage = addharpiclink;
+              udidimage = udidpiclink;
+            });
+    }
   }
 
   Future selectFile({required String filename}) async {
@@ -131,7 +133,7 @@ class _UploadDocumentState extends State<UploadDocument> {
     //creat path
     final path = !isagent
         ? "${FirebaseAuth.instance.currentUser!.uid.toString()}/$filename"
-        : "${FirebaseAuth.instance.currentUser!.uid}/Users/{$phoneNo}/$filename";
+        : "${FirebaseAuth.instance.currentUser!.uid}/Users/$phoneNo/$filename";
     final file = File(pickedfile!.path!);
 
     //upload firestorage
@@ -292,7 +294,6 @@ class _UploadDocumentState extends State<UploadDocument> {
                     onChanged: (value) {
                       setState(() {
                         addressproof = value as String;
-                        addresproftype = addressproof;
                       });
                     },
                   ),
@@ -390,7 +391,6 @@ class _UploadDocumentState extends State<UploadDocument> {
                     onChanged: (value) {
                       setState(() {
                         ageproof = value as String;
-                        ageprooftype = ageproof;
                       });
                     },
                   ),

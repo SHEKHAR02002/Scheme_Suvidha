@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +17,8 @@ class AgentRegistration extends StatefulWidget {
   @override
   State<AgentRegistration> createState() => _AgentRegistrationState();
 }
+
+String? agentimage = "";
 
 class _AgentRegistrationState extends State<AgentRegistration> {
   final TextEditingController _agentname = TextEditingController();
@@ -53,6 +54,7 @@ class _AgentRegistrationState extends State<AgentRegistration> {
       // final File file = File(image!.path);
       setState(() {
         customimage = cropFile;
+        agentimage = customimage;
         imagepicked = true;
       });
     } catch (e) {
@@ -115,7 +117,9 @@ class _AgentRegistrationState extends State<AgentRegistration> {
                   child: Stack(
                     alignment: AlignmentDirectional.center,
                     children: [
-                      Image.network(defaultPic, height: 120, width: 120),
+                      imagepicked
+                          ? Image.file(File(agentimage.toString()))
+                          : Image.network(defaultPic, height: 120, width: 120),
                       Positioned(
                         bottom: 7,
                         right: 0,
