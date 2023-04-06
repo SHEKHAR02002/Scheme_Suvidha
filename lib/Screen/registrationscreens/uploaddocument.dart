@@ -66,19 +66,19 @@ class _UploadDocumentState extends State<UploadDocument> {
     var passportimage = await fireStoreFileUpload(
         !isagent
             ? "${FirebaseAuth.instance.currentUser!.uid}/userphoto.jpg"
-            : "${FirebaseAuth.instance.currentUser!.uid}/Users/$agentbyphoneNo/userphotot.jpg",
+            : "${FirebaseAuth.instance.currentUser!.uid}/Users/$phoneNo/userphotot.jpg",
         imagepic);
 
     var addharpiclink = await fireStoreFileUpload(
         !isagent
             ? "${FirebaseAuth.instance.currentUser!.uid}/aadharcard.jpg"
-            : "${FirebaseAuth.instance.currentUser!.uid}/Users/$agentbyphoneNo/aadharcard.jpg",
+            : "${FirebaseAuth.instance.currentUser!.uid}/Users/$phoneNo/aadharcard.jpg",
         aadharpic);
 
     var udidpiclink = await fireStoreFileUpload(
         !isagent
             ? "${FirebaseAuth.instance.currentUser!.uid}/udidcard.jpg"
-            : "${FirebaseAuth.instance.currentUser!.uid}/Users/$agentbyphoneNo/udidcard.jpg",
+            : "${FirebaseAuth.instance.currentUser!.uid}/Users/$phoneNo/udidcard.jpg",
         udidpic);
 
     isagent && mounted
@@ -131,7 +131,7 @@ class _UploadDocumentState extends State<UploadDocument> {
     //creat path
     final path = !isagent
         ? "${FirebaseAuth.instance.currentUser!.uid.toString()}/$filename"
-        : "${FirebaseAuth.instance.currentUser!.uid}/Users/{$agentbyphoneNo}/$filename";
+        : "${FirebaseAuth.instance.currentUser!.uid}/Users/{$phoneNo}/$filename";
     final file = File(pickedfile!.path!);
 
     //upload firestorage
