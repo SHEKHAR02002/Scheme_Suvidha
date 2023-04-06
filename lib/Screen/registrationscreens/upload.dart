@@ -98,7 +98,7 @@ class _UploadDoumentState extends State<UploadDoument> with RouteAware {
       String cropFile = await userImagecopper(pickedFile: image);
       // final File file = File(image!.path);
       setState(() {
-        !isagent ? imagepic = cropFile : agentbyimage = cropFile;
+        imagepic = cropFile;
         imagepick = true;
       });
     } catch (e) {

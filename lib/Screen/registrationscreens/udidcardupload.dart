@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,11 +10,8 @@ import 'package:scheme/api/scanimage.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/datepicker.dart';
 import 'package:scheme/provider/imagecopper.dart';
-import 'package:scheme/provider/takeimage.dart';
-import 'package:scheme/Screen/registrationscreens/aadharcardupload.dart';
 import 'package:scheme/widget/processingpopup.dart';
 import 'package:scheme/widget/textfield.dart';
-import 'package:scheme/Screen/registrationscreens/upload.dart';
 
 String udidpic = "";
 
@@ -53,22 +48,37 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
     }
   }
 
-  Future uploadImgdata() async {
-    var passportimage = await fireStoreFileUpload(
-        "${FirebaseAuth.instance.currentUser!.uid}/userphoto.jpg", imagepic);
+  // Future uploadImgdata() async {
+  //   var passportimage = await fireStoreFileUpload(
+  //       !isagent
+  //           ? "${FirebaseAuth.instance.currentUser!.uid}/userphoto.jpg"
+  //           : "${FirebaseAuth.instance.currentUser!.uid}/Users/$agentbyphoneNo/userphotot.jpg",
+  //       imagepic);
 
-    var addharpiclink = await fireStoreFileUpload(
-        "${FirebaseAuth.instance.currentUser!.uid}/aadharcard.jpg", aadharpic);
+  //   var addharpiclink = await fireStoreFileUpload(
+  //       !isagent
+  //           ? "${FirebaseAuth.instance.currentUser!.uid}/aadharcard.jpg"
+  //           : "${FirebaseAuth.instance.currentUser!.uid}/Users/$agentbyphoneNo/aadharcard.jpg",
+  //       aadharpic);
 
-    var udidpiclink = await fireStoreFileUpload(
-        "${FirebaseAuth.instance.currentUser!.uid}/udidcard.jpg", udidpic);
+  //   var udidpiclink = await fireStoreFileUpload(
+  //       !isagent
+  //           ? "${FirebaseAuth.instance.currentUser!.uid}/udidcard.jpg"
+  //           : "${FirebaseAuth.instance.currentUser!.uid}/Users/$agentbyphoneNo/udidcard.jpg",
+  //       udidpic);
 
-    setState(() {
-      image = passportimage;
-      aadharimage = addharpiclink;
-      udidimage = udidpiclink;
-    });
-  }
+  //   isagent
+  //       ? setState(() {
+  //           agentbyimage = passportimage;
+  //           agentbyaadharimage = addharpiclink;
+  //           agentbyudidimage = udidpiclink;
+  //         })
+  //       : setState(() {
+  //           image = passportimage;
+  //           aadharimage = addharpiclink;
+  //           udidimage = udidpiclink;
+  //         });
+  // }
 
   Widget setValidUpto() => Dialog(
         // insetPadding: const EdgeInsets.all(20),
@@ -142,13 +152,6 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                       _udidNo.text = value["udid"].toString();
                       _dataissue.text = value["doi"].toString();
                     }).whenComplete(() async => Navigator.pop(context));
-                    isagent
-                        ? setState(
-                            () {
-                              agentbyudidimage = udidpic;
-                            },
-                          )
-                        : null;
                   }),
                   child: pickedudid
                       ? Image.file(
@@ -294,18 +297,20 @@ class _UdidCardUploadState extends State<UdidCardUpload> {
                             _disbilitytype.text != '' &&
                             _dataissue.text != "" &&
                             _validupto.text != "") {
-                          udidNo = _udidNo.text;
-                          disabilitypercentage = _disabilitypercentage.text;
-                          disbilitytype = _disbilitytype.text;
-                          dataissue = _dataissue.text;
-                          validupto = _validupto.text;
+                          setState(() {
+                            udidNo = _udidNo.text;
+                            disabilitypercentage = _disabilitypercentage.text;
+                            disbilitytype = _disbilitytype.text;
+                            dataissue = _dataissue.text;
+                            validupto = _validupto.text;
+                          });
 
-                          await uploadImgdata().whenComplete(() =>
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const UploadDocument())));
+                          // await uploadImgdata().whenComplete(() =>
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const UploadDocument()));
                         } else {
                           Fluttertoast.showToast(
                               msg: "Fill the details properly",

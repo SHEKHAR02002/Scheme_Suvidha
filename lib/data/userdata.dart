@@ -47,7 +47,13 @@ String? agentbyimage,
     agentbydisbilitytype,
     agentbydisabilitypercentage,
     agentbydataissue,
-    agentbyvalidupto;
+    agentbyvalidupto,
+    agentbyaddressprooflink,
+    agentbyageprooflink,
+    agentbydomacilelink,
+    agentbyincomecertilink,
+    agentbylastyearlink,
+    agentbyparentidlink;
 
 String? addressprooflink,
     addresproftype,

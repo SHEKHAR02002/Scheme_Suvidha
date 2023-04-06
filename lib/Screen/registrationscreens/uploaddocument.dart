@@ -6,12 +6,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scheme/Screen/Agent/applyuserscheme.dart';
+import 'package:scheme/Screen/registrationscreens/aadharcardupload.dart';
 import 'package:scheme/Screen/registrationscreens/donesplash.dart';
+import 'package:scheme/Screen/registrationscreens/udidcardupload.dart';
+import 'package:scheme/Screen/registrationscreens/upload.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
+import 'package:scheme/api/agentfuncation.dart';
 import 'package:scheme/api/checknewuser.dart';
 import 'package:scheme/data/userdata.dart';
+import 'package:scheme/provider/takeimage.dart';
 import 'package:scheme/widget/processingpopup.dart';
 
 enum SingingCharacter { yes, no }
@@ -33,7 +39,12 @@ String? ageproof = "Brith Date";
 class _UploadDocumentState extends State<UploadDocument> {
   SingingCharacter? _character = SingingCharacter.no;
   SingingCharacterage? _age = SingingCharacterage.ageno;
-  String? address, age, domacile, income, last, parent = "";
+  String? address = "",
+      age = "",
+      domacile = "",
+      income = "",
+      last = "",
+      parent = "";
   bool isstudent = false;
   bool isbelow18 = false;
   PlatformFile? addressproofpicked;
@@ -50,6 +61,38 @@ class _UploadDocumentState extends State<UploadDocument> {
   bool? picklast = false;
   bool? pickparent = false;
   String? firebasepath = "";
+
+  Future uploadImgdata() async {
+    var passportimage = await fireStoreFileUpload(
+        !isagent
+            ? "${FirebaseAuth.instance.currentUser!.uid}/userphoto.jpg"
+            : "${FirebaseAuth.instance.currentUser!.uid}/Users/$agentbyphoneNo/userphotot.jpg",
+        imagepic);
+
+    var addharpiclink = await fireStoreFileUpload(
+        !isagent
+            ? "${FirebaseAuth.instance.currentUser!.uid}/aadharcard.jpg"
+            : "${FirebaseAuth.instance.currentUser!.uid}/Users/$agentbyphoneNo/aadharcard.jpg",
+        aadharpic);
+
+    var udidpiclink = await fireStoreFileUpload(
+        !isagent
+            ? "${FirebaseAuth.instance.currentUser!.uid}/udidcard.jpg"
+            : "${FirebaseAuth.instance.currentUser!.uid}/Users/$agentbyphoneNo/udidcard.jpg",
+        udidpic);
+
+    isagent && mounted
+        ? setState(() {
+            agentbyimage = passportimage;
+            agentbyaadharimage = addharpiclink;
+            agentbyudidimage = udidpiclink;
+          })
+        : setState(() {
+            image = passportimage;
+            aadharimage = addharpiclink;
+            udidimage = udidpiclink;
+          });
+  }
 
   Future selectFile({required String filename}) async {
     final result = await FilePicker.platform.pickFiles(
@@ -86,8 +129,9 @@ class _UploadDocumentState extends State<UploadDocument> {
   Future uploadFile(
       {required String filename, required PlatformFile? pickedfile}) async {
     //creat path
-    final path =
-        "${FirebaseAuth.instance.currentUser!.uid.toString()}/$filename";
+    final path = !isagent
+        ? "${FirebaseAuth.instance.currentUser!.uid.toString()}/$filename"
+        : "${FirebaseAuth.instance.currentUser!.uid}/Users/{$agentbyphoneNo}/$filename";
     final file = File(pickedfile!.path!);
 
     //upload firestorage
@@ -98,34 +142,53 @@ class _UploadDocumentState extends State<UploadDocument> {
     final urlDownload = await snapshot.ref.getDownloadURL();
     setState(() {
       if (filename == "Aadress Proof") {
-        addressprooflink = urlDownload;
+        !isagent
+            ? addressprooflink = urlDownload
+            : agentbyaddressprooflink = urlDownload;
         setState(() {
           address = "Address proof Uploaded";
+          pickaddress = true;
         });
       } else if (filename == "Age Proof") {
-        ageprooflink = urlDownload;
+        !isagent
+            ? ageprooflink = urlDownload
+            : agentbyageprooflink = urlDownload;
         setState(() {
           age = "Age proof Uploaded";
+          pickage = true;
         });
       } else if (filename == "Domacile Proof") {
-        domacilelink = urlDownload;
+        !isagent
+            ? domacilelink = urlDownload
+            : agentbydomacilelink = urlDownload;
         setState(() {
           domacile = "Domacile proof Uploaded";
+          pickdoma = true;
         });
       } else if (filename == "Income Proof") {
-        incomecertilink = urlDownload;
+        !isagent
+            ? incomecertilink = urlDownload
+            : agentbyincomecertilink = urlDownload;
         setState(() {
           income = "Income proof Uploaded";
+          pickincome = true;
         });
       } else if (filename == "Last Year Passing") {
-        lastyearlink = urlDownload;
+        !isagent
+            ? lastyearlink = urlDownload
+            : agentbylastyearlink = urlDownload;
+
         setState(() {
           last = "Last Year Passing Uploaded";
+          picklast = true;
         });
       } else if (filename == "Parent ID Proof") {
-        parentidlink = urlDownload;
+        !isagent
+            ? parentidlink = urlDownload
+            : agentbyparentidlink = urlDownload;
         setState(() {
           parent = "Parent ID Uploaded";
+          pickparent = true;
         });
       } else {
         print("something Wrong");
@@ -266,12 +329,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                           ),
                     const Spacer(),
                     InkWell(
-                        onTap: () {
-                          selectFile(filename: "address")
-                              .whenComplete(() => setState(() {
-                                    pickaddress = true;
-                                  }));
-                        },
+                        onTap: () => selectFile(filename: "address"),
                         child: pickaddress == true
                             ? const Icon(
                                 CupertinoIcons.checkmark_alt,
@@ -369,12 +427,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                           ),
                     const Spacer(),
                     InkWell(
-                      onTap: () =>
-                          selectFile(filename: "age").whenComplete(() => {
-                                setState(() {
-                                  pickage = true;
-                                })
-                              }),
+                      onTap: () => selectFile(filename: "age"),
                       child: pickage == true
                           ? const Icon(
                               CupertinoIcons.checkmark_alt,
@@ -427,12 +480,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                           ),
                     const Spacer(),
                     InkWell(
-                      onTap: () =>
-                          selectFile(filename: "domacile").whenComplete(() {
-                        setState(() {
-                          pickdoma = true;
-                        });
-                      }),
+                      onTap: () => selectFile(filename: "domacile"),
                       child: pickdoma == true
                           ? const Icon(
                               CupertinoIcons.checkmark_alt,
@@ -485,12 +533,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                           ),
                     const Spacer(),
                     InkWell(
-                      onTap: () =>
-                          selectFile(filename: "income").whenComplete(() {
-                        setState(() {
-                          pickincome = true;
-                        });
-                      }),
+                      onTap: () => selectFile(filename: "income"),
                       child: pickincome == true
                           ? const Icon(
                               CupertinoIcons.checkmark_alt,
@@ -588,12 +631,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                                     ),
                               const Spacer(),
                               InkWell(
-                                onTap: () => selectFile(filename: "marksheet")
-                                  ..whenComplete(() {
-                                    setState(() {
-                                      picklast = true;
-                                    });
-                                  }),
+                                onTap: () => selectFile(filename: "marksheet"),
                                 child: picklast == true
                                     ? const Icon(
                                         CupertinoIcons.checkmark_alt,
@@ -698,12 +736,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                                         const Spacer(),
                                         InkWell(
                                           onTap: () =>
-                                              selectFile(filename: "parentid")
-                                                ..whenComplete(() {
-                                                  setState(() {
-                                                    pickparent = true;
-                                                  });
-                                                }),
+                                              selectFile(filename: "parentid"),
                                           child: pickparent == true
                                               ? const Icon(
                                                   CupertinoIcons.checkmark_alt,
@@ -735,21 +768,35 @@ class _UploadDocumentState extends State<UploadDocument> {
                 context: context,
                 msg: 'Uploding.....',
               );
-              !isagent
-                  ? userdataupload().whenComplete(() async =>
-                      await checkuser(context: context).whenComplete(() {
-                        registration = true;
-                        Navigator.pop(context);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const DoneUpload()));
-                      }))
-                  : Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ApplyUserScheme()),
-                      (route) => false);
+              uploadImgdata().whenComplete(() => {
+                    !isagent
+                        ? userdataupload().whenComplete(() async =>
+                            await checkuser(context: context).whenComplete(() {
+                              registration = true;
+                              Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const DoneUpload()));
+                            }))
+                        : agentbyregistration().whenComplete(() {
+                            Fluttertoast.showToast(
+                                msg: "Registration Done",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: primary,
+                                textColor: Colors.white,
+                                fontSize: 20.0);
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ApplyUserScheme()),
+                                (route) => false);
+                          })
+                  });
             },
             style: ElevatedButton.styleFrom(
                 elevation: 0,

@@ -60,17 +60,15 @@ class _AgentHomeState extends State<AgentHome> {
               height: 30,
               width: 30,
             ),
-            applicationloader
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: SvgPicture.asset(
-                      "assets/about.svg",
-                      color: Colors.black,
-                      height: 30,
-                      width: 30,
-                    ),
-                  )
-                : const SizedBox.shrink()
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: SvgPicture.asset(
+                "assets/about.svg",
+                color: Colors.black,
+                height: 30,
+                width: 30,
+              ),
+            )
           ],
         ),
         body: RefreshIndicator(

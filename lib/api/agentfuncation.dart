@@ -93,3 +93,37 @@ Future verifyUser(
         .update({"registeration": false, "msg": msg});
   }
 }
+
+Future agentbyregistration() async {
+  await FirebaseFirestore.instance
+      .collection("AgentUser")
+      .doc(FirebaseAuth.instance.currentUser!.uid.toString())
+      .collection("FormFilled")
+      .doc()
+      .set({
+    "userId": FirebaseAuth.instance.currentUser!.uid.toString(),
+    "image": agentbyimage,
+    "aadharno": aadharNo,
+    "name": name,
+    "dob": dob,
+    "gender": gender,
+    "aadharimage": agentbyaadharimage,
+    "udidimage": agentbyudidimage,
+    "udidno": udidNo,
+    "disabilitytype": disbilitytype,
+    "disabilitypercentage": disabilitypercentage,
+    "dateissue": dataissue,
+    "validupto": validupto,
+    "registeration": true,
+    "verification": false,
+    "msg": "",
+    "addressproof": agentbyaddressprooflink,
+    "ageproof": agentbyageprooflink,
+    "domacaile": agentbydomacilelink,
+    "income": agentbyincomecertilink,
+    "lastyear": agentbylastyearlink,
+    "parentid": agentbyparentidlink,
+    "addressprooftype": addresproftype,
+    "ageprooftype": ageprooftype
+  });
+}
