@@ -59,7 +59,9 @@ class _SchemeCardState extends State<SchemeCard> {
 
   @override
   void initState() {
-    callApi();
+    if (turnOnGOOGleAPI) {
+      callApi();
+    }
     super.initState();
   }
 
@@ -154,7 +156,12 @@ class _SchemeCardState extends State<SchemeCard> {
                         Text(
                           turnOnGOOGleAPI
                               ? state
-                              : widget.schemedata.statename.toString(),
+                              : widget.schemedata.statename.toString() ==
+                                          "All State / UTs" ||
+                                      widget.schemedata.statename.toString() ==
+                                          "All State & Govenment of India"
+                                  ? "All State"
+                                  : widget.schemedata.statename.toString(),
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 12,
