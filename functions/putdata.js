@@ -27,5 +27,22 @@ async function updateschemeID() {
     await db.collection("Schemes").doc(id).update({ schemeId: id });
   });
 }
-updateschemeID();
+// updateschemeID();
 // uploadData();
+
+async function getFeilds() {
+  var ageGroup = [];
+  await db
+    .collection("Schemes")
+    .get()
+    .then((value) => {
+      value.docs.forEach((doc) => {
+        ageGroup.push(doc.data()["disabilityPercentage"]);
+      });
+    });
+
+  const uniqueArray = [...new Set(ageGroup)];
+  console.log(uniqueArray);
+}
+
+getFeilds();
