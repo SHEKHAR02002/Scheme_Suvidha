@@ -24,12 +24,12 @@ class _PDFViewerState extends State<PDFViewer> {
             onTap: () => Navigator.pop(context),
             child: const Icon(
               Icons.arrow_back_ios_new,
-              color: Colors.white,
+              color: Colors.black,
             ),
           ),
           title: Text(
             pdfname,
-            style: const TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.black),
           ),
           foregroundColor: primary,
         ),

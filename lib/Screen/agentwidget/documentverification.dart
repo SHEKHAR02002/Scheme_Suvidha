@@ -99,8 +99,14 @@ class _DocumentVerificationState extends State<DocumentVerification> {
                         backgroundColor: primary,
                         minimumSize: const Size(80, 30)),
                     onPressed: () {
-                      pdfname = 'Age Proof';
-                      pdfpath = widget.applicationdetails.agepdf.toString();
+                      setState(() {
+                        pdfname = 'Age Proof';
+                        pdfpath = widget.applicationdetails.agepdf.toString();
+                      });
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PDFViewer()));
                     },
                     child: const Text(
                       "View",
@@ -130,9 +136,15 @@ class _DocumentVerificationState extends State<DocumentVerification> {
                         backgroundColor: primary,
                         minimumSize: const Size(80, 30)),
                     onPressed: () {
-                      pdfname = 'Domacile Proof';
-                      pdfpath =
-                          widget.applicationdetails.domacilepdf.toString();
+                      setState(() {
+                        pdfname = 'Domacile Proof';
+                        pdfpath =
+                            widget.applicationdetails.domacilepdf.toString();
+                      });
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PDFViewer()));
                     },
                     child: const Text(
                       "View",
@@ -162,8 +174,15 @@ class _DocumentVerificationState extends State<DocumentVerification> {
                         backgroundColor: primary,
                         minimumSize: const Size(80, 30)),
                     onPressed: () {
-                      pdfname = 'Income Proof';
-                      pdfpath = widget.applicationdetails.incomepdf.toString();
+                      setState(() {
+                        pdfname = 'Income Proof';
+                        pdfpath =
+                            widget.applicationdetails.incomepdf.toString();
+                      });
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PDFViewer()));
                     },
                     child: const Text(
                       "View",
@@ -195,9 +214,15 @@ class _DocumentVerificationState extends State<DocumentVerification> {
                               backgroundColor: primary,
                               minimumSize: const Size(80, 30)),
                           onPressed: () {
-                            pdfname = 'Last Year Passing Proof';
-                            pdfpath = widget.applicationdetails.lastyearpdf
-                                .toString();
+                            setState(() {
+                              pdfname = 'Last Year Passing Proof';
+                              pdfpath = widget.applicationdetails.lastyearpdf
+                                  .toString();
+                            });
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const PDFViewer()));
                           },
                           child: const Text(
                             "View",
@@ -230,9 +255,15 @@ class _DocumentVerificationState extends State<DocumentVerification> {
                               backgroundColor: primary,
                               minimumSize: const Size(80, 30)),
                           onPressed: () {
-                            pdfname = 'Parent ID Proof';
-                            pdfpath =
-                                widget.applicationdetails.parentpdf.toString();
+                            setState(() {
+                              pdfname = 'Parent ID Proof';
+                              pdfpath = widget.applicationdetails.parentpdf
+                                  .toString();
+                            });
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const PDFViewer()));
                           },
                           child: const Text(
                             "View",
@@ -244,6 +275,9 @@ class _DocumentVerificationState extends State<DocumentVerification> {
                     ],
                   )
                 : const SizedBox.shrink(),
+            const SizedBox(
+              height: 50,
+            ),
             Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
                 child: ElevatedButton(
