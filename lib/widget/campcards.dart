@@ -56,6 +56,7 @@ class CampCard extends StatelessWidget {
                 Text(
                   name,
                   overflow: TextOverflow.fade,
+                  maxLines: 2,
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
