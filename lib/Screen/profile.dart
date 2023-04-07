@@ -73,7 +73,9 @@ class _ProfileState extends State<Profile> {
                             height: 10,
                           ),
                           Text(
-                            name,
+                            turnOnGOOGleAPI
+                                ? name
+                                : widget.user.name.toString(),
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.w600),
                           ),

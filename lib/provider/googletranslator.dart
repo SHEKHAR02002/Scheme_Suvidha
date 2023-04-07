@@ -3,11 +3,13 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+bool turnOnGOOGleAPI = false;
+
 class TranslationService {
   final String _url =
       "https://translation.googleapis.com/language/translate/v2";
-  // final String _apiKey = "AIzaSyCyUjweFFntNv9NkVuqIc6tkwrqOSL7RHM";
-  final String _apiKey = "";
+  final String _apiKey = "AIzaSyCyUjweFFntNv9NkVuqIc6tkwrqOSL7RHM";
+  // final String _apiKey = "";
 
   // TranslationService(this._projectId, this._serviceAccountJsonKey);
 
