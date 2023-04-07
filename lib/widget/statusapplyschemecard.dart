@@ -59,7 +59,9 @@ class _ApplySchemeStatusState extends State<ApplySchemeStatus> {
               SizedBox(
                 width: width / 2,
                 child: Text(
-                  "Scheme Name : $schemename",
+                  turnOnGOOGleAPI
+                      ? "Scheme Name : $schemename"
+                      : "Scheme Name : ${widget.schemename}",
                   style: TextStyle(
                       color: text2,
                       fontFamily: "Zilla",

@@ -116,7 +116,9 @@ class _SchemeCardState extends State<SchemeCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      name,
+                      turnOnGOOGleAPI
+                          ? name
+                          : widget.schemedata.schemename.toString(),
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                           fontFamily: "Zilla",
@@ -127,7 +129,9 @@ class _SchemeCardState extends State<SchemeCard> {
                       height: 5,
                     ),
                     Text(
-                      orgName,
+                      turnOnGOOGleAPI
+                          ? orgName
+                          : widget.schemedata.organizationname.toString(),
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontSize: 15,
@@ -148,7 +152,9 @@ class _SchemeCardState extends State<SchemeCard> {
                           width: 3,
                         ),
                         Text(
-                          state,
+                          turnOnGOOGleAPI
+                              ? state
+                              : widget.schemedata.statename.toString(),
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 12,
@@ -167,7 +173,9 @@ class _SchemeCardState extends State<SchemeCard> {
                           width: 3,
                         ),
                         Text(
-                          type,
+                          turnOnGOOGleAPI
+                              ? type
+                              : widget.schemedata.disabilitytype.toString(),
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 12,
