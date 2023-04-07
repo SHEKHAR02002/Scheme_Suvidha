@@ -204,7 +204,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    // getAlan();
+    getAlan();
 
     // Future.delayed(const Duration(seconds: 3), () => callApi());
     callApi();
