@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/provider/googletranslator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ApplySchemeStatus extends StatefulWidget {
   final String schemename, id;
@@ -21,9 +22,11 @@ class _ApplySchemeStatusState extends State<ApplySchemeStatus> {
   callApi() async {
     String tempschemename = await TranslationService()
         .translate(text: widget.schemename, targetLanguage: "hi");
-    setState(() {
-      schemename = tempschemename;
-    });
+    if (mounted) {
+      setState(() {
+        schemename = tempschemename;
+      });
+    }
   }
 
   @override
@@ -46,9 +49,9 @@ class _ApplySchemeStatusState extends State<ApplySchemeStatus> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Scheme Status",
-                style: TextStyle(
+              Text(
+                AppLocalizations.of(context)!.schemestatus,
+                style: const TextStyle(
                     fontFamily: "Zilla",
                     fontSize: 20,
                     fontWeight: FontWeight.w600),
@@ -60,8 +63,9 @@ class _ApplySchemeStatusState extends State<ApplySchemeStatus> {
                 width: width / 2,
                 child: Text(
                   turnOnGOOGleAPI
-                      ? "Scheme Name : $schemename"
-                      : "Scheme Name : ${widget.schemename}",
+                      ? AppLocalizations.of(context)!.schemename(schemename)
+                      : AppLocalizations.of(context)!
+                          .schemename(widget.schemename),
                   style: TextStyle(
                       color: text2,
                       fontFamily: "Zilla",
@@ -83,7 +87,7 @@ class _ApplySchemeStatusState extends State<ApplySchemeStatus> {
                     width: 5,
                   ),
                   Text(
-                    "Under process",
+                    AppLocalizations.of(context)!.underprocess,
                     style: TextStyle(
                         color: text2,
                         fontFamily: "Zilla",
@@ -106,7 +110,7 @@ class _ApplySchemeStatusState extends State<ApplySchemeStatus> {
                     width: 5,
                   ),
                   Text(
-                    "Applied",
+                    AppLocalizations.of(context)!.applied,
                     style: TextStyle(
                         color: text2,
                         fontFamily: "Zilla",

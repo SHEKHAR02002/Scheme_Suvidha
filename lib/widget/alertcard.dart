@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Screen/registrationscreens/upload.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AlertCard extends StatefulWidget {
   const AlertCard({super.key});
@@ -59,14 +60,14 @@ class _AlertCardState extends State<AlertCard> {
                 const SizedBox(
                   width: 10,
                 ),
-                Text("REGISTER YOURSELF FIRST",
+                Text(AppLocalizations.of(context)!.registeryourself,
                     style: TextStyle(
                         fontSize: fontsize16, fontWeight: FontWeight.w600)),
               ],
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Text('To take advantage of the latest schemes.',
+              child: Text(AppLocalizations.of(context)!.takeadvantagescheme,
                   style: TextStyle(
                       fontSize: fontsize14, fontWeight: FontWeight.w400)),
             ),
@@ -83,7 +84,7 @@ class _AlertCardState extends State<AlertCard> {
                     MaterialPageRoute(
                         builder: (context) => const UploadDoument())),
                 child: Text(
-                  "REGISTER",
+                  AppLocalizations.of(context)!.register,
                   style: TextStyle(
                       fontSize: fontsize14,
                       fontWeight: FontWeight.w600,

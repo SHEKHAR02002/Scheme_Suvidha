@@ -70,6 +70,11 @@ class MyApp extends StatelessWidget {
           ),
           title: 'Scheme',
           theme: ThemeData(
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.white,
+              // centerTitle: true,
+            ),
             fontFamily: "Overpass",
             scaffoldBackgroundColor: bgcolor,
             primaryColor: primary,
