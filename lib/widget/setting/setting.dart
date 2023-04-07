@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
+import 'package:scheme/widget/languagedropdown.dart';
 import 'package:scheme/widget/setting/contact.dart';
 import 'package:scheme/widget/setting/help.dart';
 import 'package:scheme/widget/setting/permission.dart';
@@ -204,7 +205,34 @@ class _SettingState extends State<Setting> {
                   ]),
                 ),
               ),
-            )
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            Container(
+              decoration: shadowdecoration,
+              child: Padding(
+                padding: const EdgeInsets.all(13.0),
+                child: Row(children: [
+                  Icon(
+                    Icons.language_rounded,
+                    color: primary,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    "Language",
+                    style: TextStyle(
+                        color: primary,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  const Spacer(),
+                  const LanguageDropdown(),
+                ]),
+              ),
+            ),
           ],
         ),
       )),
