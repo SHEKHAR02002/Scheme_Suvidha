@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:scheme/Screen/Agent/agentnotification.dart';
 import 'package:scheme/Screen/agentwidget/applicationcard.dart';
 import 'package:scheme/Screen/agentwidget/overvieewcard.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/api/getscheme.dart';
 import 'package:scheme/model/usermodel.dart';
 import 'package:tbib_splash_screen/splash_screen_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AgentHome extends StatefulWidget {
   const AgentHome({super.key});
@@ -18,6 +18,18 @@ class AgentHome extends StatefulWidget {
 class _AgentHomeState extends State<AgentHome> {
   bool applicationloader = true;
   List application = [];
+
+  Future<void> _launchInBrowser() async {
+    final Uri url0 =
+        Uri.parse("https://scheme-suvidha-landing-page.vercel.app/AboutUs");
+
+    if (!await launchUrl(
+      url0,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch');
+    }
+  }
 
   Future callApi() async {
     application.clear();
@@ -55,20 +67,21 @@ class _AgentHomeState extends State<AgentHome> {
             ),
           ),
           actions: [
+            // InkWell(
+            //   onTap: () => Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => const AgentNotification(),
+            //       )),
+            //   child: SvgPicture.asset(
+            //     "assets/notification.svg",
+            //     color: Colors.black,
+            //     height: 30,
+            //     width: 30,
+            //   ),
+            // ),
             InkWell(
-              onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AgentNotification(),
-                  )),
-              child: SvgPicture.asset(
-                "assets/notification.svg",
-                color: Colors.black,
-                height: 30,
-                width: 30,
-              ),
-            ),
-            InkWell(
+              onTap: () => _launchInBrowser(),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: SvgPicture.asset(
