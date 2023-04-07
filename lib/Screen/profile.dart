@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scheme/Screen/registrationscreens/upload.dart';
+import 'package:scheme/Screen/update/update.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/data/userdata.dart';
@@ -11,8 +12,6 @@ import 'package:scheme/provider/googletranslator.dart';
 import 'package:scheme/provider/phoneauth.dart';
 import 'package:scheme/widget/applyschemedetail.dart';
 // import 'package:scheme/widget/applyschemedetail.dart';
-import 'package:scheme/widget/setting/editaadhar.dart';
-import 'package:scheme/widget/setting/editudid.dart';
 import 'package:scheme/widget/setting/setting.dart';
 
 class Profile extends StatefulWidget {
@@ -127,79 +126,29 @@ class _ProfileState extends State<Profile> {
                             ],
                           ),
                         )),
-              const SizedBox(height: 30),
-              GestureDetector(
-                onTap: () => registration
-                    ? Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                EditAadhar(user: widget.user)))
-                    : Fluttertoast.showToast(
-                        msg: "User Not Register",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: primary,
-                        textColor: Colors.white,
-                        fontSize: 20.0),
-                child: Container(
-                  decoration: shadowdecoration,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Row(children: [
-                      SvgPicture.asset(
-                        "assets/personalcard.svg",
-                        height: 20,
-                        width: 20,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "Update Aadhar Details",
-                        style: TextStyle(
-                            color: primary,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600),
-                      ),
-                      const Spacer(),
-                      SvgPicture.asset(
-                        "assets/right_arrow.svg",
-                        height: 25,
-                        width: 25,
-                        color: primary,
-                      ),
-                    ]),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 25,
-              ),
+              const SizedBox(height: 80),
               InkWell(
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Editudid(
-                        user: widget.user,
-                      ),
-                    )),
+                        builder: (context) => Updateprofile(
+                              user: widget.user,
+                            ))),
                 child: Container(
                   decoration: shadowdecoration,
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Row(children: [
-                      SvgPicture.asset(
-                        "assets/udid.svg",
-                        height: 20,
-                        width: 20,
+                      Icon(
+                        CupertinoIcons.pencil_ellipsis_rectangle,
+                        size: 24,
+                        color: primary,
                       ),
                       const SizedBox(
                         width: 5,
                       ),
                       Text(
-                        "Update UDID Details",
+                        "Update Profile",
                         style: TextStyle(
                             color: primary,
                             fontSize: 20,
