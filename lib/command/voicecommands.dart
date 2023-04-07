@@ -13,8 +13,13 @@ void handleCommand(
       //     MaterialPageRoute(builder: (context) => const FoundationScreen()));
       break;
     case "registration":
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const UploadDoument()));
+      if (registration) {
+        AlanVoice.playText("Your Registration is completed");
+      } else {
+        AlanVoice.playText("Getting started with your Registration process.");
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const UploadDoument()));
+      }
       break;
     case "take pic":
       if (screenSate == "userphotopage") {
@@ -59,11 +64,7 @@ void handleCommand(
       } else if (screenSate == "addharcardpage") {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const UdidCardUpload()));
-      } else if (screenSate == "Home") {
-        // AlanVoice.playText("getting started with your registration");
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => const UploadDoument()));
-      }
+      } else if (screenSate == "Home") {}
       break;
     case "go back":
       Navigator.pop(context);
