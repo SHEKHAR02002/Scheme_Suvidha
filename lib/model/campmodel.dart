@@ -54,7 +54,7 @@ class CampsModel {
     campbenefit = map['campbenefit'];
     campcategory = map['Category'];
     campdescription = map['discription'];
-    campid = map['campid'];
+    campid = map['campId'];
     camporganization = map['Organization'];
     campplace = map['place'];
     camptime = map['time'];

@@ -122,7 +122,9 @@ class _ProfileState extends State<Profile> {
                                 ),
                                 ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        fixedSize: const Size(100, 20),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 30, vertical: 10),
+                                        // fixedSize: const Size(100, 20),
                                         backgroundColor: primary,
                                         elevation: 0),
                                     onPressed: () => Navigator.push(

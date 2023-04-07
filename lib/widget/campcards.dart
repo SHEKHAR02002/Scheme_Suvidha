@@ -21,6 +21,7 @@ class CampCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return SizedBox(
       height: 200,
       child: InkWell(
@@ -54,6 +55,7 @@ class CampCard extends StatelessWidget {
                 ),
                 Text(
                   name,
+                  overflow: TextOverflow.fade,
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
