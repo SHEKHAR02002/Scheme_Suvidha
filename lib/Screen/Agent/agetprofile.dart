@@ -17,6 +17,7 @@ class _AgentProfileState extends State<AgentProfile> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           elevation: 0,
           centerTitle: true,
           title: const Text(
