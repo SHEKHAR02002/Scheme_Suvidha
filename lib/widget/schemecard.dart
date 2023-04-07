@@ -7,33 +7,75 @@ import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/model/schememodel.dart';
+import 'package:scheme/provider/googletranslator.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 
 class SchemeCard extends StatefulWidget {
   final SchemeModel schemedata;
   final bool register;
   final bool agent;
+  final bool verification;
 
   const SchemeCard(
       {super.key,
       required this.schemedata,
       required this.register,
-      required this.agent});
+      required this.agent,
+      required this.verification});
 
   @override
   State<SchemeCard> createState() => _SchemeCardState();
 }
 
 class _SchemeCardState extends State<SchemeCard> {
+  String name = "", orgName = "", state = "", type = "";
+
+  callApi() async {
+    String tempName = await TranslationService().translate(
+        text: widget.schemedata.schemename.toString(), targetLanguage: "Hi");
+    String temporgName = await TranslationService().translate(
+        text: widget.schemedata.organizationname.toString(),
+        targetLanguage: "Hi");
+    String tempState = await TranslationService().translate(
+        text: widget.schemedata.statename.toString() == "All State / UTs" ||
+                widget.schemedata.statename.toString() ==
+                    "All State & Govenment of India"
+            ? "All State"
+            : widget.schemedata.statename.toString(),
+        targetLanguage: "Hi");
+    String temptype = await TranslationService().translate(
+        text: widget.schemedata.category.toString() ==
+                "Health & for purchase of aids"
+            ? "Health"
+            : widget.schemedata.category.toString(),
+        targetLanguage: "Hi");
+    setState(() {
+      name = tempName;
+      orgName = temporgName;
+      state = tempState;
+      type = temptype;
+    });
+  }
+
+  @override
+  void initState() {
+    if (turnOnGOOGleAPI) {
+      callApi();
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+
     return InkWell(
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => !widget.agent
                   ? SchemeDetail(
+                      verification: widget.verification,
                       register: widget.register,
                       schemedata: widget.schemedata,
                     )
@@ -76,7 +118,9 @@ class _SchemeCardState extends State<SchemeCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.schemedata.schemename.toString(),
+                      turnOnGOOGleAPI
+                          ? name
+                          : widget.schemedata.schemename.toString(),
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                           fontFamily: "Zilla",
@@ -87,7 +131,9 @@ class _SchemeCardState extends State<SchemeCard> {
                       height: 5,
                     ),
                     Text(
-                      widget.schemedata.organizationname.toString(),
+                      turnOnGOOGleAPI
+                          ? orgName
+                          : widget.schemedata.organizationname.toString(),
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontSize: 15,
@@ -108,12 +154,14 @@ class _SchemeCardState extends State<SchemeCard> {
                           width: 3,
                         ),
                         Text(
-                          widget.schemedata.statename.toString() ==
-                                      "All State / UTs" ||
-                                  widget.schemedata.statename.toString() ==
-                                      "All State & Govenment of India"
-                              ? "All State"
-                              : widget.schemedata.statename.toString(),
+                          turnOnGOOGleAPI
+                              ? state
+                              : widget.schemedata.statename.toString() ==
+                                          "All State / UTs" ||
+                                      widget.schemedata.statename.toString() ==
+                                          "All State & Govenment of India"
+                                  ? "All State"
+                                  : widget.schemedata.statename.toString(),
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 12,
@@ -132,10 +180,9 @@ class _SchemeCardState extends State<SchemeCard> {
                           width: 3,
                         ),
                         Text(
-                          widget.schemedata.category.toString() ==
-                                  "Health & for purchase of aids"
-                              ? "Health"
-                              : widget.schemedata.category.toString(),
+                          turnOnGOOGleAPI
+                              ? type
+                              : widget.schemedata.disabilitytype.toString(),
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 12,

@@ -19,6 +19,8 @@ class AgentRegistration extends StatefulWidget {
   State<AgentRegistration> createState() => _AgentRegistrationState();
 }
 
+String? agentimage = "";
+
 class _AgentRegistrationState extends State<AgentRegistration> {
   final TextEditingController _agentname = TextEditingController();
   final TextEditingController _agentgender = TextEditingController();
@@ -53,6 +55,7 @@ class _AgentRegistrationState extends State<AgentRegistration> {
       // final File file = File(image!.path);
       setState(() {
         customimage = cropFile;
+        agentimage = customimage;
         imagepicked = true;
       });
     } catch (e) {
@@ -115,7 +118,9 @@ class _AgentRegistrationState extends State<AgentRegistration> {
                   child: Stack(
                     alignment: AlignmentDirectional.center,
                     children: [
-                      Image.network(defaultPic, height: 120, width: 120),
+                      imagepicked
+                          ? Image.file(File(agentimage.toString()))
+                          : Image.network(defaultPic, height: 120, width: 120),
                       Positioned(
                         bottom: 7,
                         right: 0,

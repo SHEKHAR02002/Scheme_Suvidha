@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:scheme/Screen/agentwidget/filtercontainer.dart';
+import 'package:scheme/Screen/knowagent.dart';
+import 'package:scheme/Screen/notificationcenter.dart';
 import 'package:scheme/Screen/profile.dart';
-import 'package:scheme/Screen/registrationscreens/uploaddocument.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/api/getrecommendschemes.dart';
@@ -202,7 +203,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    getAlan();
+    // getAlan();
 
     // Future.delayed(const Duration(seconds: 3), () => callApi());
     callApi();
@@ -261,14 +262,14 @@ class _HomeState extends State<Home> {
                   //showDialog(
                   //  context: context,
                   //builder: (context) => const ImageSourcePopup());
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => const NotificationCenter()));
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const UploadDocument()));
+                          builder: (context) => const NotificationCenter()));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => const UploadDocument()));
                 },
                 child: SvgPicture.asset(
                   "assets/notification.svg",
@@ -367,6 +368,7 @@ class _HomeState extends State<Home> {
                                 SchemeModel schemdata =
                                     SchemeModel.fromMap(recommend[index]);
                                 return SchemeCard(
+                                  verification: verification,
                                   schemedata: schemdata,
                                   register: register,
                                   agent: false,
@@ -472,6 +474,7 @@ class _HomeState extends State<Home> {
                             SchemeModel schemdata =
                                 SchemeModel.fromMap(schemesDetails[index]);
                             return SchemeCard(
+                              verification: verification,
                               schemedata: schemdata,
                               register: register,
                               agent: false,
@@ -606,14 +609,24 @@ class _HomeState extends State<Home> {
                               ),
                               ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      backgroundColor: primary, elevation: 0),
-                                  onPressed: () {},
+                                      backgroundColor: Colors.white,
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      side: BorderSide(
+                                          width: 1.0, color: primary)),
+                                  onPressed: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const KnowAgent())),
                                   child: const Text(
                                     "know more",
                                     style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black),
                                   ))
                             ],
                           ),

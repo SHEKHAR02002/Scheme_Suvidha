@@ -1,19 +1,43 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/api/getcampngodata.dart';
 import 'package:scheme/model/campmodel.dart';
 
 class CampsDetails extends StatefulWidget {
-  final CampsModel campdetail;
-  const CampsDetails({super.key, required this.campdetail});
+  final String id;
+  const CampsDetails({super.key, required this.id});
 
   @override
   State<CampsDetails> createState() => _CampsDetailsState();
 }
 
 class _CampsDetailsState extends State<CampsDetails> {
-  int current = 0;
-  List data = [];
+  List otherDonation = [];
+  bool loader = true;
+  CampsModel? campdetail;
+
+  getData({required String id}) async {
+    await FirebaseFirestore.instance
+        .collection('Camps')
+        .doc(id)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) async {
+      otherDonation.addAll(await getCamps());
+      List temp = [];
+      temp.add(documentSnapshot.data());
+      for (var tempData in temp) {
+        campdetail = CampsModel.fromMap(tempData);
+      }
+    }).whenComplete(() => setState(() => loader = false));
+  }
+
+  @override
+  void initState() {
+    getData(id: widget.id);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -30,7 +54,7 @@ class _CampsDetailsState extends State<CampsDetails> {
               color: Colors.black,
             )),
         title: const Text(
-          "NGO Campaign",
+          "Camps Details",
           style: TextStyle(
               color: Colors.black,
               fontSize: 22,
@@ -39,75 +63,79 @@ class _CampsDetailsState extends State<CampsDetails> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: Image.network(
-                  widget.campdetail.image.toString(),
-                  height: 185,
-                  width: width,
-                  fit: BoxFit.cover,
+        child: loader
+            ? const Center(child: CircularProgressIndicator())
+            : Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Image.network(
+                        campdetail!.image.toString(),
+                        height: 185,
+                        width: width,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Know your rights - an initiative towards your better future ",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800,
+                          color: primary),
+                    ),
+                    const SizedBox(
+                      height: 18,
+                    ),
+                    Text(
+                      "Description :${campdetail!.campdescription}",
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Category :${campdetail!.campcategory}",
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Camp benefit :${campdetail!.campbenefit}",
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Organization :${campdetail!.camporganization}",
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Place :${campdetail!.campplace}",
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Time :${campdetail!.camptime}",
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Date:${campdetail!.date}",
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w400),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Know your rights - an initiative towards your better future ",
-                style: TextStyle(
-                    fontSize: 20, fontWeight: FontWeight.w800, color: primary),
-              ),
-              const SizedBox(
-                height: 18,
-              ),
-              Text(
-                "Description :${widget.campdetail.campdescription}",
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                "Category :${widget.campdetail.campcategory}",
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                "Camp benefit :${widget.campdetail.campbenefit}",
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                "Organization :${widget.campdetail.camporganization}",
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                "Place :${widget.campdetail.campplace}",
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                "Time :${widget.campdetail.camptime}",
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                "Date:${widget.campdetail.date}",
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:scheme/Screen/Agent/agentbottomsheet.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/api/getrecommendschemes.dart';
@@ -105,6 +106,7 @@ class _ApplyUserSchemeState extends State<ApplyUserScheme> {
                       SchemeModel schemdata =
                           SchemeModel.fromMap(recommend[index]);
                       return SchemeCard(
+                        verification: false,
                         schemedata: schemdata,
                         register: true,
                         agent: true,
@@ -115,6 +117,29 @@ class _ApplyUserSchemeState extends State<ApplyUserScheme> {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const BottomNavigator()));
+            },
+            style: ElevatedButton.styleFrom(
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5)),
+                backgroundColor: primary,
+                minimumSize: Size(width, 50)),
+            child: const Text(
+              "Apply",
+              style: TextStyle(
+                  fontFamily: "Overpass",
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700),
+            )),
       ),
     );
   }

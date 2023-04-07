@@ -12,7 +12,6 @@ import 'package:scheme/command/screenstate.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/datepicker.dart';
 import 'package:scheme/provider/imagecopper.dart';
-import 'package:scheme/provider/takeimage.dart';
 import 'package:scheme/widget/processingpopup.dart';
 import 'package:scheme/widget/textfield.dart';
 import 'package:scheme/Screen/registrationscreens/udidcardupload.dart';
@@ -129,11 +128,8 @@ class _AadharCardState extends State<AadharCard> with RouteAware {
                     _phoneNo.text = "";
                   }
                 }).whenComplete(() => Navigator.pop(context));
-                isagent
-                    ? setState(() {
-                        agentbyaadharimage = aadharpic;
-                      })
-                    : imageupload(filename: "aadharimage", file: aadharpic);
+
+                // imageupload(filename: "aadharimage", file: aadharpic);
               }),
               child: Center(
                 child: pickedaadhar
@@ -267,45 +263,26 @@ class _AadharCardState extends State<AadharCard> with RouteAware {
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
                 child: ElevatedButton(
                     onPressed: () {
-                      !isagent
-                          ? setState(() {
-                              if (_aadharNo.text != "" &&
-                                  _dob.text != "" &&
-                                  _gender.text != "" &&
-                                  _name.text != "" &&
-                                  _phoneNo.text != "") {
-                                aadharNo = _aadharNo.text;
-                                dob = _dob.text;
-                                gender = _gender.text;
-                                name = _name.text;
-                                phoneNo = _phoneNo.text;
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text(
-                                            "Enter all the details properly")));
-                                log("Field is empty");
-                              }
-                            })
-                          : setState(() {
-                              if (_aadharNo.text != "" &&
-                                  _dob.text != "" &&
-                                  _gender.text != "" &&
-                                  _name.text != "" &&
-                                  _phoneNo.text != "") {
-                                agentaadharNo = _aadharNo.text;
-                                agentbydob = _dob.text;
-                                agentbygender = _gender.text;
-                                agentbyname = _name.text;
-                                agentbyphoneNo = _phoneNo.text;
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text(
-                                            "Enter all the details properly")));
-                                log("Field is empty");
-                              }
-                            });
+                      setState(() {
+                        if (_aadharNo.text != "" &&
+                            _dob.text != "" &&
+                            _gender.text != "" &&
+                            _name.text != "" &&
+                            _phoneNo.text != "") {
+                          aadharNo = _aadharNo.text;
+                          dob = _dob.text;
+                          gender = _gender.text;
+                          name = _name.text;
+                          phoneNo = _phoneNo.text;
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text("Enter all the details properly")));
+                          log("Field is empty");
+                        }
+                      });
+
                       Navigator.push(
                           context,
                           MaterialPageRoute(

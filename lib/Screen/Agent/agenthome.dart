@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:scheme/Screen/Agent/agentnotification.dart';
 import 'package:scheme/Screen/agentwidget/applicationcard.dart';
 import 'package:scheme/Screen/agentwidget/overvieewcard.dart';
 import 'package:scheme/Theme/color.dart';
@@ -54,23 +55,30 @@ class _AgentHomeState extends State<AgentHome> {
             ),
           ),
           actions: [
-            SvgPicture.asset(
-              "assets/notification.svg",
-              color: Colors.black,
-              height: 30,
-              width: 30,
+            InkWell(
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AgentNotification(),
+                  )),
+              child: SvgPicture.asset(
+                "assets/notification.svg",
+                color: Colors.black,
+                height: 30,
+                width: 30,
+              ),
             ),
-            applicationloader
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: SvgPicture.asset(
-                      "assets/about.svg",
-                      color: Colors.black,
-                      height: 30,
-                      width: 30,
-                    ),
-                  )
-                : const SizedBox.shrink()
+            InkWell(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: SvgPicture.asset(
+                  "assets/about.svg",
+                  color: Colors.black,
+                  height: 30,
+                  width: 30,
+                ),
+              ),
+            )
           ],
         ),
         body: RefreshIndicator(

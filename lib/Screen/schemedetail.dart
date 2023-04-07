@@ -4,6 +4,7 @@ import 'package:scheme/Screen/home.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/api/getscheme.dart';
 import 'package:scheme/model/schememodel.dart';
+import 'package:scheme/provider/googletranslator.dart';
 import 'package:scheme/widget/processingpopup.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
@@ -13,14 +14,64 @@ var uuid = const Uuid();
 class SchemeDetail extends StatefulWidget {
   final SchemeModel schemedata;
   final bool register;
+  final bool verification;
   const SchemeDetail(
-      {super.key, required this.schemedata, required this.register});
+      {super.key,
+      required this.schemedata,
+      required this.register,
+      required this.verification});
 
   @override
   State<SchemeDetail> createState() => _SchemeDetailState();
 }
 
 class _SchemeDetailState extends State<SchemeDetail> {
+  String name = "",
+      orgname = "",
+      state = "",
+      type = "",
+      percent = "",
+      des = '',
+      benfits = "";
+
+  callApi() async {
+    String tempName = await TranslationService().translate(
+        text: widget.schemedata.schemename.toString(), targetLanguage: "Hi");
+    String temporgName = await TranslationService().translate(
+        text: widget.schemedata.organizationname.toString(),
+        targetLanguage: "Hi");
+    String tempState = await TranslationService().translate(
+        text: widget.schemedata.statename.toString() == "All State / UTs" ||
+                widget.schemedata.statename.toString() ==
+                    "All State & Govenment of India"
+            ? "All State"
+            : widget.schemedata.statename.toString(),
+        targetLanguage: "Hi");
+    String temptype = await TranslationService().translate(
+        text: widget.schemedata.category.toString() ==
+                "Health & for purchase of aids"
+            ? "Health"
+            : widget.schemedata.category.toString(),
+        targetLanguage: "Hi");
+    String tempprecent = await TranslationService().translate(
+        text: widget.schemedata.disabilitypercentage.toString(),
+        targetLanguage: "Hi");
+    String tempdes = await TranslationService().translate(
+        text: widget.schemedata.shortdescription.toString(),
+        targetLanguage: "Hi");
+    String tempbenfits = await TranslationService().translate(
+        text: widget.schemedata.benefits.toString(), targetLanguage: "Hi");
+    setState(() {
+      name = tempName;
+      orgname = temporgName;
+      state = tempState;
+      type = temptype;
+      des = tempdes;
+      benfits = tempbenfits;
+      percent = tempprecent;
+    });
+  }
+
   Future<void> _launchInBrowser(String url) async {
     final Uri url0 = Uri.parse(url);
 
@@ -30,6 +81,14 @@ class _SchemeDetailState extends State<SchemeDetail> {
     )) {
       throw Exception('Could not launch $url');
     }
+  }
+
+  @override
+  void initState() {
+    if (turnOnGOOGleAPI) {
+      callApi();
+    }
+    super.initState();
   }
 
   @override
@@ -86,7 +145,9 @@ class _SchemeDetailState extends State<SchemeDetail> {
                         SizedBox(
                           width: width - 100,
                           child: Text(
-                            widget.schemedata.schemename.toString(),
+                            turnOnGOOGleAPI
+                                ? name
+                                : widget.schemedata.schemename.toString(),
                             overflow: TextOverflow.clip,
                             style: TextStyle(
                                 color: black,
@@ -98,7 +159,9 @@ class _SchemeDetailState extends State<SchemeDetail> {
                         SizedBox(
                           width: width - 100,
                           child: Text(
-                            widget.schemedata.organizationname.toString(),
+                            turnOnGOOGleAPI
+                                ? orgname
+                                : widget.schemedata.organizationname.toString(),
                             overflow: TextOverflow.clip,
                             style: const TextStyle(
                                 color: Color(
@@ -157,56 +220,58 @@ class _SchemeDetailState extends State<SchemeDetail> {
                 Row(
                   children: [
                     Container(
-                      height: 25,
-                      width: width / 5,
+                      // height: 25,
+                      // width: width / 5,
+                      padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
                           color: secondary,
                           borderRadius: BorderRadius.circular(5)),
-                      child: Center(
-                        child: Text(
-                          widget.schemedata.statename.toString() ==
-                                  "All State / UTs"
-                              ? "All India"
-                              : widget.schemedata.statename.toString(),
-                          style: TextStyle(
-                              color: black,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400),
-                        ),
+                      child: Text(
+                        turnOnGOOGleAPI
+                            ? state
+                            : widget.schemedata.statename.toString() ==
+                                    "All State / UTs"
+                                ? "All India"
+                                : widget.schemedata.statename.toString(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: black,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400),
                       ),
                     ),
                     const Spacer(),
                     Container(
-                      height: 25,
-                      width: width / 5,
+                      padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
                           color: secondary,
                           borderRadius: BorderRadius.circular(5)),
-                      child: Center(
-                        child: Text(
-                          widget.schemedata.category.toString(),
-                          style: TextStyle(
-                              color: black,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400),
-                        ),
+                      child: Text(
+                        turnOnGOOGleAPI
+                            ? type
+                            : widget.schemedata.category.toString(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: black,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400),
                       ),
                     ),
                     const Spacer(),
                     Container(
-                      height: 25,
-                      width: width / 5,
+                      padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
                           color: secondary,
                           borderRadius: BorderRadius.circular(5)),
-                      child: Center(
-                        child: Text(
-                          widget.schemedata.disabilitypercentage.toString(),
-                          style: TextStyle(
-                              color: black,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400),
-                        ),
+                      child: Text(
+                        turnOnGOOGleAPI
+                            ? percent
+                            : widget.schemedata.disabilitypercentage.toString(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: black,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400),
                       ),
                     )
                   ],
@@ -224,7 +289,9 @@ class _SchemeDetailState extends State<SchemeDetail> {
                 Padding(
                   padding: const EdgeInsets.only(left: 8, top: 10),
                   child: Text(
-                    widget.schemedata.shortdescription.toString(),
+                    turnOnGOOGleAPI
+                        ? des
+                        : widget.schemedata.shortdescription.toString(),
                     style: const TextStyle(
                         fontFamily: 'Overpass',
                         fontSize: 16,
@@ -244,7 +311,9 @@ class _SchemeDetailState extends State<SchemeDetail> {
                 Padding(
                   padding: const EdgeInsets.only(left: 8, top: 10),
                   child: Text(
-                    widget.schemedata.benefits.toString(),
+                    turnOnGOOGleAPI
+                        ? benfits
+                        : widget.schemedata.benefits.toString(),
                     style: const TextStyle(
                         fontFamily: 'Overpass',
                         fontSize: 16,
@@ -280,7 +349,7 @@ class _SchemeDetailState extends State<SchemeDetail> {
             ),
           ),
         ),
-        bottomNavigationBar: widget.register
+        bottomNavigationBar: widget.register && widget.verification
             ? Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
                 child: ElevatedButton(
@@ -291,8 +360,9 @@ class _SchemeDetailState extends State<SchemeDetail> {
                               context: context, msg: "Processing....")));
                       await schemeapply(
                               schemeid: widget.schemedata.schemeid.toString(),
-                              schemename:
-                                  widget.schemedata.schemename.toString())
+                              schemename: turnOnGOOGleAPI
+                                  ? name
+                                  : widget.schemedata.schemename.toString())
                           .whenComplete(() => Navigator.of(context)
                               .pushAndRemoveUntil(
                                   MaterialPageRoute(

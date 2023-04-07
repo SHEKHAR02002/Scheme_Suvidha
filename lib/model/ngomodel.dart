@@ -3,16 +3,21 @@ class NgoModel {
   String? ngocontact;
   String? ngodetail;
   String? ngoemail;
+
   String? ngofacebook;
+  String? ngotwitter;
+  String? ngowebsite;
+  String? ngoinsta;
+
   String? ngofoundin;
   String? ngofoundcontact;
   String? ngofoundname;
+
   String? ngoid;
   String? ngologo;
-  String? ngoinsta;
+
   String? ngoname;
-  String? ngotwitter;
-  String? ngowebsite;
+
   bool? verification;
 
   NgoModel(

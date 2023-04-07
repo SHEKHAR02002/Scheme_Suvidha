@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 
-class NotificationCenter extends StatefulWidget {
-  const NotificationCenter({super.key});
+class AgentNotification extends StatefulWidget {
+  const AgentNotification({super.key});
 
   @override
-  State<NotificationCenter> createState() => _NotificationCenterState();
+  State<AgentNotification> createState() => _AgentNotificationState();
 }
 
-class _NotificationCenterState extends State<NotificationCenter> {
+class _AgentNotificationState extends State<AgentNotification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

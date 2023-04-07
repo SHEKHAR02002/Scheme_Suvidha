@@ -105,7 +105,9 @@ class _OverviewCardState extends State<OverviewCard> {
                           Text(
                             '48',
                             style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w400),
+                                color: Colors.green,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400),
                           ),
                         ],
                       ),
@@ -139,7 +141,9 @@ class _OverviewCardState extends State<OverviewCard> {
                           Text(
                             '20',
                             style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w400),
+                                color: Colors.red,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400),
                           ),
                         ],
                       ),

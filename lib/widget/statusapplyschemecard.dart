@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:scheme/provider/googletranslator.dart';
 
-class ApplySchemeStatus extends StatelessWidget {
+class ApplySchemeStatus extends StatefulWidget {
   final String schemename, id;
   final int progress;
   const ApplySchemeStatus(
@@ -10,6 +11,26 @@ class ApplySchemeStatus extends StatelessWidget {
       required this.schemename,
       required this.id,
       required this.progress});
+
+  @override
+  State<ApplySchemeStatus> createState() => _ApplySchemeStatusState();
+}
+
+class _ApplySchemeStatusState extends State<ApplySchemeStatus> {
+  String schemename = "";
+  callApi() async {
+    String tempschemename = await TranslationService()
+        .translate(text: widget.schemename, targetLanguage: "hi");
+    setState(() {
+      schemename = tempschemename;
+    });
+  }
+
+  @override
+  void initState() {
+    callApi();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +59,9 @@ class ApplySchemeStatus extends StatelessWidget {
               SizedBox(
                 width: width / 2,
                 child: Text(
-                  "Scheme Name : $schemename",
+                  turnOnGOOGleAPI
+                      ? "Scheme Name : $schemename"
+                      : "Scheme Name : ${widget.schemename}",
                   style: TextStyle(
                       color: text2,
                       fontFamily: "Zilla",
@@ -99,17 +122,17 @@ class ApplySchemeStatus extends StatelessWidget {
             animationDuration: const Duration(milliseconds: 800),
             chartLegendSpacing: 32,
             chartRadius: MediaQuery.of(context).size.width / 4,
-            colorList: progress == 0
+            colorList: widget.progress == 0
                 ? [secondary, secondary]
-                : progress == 1
+                : widget.progress == 1
                     ? [primary, secondary]
                     : [primary, primary],
             initialAngleInDegree: 0,
             chartType: ChartType.ring,
             ringStrokeWidth: 15,
-            centerText: progress == 0
+            centerText: widget.progress == 0
                 ? "0%"
-                : progress == 1
+                : widget.progress == 1
                     ? "50%"
                     : "100%",
             centerTextStyle: TextStyle(

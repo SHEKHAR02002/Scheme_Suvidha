@@ -4,6 +4,7 @@ import 'package:scheme/Screen/Agent/agenthistory.dart';
 import 'package:scheme/Screen/agentwidget/resetpassword.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
+import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/phoneauth.dart';
 
 class AgentProfile extends StatefulWidget {
@@ -41,16 +42,18 @@ class _AgentProfileState extends State<AgentProfile> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  Text(
+                    agentDetails!.name.toString(),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "Location",
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+                  Text(
+                    agentDetails!.emailid.toString(),
+                    style: const TextStyle(
+                        fontSize: 12, fontWeight: FontWeight.w400),
                   ),
                   const SizedBox(
                     height: 10,
