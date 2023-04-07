@@ -25,7 +25,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -54,7 +57,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBx2wVzppvOalchbvIiE2sR9sVKN_-ATFY',
-    appId: '1:715131919811:android:c796e635d0c143e619b176',
+    appId: '1:715131919811:android:d81d6326eba8dcc419b176',
     messagingSenderId: '715131919811',
     projectId: 'scheme-suvidha-admin',
     storageBucket: 'scheme-suvidha-admin.appspot.com',
@@ -62,21 +65,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCo5MHQ5fR2ToMb1xYnyHWOarrBvZQv1OA',
-    appId: '1:715131919811:ios:79db0d382c58ba7619b176',
+    appId: '1:715131919811:ios:df7a320ffba089db19b176',
     messagingSenderId: '715131919811',
     projectId: 'scheme-suvidha-admin',
     storageBucket: 'scheme-suvidha-admin.appspot.com',
-    iosClientId: '715131919811-nhg63d6i0kcq6bhfd8op41e2t5abh03c.apps.googleusercontent.com',
-    iosBundleId: 'com.example.scheme',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCo5MHQ5fR2ToMb1xYnyHWOarrBvZQv1OA',
-    appId: '1:715131919811:ios:79db0d382c58ba7619b176',
-    messagingSenderId: '715131919811',
-    projectId: 'scheme-suvidha-admin',
-    storageBucket: 'scheme-suvidha-admin.appspot.com',
-    iosClientId: '715131919811-nhg63d6i0kcq6bhfd8op41e2t5abh03c.apps.googleusercontent.com',
-    iosBundleId: 'com.example.scheme',
+    androidClientId: '715131919811-m09b613ebena6hu5dakc7g3bkp9t2ett.apps.googleusercontent.com',
+    iosClientId: '715131919811-ncrjd8sl4fgnibvavrmua2j3ra04cvdd.apps.googleusercontent.com',
+    iosBundleId: 'com.schemesuvidha.app',
   );
 }
