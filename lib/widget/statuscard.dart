@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:scheme/Theme/color.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StatusCard extends StatelessWidget {
   final bool register, verify;
@@ -32,7 +33,7 @@ class StatusCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(5)),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         Text(
-          "Your Status",
+          AppLocalizations.of(context)!.yourstatus,
           style: TextStyle(
               color: Colors.black,
               fontFamily: "Zilla",
@@ -43,7 +44,7 @@ class StatusCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
           child: RichText(
             text: TextSpan(
-              text: 'Registration       ',
+              text: AppLocalizations.of(context)!.registration,
               style: TextStyle(
                   color: text2,
                   fontFamily: "Zilla",
@@ -51,7 +52,9 @@ class StatusCard extends StatelessWidget {
                   fontWeight: FontWeight.w500),
               children: <TextSpan>[
                 TextSpan(
-                  text: register ? "Done" : "Not Done",
+                  text: register
+                      ? AppLocalizations.of(context)!.done
+                      : AppLocalizations.of(context)!.notdone,
                   style: TextStyle(
                       color: register ? Colors.green : Colors.red,
                       fontFamily: "Zilla",

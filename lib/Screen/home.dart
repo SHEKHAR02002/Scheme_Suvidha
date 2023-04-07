@@ -28,6 +28,7 @@ import 'package:scheme/widget/skeleton/schemecardskeleton.dart';
 import 'package:scheme/widget/skeleton/schemestatuscard.dart';
 import 'package:scheme/widget/statusapplyschemecard.dart';
 import 'package:scheme/widget/statuscard.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 ValueNotifier<List> schemeDataList = ValueNotifier<List>([]);
 
@@ -349,7 +350,7 @@ class _HomeState extends State<Home> {
                   ),
                   register
                       ? Text(
-                          "Recommend For You",
+                          AppLocalizations.of(context)!.recommendforyou,
                           style: TextStyle(
                               color: black,
                               fontFamily: "Zilla",
@@ -378,7 +379,7 @@ class _HomeState extends State<Home> {
                   Row(
                     children: [
                       Text(
-                        "Schemes for all",
+                        AppLocalizations.of(context)!.schemesforall,
                         style: TextStyle(
                             color: black,
                             fontFamily: "Zilla",
@@ -418,7 +419,7 @@ class _HomeState extends State<Home> {
                           selectfilter: () => getFilter(
                               filter: "Health & for purchase of aids",
                               setFilterIndex: 1),
-                          title: 'Health',
+                          title: AppLocalizations.of(context)!.health,
                           path: "assets/medical.svg",
                           seletedFilterindex: selctedFilter,
                           myindex: 1,
@@ -426,35 +427,35 @@ class _HomeState extends State<Home> {
                         FilterContainer(
                             selectfilter: () =>
                                 getFilter(filter: "Pension", setFilterIndex: 2),
-                            title: 'Pension',
+                            title: AppLocalizations.of(context)!.pension,
                             path: "assets/retirement.svg",
                             seletedFilterindex: selctedFilter,
                             myindex: 2),
                         FilterContainer(
                             selectfilter: () => getFilter(
                                 filter: "Business", setFilterIndex: 3),
-                            title: 'Business',
+                            title: AppLocalizations.of(context)!.business,
                             path: "assets/Growth.svg",
                             seletedFilterindex: selctedFilter,
                             myindex: 3),
                         FilterContainer(
                             selectfilter: () => getFilter(
                                 filter: "Career/ Education", setFilterIndex: 4),
-                            title: 'Education',
+                            title: AppLocalizations.of(context)!.education,
                             path: "assets/mortarboard.svg",
                             seletedFilterindex: selctedFilter,
                             myindex: 4),
                         FilterContainer(
                             selectfilter: () => getFilter(
                                 filter: "Transport", setFilterIndex: 5),
-                            title: 'Transport',
+                            title: AppLocalizations.of(context)!.transport,
                             path: "assets/car.svg",
                             seletedFilterindex: selctedFilter,
                             myindex: 5),
                         FilterContainer(
                             selectfilter: () => getFilter(
                                 filter: "Marriage", setFilterIndex: 6),
-                            title: 'Marriage',
+                            title: AppLocalizations.of(context)!.marriage,
                             path: "assets/wedding.svg",
                             seletedFilterindex: selctedFilter,
                             myindex: 6),
@@ -509,7 +510,9 @@ class _HomeState extends State<Home> {
                         });
                       },
                       child: Text(
-                        nomore ? "Less..." : "More...",
+                        nomore
+                            ? AppLocalizations.of(context)!.less
+                            : AppLocalizations.of(context)!.more,
                         style: TextStyle(
                             color: primary,
                             fontSize: 16,
@@ -517,9 +520,9 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
-                  const Text(
-                    "NearBy NGOs",
-                    style: TextStyle(
+                  Text(
+                    AppLocalizations.of(context)!.nearbyngo,
+                    style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
                         fontFamily: "Zilla"),
@@ -560,7 +563,7 @@ class _HomeState extends State<Home> {
                     height: 20,
                   ),
                   Text(
-                    "Campaigns",
+                    AppLocalizations.of(context)!.campaigns,
                     style: TextStyle(
                         color: black,
                         fontFamily: "Zilla",
@@ -592,7 +595,8 @@ class _HomeState extends State<Home> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Need help in registering or applying\nscheme ??",
+                                AppLocalizations.of(context)!
+                                    .needhelpinregister,
                                 style: TextStyle(
                                     color: primary,
                                     fontSize: 14,
@@ -600,7 +604,8 @@ class _HomeState extends State<Home> {
                                     fontFamily: "Zilla"),
                               ),
                               Text(
-                                "We got verified agents that would\nhelp you",
+                                AppLocalizations.of(context)!
+                                    .wegotverifiedagent,
                                 style: TextStyle(
                                     color: primary,
                                     fontSize: 14,
@@ -621,9 +626,9 @@ class _HomeState extends State<Home> {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               const KnowAgent())),
-                                  child: const Text(
-                                    "know more",
-                                    style: TextStyle(
+                                  child: Text(
+                                    AppLocalizations.of(context)!.knowmore,
+                                    style: const TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black),

@@ -13,6 +13,7 @@ import 'package:scheme/provider/phoneauth.dart';
 import 'package:scheme/widget/applyschemedetail.dart';
 // import 'package:scheme/widget/applyschemedetail.dart';
 import 'package:scheme/widget/setting/setting.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Profile extends StatefulWidget {
   final UserModel user;
@@ -56,9 +57,9 @@ class _ProfileState extends State<Profile> {
             onTap: () => Navigator.pop(context),
             child: const Icon(Icons.arrow_back_ios),
           ),
-          title: const Text(
-            "Profile",
-            style: TextStyle(color: Colors.black),
+          title: Text(
+            AppLocalizations.of(context)!.profile,
+            style: const TextStyle(color: Colors.black),
           ),
         ),
         body: SingleChildScrollView(
@@ -95,9 +96,9 @@ class _ProfileState extends State<Profile> {
                             const SizedBox(
                               height: 10,
                             ),
-                            const Text(
-                              "Location",
-                              style: TextStyle(
+                            Text(
+                              AppLocalizations.of(context)!.location,
+                              style: const TextStyle(
                                   fontSize: 12, fontWeight: FontWeight.w400),
                             ),
                             const SizedBox(
@@ -129,9 +130,9 @@ class _ProfileState extends State<Profile> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 const UploadDoument())),
-                                    child: const Text(
-                                      "Register",
-                                      style: TextStyle(
+                                    child: Text(
+                                      AppLocalizations.of(context)!.register,
+                                      style: const TextStyle(
                                           fontFamily: "Zilla",
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400,
@@ -162,7 +163,7 @@ class _ProfileState extends State<Profile> {
                           width: 5,
                         ),
                         Text(
-                          "Update Profile",
+                          AppLocalizations.of(context)!.updateprofile,
                           style: TextStyle(
                               color: primary,
                               fontSize: 20,
@@ -201,7 +202,7 @@ class _ProfileState extends State<Profile> {
                           width: 5,
                         ),
                         Text(
-                          "Scheme Details",
+                          AppLocalizations.of(context)!.schemedetails,
                           style: TextStyle(
                               color: primary,
                               fontSize: 20,
@@ -240,7 +241,7 @@ class _ProfileState extends State<Profile> {
                           width: 5,
                         ),
                         Text(
-                          "Setting",
+                          AppLocalizations.of(context)!.setting,
                           style: TextStyle(
                               color: primary,
                               fontSize: 20,
@@ -269,9 +270,9 @@ class _ProfileState extends State<Profile> {
                         borderRadius: BorderRadius.circular(5)),
                     backgroundColor: primary,
                     minimumSize: Size(width, 50)),
-                child: const Text(
-                  "Logout",
-                  style: TextStyle(
+                child: Text(
+                  AppLocalizations.of(context)!.logout,
+                  style: const TextStyle(
                       fontFamily: "Overpass",
                       fontSize: 18,
                       fontWeight: FontWeight.w700),
