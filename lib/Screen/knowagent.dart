@@ -23,8 +23,7 @@ class _KnowAgentState extends State<KnowAgent> {
       for (var doc in querySnapshot.docs) {
         agentlist.add(doc.data());
       }
-    });
-    print(agentlist.length);
+    }).whenComplete(() => setState(() => agentloader = false));
   }
 
   @override
@@ -68,7 +67,7 @@ class _KnowAgentState extends State<KnowAgent> {
                   : AgentCard(
                       address: agentlist[index]['address'],
                       name: agentlist[index]['name'],
-                      // contact: agentlist[index]['contact'],
+                      contact: agentlist[index]['contact'],
                     );
             }),
       ),

@@ -5,6 +5,7 @@ import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/widget/setting/contact.dart';
 import 'package:scheme/widget/setting/help.dart';
 import 'package:scheme/widget/setting/permission.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});
@@ -14,6 +15,18 @@ class Setting extends StatefulWidget {
 }
 
 class _SettingState extends State<Setting> {
+  Future<void> _launchInBrowser() async {
+    final Uri url0 =
+        Uri.parse("https://scheme-suvidha-landing-page.vercel.app/AboutUs");
+
+    if (!await launchUrl(
+      url0,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +99,7 @@ class _SettingState extends State<Setting> {
             Container(
               decoration: shadowdecoration,
               child: InkWell(
-                onTap: () {},
+                onTap: () => _launchInBrowser(),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Row(children: [

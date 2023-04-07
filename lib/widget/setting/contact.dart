@@ -13,6 +13,7 @@ class ContactUs extends StatefulWidget {
 
 class _ContactUsState extends State<ContactUs> {
   List faq = [];
+  bool loader = true;
   callapi() async {
     faq.clear();
     await FirebaseFirestore.instance
@@ -22,7 +23,7 @@ class _ContactUsState extends State<ContactUs> {
       for (var doc in querysnapshot.docs) {
         faq.add(doc.data());
       }
-    });
+    }).whenComplete(() => setState(() => loader = false));
   }
 
   @override
@@ -145,15 +146,17 @@ class _ContactUsState extends State<ContactUs> {
               const SizedBox(
                 height: 20,
               ),
-              ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: faq.length,
-                  itemBuilder: (context, index) {
-                    return FAQ(
-                        question: faq[index]["question"],
-                        answer: faq[index]["answer"]);
-                  })
+              loader
+                  ? const Center(child: CircularProgressIndicator())
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: faq.length,
+                      itemBuilder: (context, index) {
+                        return FAQ(
+                            question: faq[index]["question"],
+                            answer: faq[index]["answer"]);
+                      })
             ],
           ),
         ),

@@ -3,14 +3,12 @@ import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 
 class AgentCard extends StatefulWidget {
-  final String name, address;
-  const AgentCard({
-    super.key,
-    required this.name,
-    required this.address,
-
-    // required this.contact
-  });
+  final String name, address, contact;
+  const AgentCard(
+      {super.key,
+      required this.name,
+      required this.address,
+      required this.contact});
 
   @override
   State<AgentCard> createState() => _AgentCardState();
