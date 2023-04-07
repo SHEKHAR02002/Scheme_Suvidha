@@ -5,6 +5,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:scheme/Screen/login.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/provider/phoneauth.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OtpBottomSheet extends StatefulWidget {
   final String phoneNumber, verificationId;
@@ -62,7 +63,7 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
             height: 20,
           ),
           Text(
-            "Enter verification code",
+            AppLocalizations.of(context)!.enterverifycode,
             style: TextStyle(
                 color: primary,
                 fontFamily: "Zilla",
@@ -111,7 +112,7 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
                 MaterialPageRoute(builder: (_) => const Login()),
                 (route) => false),
             child: Text(
-              "click here to edit phone number ${widget.phoneNumber}",
+              AppLocalizations.of(context)!.editphoneno(widget.phoneNumber),
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: fontsize16,
@@ -153,7 +154,7 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
                     backgroundColor: primary,
                     minimumSize: Size(width, btnheight)),
                 child: Text(
-                  "Submit",
+                  AppLocalizations.of(context)!.submit,
                   style: TextStyle(
                       fontFamily: "Overpass",
                       fontSize: fontsize18,

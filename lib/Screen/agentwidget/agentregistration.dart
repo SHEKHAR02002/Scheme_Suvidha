@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,7 @@ class _AgentRegistrationState extends State<AgentRegistration> {
       }
     }
     Fluttertoast.showToast(
-        msg: "Image Picked",
+        msg: AppLocalizations.of(context)!.imagepicked,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
@@ -91,9 +92,9 @@ class _AgentRegistrationState extends State<AgentRegistration> {
               Icons.arrow_back_ios,
               color: Colors.black,
             )),
-        title: const Text(
-          "Registration Form",
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.registrationform,
+          style: const TextStyle(
               color: Colors.black,
               fontSize: 22,
               fontWeight: FontWeight.w400,
@@ -138,7 +139,7 @@ class _AgentRegistrationState extends State<AgentRegistration> {
               height: 20,
             ),
             Text(
-              "Name",
+              AppLocalizations.of(context)!.name,
               style: TextStyle(
                   color: black,
                   fontFamily: "Overpass",
@@ -171,7 +172,7 @@ class _AgentRegistrationState extends State<AgentRegistration> {
               height: 20,
             ),
             Text(
-              "Gender",
+              AppLocalizations.of(context)!.gender,
               style: TextStyle(
                   color: black,
                   fontFamily: "Overpass",
@@ -204,7 +205,7 @@ class _AgentRegistrationState extends State<AgentRegistration> {
               height: 20,
             ),
             Text(
-              "DOB",
+              AppLocalizations.of(context)!.dob,
               style: TextStyle(
                   color: black,
                   fontFamily: "Overpass",
@@ -237,7 +238,7 @@ class _AgentRegistrationState extends State<AgentRegistration> {
               height: 20,
             ),
             Text(
-              "Occupation",
+              AppLocalizations.of(context)!.occupation,
               style: TextStyle(
                   color: black,
                   fontFamily: "Overpass",
@@ -270,7 +271,7 @@ class _AgentRegistrationState extends State<AgentRegistration> {
               height: 20,
             ),
             Text(
-              "Address",
+              AppLocalizations.of(context)!.address,
               style: TextStyle(
                   color: black,
                   fontFamily: "Overpass",
@@ -303,7 +304,7 @@ class _AgentRegistrationState extends State<AgentRegistration> {
               height: 20,
             ),
             Text(
-              "Pincode",
+              AppLocalizations.of(context)!.pincode,
               style: TextStyle(
                   color: black,
                   fontFamily: "Overpass",
@@ -336,7 +337,7 @@ class _AgentRegistrationState extends State<AgentRegistration> {
               height: 20,
             ),
             Text(
-              "Phone No.",
+              AppLocalizations.of(context)!.phoneno,
               style: TextStyle(
                   color: black,
                   fontFamily: "Overpass",
@@ -402,9 +403,9 @@ class _AgentRegistrationState extends State<AgentRegistration> {
                     borderRadius: BorderRadius.circular(5)),
                 backgroundColor: primary,
                 minimumSize: Size(width, 50)),
-            child: const Text(
-              "Next",
-              style: TextStyle(
+            child: Text(
+              AppLocalizations.of(context)!.next,
+              style: const TextStyle(
                   fontFamily: "Overpass",
                   fontSize: 18,
                   fontWeight: FontWeight.w700),
@@ -430,9 +431,9 @@ class _AgentRegistrationState extends State<AgentRegistration> {
             child: Column(
               // crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                const Text(
-                  "Select Image",
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.selectimg,
+                  style: const TextStyle(
                       fontSize: 30,
                       fontFamily: "Zilla",
                       fontWeight: FontWeight.w700),
@@ -454,7 +455,7 @@ class _AgentRegistrationState extends State<AgentRegistration> {
                             color: primary,
                           ),
                         ),
-                        const Text("Camera")
+                        Text(AppLocalizations.of(context)!.camera)
                       ],
                     ),
                     SizedBox(
@@ -471,7 +472,7 @@ class _AgentRegistrationState extends State<AgentRegistration> {
                             color: primary,
                           ),
                         ),
-                        const Text("Gallery")
+                        Text(AppLocalizations.of(context)!.gallery)
                       ],
                     ),
                   ],
@@ -491,9 +492,9 @@ class _AgentRegistrationState extends State<AgentRegistration> {
                             customimage = "";
                           });
                         },
-                        label: const Text(
-                          "Remove ProfilePic",
-                          style: TextStyle(
+                        label: Text(
+                          AppLocalizations.of(context)!.removeprofilepic,
+                          style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w700),
                         ),
                       )
