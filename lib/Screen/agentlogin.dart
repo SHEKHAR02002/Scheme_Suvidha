@@ -8,6 +8,7 @@ import 'package:scheme/Screen/agentwidget/agentregistration.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/api/checknewuser.dart';
 import 'package:scheme/data/userdata.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'Agent/agentbottomsheet.dart';
 
@@ -49,7 +50,7 @@ class _AgentLoginState extends State<AgentLogin> {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         Fluttertoast.showToast(
-            msg: "User Not Found",
+            msg: AppLocalizations.of(context)!.usernotfound,
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -60,7 +61,7 @@ class _AgentLoginState extends State<AgentLogin> {
         return false;
       } else if (e.code == 'wrong-password') {
         Fluttertoast.showToast(
-            msg: "Wrong Password",
+            msg: AppLocalizations.of(context)!.wrongpass,
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -96,7 +97,7 @@ class _AgentLoginState extends State<AgentLogin> {
                 Padding(
                   padding: const EdgeInsets.only(left: 30),
                   child: Text(
-                    "Email",
+                    AppLocalizations.of(context)!.email,
                     style: TextStyle(
                         color: primary,
                         fontFamily: "Zilla",
@@ -151,7 +152,7 @@ class _AgentLoginState extends State<AgentLogin> {
                 Padding(
                   padding: const EdgeInsets.only(left: 30),
                   child: Text(
-                    "Password",
+                    AppLocalizations.of(context)!.password,
                     style: TextStyle(
                         color: primary,
                         fontFamily: "Zilla",
@@ -230,9 +231,9 @@ class _AgentLoginState extends State<AgentLogin> {
                           borderRadius: BorderRadius.circular(5)),
                       backgroundColor: primary,
                       minimumSize: Size(width, 50)),
-                  child: const Text(
-                    "Login",
-                    style: TextStyle(
+                  child: Text(
+                    AppLocalizations.of(context)!.login,
+                    style: const TextStyle(
                         fontFamily: "Overpass",
                         fontSize: 18,
                         fontWeight: FontWeight.w700),
@@ -248,10 +249,10 @@ class _AgentLoginState extends State<AgentLogin> {
                 child: RichText(
                     text: TextSpan(children: [
                   TextSpan(
-                      text: "  Don’t  have account ?",
+                      text: AppLocalizations.of(context)!.donthaveaccount,
                       style: TextStyle(fontSize: 15, color: text2)),
                   TextSpan(
-                      text: "  Register",
+                      text: AppLocalizations.of(context)!.register,
                       style: TextStyle(fontSize: 15, color: primary))
                 ])),
               )

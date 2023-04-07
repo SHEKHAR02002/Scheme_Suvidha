@@ -3,11 +3,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:scheme/Screen/splash.dart';
 import 'package:scheme/firebase_options.dart';
+import 'package:scheme/l10n/l10n.dart';
+import 'package:scheme/provider/locale_provider.dart';
 import 'package:scheme/provider/notifcationprovider.dart';
 import 'Theme/color.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,25 +45,49 @@ void main() async {
     sound: true,
   );
 
-  runApp(MaterialApp(
-    builder: (context, widget) => ResponsiveWrapper.builder(
-      ClampingScrollWrapper.builder(context, widget!),
-      breakpoints: const [
-        ResponsiveBreakpoint.resize(350, name: MOBILE),
-        ResponsiveBreakpoint.autoScale(600, name: TABLET),
-        ResponsiveBreakpoint.resize(800, name: DESKTOP),
-        ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
-      ],
-    ),
-    title: 'Scheme',
-    theme: ThemeData(
-      fontFamily: "Overpass",
-      scaffoldBackgroundColor: bgcolor,
-      primaryColor: primary,
-      // colorScheme: ColorScheme(background: bgcolor),
-    ),
-    home: const Main(),
+  runApp(ChangeNotifierProvider<LocaleProvider>(
+    create: (context) => LocaleProvider(),
+    child: const MyApp(),
   ));
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<LocaleProvider>(
+      builder: (context, appstate, child) {
+        return MaterialApp(
+          builder: (context, widget) => ResponsiveWrapper.builder(
+            ClampingScrollWrapper.builder(context, widget!),
+            breakpoints: const [
+              ResponsiveBreakpoint.resize(350, name: MOBILE),
+              ResponsiveBreakpoint.autoScale(600, name: TABLET),
+              ResponsiveBreakpoint.resize(800, name: DESKTOP),
+              ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
+            ],
+          ),
+          title: 'Scheme',
+          theme: ThemeData(
+            fontFamily: "Overpass",
+            scaffoldBackgroundColor: bgcolor,
+            primaryColor: primary,
+            // colorScheme: ColorScheme(background: bgcolor),
+          ),
+          locale: Provider.of<LocaleProvider>(context).locale,
+          supportedLocales: L10n.support,
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          home: const Main(),
+        );
+      },
+    );
+  }
 }
 
 class Main extends StatefulWidget {

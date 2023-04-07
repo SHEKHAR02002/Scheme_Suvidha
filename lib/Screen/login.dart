@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -8,6 +8,7 @@ import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/data/userdata.dart';
 import 'package:scheme/provider/phoneauth.dart';
+import 'package:scheme/widget/languagedropdown.dart';
 // import 'package:scheme/provider/phoneauth.dart';
 
 class Login extends StatefulWidget {
@@ -55,6 +56,16 @@ class _LoginState extends State<Login> {
       Condition.largerThan(name: TABLET, value: 10.0)
     ]).value as double;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: bgcolor,
+        elevation: 0,
+        actions: const [
+          LanguageDropdown(),
+          SizedBox(
+            width: 20,
+          )
+        ],
+      ),
       // backgroundColor: bgcolor,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -69,7 +80,7 @@ class _LoginState extends State<Login> {
               height: 10,
             ),
             Text(
-              "LOGIN",
+              AppLocalizations.of(context)!.login,
               style: TextStyle(
                   fontFamily: "Zilla",
                   fontSize: fontsize32,
@@ -79,7 +90,7 @@ class _LoginState extends State<Login> {
               height: 20,
             ),
             Text(
-              "Enter mobile number",
+              AppLocalizations.of(context)!.mobileno,
               style: TextStyle(
                   color: primary,
                   fontFamily: "Zilla",
@@ -103,6 +114,8 @@ class _LoginState extends State<Login> {
                 style: TextStyle(
                     fontSize: fontsize16, fontWeight: FontWeight.w400),
                 initialCountryCode: "IN",
+                invalidNumberMessage:
+                    AppLocalizations.of(context)!.invalidNumberMessage,
                 showDropdownIcon: false,
                 showCountryFlag: false,
                 decoration: InputDecoration(
@@ -164,7 +177,7 @@ class _LoginState extends State<Login> {
                     backgroundColor: primary,
                     minimumSize: Size(width, btnheight)),
                 child: Text(
-                  "Request otp",
+                  AppLocalizations.of(context)!.requestotp,
                   style: TextStyle(
                       fontFamily: "Overpass",
                       fontSize: fontsize18,
@@ -177,7 +190,7 @@ class _LoginState extends State<Login> {
               onTap: (() => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const AgentLogin()))),
               child: Text(
-                "Login as Agent",
+                AppLocalizations.of(context)!.loginagent,
                 style: TextStyle(
                     color: primary,
                     fontFamily: "Overpass",
