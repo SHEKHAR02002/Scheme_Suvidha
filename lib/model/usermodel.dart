@@ -29,6 +29,13 @@ class UserModel {
   bool? newcampalert;
 
   String? applyschemename;
+
+  String? addresspdf;
+  String? agepdf;
+  String? domacilepdf;
+  String? incomepdf;
+  String? lastyearpdf;
+  String? parentpdf;
   // DateTime? applydate;
 
   UserModel(
@@ -54,7 +61,14 @@ class UserModel {
       required this.verification,
       required this.image,
       required this.applyschemename,
-      required this.applicationid
+      required this.applicationid,
+      required this.addresspdf,
+      required this.agepdf,
+      required this.domacilepdf,
+      required this.incomepdf,
+      required this.lastyearpdf,
+      required this.parentpdf
+
       // required this.applydate,
       });
 
@@ -89,6 +103,12 @@ class UserModel {
     image = map['image'];
 
     applyschemename = map['schemeName'];
+    addresspdf = map['addressproof'];
+    agepdf = map['ageproof'];
+    domacilepdf = map['domacaile'];
+    incomepdf = map['income'];
+    lastyearpdf = map['lastyear'];
+    parentpdf = map['parentid'];
     // applydate = map['dataofapply'].toDate();
   }
 

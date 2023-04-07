@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
@@ -10,8 +12,31 @@ class NotificationCenter extends StatefulWidget {
 }
 
 class _NotificationCenterState extends State<NotificationCenter> {
+  List notificationlist = [];
+  bool notificationloader = false;
+
+  Future getnotification() async {
+    await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("NotificationCenter")
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        notificationlist.add(doc.data());
+      }
+    }).whenComplete(() => setState(() => notificationloader = false));
+  }
+
+  @override
+  void initState() {
+    getnotification();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: bgcolor,
@@ -36,22 +61,31 @@ class _NotificationCenterState extends State<NotificationCenter> {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Column(
-          children: [
-            Container(
-              decoration: shadowdecoration,
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: Text(
-                    "Registration Successful ! Now you can find your scheme"),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            // const ApplySchemeStatus()
-          ],
-        ),
+        child: ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: notificationlist.length,
+            itemBuilder: (context, index) {
+              return notificationloader
+                  ? const CircularProgressIndicator()
+                  : Column(
+                      children: [
+                        Container(
+                          width: width,
+                          decoration: shadowdecoration,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 20),
+                            child: Text(notificationlist[index]['msg']),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        // const ApplySchemeStatus()
+                      ],
+                    );
+            }),
       ),
     );
   }
