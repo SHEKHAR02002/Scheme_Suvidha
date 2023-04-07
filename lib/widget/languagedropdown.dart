@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:scheme/l10n/language_model.dart';
+import 'package:scheme/provider/googletranslator.dart';
 import 'package:scheme/provider/locale_provider.dart';
 
-LanguageModel? chosenvalue;
+LanguageModel? chosenvalue = LanguageModel(code: 'en', name: 'English');
 
 class LanguageDropdown extends StatefulWidget {
   const LanguageDropdown({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class _LanguageDropdownState extends State<LanguageDropdown> {
   @override
   void initState() {
     super.initState();
-    chosenvalue = LanguageModel(code: 'en', name: 'English');
+    // chosenvalue = LanguageModel(code: 'en', name: 'English');
   }
 
   @override
@@ -48,6 +49,11 @@ class _LanguageDropdownState extends State<LanguageDropdown> {
       onChanged: (LanguageModel? newValue) {
         setState(() {
           chosenvalue = newValue!;
+          if (chosenvalue!.code == "en") {
+            turnOnGOOGleAPI = false;
+          } else {
+            turnOnGOOGleAPI = true;
+          }
           Provider.of<LocaleProvider>(context, listen: false)
               .setLocale(Locale(newValue.code!));
         });

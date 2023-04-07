@@ -61,15 +61,17 @@ class _SchemeDetailState extends State<SchemeDetail> {
         targetLanguage: "Hi");
     String tempbenfits = await TranslationService().translate(
         text: widget.schemedata.benefits.toString(), targetLanguage: "Hi");
-    setState(() {
-      name = tempName;
-      orgname = temporgName;
-      state = tempState;
-      type = temptype;
-      des = tempdes;
-      benfits = tempbenfits;
-      percent = tempprecent;
-    });
+    if (mounted) {
+      setState(() {
+        name = tempName;
+        orgname = temporgName;
+        state = tempState;
+        type = temptype;
+        des = tempdes;
+        benfits = tempbenfits;
+        percent = tempprecent;
+      });
+    }
   }
 
   Future<void> _launchInBrowser(String url) async {

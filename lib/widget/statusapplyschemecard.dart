@@ -21,9 +21,11 @@ class _ApplySchemeStatusState extends State<ApplySchemeStatus> {
   callApi() async {
     String tempschemename = await TranslationService()
         .translate(text: widget.schemename, targetLanguage: "hi");
-    setState(() {
-      schemename = tempschemename;
-    });
+    if (mounted) {
+      setState(() {
+        schemename = tempschemename;
+      });
+    }
   }
 
   @override

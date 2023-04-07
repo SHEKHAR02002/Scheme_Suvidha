@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:scheme/widget/languagedropdown.dart';
 
 bool turnOnGOOGleAPI = false;
 
@@ -20,7 +21,12 @@ class TranslationService {
     }
     var respones = await http.post(
       Uri.parse(_url),
-      body: {"q": text, "key": _apiKey, "source": "en", "target": "Hi"},
+      body: {
+        "q": text,
+        "key": _apiKey,
+        "source": "en",
+        "target": chosenvalue!.code
+      },
     );
     // final credentials =
     //     ServiceAccountCredentials.fromJson(json.decode(_serviceAccountJsonKey));

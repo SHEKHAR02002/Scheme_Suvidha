@@ -11,7 +11,8 @@ class PhoneAuth {
   FirebaseAuth auth = FirebaseAuth.instance;
   sendOtp({required String phoneNo, required BuildContext context}) async {
     bool loader = false;
-    await auth.verifyPhoneNumber(
+    await auth
+        .verifyPhoneNumber(
       phoneNumber: phoneNo,
       timeout: const Duration(seconds: 120),
       verificationCompleted: (PhoneAuthCredential credential) {},
@@ -33,7 +34,10 @@ class PhoneAuth {
         loader = true;
       },
       codeAutoRetrievalTimeout: (String verificationId) {},
-    );
+    )
+        .catchError((onError) {
+      print(onError);
+    });
     return loader;
   }
 
