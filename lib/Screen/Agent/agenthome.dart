@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheme/Screen/Agent/agentnotification.dart';
 import 'package:scheme/Screen/agentwidget/applicationcard.dart';
+import 'package:scheme/Screen/agentwidget/documentverification.dart';
 import 'package:scheme/Screen/agentwidget/overvieewcard.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/api/getscheme.dart';
@@ -69,6 +70,10 @@ class _AgentHomeState extends State<AgentHome> {
               ),
             ),
             InkWell(
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const DocumentVerification())),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: SvgPicture.asset(
