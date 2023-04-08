@@ -20,6 +20,7 @@ class _PDFViewerState extends State<PDFViewer> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          elevation: 0,
           leading: InkWell(
             onTap: () => Navigator.pop(context),
             child: const Icon(

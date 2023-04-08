@@ -98,10 +98,10 @@ class _UDIDVerificationState extends State<UDIDVerification> {
             TextContainer(
                 title: "UDID Card No.",
                 content: widget.applicationdetails.udidno.toString()),
-            const SizedBox(height: 15),
-            TextContainer(
-                title: "Name",
-                content: widget.applicationdetails.udidname.toString()),
+            // const SizedBox(height: 15),
+            // TextContainer(
+            //     title: "Name",
+            //     content: widget.applicationdetails.udidname.toString()),
             const SizedBox(height: 15),
             TextContainer(
                 title: "Disability Type",

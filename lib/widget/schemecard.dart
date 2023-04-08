@@ -98,7 +98,9 @@ class _SchemeCardState extends State<SchemeCard> {
                         height: 80,
                         width: 74,
                         fit: BoxFit.fill,
-                        imageUrl: organizationpic,
+                        imageUrl: widget.schemedata.logo == ""
+                            ? organizationpic
+                            : widget.schemedata.logo.toString(),
                         placeholder: (context, url) => SkeletonAnimation(
                               child: Container(
                                 decoration: BoxDecoration(

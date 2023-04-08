@@ -13,6 +13,7 @@ class SchemeModel {
   String? statename;
   String? supportingdocuments;
   String? websitelink;
+  String? logo;
 
   SchemeModel(
       this.schemeid,
@@ -28,6 +29,7 @@ class SchemeModel {
       this.shortdescription,
       this.statename,
       this.supportingdocuments,
+      this.logo,
       this.websitelink);
 
   Map<String, dynamic> toMap() {
@@ -46,6 +48,7 @@ class SchemeModel {
       "stateName": statename,
       "supportingDocuments": supportingdocuments,
       "websiteLink": websitelink,
+      "logoSchemes": logo
     };
   }
 
@@ -63,7 +66,8 @@ class SchemeModel {
         shortdescription = snapshot.data()['shortDescription'],
         statename = snapshot.data()['stateName'],
         supportingdocuments = snapshot.data()['supportingDocuments'],
-        websitelink = snapshot.data()['websiteLink'];
+        websitelink = snapshot.data()['websiteLink'],
+        logo = snapshot.data()['logoSchemes'];
 
   SchemeModel.fromMap(map)
       : schemeid = map['schemeId'],
@@ -79,5 +83,6 @@ class SchemeModel {
         shortdescription = map["shortDescription"],
         statename = map["stateName"],
         supportingdocuments = map["supportingDocuments"],
-        websitelink = map["websiteLink"];
+        websitelink = map["websiteLink"],
+        logo = map["logoSchemes"];
 }

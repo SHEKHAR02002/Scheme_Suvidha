@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ProgressBar extends StatefulWidget {
-  // final int progress;
-  const ProgressBar({
-    super.key,
-    //  required this.progress
-  });
+  final int progress;
+  const ProgressBar({super.key, required this.progress});
 
   @override
   State<ProgressBar> createState() => _ProgressBarState();
@@ -16,7 +13,7 @@ class _ProgressBarState extends State<ProgressBar> {
   Widget build(BuildContext context) {
     bool hide = true;
 
-    int currentStep = 0;
+    int currentStep = widget.progress;
     List<Step> getsteps() => [
           Step(
               state: currentStep >= 0 ? StepState.complete : StepState.indexed,
@@ -33,6 +30,11 @@ class _ProgressBarState extends State<ProgressBar> {
               isActive: currentStep >= 2,
               title: const Text("Scheme Applied"),
               content: Container()),
+          // Step(
+          //     state: currentStep >= 3 ? StepState.complete : StepState.indexed,
+          //     isActive: currentStep >= 3,
+          //     title: const Text("Rejected"),
+          //     content: Container()),
         ];
     return Scaffold(
       body: Stepper(

@@ -4,7 +4,7 @@ class ApplySchmeDetail {
   String? name;
   bool? activited;
   String? phoneno;
-  int? progress;
+  int progress = 0;
   String? schemeid;
   String? schemename;
   String? status;

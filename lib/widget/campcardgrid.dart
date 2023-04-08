@@ -15,6 +15,7 @@ class CampView extends StatelessWidget {
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, childAspectRatio: (1 / 1.7)),
         itemBuilder: (context, index) => CampCard(
+            image: ngoDataList[index]['image'],
             id: ngoDataList[index]['campId'],
             address: ngoDataList[index]['place'],
             phoneno: ngoDataList[index]['date'],

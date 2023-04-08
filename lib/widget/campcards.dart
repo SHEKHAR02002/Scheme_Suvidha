@@ -6,6 +6,7 @@ import 'package:scheme/data/userdata.dart';
 
 class CampCard extends StatelessWidget {
   // final String image;
+  final String image;
   final String id;
   final String address;
   final String phoneno;
@@ -13,7 +14,7 @@ class CampCard extends StatelessWidget {
 
   const CampCard(
       {super.key,
-      // required this.image,
+      required this.image,
       required this.id,
       required this.address,
       required this.phoneno,
@@ -46,7 +47,7 @@ class CampCard extends StatelessWidget {
                           height: 80,
                           width: 74,
                           fit: BoxFit.fill,
-                          imageUrl: organizationpic,
+                          imageUrl: image == "" ? organizationpic : image,
                           placeholder: (context, url) =>
                               const CircularProgressIndicator())),
                 ),
@@ -73,10 +74,10 @@ class CampCard extends StatelessWidget {
                   height: 10,
                 ),
                 Text(phoneno),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Text("Timing : opens 9 am"),
+                // const SizedBox(
+                //   height: 10,
+                // ),
+                // const Text("Timing : opens 9 am"),
               ],
             ),
           ),

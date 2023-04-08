@@ -97,30 +97,41 @@ class _UploadDocumentState extends State<UploadDocument> {
   }
 
   Future selectFile({required String filename}) async {
+    showDialog(
+        context: context,
+        builder: ((context) =>
+            processingPopup(context: context, msg: "Uploading....")));
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
+      allowCompression: true,
       allowedExtensions: ['pdf'],
     );
     if (result != null) {
       setState(() {
         if (filename == "address") {
           addressproofpicked = result.files.first;
-          uploadFile(filename: "Aadress Proof", pickedfile: addressproofpicked);
+          uploadFile(filename: "Aadress Proof", pickedfile: addressproofpicked)
+              .whenComplete(() => Navigator.pop(context));
         } else if (filename == "age") {
           ageproofpicked = result.files.first;
-          uploadFile(filename: "Age Proof", pickedfile: ageproofpicked);
+          uploadFile(filename: "Age Proof", pickedfile: ageproofpicked)
+              .whenComplete(() => Navigator.pop(context));
         } else if (filename == "domacile") {
           domacilepicked = result.files.first;
-          uploadFile(filename: "Domacile Proof", pickedfile: domacilepicked);
+          uploadFile(filename: "Domacile Proof", pickedfile: domacilepicked)
+              .whenComplete(() => Navigator.pop(context));
         } else if (filename == "income") {
           incomepicked = result.files.first;
-          uploadFile(filename: "Income Proof", pickedfile: incomepicked);
+          uploadFile(filename: "Income Proof", pickedfile: incomepicked)
+              .whenComplete(() => Navigator.pop(context));
         } else if (filename == "marksheet") {
           marksheet = result.files.first;
-          uploadFile(filename: "Last Year Passing", pickedfile: marksheet);
+          uploadFile(filename: "Last Year Passing", pickedfile: marksheet)
+              .whenComplete(() => Navigator.pop(context));
         } else if (filename == "parentid") {
           parentid = result.files.first;
-          uploadFile(filename: "Parent ID Proof", pickedfile: parentid);
+          uploadFile(filename: "Parent ID Proof", pickedfile: parentid)
+              .whenComplete(() => Navigator.pop(context));
         } else {
           print("wrong name");
         }
@@ -761,13 +772,13 @@ class _UploadDocumentState extends State<UploadDocument> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: ElevatedButton(
             onPressed: () {
-              processingPopup(
-                context: context,
-                msg: 'Uploding.....',
-              );
+              showDialog(
+                  context: context,
+                  builder: ((context) =>
+                      processingPopup(context: context, msg: "Uploading....")));
               uploadImgdata().whenComplete(() => {
                     !isagent
                         ? userdataupload().whenComplete(() async =>

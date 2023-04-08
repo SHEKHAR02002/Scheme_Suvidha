@@ -200,7 +200,7 @@ class _DocumentVerificationState extends State<DocumentVerification> {
                 ? Row(
                     children: [
                       const Text(
-                        "Income Proof",
+                        "Last Year Passing Proof",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w400),
                       ),
@@ -314,7 +314,7 @@ class _DocumentVerificationState extends State<DocumentVerification> {
                           fontWeight: FontWeight.w700),
                     ))),
             Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
                 child: ElevatedButton(
                     onPressed: () {
                       showDialog(

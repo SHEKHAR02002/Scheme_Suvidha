@@ -129,7 +129,7 @@ class _ApplySchemeDetailState extends State<ApplySchemeDetail> {
                         height: 10,
                       ),
                       Text(
-                        "dd/mm/yyyy",
+                        "08/04/2022",
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
@@ -149,7 +149,7 @@ class _ApplySchemeDetailState extends State<ApplySchemeDetail> {
                         height: 10,
                       ),
                       Text(
-                        "dd/mm/yyyy",
+                        "08/04/2022",
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
@@ -169,7 +169,14 @@ class _ApplySchemeDetailState extends State<ApplySchemeDetail> {
               const SizedBox(
                 height: 20,
               ),
-              SizedBox(height: 500, width: width, child: const ProgressBar())
+              SizedBox(
+                  height: 500,
+                  width: width,
+                  child: ProgressBar(
+                    progress: widget.applyschemes.progress == 3
+                        ? 2
+                        : widget.applyschemes.progress,
+                  ))
             ])),
       ),
     );

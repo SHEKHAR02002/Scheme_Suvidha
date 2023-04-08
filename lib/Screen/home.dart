@@ -291,9 +291,10 @@ class _HomeState extends State<Home> {
                 child: Padding(
                     padding: const EdgeInsets.only(right: 10),
                     child: userDetail!.image != ""
-                        ? CircleAvatar(
-                            radius: iconsize / 2,
-                            foregroundImage: NetworkImage(defaultPic))
+                        ? ClipRRect(
+                            child: Image.network(defaultPic,
+                                width: iconsize, height: iconsize),
+                          )
                         : CircleAvatar(
                             radius: iconsize / 2,
                             foregroundImage: NetworkImage(
