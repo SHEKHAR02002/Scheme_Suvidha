@@ -22,7 +22,7 @@ class AgentLogin extends StatefulWidget {
 class _AgentLoginState extends State<AgentLogin> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
-  bool showPassword = false;
+  bool showPassword = true;
 
   Future singin({required String email, required String password}) async {
     // bool signComplete = false;
