@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:scheme/Screen/agentlogin.dart';
 import 'package:scheme/Screen/knowagent.dart';
@@ -22,8 +23,20 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final TextEditingController _phoneNo = TextEditingController();
-
+  bool isplaying = false;
+  final player = AudioPlayer();
   String _country = "+91";
+  Future callApi() async {
+    await player.setUrl(
+        'https://firebasestorage.googleapis.com/v0/b/scheme-suvidha-admin.appspot.com/o/WhatsApp%20Audio%202023-04-10%20at%2012.23.45%20AM.mp3?alt=media&token=196b6d9d-6c65-4caa-9a57-368cd2705c0a');
+  }
+
+  @override
+  void initState() {
+    // callApi();
+    super.initState();
+  }
+
   bool loader = false;
   @override
   Widget build(BuildContext context) {
@@ -60,6 +73,31 @@ class _LoginState extends State<Login> {
     ]).value as double;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () async {
+              setState(() {
+                isplaying = !isplaying;
+              });
+              if (isplaying) {
+                player.loopMode;
+                await player.setUrl(
+                    'https://firebasestorage.googleapis.com/v0/b/scheme-suvidha-admin.appspot.com/o/WhatsApp%20Audio%202023-04-10%20at%2012.23.45%20AM.mp3?alt=media&token=196b6d9d-6c65-4caa-9a57-368cd2705c0a');
+                await player.play();
+              } else {
+                await player.pause();
+              }
+            },
+            icon: isplaying
+                ? const Icon(
+                    Icons.volume_up_rounded,
+                    size: 38,
+                    color: Colors.black,
+                  )
+                : const Icon(
+                    Icons.volume_off_rounded,
+                    size: 38,
+                    color: Colors.black,
+                  )),
         backgroundColor: bgcolor,
         elevation: 0,
         actions: const [

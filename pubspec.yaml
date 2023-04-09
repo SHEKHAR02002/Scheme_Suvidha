@@ -81,6 +81,7 @@ dependencies:
   flutter_spinkit: ^5.1.0
   
   syncfusion_flutter_pdfviewer: ^20.4.50
+  just_audio: ^0.9.32
  
   
 
