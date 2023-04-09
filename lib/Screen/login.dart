@@ -81,23 +81,15 @@ class _LoginState extends State<Login> {
               if (isplaying) {
                 player.loopMode;
                 await player.setUrl(
-                    'https://firebasestorage.googleapis.com/v0/b/scheme-suvidha-admin.appspot.com/o/WhatsApp%20Audio%202023-04-10%20at%2012.23.45%20AM.mp3?alt=media&token=196b6d9d-6c65-4caa-9a57-368cd2705c0a');
+                    "https://firebasestorage.googleapis.com/v0/b/scheme-suvidha-admin.appspot.com/o/appaudio.mp3?alt=media&token=6433806c-36e5-4c30-b93a-6e9784be8529");
                 await player.play();
               } else {
                 await player.pause();
               }
             },
             icon: isplaying
-                ? const Icon(
-                    Icons.volume_up_rounded,
-                    size: 38,
-                    color: Colors.black,
-                  )
-                : const Icon(
-                    Icons.volume_off_rounded,
-                    size: 38,
-                    color: Colors.black,
-                  )),
+                ? Icon(Icons.volume_up_rounded, size: 30, color: primary)
+                : Icon(Icons.volume_off_rounded, size: 30, color: primary)),
         backgroundColor: bgcolor,
         elevation: 0,
         actions: const [
@@ -183,67 +175,6 @@ class _LoginState extends State<Login> {
                 },
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ElevatedButton(
-                      onPressed: () async {
-                        if (_phoneNo.text.length == 10) {
-                          setState(() {
-                            loader = true;
-                            phoneNo = _phoneNo.text.toString();
-                          });
-                          Future.delayed(const Duration(seconds: 30), () {
-                            if (mounted) {
-                              setState(() {
-                                loader = false;
-                              });
-                            }
-                          });
-                          loader = await PhoneAuth().sendOtp(
-                            phoneNo: _country + _phoneNo.text,
-                            context: context,
-                          );
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5)),
-                          backgroundColor: primary,
-                          minimumSize: Size(width, btnheight)),
-                      child: Text(
-                        AppLocalizations.of(context)!.requestotp,
-                        style: TextStyle(
-                            fontFamily: "Overpass",
-                            fontSize: fontsize18,
-                            fontWeight: FontWeight.w700),
-                      )),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  GestureDetector(
-                    onTap: (() => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const AgentLogin()))),
-                    child: Text(
-                      AppLocalizations.of(context)!.loginagent,
-                      style: TextStyle(
-                          color: primary,
-                          fontFamily: "Overpass",
-                          fontSize: fontsize16,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  )
-                ],
-              ),
-            ),
           ],
         )),
       ),
@@ -253,62 +184,62 @@ class _LoginState extends State<Login> {
         backgroundColor: primary,
         child: const Icon(Icons.person),
       ),
-      // bottomNavigationBar: Padding(
-      //   padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
-      //   child: Column(
-      //     mainAxisSize: MainAxisSize.min,
-      //     children: [
-      //       ElevatedButton(
-      //           onPressed: () async {
-      //             if (_phoneNo.text.length == 10) {
-      //               setState(() {
-      //                 loader = true;
-      //                 phoneNo = _phoneNo.text.toString();
-      //               });
-      //               Future.delayed(const Duration(seconds: 30), () {
-      //                 if (mounted) {
-      //                   setState(() {
-      //                     loader = false;
-      //                   });
-      //                 }
-      //               });
-      //               loader = await PhoneAuth().sendOtp(
-      //                 phoneNo: _country + _phoneNo.text,
-      //                 context: context,
-      //               );
-      //             }
-      //           },
-      //           style: ElevatedButton.styleFrom(
-      //               elevation: 0,
-      //               shape: RoundedRectangleBorder(
-      //                   borderRadius: BorderRadius.circular(5)),
-      //               backgroundColor: primary,
-      //               minimumSize: Size(width, btnheight)),
-      //           child: Text(
-      //             AppLocalizations.of(context)!.requestotp,
-      //             style: TextStyle(
-      //                 fontFamily: "Overpass",
-      //                 fontSize: fontsize18,
-      //                 fontWeight: FontWeight.w700),
-      //           )),
-      //       const SizedBox(
-      //         height: 10,
-      //       ),
-      //       GestureDetector(
-      //         onTap: (() => Navigator.push(context,
-      //             MaterialPageRoute(builder: (context) => const AgentLogin()))),
-      //         child: Text(
-      //           AppLocalizations.of(context)!.loginagent,
-      //           style: TextStyle(
-      //               color: primary,
-      //               fontFamily: "Overpass",
-      //               fontSize: fontsize16,
-      //               fontWeight: FontWeight.w400),
-      //         ),
-      //       )
-      //     ],
-      //   ),
-      // ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+                onPressed: () async {
+                  if (_phoneNo.text.length == 10) {
+                    setState(() {
+                      loader = true;
+                      phoneNo = _phoneNo.text.toString();
+                    });
+                    Future.delayed(const Duration(seconds: 30), () {
+                      if (mounted) {
+                        setState(() {
+                          loader = false;
+                        });
+                      }
+                    });
+                    loader = await PhoneAuth().sendOtp(
+                      phoneNo: _country + _phoneNo.text,
+                      context: context,
+                    );
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    backgroundColor: primary,
+                    minimumSize: Size(width, btnheight)),
+                child: Text(
+                  AppLocalizations.of(context)!.requestotp,
+                  style: TextStyle(
+                      fontFamily: "Overpass",
+                      fontSize: fontsize18,
+                      fontWeight: FontWeight.w700),
+                )),
+            const SizedBox(
+              height: 10,
+            ),
+            GestureDetector(
+              onTap: (() => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const AgentLogin()))),
+              child: Text(
+                AppLocalizations.of(context)!.loginagent,
+                style: TextStyle(
+                    color: primary,
+                    fontFamily: "Overpass",
+                    fontSize: fontsize16,
+                    fontWeight: FontWeight.w400),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
