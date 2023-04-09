@@ -47,7 +47,7 @@ class _KnowAgentState extends State<KnowAgent> {
         ),
         centerTitle: true,
         title: Text(
-          "Verified Agents",
+          "Near By Agents",
           style: TextStyle(
               color: black,
               fontFamily: "Zilla",
@@ -67,8 +67,8 @@ class _KnowAgentState extends State<KnowAgent> {
                   : AgentCard(
                       address: agentlist[index]['address'],
                       name: agentlist[index]['name'],
-                      contact: "9579212952",
-                      // contact: agentlist[index]['contact'],
+                      // contact: "9579212952",
+                      contact: agentlist[index]['phoneno'],
                     );
             }),
       ),

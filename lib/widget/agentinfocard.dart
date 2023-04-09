@@ -59,9 +59,10 @@ class _AgentCardState extends State<AgentCard> {
               const SizedBox(
                 height: 5,
               ),
-              const Text(
-                "Contact: 8080405089",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+              Text(
+                widget.contact,
+                style:
+                    const TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
               ),
             ],
           )

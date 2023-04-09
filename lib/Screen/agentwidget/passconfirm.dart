@@ -222,21 +222,11 @@ class _PassConfirmState extends State<PassConfirm> {
                       singup(
                               email: _agentemail.text,
                               password: _agentpassword.text)
-                          .whenComplete(() =>
-                              //  agentDetails!.verification
-                              //     ? Navigator.pushAndRemoveUntil(
-                              //         context,
-                              //         MaterialPageRoute(
-                              //             builder: (context) =>
-                              //                 const BottomNavigator()),
-                              //         (route) => false)
-                              //     :
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const AgentWaiting()),
-                                  (route) => false));
+                          .whenComplete(() => Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const AgentWaiting()),
+                              (route) => false));
                     },
 
                     // Navigator.push(

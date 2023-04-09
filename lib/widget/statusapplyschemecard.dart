@@ -130,7 +130,9 @@ class _ApplySchemeStatusState extends State<ApplySchemeStatus> {
                 ? [secondary, secondary]
                 : widget.progress == 1
                     ? [primary, secondary]
-                    : [primary, primary],
+                    : widget.progress == 2
+                        ? [primary, primary]
+                        : [red, red],
             initialAngleInDegree: 0,
             chartType: ChartType.ring,
             ringStrokeWidth: 15,
@@ -138,7 +140,9 @@ class _ApplySchemeStatusState extends State<ApplySchemeStatus> {
                 ? "0%"
                 : widget.progress == 1
                     ? "50%"
-                    : "100%",
+                    : widget.progress == 2
+                        ? '100%'
+                        : "Rejected",
             centerTextStyle: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w400,

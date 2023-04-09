@@ -13,7 +13,7 @@ class _ProgressBarState extends State<ProgressBar> {
   Widget build(BuildContext context) {
     bool hide = true;
 
-    int currentStep = widget.progress;
+    int currentStep = widget.progress == 3 ? 2 : widget.progress;
     List<Step> getsteps() => [
           Step(
               state: currentStep >= 0 ? StepState.complete : StepState.indexed,
@@ -25,11 +25,19 @@ class _ProgressBarState extends State<ProgressBar> {
               isActive: currentStep >= 1,
               title: const Text("Under Process"),
               content: Container()),
-          Step(
-              state: currentStep >= 2 ? StepState.complete : StepState.indexed,
-              isActive: currentStep >= 2,
-              title: const Text("Scheme Applied"),
-              content: Container()),
+          widget.progress == 3
+              ? Step(
+                  state:
+                      currentStep >= 2 ? StepState.complete : StepState.indexed,
+                  isActive: currentStep >= 2,
+                  title: const Text("Scheme Rejected"),
+                  content: Container())
+              : Step(
+                  state:
+                      currentStep >= 2 ? StepState.complete : StepState.indexed,
+                  isActive: currentStep >= 2,
+                  title: const Text("Scheme Applied"),
+                  content: Container()),
           // Step(
           //     state: currentStep >= 3 ? StepState.complete : StepState.indexed,
           //     isActive: currentStep >= 3,

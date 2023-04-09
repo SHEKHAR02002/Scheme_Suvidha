@@ -169,14 +169,20 @@ class _ApplySchemeDetailState extends State<ApplySchemeDetail> {
               const SizedBox(
                 height: 20,
               ),
+              Text(
+                widget.applyschemes.status.toString(),
+                style: TextStyle(
+                    fontSize: 16, fontWeight: FontWeight.w400, color: text2),
+              ),
               SizedBox(
-                  height: 500,
+                  height: 200,
                   width: width,
                   child: ProgressBar(
-                    progress: widget.applyschemes.progress == 3
-                        ? 2
-                        : widget.applyschemes.progress,
-                  ))
+                    progress: widget.applyschemes.progress,
+                  )),
+              const SizedBox(
+                height: 20,
+              ),
             ])),
       ),
     );

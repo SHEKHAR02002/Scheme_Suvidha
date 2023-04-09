@@ -20,3 +20,5 @@ Color lightgray = const Color(
 Color advertisement = const Color(
   0xbfbffbff,
 );
+
+Color red = Colors.red;

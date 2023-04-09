@@ -1,9 +1,11 @@
+// import 'package:audioplayer/audioplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:scheme/Screen/agentlogin.dart';
+import 'package:scheme/Screen/knowagent.dart';
 import 'package:scheme/Theme/color.dart';
 import 'package:scheme/Theme/decoration.dart';
 import 'package:scheme/data/userdata.dart';
@@ -20,6 +22,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final TextEditingController _phoneNo = TextEditingController();
+
   String _country = "+91";
   bool loader = false;
   @override
@@ -142,65 +145,132 @@ class _LoginState extends State<Login> {
                 },
               ),
             ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ElevatedButton(
+                      onPressed: () async {
+                        if (_phoneNo.text.length == 10) {
+                          setState(() {
+                            loader = true;
+                            phoneNo = _phoneNo.text.toString();
+                          });
+                          Future.delayed(const Duration(seconds: 30), () {
+                            if (mounted) {
+                              setState(() {
+                                loader = false;
+                              });
+                            }
+                          });
+                          loader = await PhoneAuth().sendOtp(
+                            phoneNo: _country + _phoneNo.text,
+                            context: context,
+                          );
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5)),
+                          backgroundColor: primary,
+                          minimumSize: Size(width, btnheight)),
+                      child: Text(
+                        AppLocalizations.of(context)!.requestotp,
+                        style: TextStyle(
+                            fontFamily: "Overpass",
+                            fontSize: fontsize18,
+                            fontWeight: FontWeight.w700),
+                      )),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  GestureDetector(
+                    onTap: (() => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AgentLogin()))),
+                    child: Text(
+                      AppLocalizations.of(context)!.loginagent,
+                      style: TextStyle(
+                          color: primary,
+                          fontFamily: "Overpass",
+                          fontSize: fontsize16,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ],
         )),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ElevatedButton(
-                onPressed: () async {
-                  if (_phoneNo.text.length == 10) {
-                    setState(() {
-                      loader = true;
-                      phoneNo = _phoneNo.text.toString();
-                    });
-                    Future.delayed(const Duration(seconds: 30), () {
-                      if (mounted) {
-                        setState(() {
-                          loader = false;
-                        });
-                      }
-                    });
-                    loader = await PhoneAuth().sendOtp(
-                      phoneNo: _country + _phoneNo.text,
-                      context: context,
-                    );
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                    backgroundColor: primary,
-                    minimumSize: Size(width, btnheight)),
-                child: Text(
-                  AppLocalizations.of(context)!.requestotp,
-                  style: TextStyle(
-                      fontFamily: "Overpass",
-                      fontSize: fontsize18,
-                      fontWeight: FontWeight.w700),
-                )),
-            const SizedBox(
-              height: 10,
-            ),
-            GestureDetector(
-              onTap: (() => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const AgentLogin()))),
-              child: Text(
-                AppLocalizations.of(context)!.loginagent,
-                style: TextStyle(
-                    color: primary,
-                    fontFamily: "Overpass",
-                    fontSize: fontsize16,
-                    fontWeight: FontWeight.w400),
-              ),
-            )
-          ],
-        ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const KnowAgent())),
+        backgroundColor: primary,
+        child: const Icon(Icons.person),
       ),
+      // bottomNavigationBar: Padding(
+      //   padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
+      //   child: Column(
+      //     mainAxisSize: MainAxisSize.min,
+      //     children: [
+      //       ElevatedButton(
+      //           onPressed: () async {
+      //             if (_phoneNo.text.length == 10) {
+      //               setState(() {
+      //                 loader = true;
+      //                 phoneNo = _phoneNo.text.toString();
+      //               });
+      //               Future.delayed(const Duration(seconds: 30), () {
+      //                 if (mounted) {
+      //                   setState(() {
+      //                     loader = false;
+      //                   });
+      //                 }
+      //               });
+      //               loader = await PhoneAuth().sendOtp(
+      //                 phoneNo: _country + _phoneNo.text,
+      //                 context: context,
+      //               );
+      //             }
+      //           },
+      //           style: ElevatedButton.styleFrom(
+      //               elevation: 0,
+      //               shape: RoundedRectangleBorder(
+      //                   borderRadius: BorderRadius.circular(5)),
+      //               backgroundColor: primary,
+      //               minimumSize: Size(width, btnheight)),
+      //           child: Text(
+      //             AppLocalizations.of(context)!.requestotp,
+      //             style: TextStyle(
+      //                 fontFamily: "Overpass",
+      //                 fontSize: fontsize18,
+      //                 fontWeight: FontWeight.w700),
+      //           )),
+      //       const SizedBox(
+      //         height: 10,
+      //       ),
+      //       GestureDetector(
+      //         onTap: (() => Navigator.push(context,
+      //             MaterialPageRoute(builder: (context) => const AgentLogin()))),
+      //         child: Text(
+      //           AppLocalizations.of(context)!.loginagent,
+      //           style: TextStyle(
+      //               color: primary,
+      //               fontFamily: "Overpass",
+      //               fontSize: fontsize16,
+      //               fontWeight: FontWeight.w400),
+      //         ),
+      //       )
+      //     ],
+      //   ),
+      // ),
     );
   }
 }
